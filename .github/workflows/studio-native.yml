@@ -1,0 +1,27 @@
+name: Studio Windows toolchain probe
+on:
+  push:
+    branches: [studio/native-ci]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: studio-native-probe
+  cancel-in-progress: false
+jobs:
+  toolchain:
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - name: Record actual Windows host and toolchain
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          [System.Environment]::OSVersion.VersionString
+          rustup --version
+          rustup toolchain install 1.99.1 --profile minimal
+          if ($LASTEXITCODE -ne 0) { throw 'Pinned Rust installation failed' }
+          rustc +1.99.1 --version --verbose
+          node --version
+          go version
+          'This is a toolchain probe, not Windows 11 product acceptance.' | Out-File -Append -Encoding utf8 $env:GITHUB_STEP_SUMMARY
