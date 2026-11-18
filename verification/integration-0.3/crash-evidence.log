@@ -1,0 +1,10 @@
+(node:2463) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "sends": 1,
+  "recoverySends": 0,
+  "remoteMutations": 1,
+  "state": "confirmed",
+  "output": "/mnt/data/PlatformStudio/verification/integration-0.3/crash-evidence"
+}

@@ -1,0 +1,2 @@
+clientProtocol=1
+serverProtocol=2

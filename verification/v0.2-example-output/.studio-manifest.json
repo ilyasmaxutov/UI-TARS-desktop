@@ -1,0 +1,41 @@
+{
+  "artifact": {
+    "id": "sha256:c0dd0d73f5a05861f797f22904a3c58932a67627f11ce59dff84286c6265df08",
+    "files": [
+      {
+        "path": "config.json",
+        "content": "{\n  \"theme\": \"dark\",\n  \"language\": \"ru\"\n}\n"
+      },
+      {
+        "path": "README.md",
+        "content": "# Проверочный проект\n\nТекст с хвостовыми пробелами.\n"
+      }
+    ],
+    "manifest": [
+      {
+        "path": "README.md",
+        "hash": "fc1cf8b13e8e2d7457d5209a72d53288f836b3e80a02fa60b4247405ba035e53",
+        "bytes": 94
+      },
+      {
+        "path": "config.json",
+        "hash": "dc7dd5e967edb58a23963a0bcdaaa7849fd85fd75bdb99c8f8972eac9d5f3be0",
+        "bytes": 42
+      }
+    ],
+    "hash": "c0dd0d73f5a05861f797f22904a3c58932a67627f11ce59dff84286c6265df08",
+    "goalRevision": 1,
+    "graphRevision": 1,
+    "findings": [
+      {
+        "obligationId": "obligation_59c907c8-6e66-40c0-b9cd-51e03f410126",
+        "description": "LF, без хвостовых пробелов, с завершающим переводом строки",
+        "passed": true,
+        "detail": "2 файл(ов) · условие выполнено"
+      }
+    ]
+  },
+  "runId": "run_c68e5172-4c36-44ea-b397-8e373c0c54fb",
+  "originalModified": false,
+  "acceptedByOwner": false
+}

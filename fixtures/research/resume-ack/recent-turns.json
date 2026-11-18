@@ -1,0 +1,11 @@
+{
+  "threadId": "t-1",
+  "turns": [
+    {
+      "turnId": "turn-9",
+      "commandMarker": "cmd-7",
+      "state": "completed"
+    }
+  ],
+  "readbackCoverage": "selected explicit fixture"
+}

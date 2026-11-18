@@ -1,0 +1,3 @@
+initialize=ok
+resume=accepted
+transport=closed_after_write

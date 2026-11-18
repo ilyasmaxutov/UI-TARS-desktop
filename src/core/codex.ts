@@ -1,0 +1,10 @@
+import { assert, Goal } from './model.js';
+/** Protocol builder only. No connection, no credential use, no unisolated process launch. */
+export function codexInitialize(requestId: number) { return { id: requestId, method: 'initialize', params: { clientInfo: { name: 'platform_studio', title: 'Platform Studio', version: '0.1.0' }, capabilities: { experimentalApi: false } } }; }
+export function codexThread(requestId: number, cwd: string) { return { id: requestId, method: 'thread/start', params: { cwd, approvalPolicy: 'never', sandbox: 'read-only' } }; }
+export function codexSteer(requestId: number, threadId: string, turnId: string, text: string) { assert(threadId && turnId && text, 'CODEX', 'Не задан адрес активного хода'); return { id: requestId, method: 'turn/steer', params: { threadId, expectedTurnId: turnId, input: [{ type: 'text', text }] } }; }
+export function codexInterrupt(requestId: number, threadId: string, turnId: string) { return { id: requestId, method: 'turn/interrupt', params: { threadId, turnId } }; }
+export function supervisorContract(goal: Goal): string {
+    // Never pretend that embedding the original is a correct automatic translation.
+    return `ROLE: accountable engineering supervisor\nReport to the owner in Russian. Write worker assignments and corrective feedback in English.\nPreserve the exact original request below. Produce an English interpretation with an explicit obligation-to-source mapping before execution. Do not silently narrow it.\nDo not launch applications, browsers, development servers, or unapproved processes. No Computer Use.\nA worker's claim is not evidence. Inspect artifacts, protected criteria, and independently observed effects.\nStop after the configured no-progress, time, or cost limit. A child or restart does not reset the budget.\nPublication requires separate owner authority.\n\nORIGINAL REQUEST (revision ${goal.revision}):\n${goal.original}\n\nOWNER CRITERIA:\n${JSON.stringify(goal.obligations, null, 2)}\n\nThis contract is data for a future adapter. It grants no permissions.`;
+}

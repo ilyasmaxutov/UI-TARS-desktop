@@ -1,0 +1,140 @@
+{
+  "schema": 1,
+  "id": "doc_baa77b78-2a17-49b2-a8bc-1d0b122ebbe4",
+  "projectId": "fixture-project",
+  "title": "Reference report",
+  "revision": 1,
+  "goal": {
+    "original": "Составить проверяемый отчёт по выбранным файлам: пути, объём, строки и хэши. Оригиналы не изменять.",
+    "revision": 1,
+    "obligations": [
+      {
+        "kind": "contains",
+        "path": "project-report.md",
+        "value": "SHA-256",
+        "description": "В отчёте есть хэши исходных файлов",
+        "id": "obligation_559f0e98-0ffa-469a-a393-a83099864c96"
+      },
+      {
+        "kind": "nonempty",
+        "path": "project-report.md",
+        "value": "",
+        "description": "Отчёт не пуст",
+        "id": "obligation_e7e7c44d-ff21-4221-bf4d-7f05cfd495eb"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "node_0d797bce-d481-499b-889b-d86968bebd9b",
+      "kind": "source.files",
+      "title": "Файлы проекта",
+      "params": {}
+    },
+    {
+      "id": "node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2",
+      "kind": "files.report",
+      "title": "Отчёт по файлам",
+      "params": {}
+    },
+    {
+      "id": "node_97617e95-1934-4de6-9117-47d5789512d0",
+      "kind": "text.to_file",
+      "title": "Сохранить как файл",
+      "params": {
+        "path": "project-report.md"
+      }
+    },
+    {
+      "id": "node_6d0c13ec-436d-4e40-a6bd-4665ba05347d",
+      "kind": "verify.files",
+      "title": "Проверить обязательства",
+      "params": {}
+    },
+    {
+      "id": "node_b9829fac-7214-40f6-859c-30399e920b42",
+      "kind": "result.files",
+      "title": "Предъявить результат",
+      "params": {}
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge_29fcc4ba-9094-491f-9687-b4a37a14ece7",
+      "source": "node_0d797bce-d481-499b-889b-d86968bebd9b",
+      "target": "node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2",
+      "sourcePort": "out",
+      "targetPort": "in"
+    },
+    {
+      "id": "edge_e5843579-bae3-4176-b033-3f2e0c599cab",
+      "source": "node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2",
+      "target": "node_97617e95-1934-4de6-9117-47d5789512d0",
+      "sourcePort": "out",
+      "targetPort": "in"
+    },
+    {
+      "id": "edge_69226b5f-2c1f-4ee3-b8c3-4f94cd3ddbdf",
+      "source": "node_97617e95-1934-4de6-9117-47d5789512d0",
+      "target": "node_6d0c13ec-436d-4e40-a6bd-4665ba05347d",
+      "sourcePort": "out",
+      "targetPort": "in"
+    },
+    {
+      "id": "edge_f3c30852-276d-445d-bdd4-d582d1f6597a",
+      "source": "node_6d0c13ec-436d-4e40-a6bd-4665ba05347d",
+      "target": "node_b9829fac-7214-40f6-859c-30399e920b42",
+      "sourcePort": "out",
+      "targetPort": "in"
+    }
+  ],
+  "workspaces": [
+    {
+      "id": "space_286cbc70-f21f-4794-a204-f0fc55aa49f7",
+      "title": "Основное пространство",
+      "sheets": [
+        {
+          "id": "sheet_b4497459-8a3e-4e0f-a113-a39822bd7c71",
+          "title": "Конструкция",
+          "views": [
+            {
+              "id": "view_17f8f0fe-7bb3-4190-931f-91ea699f349d",
+              "nodeId": "node_0d797bce-d481-499b-889b-d86968bebd9b",
+              "x": 30,
+              "y": 160
+            },
+            {
+              "id": "view_0d651754-bead-4eb0-a9ac-ac8f05490430",
+              "nodeId": "node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2",
+              "x": 350,
+              "y": 160
+            },
+            {
+              "id": "view_78ece316-efec-4140-a9b9-4705e3936ea1",
+              "nodeId": "node_97617e95-1934-4de6-9117-47d5789512d0",
+              "x": 670,
+              "y": 160
+            },
+            {
+              "id": "view_fa433b0e-4004-4234-ba7a-615dd614a440",
+              "nodeId": "node_6d0c13ec-436d-4e40-a6bd-4665ba05347d",
+              "x": 990,
+              "y": 160
+            },
+            {
+              "id": "view_26781e46-6c0d-4d8d-830f-c7cc08d92857",
+              "nodeId": "node_b9829fac-7214-40f6-859c-30399e920b42",
+              "x": 1310,
+              "y": 160
+            }
+          ],
+          "viewport": {
+            "x": 60,
+            "y": 100,
+            "zoom": 0.85
+          }
+        }
+      ]
+    }
+  ]
+}

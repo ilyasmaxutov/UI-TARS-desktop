@@ -1,0 +1,3 @@
+cacheKey=path
+fileHashBefore=aa
+fileHashAfter=bb

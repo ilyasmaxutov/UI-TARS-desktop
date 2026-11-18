@@ -1,0 +1,347 @@
+{
+  "schema": 1,
+  "document": {
+    "schema": 1,
+    "id": "doc_baa77b78-2a17-49b2-a8bc-1d0b122ebbe4",
+    "projectId": "fixture-project",
+    "title": "Reference report",
+    "revision": 1,
+    "goal": {
+      "original": "Составить проверяемый отчёт по выбранным файлам: пути, объём, строки и хэши. Оригиналы не изменять.",
+      "revision": 1,
+      "obligations": [
+        {
+          "kind": "contains",
+          "path": "project-report.md",
+          "value": "SHA-256",
+          "description": "В отчёте есть хэши исходных файлов",
+          "id": "obligation_559f0e98-0ffa-469a-a393-a83099864c96"
+        },
+        {
+          "kind": "nonempty",
+          "path": "project-report.md",
+          "value": "",
+          "description": "Отчёт не пуст",
+          "id": "obligation_e7e7c44d-ff21-4221-bf4d-7f05cfd495eb"
+        }
+      ]
+    },
+    "nodes": [
+      {
+        "id": "node_0d797bce-d481-499b-889b-d86968bebd9b",
+        "kind": "source.files",
+        "title": "Файлы проекта",
+        "params": {}
+      },
+      {
+        "id": "node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2",
+        "kind": "files.report",
+        "title": "Отчёт по файлам",
+        "params": {}
+      },
+      {
+        "id": "node_97617e95-1934-4de6-9117-47d5789512d0",
+        "kind": "text.to_file",
+        "title": "Сохранить как файл",
+        "params": {
+          "path": "project-report.md"
+        }
+      },
+      {
+        "id": "node_6d0c13ec-436d-4e40-a6bd-4665ba05347d",
+        "kind": "verify.files",
+        "title": "Проверить обязательства",
+        "params": {}
+      },
+      {
+        "id": "node_b9829fac-7214-40f6-859c-30399e920b42",
+        "kind": "result.files",
+        "title": "Предъявить результат",
+        "params": {}
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_29fcc4ba-9094-491f-9687-b4a37a14ece7",
+        "source": "node_0d797bce-d481-499b-889b-d86968bebd9b",
+        "target": "node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2",
+        "sourcePort": "out",
+        "targetPort": "in"
+      },
+      {
+        "id": "edge_e5843579-bae3-4176-b033-3f2e0c599cab",
+        "source": "node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2",
+        "target": "node_97617e95-1934-4de6-9117-47d5789512d0",
+        "sourcePort": "out",
+        "targetPort": "in"
+      },
+      {
+        "id": "edge_69226b5f-2c1f-4ee3-b8c3-4f94cd3ddbdf",
+        "source": "node_97617e95-1934-4de6-9117-47d5789512d0",
+        "target": "node_6d0c13ec-436d-4e40-a6bd-4665ba05347d",
+        "sourcePort": "out",
+        "targetPort": "in"
+      },
+      {
+        "id": "edge_f3c30852-276d-445d-bdd4-d582d1f6597a",
+        "source": "node_6d0c13ec-436d-4e40-a6bd-4665ba05347d",
+        "target": "node_b9829fac-7214-40f6-859c-30399e920b42",
+        "sourcePort": "out",
+        "targetPort": "in"
+      }
+    ],
+    "workspaces": [
+      {
+        "id": "space_286cbc70-f21f-4794-a204-f0fc55aa49f7",
+        "title": "Основное пространство",
+        "sheets": [
+          {
+            "id": "sheet_b4497459-8a3e-4e0f-a113-a39822bd7c71",
+            "title": "Конструкция",
+            "views": [
+              {
+                "id": "view_17f8f0fe-7bb3-4190-931f-91ea699f349d",
+                "nodeId": "node_0d797bce-d481-499b-889b-d86968bebd9b",
+                "x": 30,
+                "y": 160
+              },
+              {
+                "id": "view_0d651754-bead-4eb0-a9ac-ac8f05490430",
+                "nodeId": "node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2",
+                "x": 350,
+                "y": 160
+              },
+              {
+                "id": "view_78ece316-efec-4140-a9b9-4705e3936ea1",
+                "nodeId": "node_97617e95-1934-4de6-9117-47d5789512d0",
+                "x": 670,
+                "y": 160
+              },
+              {
+                "id": "view_fa433b0e-4004-4234-ba7a-615dd614a440",
+                "nodeId": "node_6d0c13ec-436d-4e40-a6bd-4665ba05347d",
+                "x": 990,
+                "y": 160
+              },
+              {
+                "id": "view_26781e46-6c0d-4d8d-830f-c7cc08d92857",
+                "nodeId": "node_b9829fac-7214-40f6-859c-30399e920b42",
+                "x": 1310,
+                "y": 160
+              }
+            ],
+            "viewport": {
+              "x": 60,
+              "y": 100,
+              "zoom": 0.85
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "content": "# Проверочный проект\r\n\r\nТекст с хвостовыми пробелами.   \r\n"
+    },
+    {
+      "path": "config.json",
+      "content": "{\n  \"theme\": \"dark\",\n  \"language\": \"ru\"\n}\n"
+    }
+  ],
+  "specJson": "{\"document\":{\"edges\":[{\"id\":\"edge_29fcc4ba-9094-491f-9687-b4a37a14ece7\",\"source\":\"node_0d797bce-d481-499b-889b-d86968bebd9b\",\"sourcePort\":\"out\",\"target\":\"node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2\",\"targetPort\":\"in\"},{\"id\":\"edge_e5843579-bae3-4176-b033-3f2e0c599cab\",\"source\":\"node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2\",\"sourcePort\":\"out\",\"target\":\"node_97617e95-1934-4de6-9117-47d5789512d0\",\"targetPort\":\"in\"},{\"id\":\"edge_69226b5f-2c1f-4ee3-b8c3-4f94cd3ddbdf\",\"source\":\"node_97617e95-1934-4de6-9117-47d5789512d0\",\"sourcePort\":\"out\",\"target\":\"node_6d0c13ec-436d-4e40-a6bd-4665ba05347d\",\"targetPort\":\"in\"},{\"id\":\"edge_f3c30852-276d-445d-bdd4-d582d1f6597a\",\"source\":\"node_6d0c13ec-436d-4e40-a6bd-4665ba05347d\",\"sourcePort\":\"out\",\"target\":\"node_b9829fac-7214-40f6-859c-30399e920b42\",\"targetPort\":\"in\"}],\"goal\":{\"obligations\":[{\"description\":\"В отчёте есть хэши исходных файлов\",\"id\":\"obligation_559f0e98-0ffa-469a-a393-a83099864c96\",\"kind\":\"contains\",\"path\":\"project-report.md\",\"value\":\"SHA-256\"},{\"description\":\"Отчёт не пуст\",\"id\":\"obligation_e7e7c44d-ff21-4221-bf4d-7f05cfd495eb\",\"kind\":\"nonempty\",\"path\":\"project-report.md\",\"value\":\"\"}],\"original\":\"Составить проверяемый отчёт по выбранным файлам: пути, объём, строки и хэши. Оригиналы не изменять.\",\"revision\":1},\"id\":\"doc_baa77b78-2a17-49b2-a8bc-1d0b122ebbe4\",\"nodes\":[{\"id\":\"node_0d797bce-d481-499b-889b-d86968bebd9b\",\"kind\":\"source.files\",\"params\":{},\"title\":\"Файлы проекта\"},{\"id\":\"node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2\",\"kind\":\"files.report\",\"params\":{},\"title\":\"Отчёт по файлам\"},{\"id\":\"node_97617e95-1934-4de6-9117-47d5789512d0\",\"kind\":\"text.to_file\",\"params\":{\"path\":\"project-report.md\"},\"title\":\"Сохранить как файл\"},{\"id\":\"node_6d0c13ec-436d-4e40-a6bd-4665ba05347d\",\"kind\":\"verify.files\",\"params\":{},\"title\":\"Проверить обязательства\"},{\"id\":\"node_b9829fac-7214-40f6-859c-30399e920b42\",\"kind\":\"result.files\",\"params\":{},\"title\":\"Предъявить результат\"}],\"projectId\":\"fixture-project\",\"revision\":1,\"schema\":1,\"title\":\"Reference report\",\"workspaces\":[{\"id\":\"space_286cbc70-f21f-4794-a204-f0fc55aa49f7\",\"sheets\":[{\"id\":\"sheet_b4497459-8a3e-4e0f-a113-a39822bd7c71\",\"title\":\"Конструкция\",\"viewport\":{\"x\":60,\"y\":100,\"zoom\":0.85},\"views\":[{\"id\":\"view_17f8f0fe-7bb3-4190-931f-91ea699f349d\",\"nodeId\":\"node_0d797bce-d481-499b-889b-d86968bebd9b\",\"x\":30,\"y\":160},{\"id\":\"view_0d651754-bead-4eb0-a9ac-ac8f05490430\",\"nodeId\":\"node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2\",\"x\":350,\"y\":160},{\"id\":\"view_78ece316-efec-4140-a9b9-4705e3936ea1\",\"nodeId\":\"node_97617e95-1934-4de6-9117-47d5789512d0\",\"x\":670,\"y\":160},{\"id\":\"view_fa433b0e-4004-4234-ba7a-615dd614a440\",\"nodeId\":\"node_6d0c13ec-436d-4e40-a6bd-4665ba05347d\",\"x\":990,\"y\":160},{\"id\":\"view_26781e46-6c0d-4d8d-830f-c7cc08d92857\",\"nodeId\":\"node_b9829fac-7214-40f6-859c-30399e920b42\",\"x\":1310,\"y\":160}]}],\"title\":\"Основное пространство\"}]},\"files\":[{\"content\":\"# Проверочный проект\\r\\n\\r\\nТекст с хвостовыми пробелами.   \\r\\n\",\"path\":\"README.md\"},{\"content\":\"{\\n  \\\"theme\\\": \\\"dark\\\",\\n  \\\"language\\\": \\\"ru\\\"\\n}\\n\",\"path\":\"config.json\"}]}",
+  "run": {
+    "id": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+    "documentId": "doc_baa77b78-2a17-49b2-a8bc-1d0b122ebbe4",
+    "revision": 1,
+    "goalRevision": 1,
+    "state": "review",
+    "startedAt": "2026-11-08T18:02:29.514Z",
+    "finishedAt": "2026-11-08T18:02:29.543Z",
+    "nodes": {
+      "node_0d797bce-d481-499b-889b-d86968bebd9b": "completed",
+      "node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2": "completed",
+      "node_97617e95-1934-4de6-9117-47d5789512d0": "completed",
+      "node_6d0c13ec-436d-4e40-a6bd-4665ba05347d": "completed",
+      "node_b9829fac-7214-40f6-859c-30399e920b42": "completed"
+    },
+    "previews": {
+      "node_0d797bce-d481-499b-889b-d86968bebd9b": "2 файл(ов) · 142 Б",
+      "node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2": "# Отчёт по проекту\n\n| Файл | Байт UTF-8 | Строк | SHA-256 |\n|---|---:|---:|---|\n| README.md | 100 | 4 | 1b961542633e7faf6e0f406a7a697ef8952be3367ae39d51784d94ebf1625f2f |\n| config.",
+      "node_97617e95-1934-4de6-9117-47d5789512d0": "1 файл(ов) · 318 Б",
+      "node_6d0c13ec-436d-4e40-a6bd-4665ba05347d": "1 файл(ов) · 318 Б",
+      "node_b9829fac-7214-40f6-859c-30399e920b42": "1 файл(ов) · 318 Б"
+    },
+    "events": [
+      {
+        "seq": 1,
+        "runId": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+        "at": "2026-11-08T18:02:29.518Z",
+        "kind": "run.started",
+        "nodeId": null,
+        "message": "Зафиксированы цель, конструкция и входы"
+      },
+      {
+        "seq": 2,
+        "runId": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+        "at": "2026-11-08T18:02:29.518Z",
+        "kind": "node.started",
+        "nodeId": "node_0d797bce-d481-499b-889b-d86968bebd9b",
+        "message": "Файлы проекта"
+      },
+      {
+        "seq": 3,
+        "runId": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+        "at": "2026-11-08T18:02:29.535Z",
+        "kind": "node.completed",
+        "nodeId": "node_0d797bce-d481-499b-889b-d86968bebd9b",
+        "message": "2 файл(ов) · 142 Б"
+      },
+      {
+        "seq": 4,
+        "runId": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+        "at": "2026-11-08T18:02:29.535Z",
+        "kind": "node.started",
+        "nodeId": "node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2",
+        "message": "Отчёт по файлам"
+      },
+      {
+        "seq": 5,
+        "runId": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+        "at": "2026-11-08T18:02:29.537Z",
+        "kind": "node.completed",
+        "nodeId": "node_5d65d760-1d42-4c4c-8abb-d85b9288a9a2",
+        "message": "# Отчёт по проекту\n\n| Файл | Байт UTF-8 | Строк | SHA-256 |\n|---|---:|---:|---|\n| README.md | 100 | 4 | 1b961542633e7faf6e0f406a7a697ef8952be3367ae39d51784d94ebf1625f2f |\n| config."
+      },
+      {
+        "seq": 6,
+        "runId": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+        "at": "2026-11-08T18:02:29.537Z",
+        "kind": "node.started",
+        "nodeId": "node_97617e95-1934-4de6-9117-47d5789512d0",
+        "message": "Сохранить как файл"
+      },
+      {
+        "seq": 7,
+        "runId": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+        "at": "2026-11-08T18:02:29.538Z",
+        "kind": "node.completed",
+        "nodeId": "node_97617e95-1934-4de6-9117-47d5789512d0",
+        "message": "1 файл(ов) · 318 Б"
+      },
+      {
+        "seq": 8,
+        "runId": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+        "at": "2026-11-08T18:02:29.538Z",
+        "kind": "node.started",
+        "nodeId": "node_6d0c13ec-436d-4e40-a6bd-4665ba05347d",
+        "message": "Проверить обязательства"
+      },
+      {
+        "seq": 9,
+        "runId": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+        "at": "2026-11-08T18:02:29.540Z",
+        "kind": "node.completed",
+        "nodeId": "node_6d0c13ec-436d-4e40-a6bd-4665ba05347d",
+        "message": "1 файл(ов) · 318 Б"
+      },
+      {
+        "seq": 10,
+        "runId": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+        "at": "2026-11-08T18:02:29.540Z",
+        "kind": "node.started",
+        "nodeId": "node_b9829fac-7214-40f6-859c-30399e920b42",
+        "message": "Предъявить результат"
+      },
+      {
+        "seq": 11,
+        "runId": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+        "at": "2026-11-08T18:02:29.543Z",
+        "kind": "node.completed",
+        "nodeId": "node_b9829fac-7214-40f6-859c-30399e920b42",
+        "message": "1 файл(ов) · 318 Б"
+      },
+      {
+        "seq": 12,
+        "runId": "run_9992e999-581a-462a-a8e6-49f5168b0e7c",
+        "at": "2026-11-08T18:02:29.543Z",
+        "kind": "run.review",
+        "nodeId": null,
+        "message": "Локальные проверки выполнены. Решение владельца ещё не принято."
+      }
+    ],
+    "artifacts": [
+      {
+        "id": "sha256:5659000652b4f1d680eef7dad91e09d86e995ca4338496ab5308aef6c5b709f6",
+        "files": [
+          {
+            "path": "project-report.md",
+            "content": "# Отчёт по проекту\n\n| Файл | Байт UTF-8 | Строк | SHA-256 |\n|---|---:|---:|---|\n| README.md | 100 | 4 | 1b961542633e7faf6e0f406a7a697ef8952be3367ae39d51784d94ebf1625f2f |\n| config.json | 42 | 5 | dc7dd5e967edb58a23963a0bcdaaa7849fd85fd75bdb99c8f8972eac9d5f3be0 |\n\nВсего файлов: 2\n"
+          }
+        ],
+        "manifest": [
+          {
+            "path": "project-report.md",
+            "hash": "36656c7b31874844d7e8417dd581e3e7b4af053829c401027d401ce83036a65f",
+            "bytes": 318
+          }
+        ],
+        "hash": "5659000652b4f1d680eef7dad91e09d86e995ca4338496ab5308aef6c5b709f6",
+        "goalRevision": 1,
+        "graphRevision": 1,
+        "findings": [
+          {
+            "obligationId": "obligation_559f0e98-0ffa-469a-a393-a83099864c96",
+            "description": "В отчёте есть хэши исходных файлов",
+            "passed": true,
+            "detail": "1 файл(ов) · условие выполнено"
+          },
+          {
+            "obligationId": "obligation_e7e7c44d-ff21-4221-bf4d-7f05cfd495eb",
+            "description": "Отчёт не пуст",
+            "passed": true,
+            "detail": "1 файл(ов) · условие выполнено"
+          }
+        ]
+      }
+    ],
+    "error": null,
+    "profile": "native-builtins",
+    "inputHash": "8d1af5d143be9efcbd7f53025b4756b85b1d73fe3ae8abe65d1061ddebdb2787",
+    "documentHash": "440627939d5c98ef4ef7ae5c10e97e3315e760899f32587ad0f9206b0fe6ae3d",
+    "inputs": [
+      {
+        "path": "README.md",
+        "content": "# Проверочный проект\r\n\r\nТекст с хвостовыми пробелами.   \r\n"
+      },
+      {
+        "path": "config.json",
+        "content": "{\n  \"theme\": \"dark\",\n  \"language\": \"ru\"\n}\n"
+      }
+    ],
+    "goal": {
+      "original": "Составить проверяемый отчёт по выбранным файлам: пути, объём, строки и хэши. Оригиналы не изменять.",
+      "revision": 1,
+      "obligations": [
+        {
+          "kind": "contains",
+          "path": "project-report.md",
+          "value": "SHA-256",
+          "description": "В отчёте есть хэши исходных файлов",
+          "id": "obligation_559f0e98-0ffa-469a-a393-a83099864c96"
+        },
+        {
+          "kind": "nonempty",
+          "path": "project-report.md",
+          "value": "",
+          "description": "Отчёт не пуст",
+          "id": "obligation_e7e7c44d-ff21-4221-bf4d-7f05cfd495eb"
+        }
+      ]
+    },
+    "accepted": false,
+    "commandFingerprint": "48a074b4ba2575588f2ca87e85278cb2540428375ef720c82a5c56453a009f49"
+  },
+  "bindingHash": "9675118b6a7e5d01c9e5d71cc1b73e0cdbc659f059633609979fa9b594774d57"
+}

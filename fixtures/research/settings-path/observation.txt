@@ -1,0 +1,2 @@
+readPath=config/user.json
+writePath=cache/user.json

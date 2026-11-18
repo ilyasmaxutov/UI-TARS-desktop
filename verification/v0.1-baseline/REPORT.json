@@ -1,0 +1,43 @@
+{
+  "release": "0.1.0",
+  "date": "2026-11-08",
+  "platform": "linux",
+  "arch": "x64",
+  "node": "v22.16.0",
+  "typescript": "5.8.3",
+  "tests": {
+    "total": 86,
+    "passed": 86,
+    "failed": 0,
+    "skipped": 0
+  },
+  "native": {
+    "sourceTestCases": 14,
+    "compiled": false,
+    "executed": false,
+    "reason": "Rust/cargo unavailable; no Windows runtime; package registries unreachable from build container."
+  },
+  "gui": {
+    "launched": false,
+    "visuallyInspected": false,
+    "reason": "Computer Use and automatic application/browser/dev-server launch are forbidden by the user."
+  },
+  "providers": {
+    "calls": 0,
+    "paidCalls": 0,
+    "credentialsUsed": false
+  },
+  "offlineHtml": {
+    "bytes": 173055,
+    "sha256": "e168f1b16964f117748532473131845020c8c63865943150f6ae50b133428ebf"
+  },
+  "requirements": {
+    "retained": 96,
+    "fullyAccepted": 0
+  },
+  "gates": {
+    "G1": false,
+    "G2": false,
+    "G3": false
+  }
+}

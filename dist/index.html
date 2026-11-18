@@ -1,0 +1,2082 @@
+<!doctype html><html lang="ru" data-theme="dark"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; worker-src blob:; connect-src ipc: http://ipc.localhost; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'"><title>Слой — локальная рабочая студия</title><style>:root{color-scheme:dark;--bg:#111214;--surface:#17191c;--surface-2:#1d2024;--surface-3:#252930;--line:#2b2f36;--text:#edeef2;--muted:#9299a6;--accent:#c2afff;--accent-ink:#1e1638;--accent-dim:#302940;--ok:#99c8a9;--warn:#d9b782;--bad:#ef9a9a;--canvas:#131518;--shadow:0 12px 50px #0004}
+:root[data-theme=light]{color-scheme:light;--bg:#f3f3f5;--surface:#fafafb;--surface-2:#fff;--surface-3:#eaeaf0;--line:#d9dae3;--text:#242630;--muted:#626878;--accent:#7055aa;--accent-ink:#fff;--accent-dim:#e9e2f5;--ok:#37694a;--warn:#875e28;--bad:#a44343;--canvas:#f3f3f7;--shadow:0 12px 50px #28233512}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 'Segoe UI Variable','Segoe UI',system-ui,sans-serif;overflow:hidden}button,input,textarea,select{font:inherit}button{border:0;color:inherit;cursor:pointer;background:transparent}button:disabled{cursor:not-allowed;opacity:.5}button:hover{filter:brightness(1.1)}button:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}input,select,textarea{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;color:var(--text);padding:9px 11px;width:100%;min-width:0}textarea{resize:vertical}kbd{font-size:10px;padding:2px 5px;border:1px solid var(--line);border-radius:4px;font-family:inherit}h1,h2,h3,p{margin:0}h2{font-size:24px;line-height:1.3;letter-spacing:-.025em;font-weight:600}.icon{width:18px;height:18px;flex:0 0 auto}.hidden{display:none!important}.muted{color:var(--muted)}.small{font-size:12px}.eyebrow{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.full{width:100%}.skip-link{position:fixed;top:-80px;left:260px;padding:10px;background:var(--surface);z-index:999;color:var(--accent)}.skip-link:focus{top:10px}
+#app{height:100dvh;min-height:480px;display:flex}.sidebar{width:224px;flex:0 0 224px;background:var(--surface);border-right:1px solid var(--line);padding:21px 14px 15px;display:flex;flex-direction:column;overflow:auto}.brand{display:flex;align-items:center;gap:10px;height:33px;margin:0 8px 25px}.brand strong{font-size:25px;letter-spacing:-1.1px;font-weight:650}.brand .icon-button{margin-left:auto}.brand-mark{width:25px;height:28px;position:relative;display:block}.brand-mark i{position:absolute;left:0;width:22px;height:10px;border:1.5px solid var(--accent);border-radius:3px;transform:rotate(-18deg);top:2px}.brand-mark i:nth-child(2){top:9px}.brand-mark i:nth-child(3){top:16px}.version-badge{font-size:10px;padding:2px 5px;background:var(--surface-3);border-radius:5px;color:var(--muted)}.search-button{display:flex;align-items:center;gap:9px;width:100%;border:1px solid var(--line);background:var(--surface-2);padding:8px 9px;border-radius:8px;color:var(--muted);font-size:12px}.search-button>span{font-size:20px;line-height:1}.search-button kbd{margin-left:auto;white-space:nowrap}.sidebar-heading{display:flex;justify-content:space-between;align-items:center;margin:22px 9px 7px;color:var(--muted);font-size:11px;letter-spacing:.03em}.project-row,.space-row,.source-row,.run-row{width:100%;text-align:left;display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:7px;margin:2px 0;font-size:12px;min-height:36px}.project-row span,.space-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.project-row.active{background:var(--surface-3)}.space-row.active{background:var(--accent-dim);color:var(--accent)}.space-row small,.count,.run-row small{margin-left:auto;color:var(--muted)}.space-dot{height:6px;width:6px;border-radius:2px;background:currentColor;flex:0 0 auto}.source-actions{display:flex;gap:12px;padding:2px 11px}.source-actions button{font-size:11px;color:var(--muted);padding:3px 0}.source-actions button:hover{color:var(--text)}.sidebar-bottom{margin-top:auto;padding-top:30px}.sidebar-tool{display:flex;gap:12px;align-items:center;color:var(--muted);font-size:12px;width:100%;text-align:left;padding:7px 10px}.sidebar-tool:hover{color:var(--text)}.local-status{display:flex;gap:7px;font-size:10px;align-items:center;margin:20px 7px 4px;color:var(--ok)}.local-status i{width:5px;height:5px;background:var(--ok);border-radius:50%}#profile-note{font-size:10px;color:var(--muted);padding:0 7px;line-height:1.5}
+.main{display:flex;flex-direction:column;flex:1;min-width:0}.topbar{height:64px;flex:0 0 64px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:0 26px;gap:20px;background:var(--surface)}.breadcrumbs{display:flex;align-items:center;gap:12px;font-size:12px;min-width:0}.breadcrumbs span:first-child{color:var(--muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.breadcrumbs strong{font-weight:500;white-space:nowrap}.separator{color:var(--line)}.topbar-actions{display:flex;align-items:center;gap:16px}#save-state{font-size:11px;color:var(--muted)}#save-state.bad{color:var(--warn)}.workspace-bar{height:60px;flex:0 0 60px;display:flex;justify-content:space-between;align-items:center;padding:0 26px;border-bottom:1px solid var(--line);gap:15px}.view-switcher{display:flex;background:var(--surface);padding:3px;border-radius:8px;gap:2px}.view-switcher button{padding:6px 13px;font-size:12px;border-radius:6px;color:var(--muted)}.view-switcher button.active{background:var(--surface-3);color:var(--text)}.workspace-actions{display:flex;gap:11px;align-items:center}.primary,.secondary{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:38px;padding:9px 16px;border-radius:8px;font-size:12px;font-weight:550}.primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 1px 0 #fff2 inset}.secondary{background:var(--surface-2);border:1px solid var(--line);color:var(--text)}.compact{min-height:33px;padding:6px 12px}.icon-button{width:31px;height:31px;display:inline-flex;align-items:center;justify-content:center;border-radius:6px;color:var(--muted);font-size:19px;flex:0 0 auto}.icon-button.small{width:21px;height:21px;font-size:17px}.icon-button:hover{background:var(--surface-3);color:var(--text)}.text-button{font-size:11px;color:var(--muted);padding:5px 8px}.text-button:hover{color:var(--accent)}.danger{color:var(--bad)}.work-area{display:flex;min-height:0;flex:1}.canvas-view{display:flex;flex:1;flex-direction:column;min-width:0}.sheet-strip{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:0 20px;min-height:45px;border-bottom:1px solid var(--line);background:var(--bg)}#sheet-tabs{display:flex;align-items:center;gap:3px;overflow:auto}.sheet-tab{height:44px;display:flex;align-items:center;gap:7px;font-size:11px;color:var(--muted);padding:0 11px;border-bottom:2px solid transparent;white-space:nowrap}.sheet-tab .icon{width:13px;height:13px}.sheet-tab.active{color:var(--text);border-bottom-color:var(--accent)}.sheet-strip>.text-button{white-space:nowrap}.canvas-surface{position:relative;flex:1;overflow:hidden;background-color:var(--canvas);background-image:radial-gradient(var(--line) .8px,transparent .8px);background-size:24px 24px;touch-action:none}.canvas-context{position:absolute;left:28px;top:23px;pointer-events:none;z-index:2}.canvas-context p{color:var(--muted);font-size:12px;margin-top:5px;opacity:.75}#canvas-world{position:absolute;inset:0 auto auto 0;transform-origin:0 0;width:1px;height:1px}.canvas-edges{position:absolute;top:0;left:0;pointer-events:none}.edge path{fill:none;stroke:#626875;stroke-width:1.6}.edge circle{fill:#85838f}.edge.flowing path{stroke:var(--accent);stroke-dasharray:6 6;animation:flow 2s linear infinite}@keyframes flow{to{stroke-dashoffset:-24}}.node{position:absolute;width:264px;height:184px;padding:16px 17px 0;background:var(--surface-2);border:1px solid #3b3e47;border-radius:13px;box-shadow:0 6px 25px #0002;user-select:none}.node.selected{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent),0 8px 30px #0003}.node.running{border-color:var(--accent)}.node.failed{border-color:var(--bad)}.node.unavailable{border-style:dashed}.node-top{display:flex;align-items:center;gap:8px;cursor:grab}.node-symbol{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--surface-3);color:var(--muted)}.node-symbol .icon{width:16px;height:16px}.node-symbol.source{color:#b5bccb}.node-symbol.verify{color:var(--ok);background:color-mix(in srgb,var(--ok) 9%,transparent)}.node-symbol.result{color:var(--accent);background:var(--accent-dim)}.node-category{font-size:10px;color:var(--muted);letter-spacing:.03em}.node-ellipsis{margin-left:auto;color:var(--muted);font-size:18px}.node h3{font-size:14px;font-weight:550;margin:12px 0 7px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.node-preview{font-size:11px;line-height:1.6;color:var(--muted);height:36px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;white-space:pre-line}.node-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:12px;height:32px;font-size:9px}.node-status{display:flex;align-items:center;gap:6px;color:var(--muted)}.node-status.warning{color:var(--warn)}.node-type{color:var(--muted);font-family:Consolas,monospace}.port{position:absolute;top:81px;height:22px;width:22px;border-radius:50%;padding:0;background:transparent;display:flex;align-items:center;justify-content:center}.port:after{content:'';width:8px;height:8px;border:2px solid #8e879e;background:var(--surface-2);border-radius:50%}.port.input{left:-11px}.port.output{right:-11px}.port:hover:after,.port.connecting:after{background:var(--accent);border-color:var(--accent)}.state-dot{width:6px;height:6px;display:inline-block;flex:0 0 auto;border-radius:50%;background:var(--muted)}.state-dot.running{background:var(--accent);animation:breathe 1.4s infinite}.state-dot.completed,.state-dot.review{background:var(--ok)}.state-dot.failed{background:var(--bad)}.state-dot.interrupted,.state-dot.cancelled{background:var(--warn)}@keyframes breathe{50%{opacity:.4}}
+.cross-links{position:absolute;top:22px;right:20px;z-index:2;font-size:10px;max-width:220px}.cross-links>span{display:block;color:var(--muted);text-align:right;margin-bottom:5px}.cross-links button{display:flex;gap:5px;align-items:center;color:var(--accent);padding:3px 7px;background:var(--surface);border:1px solid var(--line);border-radius:6px;margin:4px 0 4px auto}.cross-links .icon{width:12px;height:12px}.canvas-toolbar{position:absolute;bottom:26px;left:23px;display:flex;align-items:center;gap:2px;background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:4px;box-shadow:var(--shadow);z-index:3}.toolbar-separator{height:16px;width:1px;background:var(--line);margin:0 4px}.composer{position:absolute;bottom:70px;left:50%;transform:translateX(-50%);width:min(620px,calc(100% - 70px));padding:14px 16px 10px;background:color-mix(in srgb,var(--surface-2) 96%,transparent);border:1px solid #494052;border-radius:16px;box-shadow:0 0 25px #c2afff05,0 16px 45px #0002;z-index:3}.composer:focus-within{border-color:var(--accent)}.composer-label{display:flex;gap:7px;align-items:center;color:var(--muted);font-size:10px}.scope-dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}#goal-revision{margin-left:auto;font-size:9px}.composer textarea{padding:10px 0 6px;border:0;background:transparent;resize:none;font-size:12px;line-height:1.6;min-height:59px;max-height:140px;outline:none}.composer-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:9px;color:var(--muted)}.composer-send{width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-size:20px}.canvas-hint{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--muted);white-space:nowrap;pointer-events:none}.empty-state{height:100%;min-height:260px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:35px;gap:16px}.empty-state>.icon{height:38px;width:38px;color:var(--muted)}.empty-state p{color:var(--muted);font-size:13px;line-height:1.8}.empty-symbol{border:1px solid var(--line);background:var(--surface-2);width:52px;height:52px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--accent)}#canvas-empty{padding-bottom:220px}
+.inspector{width:306px;flex:0 0 306px;border-left:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;overflow:hidden}.inspector>header{display:flex;justify-content:space-between;align-items:center;padding:17px 16px;border-bottom:1px solid var(--line);font-size:12px}.inspector>header b{font-weight:500}#inspector-body{overflow:auto;padding:20px 18px 35px}#inspector-body>.muted{font-size:12px;line-height:1.7;margin:12px 0 22px}.field-label{display:block;color:var(--muted);font-size:11px;margin:16px 0}.field-label input,.field-label select,.field-label textarea{display:block;margin-top:6px;font-size:12px}.section-label{text-transform:uppercase;letter-spacing:.07em;font-size:10px;color:var(--muted);margin:25px 0 11px}.criterion{border:1px solid var(--line);border-radius:8px;padding:11px;margin:8px 0}.criterion b{font-size:11px;font-weight:500;display:block}.criterion small{display:block;color:var(--muted);font-size:10px;margin:5px 0}.criterion .text-button{padding:0;font-size:10px}.mini-preview{font:11px/1.6 Consolas,monospace;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:8px;white-space:pre-wrap;word-break:break-word;color:var(--muted)}.connection-row{display:flex;align-items:center;justify-content:space-between;font-size:11px}.connect-form{display:flex;gap:3px;align-items:center}.connect-form select{font-size:11px;padding:7px}.notice{padding:12px 14px;border-radius:8px;border:1px solid var(--line);background:var(--surface);font-size:12px;line-height:1.7;margin:12px 0;color:var(--muted)}.notice.warning{border-color:color-mix(in srgb,var(--warn) 35%,var(--line));color:var(--warn)}.notice.success{color:var(--ok)}
+.content-view{flex:1;overflow:auto;padding:30px;min-width:0}.result-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:24px}.result-heading h2{margin:8px 0}.result-heading .muted{font-size:12px}.result-actions{display:flex;gap:8px}.result-layout{display:flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;min-height:320px;margin-top:20px}.file-list{width:220px;flex:0 0 220px;padding:12px;border-right:1px solid var(--line);background:var(--surface)}.file-list>button{display:flex;gap:8px;align-items:center;width:100%;padding:9px;border-radius:6px;text-align:left;overflow-wrap:anywhere;font-size:11px}.file-list>button.active{background:var(--surface-3)}.file-list .icon{width:14px;height:14px}.finding{display:flex;gap:8px;font-size:11px;color:var(--muted);margin:12px 3px;align-items:flex-start}.finding .icon{color:var(--ok)}.file-preview{flex:1;min-width:0;overflow:auto;background:var(--bg)}.preview-bar{padding:10px 15px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line);font-size:11px}.preview-bar>.text-button{margin-left:auto}.file-preview pre{font:12px/1.8 Consolas,monospace;padding:18px 20px;margin:0;white-space:pre-wrap;overflow-wrap:anywhere}.pill{font-size:10px;background:var(--surface-3);color:var(--muted);border-radius:5px;padding:3px 7px;white-space:nowrap}.diff-columns{display:grid;grid-template-columns:1fr 1fr}.diff-columns>div:first-child{border-right:1px solid var(--line)}.diff-heading{font-size:10px;color:var(--muted);padding:8px 18px;background:var(--surface)}.evidence{font-size:11px;color:var(--muted);margin:20px 0}.evidence summary{cursor:pointer;padding:8px 0}.evidence dl{display:grid;grid-template-columns:180px 1fr;gap:8px}.evidence dd{margin:0;word-break:break-all}.timeline{max-width:1000px;margin-top:30px}.timeline-row{display:grid;grid-template-columns:75px 16px 1fr auto;gap:15px;position:relative;padding:0 0 28px}.timeline-row time{color:var(--muted);font:11px/1.5 Consolas,monospace;padding-top:4px}.timeline-dot{width:7px;height:7px;margin-top:9px;background:var(--accent);border-radius:50%;z-index:1}.timeline-dot.failed{background:var(--bad)}.timeline-row:not(:last-child):before{content:'';position:absolute;left:93px;top:17px;bottom:-8px;border-left:1px solid var(--line)}.timeline-row b{font-size:13px;font-weight:500}.timeline-row p{font-size:12px;color:var(--muted);margin:5px 0}.timeline-row small{font:10px/1.5 Consolas,monospace;color:var(--muted)}
+dialog{width:min(610px,calc(100vw - 40px));max-height:85dvh;border:1px solid var(--line);border-radius:16px;padding:0;color:var(--text);background:var(--surface);box-shadow:0 30px 100px #0006}dialog::backdrop{background:#0008;backdrop-filter:blur(5px)}.modal-heading{display:flex;justify-content:space-between;align-items:center;padding:21px 24px;border-bottom:1px solid var(--line)}.modal-heading h2{font-size:18px}#modal-body{padding:22px 24px;overflow:auto;max-height:calc(85dvh - 78px)}#modal-body>.muted,#modal-body>p,#modal-body>ol{font-size:13px;line-height:1.8}.search-field{display:flex;align-items:center;gap:10px;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:0 12px;margin-bottom:14px}.search-field input{border:0;background:transparent;padding:11px 0;outline:none}.search-field .icon{color:var(--muted)}.palette-item{width:100%;text-align:left;display:flex;align-items:center;gap:12px;padding:13px 8px;border-bottom:1px solid var(--line)}.palette-item:last-child{border-bottom:0}.palette-symbol{height:34px;width:34px;border-radius:8px;background:var(--surface-3);display:flex;align-items:center;justify-content:center;color:var(--accent);flex:0 0 auto}.palette-item>span:nth-child(2){flex:1}.palette-item b{display:block;font-size:13px;font-weight:500}.palette-item small{display:block;font-size:11px;color:var(--muted);line-height:1.6;margin-top:3px}.template-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px}.template-card{text-align:left;display:flex;flex-direction:column;align-items:flex-start;gap:9px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:20px 16px}.template-card:hover{border-color:var(--accent)}.template-card>.icon{color:var(--accent);height:24px;width:24px}.template-card b{font-size:13px;font-weight:500}.template-card span{font-size:11px;color:var(--muted);line-height:1.7}.profile-card{display:flex;gap:12px;border:1px solid var(--line);padding:17px;border-radius:10px}.profile-card>.icon{width:26px;height:26px;color:var(--ok)}.profile-card h3{font-size:13px;font-weight:500;margin-bottom:6px}.profile-card p{font-size:12px;color:var(--muted);line-height:1.7}.settings-dl{display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;margin:25px 0}.settings-dl dt{color:var(--muted)}.settings-dl dd{margin:0}.source-detail{font-size:12px;padding:10px;border:1px solid var(--line);border-radius:7px;margin-bottom:8px}.source-detail summary{cursor:pointer}.source-detail small{color:var(--muted);float:right}.source-detail pre,.contract{white-space:pre-wrap;overflow-wrap:anywhere;font:11px/1.7 Consolas,monospace;color:var(--muted);max-height:450px;overflow:auto}.diagnostic{display:flex;gap:12px;padding:12px;background:var(--surface-2);border:1px solid var(--line);border-radius:7px;width:100%;text-align:left;font-size:12px;margin:9px 0}.diagnostic b{font:10px/1.6 Consolas,monospace;color:var(--warn);min-width:90px}.diagnostic span{color:var(--muted)}#toast{position:fixed;bottom:24px;right:28px;background:var(--surface-3);color:var(--text);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:13px 18px;max-width:470px;font-size:12px;line-height:1.6;z-index:100;opacity:0;transform:translateY(14px);transition:opacity .18s,transform .18s;pointer-events:none}#toast.show{opacity:1;transform:translateY(0)}#toast.error{border-color:var(--bad)}
+@media(max-width:1300px){.sidebar{width:195px;flex-basis:195px;padding-left:10px;padding-right:10px}.inspector{width:275px;flex-basis:275px}.topbar,.workspace-bar{padding-left:20px;padding-right:20px}.result-heading{align-items:flex-start;flex-direction:column}.canvas-hint{left:auto;right:20px;transform:none;max-width:calc(100% - 300px);white-space:normal;text-align:right}.composer{bottom:75px;width:calc(100% - 65px)}.canvas-context p{display:none}}
+@media(max-width:980px){.sidebar{width:172px;flex-basis:172px}.search-button kbd{display:none}.inspector{position:absolute;right:0;top:124px;bottom:0;z-index:10;width:285px;box-shadow:-15px 0 40px #0003}.breadcrumbs strong{max-width:160px;overflow:hidden;text-overflow:ellipsis}.workspace-actions #graph-version{display:none}.view-switcher button{padding:6px 9px}.sheet-strip>.text-button{display:none}.content-view{padding:22px}.file-list{width:170px;flex-basis:170px}.composer-bottom>span{font-size:8px}.canvas-context .eyebrow{font-size:9px}.canvas-hint{display:none}}
+@media(max-width:700px){.sidebar{display:none}.topbar{padding:0 15px;height:52px;flex-basis:52px}.workspace-bar{height:56px;flex-basis:56px;padding:0 12px}.workspace-actions>.secondary{display:none}.topbar-actions{gap:5px}.breadcrumbs{gap:6px}.breadcrumbs span:first-child{max-width:150px}.breadcrumbs strong{max-width:130px}.inspector{top:108px;width:280px}.content-view{padding:18px}.file-list{width:135px;flex-basis:135px}.diff-columns{grid-template-columns:1fr}.diff-columns>div:first-child{border-right:0;border-bottom:1px solid var(--line)}.composer{width:calc(100% - 32px)}.canvas-toolbar{left:16px;bottom:18px}.timeline-row{grid-template-columns:55px 12px 1fr;gap:10px}.timeline-row .text-button{grid-column:3}.timeline-row:before{left:68px!important}.file-preview pre{padding:12px;font-size:11px}.result-layout{display:block}.file-list{width:100%;border-right:0;border-bottom:1px solid var(--line)}.template-grid{grid-template-columns:1fr}.evidence dl{display:block}.evidence dd{margin:6px 0 13px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}@media(forced-colors:active){.node,.composer,.primary,.secondary{border:1px solid ButtonText}.port:after{border-color:ButtonText}.edge path{stroke:CanvasText}}
+
+/* Increment 0.2: contextual recovery and multi-artifact review. */
+.artifact-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.artifact-tabs .active{border-color:var(--accent);font-weight:650}.command-card{padding:16px 0;border-bottom:1px solid var(--line)}.command-card small{display:block;overflow-wrap:anywhere;opacity:.7;margin:8px 0}.attention-count{color:#e9be78}.command-card .result-actions{flex-wrap:wrap}
+</style></head><body>
+<a class="skip-link" href="#canvas-surface">К рабочей области</a>
+<div id="app"><aside class="sidebar"><div class="brand"><span class="brand-mark"><i></i><i></i><i></i></span><strong>слой</strong><span class="version-badge">0.2</span><button class="icon-button" data-action="theme" title="Сменить тему" aria-label="Сменить тему"><span aria-hidden="true">◐</span></button></div>
+<button class="search-button" data-action="add-node"><span>⌕</span>Найти действие<kbd>Ctrl K</kbd></button>
+<div class="sidebar-heading"><span>Проекты</span><button class="icon-button small" data-action="new-project" title="Новая работа" aria-label="Новая работа">+</button></div><div id="project-list"></div>
+<div class="sidebar-heading"><span>Пространства</span><button class="icon-button small" data-action="new-space" title="Новое пространство" aria-label="Новое пространство">+</button></div><div id="space-list"></div>
+<div class="sidebar-heading"><span>Материалы</span></div><button class="source-row" data-action="show-sources"><span>▤</span>Файлы проекта<span id="source-count" class="count">0</span></button><div class="source-actions"><button data-action="files">Выбрать файлы</button><button data-action="folder">Папка</button></div>
+<div class="sidebar-heading"><span>Последние запуски</span></div><div id="recent-runs"></div>
+<div class="sidebar-bottom"><a class="sidebar-tool" href="assistant.html">↗ <span>Помощник · Codex Direct</span></a><button class="sidebar-tool" data-action="commands">↻ <span>Команды и восстановление</span><b id="command-count" class="count">0</b></button><button class="sidebar-tool" data-action="export-project">↓ <span>Экспорт проекта</span></button><button class="sidebar-tool" data-action="import-project">↑ <span>Импорт проекта</span></button><button class="sidebar-tool" data-action="settings">☷ <span>Профиль работы</span></button><button class="sidebar-tool" data-action="help">? <span>Возможности и ограничения</span></button><div class="local-status"><i></i><div id="profile-label">Локальная вкладка · без агента</div></div><p id="profile-note">Работа прекращается при закрытии вкладки</p></div>
+</aside><main class="main"><header class="topbar"><div class="breadcrumbs"><span id="project-title"></span><span class="separator">/</span><strong id="workspace-title"></strong></div><div class="topbar-actions"><span id="save-state" role="status">Открывается…</span><button class="icon-button" data-action="settings" aria-label="Профиль ресурсов" title="Профиль ресурсов">☷</button></div></header>
+<div class="workspace-bar"><nav class="view-switcher" aria-label="Представление"><button class="active" data-mode="canvas">Конструкция</button><button data-mode="result">Результат</button><button data-mode="history">История</button></nav><div class="workspace-actions"><span id="graph-version" class="muted small"></span><button class="secondary compact" data-action="preflight">Проверить</button><button id="run-button" class="primary compact" data-action="run">▷ Начать</button></div></div>
+<div class="work-area"><section id="canvas-view" class="canvas-view"><div class="sheet-strip"><div id="sheet-tabs" role="navigation" aria-label="Листы"></div><button class="text-button" data-action="add-node">+ Добавить действие</button></div>
+<div id="canvas-surface" class="canvas-surface" tabindex="0" aria-label="Канвас конструкции"><div class="canvas-context"><span class="eyebrow">Локальная рабочая студия</span><p>От замысла — к проверяемому результату</p></div><div id="cross-links" class="cross-links"></div><div id="canvas-world"><svg id="canvas-edges" class="canvas-edges" width="20000" height="20000" overflow="visible" aria-hidden="true"></svg><div id="canvas-nodes"></div></div>
+<div id="canvas-empty" class="empty-state hidden"><span class="empty-symbol">+</span><h2>Место для следующей идеи</h2><p>Начните с источника, добавьте действие и проверку.<br>Листы организуют работу, но не запускают её повторно.</p><button class="primary" data-action="add-node">Добавить действие</button></div>
+<div class="canvas-toolbar"><button class="icon-button" data-action="add-node" title="Добавить действие" aria-label="Добавить действие">+</button><span class="toolbar-separator"></span><button class="icon-button" data-action="undo" title="Отменить правку" aria-label="Отменить правку">↶</button><button class="icon-button" data-action="redo" title="Вернуть правку" aria-label="Вернуть правку">↷</button><span class="toolbar-separator"></span><button class="icon-button" data-action="zoom-out" title="Уменьшить" aria-label="Уменьшить масштаб">−</button><button id="zoom-label" class="text-button" data-action="fit" title="Вписать конструкцию">100%</button><button class="icon-button" data-action="zoom-in" title="Увеличить" aria-label="Увеличить масштаб">+</button></div>
+<div class="composer"><div class="composer-label"><span class="scope-dot"></span><span id="goal-target">Вся работа</span><span id="goal-revision">Цель v1</span></div><textarea id="goal-input" rows="2" placeholder="Какой результат должен получиться?" aria-label="Исходная задача"></textarea><div class="composer-bottom"><span>Исходный запрос сохраняется отдельно от конструкции</span><button class="composer-send" data-action="goal-save" aria-label="Сохранить задачу" title="Сохранить задачу">↑</button></div></div>
+<p id="canvas-hint" class="canvas-hint"></p></div></section>
+<section id="result-view" class="content-view hidden" aria-label="Результат"><div id="result-body"></div></section><section id="history-view" class="content-view hidden" aria-label="История"><div id="history-body"></div></section>
+<aside id="inspector" class="inspector hidden" aria-label="Параметры выбранного узла"><header><b>Параметры действия</b><button class="icon-button" data-action="close-inspector" aria-label="Закрыть инспектор">×</button></header><div id="inspector-body"></div></aside>
+</div></main></div>
+<dialog id="modal"><div class="modal-heading"><h2 id="modal-title"></h2><button class="icon-button" data-action="close-modal" aria-label="Закрыть окно">×</button></div><div id="modal-body"></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<input type="file" id="file-input" multiple hidden><input type="file" id="folder-input" multiple webkitdirectory hidden><input type="file" id="project-input" accept=".json,.studio.json" hidden>
+<script>window.__STUDIO_WORKER__="(()=>{'use strict';const __modules=Object.create(null);\n__modules[\"core/model.js\"] = (() => {\nconst CATALOG = [\n    { kind: 'source.files', label: 'Файлы проекта', description: 'Зафиксированная копия выбранных текстовых файлов', input: null, output: 'files', available: true, category: 'Источники' },\n    { kind: 'source.text', label: 'Текст', description: 'Текстовый источник без вызова модели', input: null, output: 'text', available: true, category: 'Источники' },\n    { kind: 'files.filter', label: 'Выбрать файлы', description: 'Фильтр по расширению или части пути', input: 'files', output: 'files', available: true, category: 'Обработка' },\n    { kind: 'files.normalize', label: 'Нормализовать текст', description: 'LF, удалить пробелы в конце строк, завершающий перевод строки', input: 'files', output: 'files', available: true, category: 'Обработка' },\n    { kind: 'files.replace', label: 'Заменить в файлах', description: 'Буквальная замена; без регулярных выражений и выполнения кода', input: 'files', output: 'files', available: true, category: 'Обработка' },\n    { kind: 'files.report', label: 'Отчёт по файлам', description: 'Настоящие пути, размеры, строки и SHA-256 каждого файла', input: 'files', output: 'text', available: true, category: 'Обработка' },\n    { kind: 'text.replace', label: 'Заменить в тексте', description: 'Заменить точное вхождение', input: 'text', output: 'text', available: true, category: 'Обработка' },\n    { kind: 'text.stats', label: 'Статистика текста', description: 'Посчитать строки, символы, слова и байты', input: 'text', output: 'text', available: true, category: 'Обработка' },\n    { kind: 'text.to_file', label: 'Сохранить как файл', description: 'Создать файл результата в рабочем снимке', input: 'text', output: 'files', available: true, category: 'Результаты' },\n    { kind: 'files.merge', label: 'Объединить наборы', description: 'Все входы один раз; конфликт содержимого останавливает узел', input: 'files', output: 'files', available: true, category: 'Конструкция' },\n    { kind: 'verify.files', label: 'Проверить обязательства', description: 'Проверка по зафиксированной редакции цели', input: 'files', output: 'files', available: true, category: 'Проверка' },\n    { kind: 'result.files', label: 'Предъявить результат', description: 'Запечатать манифест и показать реальные изменения', input: 'files', output: 'files', available: true, category: 'Результаты' },\n    { kind: 'agent.codex', label: 'Роль · Codex', description: 'Заблокирован до приёмки Windows-изоляции и реального адаптера', input: 'files', output: 'files', available: false, category: 'Агенты' },\n    { kind: 'note', label: 'Заметка', description: 'Аннотация; не является операцией исполнения', input: null, output: null, available: true, category: 'Конструкция' }\n];\nconst LIMITS = Object.freeze({ nodes: 500, edges: 1000, files: 256, fileBytes: 1048576, totalBytes: 8388608, runs: 30, events: 4096, workspaces: 32, sheets: 64 });\nfunction id(prefix = 'id') { return `${prefix}_${crypto.randomUUID()}`; }\nfunction clone(value) { return structuredClone(value); }\nfunction bytes(text) { return new TextEncoder().encode(text).length; }\nfunction definition(kind) { return CATALOG.find(c => c.kind === kind); }\nfunction normalizeText(text) { return text.replace(/\\r\\n?/g, '\\n').split('\\n').map(l => l.replace(/[\\t ]+$/g, '')).join('\\n').replace(/\\n*$/, '\\n'); }\nclass DomainError extends Error {\n    code;\n    constructor(code, message) {\n        super(message);\n        this.code = code;\n        this.name = 'DomainError';\n    }\n}\nfunction assert(condition, code, message) {\n    if (!condition)\n        throw new DomainError(code, message);\n}\nfunction safePath(path) {\n    assert(typeof path === 'string' && path.length > 0 && path.length <= 240, 'PATH', 'Путь должен содержать от 1 до 240 символов');\n    assert(!/[\\\\:\\u0000-\\u001f]/u.test(path) && !path.startsWith('/'), 'PATH', 'Абсолютный, служебный или Windows-путь недопустим');\n    for (const part of path.split('/')) {\n        assert(part && part !== '.' && part !== '..' && !/[. ]$/.test(part), 'PATH', 'Недопустимый сегмент пути');\n        assert(!/^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\\.|$)/i.test(part) && !/[<>\"|?*]/.test(part), 'PATH', 'Зарезервированное имя Windows');\n    }\n    return path;\n}\nfunction validateFiles(files) {\n    assert(files.length <= LIMITS.files, 'LIMIT', 'Слишком много файлов');\n    const names = new Set();\n    let size = 0;\n    for (const f of files) {\n        safePath(f.path);\n        const key = f.path.toLocaleLowerCase('en-US');\n        assert(!names.has(key), 'PATH_COLLISION', `Повтор пути: ${f.path}`);\n        names.add(key);\n        assert(typeof f.content === 'string' && !f.content.includes('\\0'), 'FORMAT', `Только текст UTF-8: ${f.path}`);\n        const n = bytes(f.content);\n        assert(n <= LIMITS.fileBytes, 'LIMIT', `Файл превышает 1 МиБ: ${f.path}`);\n        size += n;\n    }\n    assert(size <= LIMITS.totalBytes, 'LIMIT', 'Набор превышает 8 МиБ');\n}\nasync function sha256(text) {\n    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));\n    return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');\n}\nfunction canonical(value) {\n    if (value === null || typeof value !== 'object')\n        return JSON.stringify(value);\n    if (Array.isArray(value))\n        return `[${value.map(canonical).join(',')}]`;\n    return `{${Object.entries(value).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([k, v]) => `${JSON.stringify(k)}:${canonical(v)}`).join(',')}}`;\n}\n\nreturn {CATALOG,LIMITS,id,clone,bytes,definition,normalizeText,DomainError,assert,safePath,validateFiles,sha256,canonical};\n})();\n__modules[\"core/graph.js\"] = (() => {\nconst { assert, bytes, CATALOG, clone, definition, id, LIMITS, safePath } = __modules[\"core/model.js\"];\n/** Pure preflight; never touches a filesystem, provider or model. */\nfunction compile(doc) {\n    const diagnostics = [];\n    const active = doc.nodes.filter(n => n.kind !== 'note');\n    const nodes = new Map(active.map(n => [n.id, n]));\n    const degree = new Map(active.map(n => [n.id, 0]));\n    if (active.length > LIMITS.nodes || doc.edges.length > LIMITS.edges)\n        diagnostics.push({ code: 'GRAPH_LIMIT', message: 'Превышен предел размера конструкции' });\n    if (new Set(doc.nodes.map(n => n.id)).size !== doc.nodes.length)\n        diagnostics.push({ code: 'DUPLICATE_NODE', message: 'ID узлов повторяются' });\n    if (new Set(doc.edges.map(e => e.id)).size !== doc.edges.length)\n        diagnostics.push({ code: 'DUPLICATE_EDGE', message: 'ID связей повторяются' });\n    const edgePairs = new Set();\n    for (const edge of doc.edges) {\n        const from = nodes.get(edge.source), to = nodes.get(edge.target);\n        if (!from || !to) {\n            diagnostics.push({ code: 'MISSING_NODE', edgeId: edge.id, message: 'Связь указывает на отсутствующий или неисполняемый узел' });\n            continue;\n        }\n        const a = definition(from.kind), b = definition(to.kind);\n        const pair = `${edge.source}:${edge.target}`;\n        if (edgePairs.has(pair))\n            diagnostics.push({ code: 'DUPLICATE_LINK', edgeId: edge.id, message: 'Связь уже существует' });\n        edgePairs.add(pair);\n        if (edge.sourcePort !== 'out' || edge.targetPort !== 'in')\n            diagnostics.push({ code: 'PORT', edgeId: edge.id, message: 'Неизвестный именованный порт' });\n        if (!a?.output || a.output !== b?.input)\n            diagnostics.push({ code: 'TYPE', edgeId: edge.id, message: 'Типы портов несовместимы' });\n        degree.set(to.id, (degree.get(to.id) ?? 0) + 1);\n    }\n    for (const node of active) {\n        const def = definition(node.kind);\n        const inputs = degree.get(node.id) ?? 0;\n        if (!def?.available)\n            diagnostics.push({ code: 'UNAVAILABLE', nodeId: node.id, message: node.kind === 'agent.codex' ? 'Codex заблокирован: Windows-профиль и живое подключение ещё не приняты' : 'Операция недоступна' });\n        if (def?.input && inputs === 0)\n            diagnostics.push({ code: 'INPUT', nodeId: node.id, message: 'Обязательный вход не подключён' });\n        if (!def?.input && inputs > 0)\n            diagnostics.push({ code: 'UNEXPECTED_INPUT', nodeId: node.id, message: 'У источника нет входа' });\n        if (inputs > 1 && (node.kind !== 'files.merge' || node.params['readPolicy'] !== 'all-once'))\n            diagnostics.push({ code: 'READ_POLICY', nodeId: node.id, message: 'Несколько входов требуют узла объединения с правилом «все один раз»' });\n        if (node.kind === 'text.to_file') {\n            try {\n                safePath(String(node.params['path'] ?? ''));\n            }\n            catch {\n                diagnostics.push({ code: 'PATH', nodeId: node.id, message: 'Нужен безопасный относительный путь файла' });\n            }\n        }\n        if ((node.kind === 'text.replace' || node.kind === 'files.replace') && !String(node.params['find'] ?? ''))\n            diagnostics.push({ code: 'PARAM', nodeId: node.id, message: 'Строка поиска не может быть пустой' });\n        if (node.kind === 'verify.files' && doc.goal.obligations.length === 0)\n            diagnostics.push({ code: 'CRITERIA', nodeId: node.id, message: 'В исходной цели нет проверяемых обязательств' });\n        if (node.kind === 'result.files') {\n            const upstream = doc.edges.filter(e => e.target === node.id);\n            if (!upstream.every(e => nodes.get(e.source)?.kind === 'verify.files'))\n                diagnostics.push({ code: 'UNVERIFIED_RESULT', nodeId: node.id, message: 'Результат должен получать данные непосредственно от проверки' });\n        }\n    }\n    if (!active.some(n => n.kind === 'result.files'))\n        diagnostics.push({ code: 'NO_RESULT', message: 'Добавьте узел предъявления результата' });\n    const pending = new Set(active.map(n => n.id));\n    const layers = [];\n    const order = [];\n    while (pending.size) {\n        const ready = [...pending].filter(n => degree.get(n) === 0).sort();\n        if (!ready.length) {\n            diagnostics.push({ code: 'CYCLE', message: 'Обнаружен цикл. Ограниченные циклы в этом инкременте ещё не реализованы' });\n            break;\n        }\n        layers.push(ready);\n        for (const n of ready) {\n            pending.delete(n);\n            order.push(n);\n            for (const e of doc.edges.filter(e => e.source === n))\n                degree.set(e.target, (degree.get(e.target) ?? 1) - 1);\n        }\n    }\n    // A quietly abandoned branch must not be reported as part of the accepted result.\n    const useful = new Set(active.filter(n => n.kind === 'result.files').map(n => n.id));\n    let changed = true;\n    while (changed) {\n        changed = false;\n        for (const e of doc.edges)\n            if (useful.has(e.target) && !useful.has(e.source)) {\n                useful.add(e.source);\n                changed = true;\n            }\n    }\n    for (const n of active)\n        if (!useful.has(n.id))\n            diagnostics.push({ code: 'UNUSED', nodeId: n.id, message: 'Ветка не ведёт к предъявляемому результату' });\n    return { documentId: doc.id, revision: doc.revision, order, layers, diagnostics };\n}\nfunction defaultParams(kind) {\n    switch (kind) {\n        case 'source.text': return { text: 'Текст нового источника' };\n        case 'files.filter': return { match: '.md' };\n        case 'files.replace':\n        case 'text.replace': return { find: 'TODO', replace: 'Готово' };\n        case 'text.to_file': return { path: 'result.md' };\n        case 'files.merge': return { readPolicy: 'all-once' };\n        case 'note': return { text: 'Заметка не исполняется' };\n        default: return {};\n    }\n}\nclass Editor {\n    document;\n    past = [];\n    future = [];\n    constructor(document) {\n        this.document = document;\n        this.document = clone(document);\n    }\n    commit(mutator, expected = this.document.revision) {\n        assert(expected === this.document.revision, 'CONFLICT', 'Документ уже изменён. Сначала перечитайте текущую редакцию.');\n        const next = clone(this.document);\n        mutator(next);\n        next.revision = this.document.revision + 1;\n        validateDocument(next);\n        this.past.push(this.document);\n        if (this.past.length > 50)\n            this.past.shift();\n        this.future = [];\n        this.document = next;\n    }\n    undo() {\n        const old = this.past.pop();\n        if (!old)\n            return false;\n        this.future.push(this.document);\n        old.revision = this.document.revision + 1;\n        old.goal.revision = this.document.goal.revision + 1;\n        this.document = old;\n        return true;\n    }\n    redo() {\n        const next = this.future.pop();\n        if (!next)\n            return false;\n        this.past.push(this.document);\n        next.revision = this.document.revision + 1;\n        next.goal.revision = this.document.goal.revision + 1;\n        this.document = next;\n        return true;\n    }\n    add(kind, workspaceId, sheetId, x = 160, y = 160) {\n        const nodeId = id('node');\n        this.commit(d => {\n            assert(d.nodes.length < LIMITS.nodes, 'LIMIT', 'Достигнут предел узлов');\n            const sheet = d.workspaces.find(w => w.id === workspaceId)?.sheets.find(s => s.id === sheetId);\n            assert(sheet, 'SHEET', 'Лист не найден');\n            d.nodes.push({ id: nodeId, kind, title: definition(kind)?.label ?? kind, params: defaultParams(kind) });\n            sheet.views.push({ id: id('view'), nodeId, x, y });\n        });\n        return nodeId;\n    }\n    connect(source, target) {\n        this.commit(d => {\n            assert(source !== target, 'CYCLE', 'Нельзя соединить узел с собой');\n            const a = d.nodes.find(n => n.id === source), b = d.nodes.find(n => n.id === target);\n            assert(a && b, 'NODE', 'Узел не найден');\n            const out = definition(a.kind)?.output;\n            assert(out && out === definition(b.kind)?.input, 'TYPE', 'Типы портов несовместимы');\n            assert(!d.edges.some(e => e.source === source && e.target === target), 'DUPLICATE', 'Связь уже существует');\n            const edge = { id: id('edge'), source, target, sourcePort: 'out', targetPort: 'in' };\n            d.edges.push(edge);\n            assert(!compile(d).diagnostics.some(e => e.code === 'CYCLE'), 'CYCLE', 'Связь создаёт цикл');\n        });\n    }\n    remove(nodeId) {\n        this.commit(d => {\n            d.nodes = d.nodes.filter(n => n.id !== nodeId);\n            d.edges = d.edges.filter(e => e.source !== nodeId && e.target !== nodeId);\n            for (const w of d.workspaces)\n                for (const s of w.sheets)\n                    s.views = s.views.filter(v => v.nodeId !== nodeId);\n        });\n    }\n    reference(nodeId, workspaceId, sheetId) {\n        this.commit(d => {\n            assert(d.nodes.some(n => n.id === nodeId), 'NODE', 'Нет такого узла');\n            const sheet = d.workspaces.find(w => w.id === workspaceId)?.sheets.find(s => s.id === sheetId);\n            assert(sheet, 'SHEET', 'Лист не найден');\n            assert(!sheet.views.some(v => v.nodeId === nodeId), 'DUPLICATE', 'На этом листе узел уже виден');\n            sheet.views.push({ id: id('view'), nodeId, x: 160, y: 140 });\n        });\n    }\n}\n/** Validates imported documents before they enter rendering or execution. */\nfunction validateDocument(input) {\n    assert(input && typeof input === 'object', 'SCHEMA', 'Нужен объект документа');\n    const d = input;\n    assert(d.schema === 1 && typeof d.id === 'string' && typeof d.projectId === 'string' && typeof d.title === 'string', 'SCHEMA', 'Неподдержанная схема');\n    assert(Number.isSafeInteger(d.revision) && d.revision >= 1, 'SCHEMA', 'Некорректная редакция');\n    assert(Array.isArray(d.nodes) && d.nodes.length <= LIMITS.nodes && Array.isArray(d.edges) && d.edges.length <= LIMITS.edges, 'SCHEMA', 'Некорректный граф');\n    assert(d.goal && typeof d.goal.original === 'string' && bytes(d.goal.original) <= 65536 && Number.isSafeInteger(d.goal.revision) && d.goal.revision >= 1 && Array.isArray(d.goal.obligations) && d.goal.obligations.length <= 64, 'SCHEMA', 'Некорректная цель');\n    const nodeIds = new Set();\n    for (const n of d.nodes) {\n        assert(typeof n.id === 'string' && n.id.length < 128 && !nodeIds.has(n.id), 'SCHEMA', 'ID узла повторяется или недопустим');\n        nodeIds.add(n.id);\n        assert(CATALOG.some(c => c.kind === n.kind) && typeof n.title === 'string' && n.title.length <= 512, 'SCHEMA', 'Некорректная операция');\n        assert(n.params && typeof n.params === 'object' && !Array.isArray(n.params), 'SCHEMA', 'Некорректные параметры');\n        assert(Object.entries(n.params).every(([k, v]) => !['__proto__', 'constructor', 'prototype'].includes(k) && ['string', 'boolean', 'number'].includes(typeof v) && (typeof v !== 'number' || Number.isFinite(v))), 'SCHEMA', 'Недопустимое значение параметра');\n        assert(bytes(JSON.stringify(n.params)) <= LIMITS.fileBytes, 'LIMIT', 'Параметры слишком большие');\n    }\n    const edgeIds = new Set();\n    for (const e of d.edges) {\n        assert(typeof e.id === 'string' && !edgeIds.has(e.id) && typeof e.source === 'string' && typeof e.target === 'string' && e.sourcePort === 'out' && e.targetPort === 'in', 'SCHEMA', 'Некорректная связь');\n        edgeIds.add(e.id);\n    }\n    const ids = new Set();\n    assert(Array.isArray(d.workspaces) && d.workspaces.length > 0 && d.workspaces.length <= LIMITS.workspaces, 'SCHEMA', 'Некорректные пространства');\n    for (const w of d.workspaces) {\n        assert(typeof w.id === 'string' && !ids.has(w.id) && typeof w.title === 'string' && Array.isArray(w.sheets) && w.sheets.length > 0 && w.sheets.length <= LIMITS.sheets, 'SCHEMA', 'Некорректное пространство');\n        ids.add(w.id);\n        for (const s of w.sheets) {\n            assert(typeof s.id === 'string' && !ids.has(s.id) && typeof s.title === 'string' && Array.isArray(s.views) && s.views.length <= LIMITS.nodes, 'SCHEMA', 'Некорректный лист');\n            ids.add(s.id);\n            assert(s.viewport && Number.isFinite(s.viewport.x) && Number.isFinite(s.viewport.y) && Number.isFinite(s.viewport.zoom) && s.viewport.zoom >= .2 && s.viewport.zoom <= 2, 'SCHEMA', 'Некорректный масштаб');\n            const shown = new Set();\n            for (const v of s.views) {\n                assert(typeof v.id === 'string' && !ids.has(v.id) && nodeIds.has(v.nodeId) && !shown.has(v.nodeId) && Number.isFinite(v.x) && Number.isFinite(v.y) && Math.abs(v.x) < 100000 && Math.abs(v.y) < 100000, 'SCHEMA', 'Некорректное представление узла');\n                ids.add(v.id);\n                shown.add(v.nodeId);\n            }\n        }\n    }\n    const obligations = new Set();\n    for (const c of d.goal.obligations) {\n        assert(typeof c.id === 'string' && !obligations.has(c.id) && typeof c.description === 'string' && typeof c.path === 'string' && typeof c.value === 'string' && ['file_exists', 'contains', 'not_contains', 'valid_json', 'normalized', 'nonempty'].includes(c.kind), 'SCHEMA', 'Некорректное обязательство');\n        obligations.add(c.id);\n        if (c.path !== '*')\n            safePath(c.path);\n        if (c.kind === 'contains' || c.kind === 'not_contains')\n            assert(c.value.length > 0, 'SCHEMA', 'Пустая строка не является проверяемым критерием');\n    }\n}\nfunction createDocument(projectId, name, template = 'report') {\n    const w = { id: id('space'), title: 'Основное пространство', sheets: [{ id: id('sheet'), title: 'Конструкция', views: [], viewport: { x: 60, y: 100, zoom: .85 } }] };\n    const d = { schema: 1, id: id('doc'), projectId, title: name, revision: 1, goal: { original: '', revision: 1, obligations: [] }, nodes: [], edges: [], workspaces: [w] };\n    const add = (kind, x, y, params = {}) => { const n = { id: id('node'), kind, title: definition(kind).label, params: { ...defaultParams(kind), ...params } }; d.nodes.push(n); w.sheets[0].views.push({ id: id('view'), nodeId: n.id, x, y }); return n; };\n    const link = (a, b) => d.edges.push({ id: id('edge'), source: a.id, target: b.id, sourcePort: 'out', targetPort: 'in' });\n    const check = (o) => d.goal.obligations.push({ ...o, id: id('obligation') });\n    if (template === 'empty')\n        return d;\n    const a = add('source.files', 30, 160);\n    if (template === 'report') {\n        d.goal.original = 'Составить проверяемый отчёт по выбранным файлам: пути, объём, строки и хэши. Оригиналы не изменять.';\n        const b = add('files.report', 350, 160), c = add('text.to_file', 670, 160, { path: 'project-report.md' }), v = add('verify.files', 990, 160), r = add('result.files', 1310, 160);\n        link(a, b);\n        link(b, c);\n        link(c, v);\n        link(v, r);\n        check({ kind: 'contains', path: 'project-report.md', value: 'SHA-256', description: 'В отчёте есть хэши исходных файлов' });\n        check({ kind: 'nonempty', path: 'project-report.md', value: '', description: 'Отчёт не пуст' });\n    }\n    else if (template === 'normalize') {\n        d.goal.original = 'Нормализовать окончания строк и пробелы текстовых файлов. Сохранить исходники; предъявить изменённую копию.';\n        const b = add('files.normalize', 350, 160), v = add('verify.files', 670, 160), r = add('result.files', 990, 160);\n        link(a, b);\n        link(b, v);\n        link(v, r);\n        check({ kind: 'normalized', path: '*', value: '', description: 'LF, без хвостовых пробелов, с завершающим переводом строки' });\n    }\n    else {\n        d.goal.original = 'Поручить работу Codex; требуется проверенный Windows-профиль.';\n        const b = add('agent.codex', 350, 160), v = add('verify.files', 670, 160), r = add('result.files', 990, 160);\n        link(a, b);\n        link(b, v);\n        link(v, r);\n        check({ kind: 'nonempty', path: '*', value: '', description: 'Предъявлены реальные файлы; семантическая приёмка ещё не настроена' });\n    }\n    return d;\n}\n\nreturn {compile,defaultParams,Editor,validateDocument,createDocument};\n})();\n__modules[\"core/runtime.js\"] = (() => {\nconst { assert, bytes, canonical, clone, DomainError, id, LIMITS, normalizeText, safePath, sha256, validateFiles } = __modules[\"core/model.js\"];\nconst { compile, validateDocument } = __modules[\"core/graph.js\"];\nfunction verify(files, checks) {\n    return checks.map(c => {\n        const selected = files.filter(f => c.path === '*' || f.path === c.path);\n        let passed = selected.length > 0;\n        if (passed)\n            for (const f of selected) {\n                switch (c.kind) {\n                    case 'file_exists': break;\n                    case 'contains':\n                        passed = passed && f.content.includes(c.value);\n                        break;\n                    case 'not_contains':\n                        passed = passed && !f.content.includes(c.value);\n                        break;\n                    case 'nonempty':\n                        passed = passed && f.content.trim().length > 0;\n                        break;\n                    case 'normalized':\n                        passed = passed && normalizeText(f.content) === f.content;\n                        break;\n                    case 'valid_json':\n                        try {\n                            JSON.parse(f.content);\n                        }\n                        catch {\n                            passed = false;\n                        }\n                        break;\n                    default: passed = false;\n                }\n            }\n        return { obligationId: c.id, description: c.description, passed, detail: selected.length === 0 ? 'Ни один файл не соответствует пути' : `${selected.length} файл(ов) · ${passed ? 'условие выполнено' : 'условие не выполнено'}` };\n    });\n}\nasync function seal(files, doc, findings) {\n    validateFiles(files);\n    const manifest = [];\n    for (const f of [...files].sort((a, b) => a.path < b.path ? -1 : 1))\n        manifest.push({ path: f.path, hash: await sha256(f.content), bytes: bytes(f.content) });\n    const hash = await sha256(canonical({ manifest, goalRevision: doc.goal.revision, graphRevision: doc.revision }));\n    return { id: `sha256:${hash}`, files: clone([...files]), manifest, hash, goalRevision: doc.goal.revision, graphRevision: doc.revision, findings: clone(findings) };\n}\nasync function validateArtifact(artifact) {\n    try {\n        validateFiles(artifact.files);\n        const entries = [];\n        for (const f of [...artifact.files].sort((a, b) => a.path < b.path ? -1 : 1))\n            entries.push({ path: f.path, hash: await sha256(f.content), bytes: bytes(f.content) });\n        return artifact.id === `sha256:${artifact.hash}` && canonical(entries) === canonical(artifact.manifest) && artifact.hash === await sha256(canonical({ manifest: entries, goalRevision: artifact.goalRevision, graphRevision: artifact.graphRevision }));\n    }\n    catch {\n        return false;\n    }\n}\nfunction diff(base, next) {\n    const a = new Map(base.map(f => [f.path, f.content])), b = new Map(next.map(f => [f.path, f.content]));\n    return [...new Set([...a.keys(), ...b.keys()])].sort().map(path => ({ path, status: !a.has(path) ? 'added' : !b.has(path) ? 'removed' : a.get(path) === b.get(path) ? 'unchanged' : 'modified', before: a.get(path) ?? null, after: b.get(path) ?? null }));\n}\nfunction publicationConflicts(base, current, next) {\n    const original = new Map(base.map(f => [f.path, f.content]));\n    const actual = new Map(current.map(f => [f.path, f.content]));\n    return diff(base, next).filter(c => c.status !== 'unchanged' && actual.get(c.path) !== original.get(c.path) && (actual.get(c.path) ?? null) !== c.after).map(c => c.path);\n}\nasync function operate(node, inputs, files, doc) {\n    const first = inputs[0];\n    let value;\n    let findings = [];\n    const p = node.params;\n    const getFiles = () => { assert(first?.type === 'files', 'TYPE', 'Ожидался набор файлов'); return first.files; };\n    const getText = () => { assert(first?.type === 'text', 'TYPE', 'Ожидался текст'); return first.text; };\n    switch (node.kind) {\n        case 'source.files':\n            value = { type: 'files', files: clone(files) };\n            break;\n        case 'source.text':\n            value = { type: 'text', text: String(p['text'] ?? '') };\n            break;\n        case 'files.filter': {\n            const pattern = String(p['match'] ?? '');\n            value = { type: 'files', files: getFiles().filter(f => f.path.includes(pattern)) };\n            break;\n        }\n        case 'files.normalize':\n            value = { type: 'files', files: getFiles().map(f => ({ ...f, content: normalizeText(f.content) })) };\n            break;\n        case 'files.replace': {\n            const find = String(p['find'] ?? '');\n            assert(find, 'PARAM', 'Пустой поиск');\n            const replacement = String(p['replace'] ?? '');\n            value = { type: 'files', files: getFiles().map(f => ({ ...f, content: replaceBounded(f.content, find, replacement) })) };\n            break;\n        }\n        case 'text.replace': {\n            const find = String(p['find'] ?? '');\n            assert(find, 'PARAM', 'Пустой поиск');\n            value = { type: 'text', text: replaceBounded(getText(), find, String(p['replace'] ?? '')) };\n            break;\n        }\n        case 'text.stats': {\n            const text = getText();\n            value = { type: 'text', text: JSON.stringify({ lines: text ? text.split('\\n').length : 0, characters: [...text].length, words: text.trim() ? text.trim().split(/\\s+/u).length : 0, bytes: bytes(text) }, null, 2) };\n            break;\n        }\n        case 'files.report': {\n            const fs = getFiles();\n            assert(fs.length, 'EMPTY', 'Для отчёта нужен хотя бы один файл');\n            const rows = ['# Отчёт по проекту', '', '| Файл | Байт UTF-8 | Строк | SHA-256 |', '|---|---:|---:|---|'];\n            for (const f of fs)\n                rows.push(`| ${f.path.replaceAll('|', '\\\\|')} | ${bytes(f.content)} | ${f.content ? f.content.split('\\n').length : 0} | ${await sha256(f.content)} |`);\n            rows.push('', `Всего файлов: ${fs.length}`, '');\n            value = { type: 'text', text: rows.join('\\n') };\n            break;\n        }\n        case 'text.to_file':\n            value = { type: 'files', files: [{ path: safePath(String(p['path'] ?? '')), content: getText() }] };\n            break;\n        case 'files.merge': {\n            assert(p['readPolicy'] === 'all-once', 'READ_POLICY', 'Не задано правило чтения');\n            const map = new Map();\n            for (const input of inputs) {\n                assert(input.type === 'files', 'TYPE', 'Нужны файлы');\n                for (const f of input.files) {\n                    const old = map.get(f.path.toLowerCase());\n                    assert(!old || old.path === f.path && old.content === f.content, 'MERGE_CONFLICT', `Конфликт содержимого: ${f.path}`);\n                    map.set(f.path.toLowerCase(), f);\n                }\n            }\n            value = { type: 'files', files: [...map.values()] };\n            break;\n        }\n        case 'verify.files': {\n            const fs = getFiles();\n            findings = verify(fs, doc.goal.obligations);\n            assert(findings.length > 0 && findings.every(f => f.passed), 'VERIFICATION', findings.filter(f => !f.passed).map(f => f.description + ': ' + f.detail).join('; ') || 'Нет обязательств');\n            value = { type: 'files', files: fs };\n            break;\n        }\n        case 'result.files':\n            value = { type: 'files', files: getFiles() };\n            assert(value.files.length, 'EMPTY', 'Пустой набор не является результатом');\n            break;\n        default: throw new DomainError('UNAVAILABLE', 'Операция не имеет принятого исполнителя');\n    }\n    if (value.type === 'files')\n        validateFiles(value.files);\n    else\n        assert(bytes(value.text) <= LIMITS.fileBytes, 'LIMIT', 'Результат текста превышает 1 МиБ');\n    return { value, findings };\n}\nfunction replaceBounded(text, find, replacement) {\n    const count = text.split(find).length - 1;\n    // Bound before allocation; UTF-8 check follows after replacement.\n    assert(text.length + count * (replacement.length - find.length) <= LIMITS.fileBytes, 'LIMIT', 'Замена превысит допустимый размер');\n    return text.replaceAll(find, replacement);\n}\n/** Executes only compiled, built-in pure operations; never evals code or starts a process. */\nasync function execute(document, sourceFiles, hooks = {}) {\n    validateDocument(document);\n    validateFiles(sourceFiles);\n    const doc = clone(document), files = clone(sourceFiles), plan = compile(doc);\n    assert(!plan.diagnostics.length, 'PREFLIGHT', plan.diagnostics.map(d => d.message).join('\\n'));\n    const run = { id: id('run'), documentId: doc.id, revision: doc.revision, goalRevision: doc.goal.revision, state: 'running', startedAt: new Date().toISOString(), finishedAt: null, nodes: {}, previews: {}, events: [], artifacts: [], error: null, profile: hooks.profile ?? 'browser-local', inputHash: await sha256(canonical(files)), documentHash: await sha256(canonical(doc)), inputs: clone(files), goal: clone(doc.goal), accepted: false };\n    for (const n of plan.order)\n        run.nodes[n] = 'queued';\n    let eventSeq = 0;\n    const emit = (kind, message, nodeId = null) => {\n        run.events.push({ seq: ++eventSeq, runId: run.id, at: new Date().toISOString(), kind, nodeId, message });\n        if (run.events.length > LIMITS.events)\n            run.events.shift();\n        hooks.onUpdate?.(clone(run));\n    };\n    const outputs = new Map();\n    const findingsByNode = new Map();\n    let failure = null;\n    let retainedOutputBytes = 0;\n    const cancelled = () => {\n        if (hooks.signal?.aborted)\n            throw new DomainError('CANCELLED', 'Отменено владельцем');\n    };\n    const checkpoint = hooks.checkpoint ?? (() => new Promise(resolve => setTimeout(resolve, 0)));\n    const concurrency = Math.max(1, Math.min(4, hooks.concurrency ?? 2));\n    emit('run.started', 'Зафиксированы цель, конструкция и входы');\n    try {\n        for (const layer of plan.layers) {\n            cancelled();\n            for (let start = 0; start < layer.length; start += concurrency) {\n                const batch = layer.slice(start, start + concurrency);\n                await Promise.all(batch.map(async (nodeId) => {\n                    if (failure)\n                        return;\n                    const node = doc.nodes.find(n => n.id === nodeId);\n                    try {\n                        cancelled();\n                        run.nodes[nodeId] = 'running';\n                        emit('node.started', node.title, nodeId);\n                        await checkpoint();\n                        cancelled();\n                        const incoming = doc.edges.filter(e => e.target === nodeId).sort((a, b) => a.id < b.id ? -1 : 1);\n                        const inputs = incoming.map(e => { const v = outputs.get(e.source); assert(v, 'DEPENDENCY', 'Нет выхода зависимости'); return v; });\n                        const result = await operate(node, inputs, files, doc);\n                        cancelled();\n                        retainedOutputBytes += result.value.type === 'text' ? bytes(result.value.text) : result.value.files.reduce((n, f) => n + bytes(f.content), 0);\n                        assert(retainedOutputBytes <= 64 * 1024 * 1024, 'WORKING_SET', 'Логические выходы графа превысили 64 МиБ');\n                        outputs.set(nodeId, result.value);\n                        const inherited = incoming.flatMap(e => findingsByNode.get(e.source) ?? []);\n                        findingsByNode.set(nodeId, result.findings.length ? result.findings : inherited);\n                        run.previews[nodeId] = result.value.type === 'text' ? result.value.text.slice(0, 180) : `${result.value.files.length} файл(ов) · ${result.value.files.reduce((s, f) => s + bytes(f.content), 0).toLocaleString('ru')} Б`;\n                        if (node.kind === 'result.files' && result.value.type === 'files') {\n                            const checks = verify(result.value.files, doc.goal.obligations);\n                            assert(checks.length && checks.every(f => f.passed), 'VERIFICATION', 'Финальный повтор проверки не пройден');\n                            run.artifacts.push(await seal(result.value.files, doc, checks));\n                            cancelled();\n                        }\n                        run.nodes[nodeId] = 'completed';\n                        emit('node.completed', run.previews[nodeId] ?? 'Выполнено', nodeId);\n                    }\n                    catch (error) {\n                        run.nodes[nodeId] = hooks.signal?.aborted ? 'cancelled' : 'failed';\n                        const e = error instanceof Error ? error : new Error(String(error));\n                        failure = e;\n                        emit('node.failed', e.message, nodeId);\n                    }\n                }));\n                if (failure)\n                    throw failure;\n            }\n        }\n        cancelled();\n        assert(run.artifacts.length, 'EMPTY', 'Нет запечатанного результата');\n        run.state = 'review';\n        emit('run.review', 'Локальные проверки выполнены. Решение владельца ещё не принято.');\n    }\n    catch (error) {\n        run.state = hooks.signal?.aborted ? 'cancelled' : 'failed';\n        run.error = error instanceof Error ? error.message : String(error);\n        run.artifacts = [];\n        for (const n of plan.order)\n            if (run.nodes[n] === 'queued' || run.nodes[n] === 'running')\n                run.nodes[n] = 'cancelled';\n        emit(`run.${run.state}`, run.error);\n    }\n    run.finishedAt = new Date().toISOString();\n    hooks.onUpdate?.(clone(run));\n    return clone(run);\n}\n\nreturn {verify,seal,validateArtifact,diff,publicationConflicts,execute};\n})();\n__modules[\"ui/worker.js\"] = (() => {\nconst { execute } = __modules[\"core/runtime.js\"];\nlet controller = null;\nself.onmessage = async (event) => {\n    if (event.data.type === 'cancel') {\n        controller?.abort();\n        return;\n    }\n    if (event.data.type !== 'run' || !event.data.document || !event.data.files)\n        return;\n    if (controller) {\n        self.postMessage({ type: 'error', message: 'Исполнитель уже занят' });\n        return;\n    }\n    controller = new AbortController();\n    try {\n        const run = await execute(event.data.document, event.data.files, { signal: controller.signal, concurrency: event.data.concurrency ?? 2, onUpdate: run => self.postMessage({ type: 'update', run }) });\n        self.postMessage({ type: 'done', run });\n    }\n    catch (error) {\n        self.postMessage({ type: 'error', message: error instanceof Error ? error.message : String(error) });\n    }\n    finally {\n        controller = null;\n    }\n};\n\nreturn {};\n})();\n})();";
+(()=>{'use strict';const __modules=Object.create(null);
+__modules["core/model.js"] = (() => {
+const CATALOG = [
+    { kind: 'source.files', label: 'Файлы проекта', description: 'Зафиксированная копия выбранных текстовых файлов', input: null, output: 'files', available: true, category: 'Источники' },
+    { kind: 'source.text', label: 'Текст', description: 'Текстовый источник без вызова модели', input: null, output: 'text', available: true, category: 'Источники' },
+    { kind: 'files.filter', label: 'Выбрать файлы', description: 'Фильтр по расширению или части пути', input: 'files', output: 'files', available: true, category: 'Обработка' },
+    { kind: 'files.normalize', label: 'Нормализовать текст', description: 'LF, удалить пробелы в конце строк, завершающий перевод строки', input: 'files', output: 'files', available: true, category: 'Обработка' },
+    { kind: 'files.replace', label: 'Заменить в файлах', description: 'Буквальная замена; без регулярных выражений и выполнения кода', input: 'files', output: 'files', available: true, category: 'Обработка' },
+    { kind: 'files.report', label: 'Отчёт по файлам', description: 'Настоящие пути, размеры, строки и SHA-256 каждого файла', input: 'files', output: 'text', available: true, category: 'Обработка' },
+    { kind: 'text.replace', label: 'Заменить в тексте', description: 'Заменить точное вхождение', input: 'text', output: 'text', available: true, category: 'Обработка' },
+    { kind: 'text.stats', label: 'Статистика текста', description: 'Посчитать строки, символы, слова и байты', input: 'text', output: 'text', available: true, category: 'Обработка' },
+    { kind: 'text.to_file', label: 'Сохранить как файл', description: 'Создать файл результата в рабочем снимке', input: 'text', output: 'files', available: true, category: 'Результаты' },
+    { kind: 'files.merge', label: 'Объединить наборы', description: 'Все входы один раз; конфликт содержимого останавливает узел', input: 'files', output: 'files', available: true, category: 'Конструкция' },
+    { kind: 'verify.files', label: 'Проверить обязательства', description: 'Проверка по зафиксированной редакции цели', input: 'files', output: 'files', available: true, category: 'Проверка' },
+    { kind: 'result.files', label: 'Предъявить результат', description: 'Запечатать манифест и показать реальные изменения', input: 'files', output: 'files', available: true, category: 'Результаты' },
+    { kind: 'agent.codex', label: 'Роль · Codex', description: 'Заблокирован до приёмки Windows-изоляции и реального адаптера', input: 'files', output: 'files', available: false, category: 'Агенты' },
+    { kind: 'note', label: 'Заметка', description: 'Аннотация; не является операцией исполнения', input: null, output: null, available: true, category: 'Конструкция' }
+];
+const LIMITS = Object.freeze({ nodes: 500, edges: 1000, files: 256, fileBytes: 1048576, totalBytes: 8388608, runs: 30, events: 4096, workspaces: 32, sheets: 64 });
+function id(prefix = 'id') { return `${prefix}_${crypto.randomUUID()}`; }
+function clone(value) { return structuredClone(value); }
+function bytes(text) { return new TextEncoder().encode(text).length; }
+function definition(kind) { return CATALOG.find(c => c.kind === kind); }
+function normalizeText(text) { return text.replace(/\r\n?/g, '\n').split('\n').map(l => l.replace(/[\t ]+$/g, '')).join('\n').replace(/\n*$/, '\n'); }
+class DomainError extends Error {
+    code;
+    constructor(code, message) {
+        super(message);
+        this.code = code;
+        this.name = 'DomainError';
+    }
+}
+function assert(condition, code, message) {
+    if (!condition)
+        throw new DomainError(code, message);
+}
+function safePath(path) {
+    assert(typeof path === 'string' && path.length > 0 && path.length <= 240, 'PATH', 'Путь должен содержать от 1 до 240 символов');
+    assert(!/[\\:\u0000-\u001f]/u.test(path) && !path.startsWith('/'), 'PATH', 'Абсолютный, служебный или Windows-путь недопустим');
+    for (const part of path.split('/')) {
+        assert(part && part !== '.' && part !== '..' && !/[. ]$/.test(part), 'PATH', 'Недопустимый сегмент пути');
+        assert(!/^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(part) && !/[<>"|?*]/.test(part), 'PATH', 'Зарезервированное имя Windows');
+    }
+    return path;
+}
+function validateFiles(files) {
+    assert(files.length <= LIMITS.files, 'LIMIT', 'Слишком много файлов');
+    const names = new Set();
+    let size = 0;
+    for (const f of files) {
+        safePath(f.path);
+        const key = f.path.toLocaleLowerCase('en-US');
+        assert(!names.has(key), 'PATH_COLLISION', `Повтор пути: ${f.path}`);
+        names.add(key);
+        assert(typeof f.content === 'string' && !f.content.includes('\0'), 'FORMAT', `Только текст UTF-8: ${f.path}`);
+        const n = bytes(f.content);
+        assert(n <= LIMITS.fileBytes, 'LIMIT', `Файл превышает 1 МиБ: ${f.path}`);
+        size += n;
+    }
+    assert(size <= LIMITS.totalBytes, 'LIMIT', 'Набор превышает 8 МиБ');
+}
+async function sha256(text) {
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function canonical(value) {
+    if (value === null || typeof value !== 'object')
+        return JSON.stringify(value);
+    if (Array.isArray(value))
+        return `[${value.map(canonical).join(',')}]`;
+    return `{${Object.entries(value).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([k, v]) => `${JSON.stringify(k)}:${canonical(v)}`).join(',')}}`;
+}
+
+return {CATALOG,LIMITS,id,clone,bytes,definition,normalizeText,DomainError,assert,safePath,validateFiles,sha256,canonical};
+})();
+__modules["core/graph.js"] = (() => {
+const { assert, bytes, CATALOG, clone, definition, id, LIMITS, safePath } = __modules["core/model.js"];
+/** Pure preflight; never touches a filesystem, provider or model. */
+function compile(doc) {
+    const diagnostics = [];
+    const active = doc.nodes.filter(n => n.kind !== 'note');
+    const nodes = new Map(active.map(n => [n.id, n]));
+    const degree = new Map(active.map(n => [n.id, 0]));
+    if (active.length > LIMITS.nodes || doc.edges.length > LIMITS.edges)
+        diagnostics.push({ code: 'GRAPH_LIMIT', message: 'Превышен предел размера конструкции' });
+    if (new Set(doc.nodes.map(n => n.id)).size !== doc.nodes.length)
+        diagnostics.push({ code: 'DUPLICATE_NODE', message: 'ID узлов повторяются' });
+    if (new Set(doc.edges.map(e => e.id)).size !== doc.edges.length)
+        diagnostics.push({ code: 'DUPLICATE_EDGE', message: 'ID связей повторяются' });
+    const edgePairs = new Set();
+    for (const edge of doc.edges) {
+        const from = nodes.get(edge.source), to = nodes.get(edge.target);
+        if (!from || !to) {
+            diagnostics.push({ code: 'MISSING_NODE', edgeId: edge.id, message: 'Связь указывает на отсутствующий или неисполняемый узел' });
+            continue;
+        }
+        const a = definition(from.kind), b = definition(to.kind);
+        const pair = `${edge.source}:${edge.target}`;
+        if (edgePairs.has(pair))
+            diagnostics.push({ code: 'DUPLICATE_LINK', edgeId: edge.id, message: 'Связь уже существует' });
+        edgePairs.add(pair);
+        if (edge.sourcePort !== 'out' || edge.targetPort !== 'in')
+            diagnostics.push({ code: 'PORT', edgeId: edge.id, message: 'Неизвестный именованный порт' });
+        if (!a?.output || a.output !== b?.input)
+            diagnostics.push({ code: 'TYPE', edgeId: edge.id, message: 'Типы портов несовместимы' });
+        degree.set(to.id, (degree.get(to.id) ?? 0) + 1);
+    }
+    for (const node of active) {
+        const def = definition(node.kind);
+        const inputs = degree.get(node.id) ?? 0;
+        if (!def?.available)
+            diagnostics.push({ code: 'UNAVAILABLE', nodeId: node.id, message: node.kind === 'agent.codex' ? 'Codex заблокирован: Windows-профиль и живое подключение ещё не приняты' : 'Операция недоступна' });
+        if (def?.input && inputs === 0)
+            diagnostics.push({ code: 'INPUT', nodeId: node.id, message: 'Обязательный вход не подключён' });
+        if (!def?.input && inputs > 0)
+            diagnostics.push({ code: 'UNEXPECTED_INPUT', nodeId: node.id, message: 'У источника нет входа' });
+        if (inputs > 1 && (node.kind !== 'files.merge' || node.params['readPolicy'] !== 'all-once'))
+            diagnostics.push({ code: 'READ_POLICY', nodeId: node.id, message: 'Несколько входов требуют узла объединения с правилом «все один раз»' });
+        if (node.kind === 'text.to_file') {
+            try {
+                safePath(String(node.params['path'] ?? ''));
+            }
+            catch {
+                diagnostics.push({ code: 'PATH', nodeId: node.id, message: 'Нужен безопасный относительный путь файла' });
+            }
+        }
+        if ((node.kind === 'text.replace' || node.kind === 'files.replace') && !String(node.params['find'] ?? ''))
+            diagnostics.push({ code: 'PARAM', nodeId: node.id, message: 'Строка поиска не может быть пустой' });
+        if (node.kind === 'verify.files' && doc.goal.obligations.length === 0)
+            diagnostics.push({ code: 'CRITERIA', nodeId: node.id, message: 'В исходной цели нет проверяемых обязательств' });
+        if (node.kind === 'result.files') {
+            const upstream = doc.edges.filter(e => e.target === node.id);
+            if (!upstream.every(e => nodes.get(e.source)?.kind === 'verify.files'))
+                diagnostics.push({ code: 'UNVERIFIED_RESULT', nodeId: node.id, message: 'Результат должен получать данные непосредственно от проверки' });
+        }
+    }
+    if (!active.some(n => n.kind === 'result.files'))
+        diagnostics.push({ code: 'NO_RESULT', message: 'Добавьте узел предъявления результата' });
+    const pending = new Set(active.map(n => n.id));
+    const layers = [];
+    const order = [];
+    while (pending.size) {
+        const ready = [...pending].filter(n => degree.get(n) === 0).sort();
+        if (!ready.length) {
+            diagnostics.push({ code: 'CYCLE', message: 'Обнаружен цикл. Ограниченные циклы в этом инкременте ещё не реализованы' });
+            break;
+        }
+        layers.push(ready);
+        for (const n of ready) {
+            pending.delete(n);
+            order.push(n);
+            for (const e of doc.edges.filter(e => e.source === n))
+                degree.set(e.target, (degree.get(e.target) ?? 1) - 1);
+        }
+    }
+    // A quietly abandoned branch must not be reported as part of the accepted result.
+    const useful = new Set(active.filter(n => n.kind === 'result.files').map(n => n.id));
+    let changed = true;
+    while (changed) {
+        changed = false;
+        for (const e of doc.edges)
+            if (useful.has(e.target) && !useful.has(e.source)) {
+                useful.add(e.source);
+                changed = true;
+            }
+    }
+    for (const n of active)
+        if (!useful.has(n.id))
+            diagnostics.push({ code: 'UNUSED', nodeId: n.id, message: 'Ветка не ведёт к предъявляемому результату' });
+    return { documentId: doc.id, revision: doc.revision, order, layers, diagnostics };
+}
+function defaultParams(kind) {
+    switch (kind) {
+        case 'source.text': return { text: 'Текст нового источника' };
+        case 'files.filter': return { match: '.md' };
+        case 'files.replace':
+        case 'text.replace': return { find: 'TODO', replace: 'Готово' };
+        case 'text.to_file': return { path: 'result.md' };
+        case 'files.merge': return { readPolicy: 'all-once' };
+        case 'note': return { text: 'Заметка не исполняется' };
+        default: return {};
+    }
+}
+class Editor {
+    document;
+    past = [];
+    future = [];
+    constructor(document) {
+        this.document = document;
+        this.document = clone(document);
+    }
+    commit(mutator, expected = this.document.revision) {
+        assert(expected === this.document.revision, 'CONFLICT', 'Документ уже изменён. Сначала перечитайте текущую редакцию.');
+        const next = clone(this.document);
+        mutator(next);
+        next.revision = this.document.revision + 1;
+        validateDocument(next);
+        this.past.push(this.document);
+        if (this.past.length > 50)
+            this.past.shift();
+        this.future = [];
+        this.document = next;
+    }
+    undo() {
+        const old = this.past.pop();
+        if (!old)
+            return false;
+        this.future.push(this.document);
+        old.revision = this.document.revision + 1;
+        old.goal.revision = this.document.goal.revision + 1;
+        this.document = old;
+        return true;
+    }
+    redo() {
+        const next = this.future.pop();
+        if (!next)
+            return false;
+        this.past.push(this.document);
+        next.revision = this.document.revision + 1;
+        next.goal.revision = this.document.goal.revision + 1;
+        this.document = next;
+        return true;
+    }
+    add(kind, workspaceId, sheetId, x = 160, y = 160) {
+        const nodeId = id('node');
+        this.commit(d => {
+            assert(d.nodes.length < LIMITS.nodes, 'LIMIT', 'Достигнут предел узлов');
+            const sheet = d.workspaces.find(w => w.id === workspaceId)?.sheets.find(s => s.id === sheetId);
+            assert(sheet, 'SHEET', 'Лист не найден');
+            d.nodes.push({ id: nodeId, kind, title: definition(kind)?.label ?? kind, params: defaultParams(kind) });
+            sheet.views.push({ id: id('view'), nodeId, x, y });
+        });
+        return nodeId;
+    }
+    connect(source, target) {
+        this.commit(d => {
+            assert(source !== target, 'CYCLE', 'Нельзя соединить узел с собой');
+            const a = d.nodes.find(n => n.id === source), b = d.nodes.find(n => n.id === target);
+            assert(a && b, 'NODE', 'Узел не найден');
+            const out = definition(a.kind)?.output;
+            assert(out && out === definition(b.kind)?.input, 'TYPE', 'Типы портов несовместимы');
+            assert(!d.edges.some(e => e.source === source && e.target === target), 'DUPLICATE', 'Связь уже существует');
+            const edge = { id: id('edge'), source, target, sourcePort: 'out', targetPort: 'in' };
+            d.edges.push(edge);
+            assert(!compile(d).diagnostics.some(e => e.code === 'CYCLE'), 'CYCLE', 'Связь создаёт цикл');
+        });
+    }
+    remove(nodeId) {
+        this.commit(d => {
+            d.nodes = d.nodes.filter(n => n.id !== nodeId);
+            d.edges = d.edges.filter(e => e.source !== nodeId && e.target !== nodeId);
+            for (const w of d.workspaces)
+                for (const s of w.sheets)
+                    s.views = s.views.filter(v => v.nodeId !== nodeId);
+        });
+    }
+    reference(nodeId, workspaceId, sheetId) {
+        this.commit(d => {
+            assert(d.nodes.some(n => n.id === nodeId), 'NODE', 'Нет такого узла');
+            const sheet = d.workspaces.find(w => w.id === workspaceId)?.sheets.find(s => s.id === sheetId);
+            assert(sheet, 'SHEET', 'Лист не найден');
+            assert(!sheet.views.some(v => v.nodeId === nodeId), 'DUPLICATE', 'На этом листе узел уже виден');
+            sheet.views.push({ id: id('view'), nodeId, x: 160, y: 140 });
+        });
+    }
+}
+/** Validates imported documents before they enter rendering or execution. */
+function validateDocument(input) {
+    assert(input && typeof input === 'object', 'SCHEMA', 'Нужен объект документа');
+    const d = input;
+    assert(d.schema === 1 && typeof d.id === 'string' && typeof d.projectId === 'string' && typeof d.title === 'string', 'SCHEMA', 'Неподдержанная схема');
+    assert(Number.isSafeInteger(d.revision) && d.revision >= 1, 'SCHEMA', 'Некорректная редакция');
+    assert(Array.isArray(d.nodes) && d.nodes.length <= LIMITS.nodes && Array.isArray(d.edges) && d.edges.length <= LIMITS.edges, 'SCHEMA', 'Некорректный граф');
+    assert(d.goal && typeof d.goal.original === 'string' && bytes(d.goal.original) <= 65536 && Number.isSafeInteger(d.goal.revision) && d.goal.revision >= 1 && Array.isArray(d.goal.obligations) && d.goal.obligations.length <= 64, 'SCHEMA', 'Некорректная цель');
+    const nodeIds = new Set();
+    for (const n of d.nodes) {
+        assert(typeof n.id === 'string' && n.id.length < 128 && !nodeIds.has(n.id), 'SCHEMA', 'ID узла повторяется или недопустим');
+        nodeIds.add(n.id);
+        assert(CATALOG.some(c => c.kind === n.kind) && typeof n.title === 'string' && n.title.length <= 512, 'SCHEMA', 'Некорректная операция');
+        assert(n.params && typeof n.params === 'object' && !Array.isArray(n.params), 'SCHEMA', 'Некорректные параметры');
+        assert(Object.entries(n.params).every(([k, v]) => !['__proto__', 'constructor', 'prototype'].includes(k) && ['string', 'boolean', 'number'].includes(typeof v) && (typeof v !== 'number' || Number.isFinite(v))), 'SCHEMA', 'Недопустимое значение параметра');
+        assert(bytes(JSON.stringify(n.params)) <= LIMITS.fileBytes, 'LIMIT', 'Параметры слишком большие');
+    }
+    const edgeIds = new Set();
+    for (const e of d.edges) {
+        assert(typeof e.id === 'string' && !edgeIds.has(e.id) && typeof e.source === 'string' && typeof e.target === 'string' && e.sourcePort === 'out' && e.targetPort === 'in', 'SCHEMA', 'Некорректная связь');
+        edgeIds.add(e.id);
+    }
+    const ids = new Set();
+    assert(Array.isArray(d.workspaces) && d.workspaces.length > 0 && d.workspaces.length <= LIMITS.workspaces, 'SCHEMA', 'Некорректные пространства');
+    for (const w of d.workspaces) {
+        assert(typeof w.id === 'string' && !ids.has(w.id) && typeof w.title === 'string' && Array.isArray(w.sheets) && w.sheets.length > 0 && w.sheets.length <= LIMITS.sheets, 'SCHEMA', 'Некорректное пространство');
+        ids.add(w.id);
+        for (const s of w.sheets) {
+            assert(typeof s.id === 'string' && !ids.has(s.id) && typeof s.title === 'string' && Array.isArray(s.views) && s.views.length <= LIMITS.nodes, 'SCHEMA', 'Некорректный лист');
+            ids.add(s.id);
+            assert(s.viewport && Number.isFinite(s.viewport.x) && Number.isFinite(s.viewport.y) && Number.isFinite(s.viewport.zoom) && s.viewport.zoom >= .2 && s.viewport.zoom <= 2, 'SCHEMA', 'Некорректный масштаб');
+            const shown = new Set();
+            for (const v of s.views) {
+                assert(typeof v.id === 'string' && !ids.has(v.id) && nodeIds.has(v.nodeId) && !shown.has(v.nodeId) && Number.isFinite(v.x) && Number.isFinite(v.y) && Math.abs(v.x) < 100000 && Math.abs(v.y) < 100000, 'SCHEMA', 'Некорректное представление узла');
+                ids.add(v.id);
+                shown.add(v.nodeId);
+            }
+        }
+    }
+    const obligations = new Set();
+    for (const c of d.goal.obligations) {
+        assert(typeof c.id === 'string' && !obligations.has(c.id) && typeof c.description === 'string' && typeof c.path === 'string' && typeof c.value === 'string' && ['file_exists', 'contains', 'not_contains', 'valid_json', 'normalized', 'nonempty'].includes(c.kind), 'SCHEMA', 'Некорректное обязательство');
+        obligations.add(c.id);
+        if (c.path !== '*')
+            safePath(c.path);
+        if (c.kind === 'contains' || c.kind === 'not_contains')
+            assert(c.value.length > 0, 'SCHEMA', 'Пустая строка не является проверяемым критерием');
+    }
+}
+function createDocument(projectId, name, template = 'report') {
+    const w = { id: id('space'), title: 'Основное пространство', sheets: [{ id: id('sheet'), title: 'Конструкция', views: [], viewport: { x: 60, y: 100, zoom: .85 } }] };
+    const d = { schema: 1, id: id('doc'), projectId, title: name, revision: 1, goal: { original: '', revision: 1, obligations: [] }, nodes: [], edges: [], workspaces: [w] };
+    const add = (kind, x, y, params = {}) => { const n = { id: id('node'), kind, title: definition(kind).label, params: { ...defaultParams(kind), ...params } }; d.nodes.push(n); w.sheets[0].views.push({ id: id('view'), nodeId: n.id, x, y }); return n; };
+    const link = (a, b) => d.edges.push({ id: id('edge'), source: a.id, target: b.id, sourcePort: 'out', targetPort: 'in' });
+    const check = (o) => d.goal.obligations.push({ ...o, id: id('obligation') });
+    if (template === 'empty')
+        return d;
+    const a = add('source.files', 30, 160);
+    if (template === 'report') {
+        d.goal.original = 'Составить проверяемый отчёт по выбранным файлам: пути, объём, строки и хэши. Оригиналы не изменять.';
+        const b = add('files.report', 350, 160), c = add('text.to_file', 670, 160, { path: 'project-report.md' }), v = add('verify.files', 990, 160), r = add('result.files', 1310, 160);
+        link(a, b);
+        link(b, c);
+        link(c, v);
+        link(v, r);
+        check({ kind: 'contains', path: 'project-report.md', value: 'SHA-256', description: 'В отчёте есть хэши исходных файлов' });
+        check({ kind: 'nonempty', path: 'project-report.md', value: '', description: 'Отчёт не пуст' });
+    }
+    else if (template === 'normalize') {
+        d.goal.original = 'Нормализовать окончания строк и пробелы текстовых файлов. Сохранить исходники; предъявить изменённую копию.';
+        const b = add('files.normalize', 350, 160), v = add('verify.files', 670, 160), r = add('result.files', 990, 160);
+        link(a, b);
+        link(b, v);
+        link(v, r);
+        check({ kind: 'normalized', path: '*', value: '', description: 'LF, без хвостовых пробелов, с завершающим переводом строки' });
+    }
+    else {
+        d.goal.original = 'Поручить работу Codex; требуется проверенный Windows-профиль.';
+        const b = add('agent.codex', 350, 160), v = add('verify.files', 670, 160), r = add('result.files', 990, 160);
+        link(a, b);
+        link(b, v);
+        link(v, r);
+        check({ kind: 'nonempty', path: '*', value: '', description: 'Предъявлены реальные файлы; семантическая приёмка ещё не настроена' });
+    }
+    return d;
+}
+
+return {compile,defaultParams,Editor,validateDocument,createDocument};
+})();
+__modules["core/runtime.js"] = (() => {
+const { assert, bytes, canonical, clone, DomainError, id, LIMITS, normalizeText, safePath, sha256, validateFiles } = __modules["core/model.js"];
+const { compile, validateDocument } = __modules["core/graph.js"];
+function verify(files, checks) {
+    return checks.map(c => {
+        const selected = files.filter(f => c.path === '*' || f.path === c.path);
+        let passed = selected.length > 0;
+        if (passed)
+            for (const f of selected) {
+                switch (c.kind) {
+                    case 'file_exists': break;
+                    case 'contains':
+                        passed = passed && f.content.includes(c.value);
+                        break;
+                    case 'not_contains':
+                        passed = passed && !f.content.includes(c.value);
+                        break;
+                    case 'nonempty':
+                        passed = passed && f.content.trim().length > 0;
+                        break;
+                    case 'normalized':
+                        passed = passed && normalizeText(f.content) === f.content;
+                        break;
+                    case 'valid_json':
+                        try {
+                            JSON.parse(f.content);
+                        }
+                        catch {
+                            passed = false;
+                        }
+                        break;
+                    default: passed = false;
+                }
+            }
+        return { obligationId: c.id, description: c.description, passed, detail: selected.length === 0 ? 'Ни один файл не соответствует пути' : `${selected.length} файл(ов) · ${passed ? 'условие выполнено' : 'условие не выполнено'}` };
+    });
+}
+async function seal(files, doc, findings) {
+    validateFiles(files);
+    const manifest = [];
+    for (const f of [...files].sort((a, b) => a.path < b.path ? -1 : 1))
+        manifest.push({ path: f.path, hash: await sha256(f.content), bytes: bytes(f.content) });
+    const hash = await sha256(canonical({ manifest, goalRevision: doc.goal.revision, graphRevision: doc.revision }));
+    return { id: `sha256:${hash}`, files: clone([...files]), manifest, hash, goalRevision: doc.goal.revision, graphRevision: doc.revision, findings: clone(findings) };
+}
+async function validateArtifact(artifact) {
+    try {
+        validateFiles(artifact.files);
+        const entries = [];
+        for (const f of [...artifact.files].sort((a, b) => a.path < b.path ? -1 : 1))
+            entries.push({ path: f.path, hash: await sha256(f.content), bytes: bytes(f.content) });
+        return artifact.id === `sha256:${artifact.hash}` && canonical(entries) === canonical(artifact.manifest) && artifact.hash === await sha256(canonical({ manifest: entries, goalRevision: artifact.goalRevision, graphRevision: artifact.graphRevision }));
+    }
+    catch {
+        return false;
+    }
+}
+function diff(base, next) {
+    const a = new Map(base.map(f => [f.path, f.content])), b = new Map(next.map(f => [f.path, f.content]));
+    return [...new Set([...a.keys(), ...b.keys()])].sort().map(path => ({ path, status: !a.has(path) ? 'added' : !b.has(path) ? 'removed' : a.get(path) === b.get(path) ? 'unchanged' : 'modified', before: a.get(path) ?? null, after: b.get(path) ?? null }));
+}
+function publicationConflicts(base, current, next) {
+    const original = new Map(base.map(f => [f.path, f.content]));
+    const actual = new Map(current.map(f => [f.path, f.content]));
+    return diff(base, next).filter(c => c.status !== 'unchanged' && actual.get(c.path) !== original.get(c.path) && (actual.get(c.path) ?? null) !== c.after).map(c => c.path);
+}
+async function operate(node, inputs, files, doc) {
+    const first = inputs[0];
+    let value;
+    let findings = [];
+    const p = node.params;
+    const getFiles = () => { assert(first?.type === 'files', 'TYPE', 'Ожидался набор файлов'); return first.files; };
+    const getText = () => { assert(first?.type === 'text', 'TYPE', 'Ожидался текст'); return first.text; };
+    switch (node.kind) {
+        case 'source.files':
+            value = { type: 'files', files: clone(files) };
+            break;
+        case 'source.text':
+            value = { type: 'text', text: String(p['text'] ?? '') };
+            break;
+        case 'files.filter': {
+            const pattern = String(p['match'] ?? '');
+            value = { type: 'files', files: getFiles().filter(f => f.path.includes(pattern)) };
+            break;
+        }
+        case 'files.normalize':
+            value = { type: 'files', files: getFiles().map(f => ({ ...f, content: normalizeText(f.content) })) };
+            break;
+        case 'files.replace': {
+            const find = String(p['find'] ?? '');
+            assert(find, 'PARAM', 'Пустой поиск');
+            const replacement = String(p['replace'] ?? '');
+            value = { type: 'files', files: getFiles().map(f => ({ ...f, content: replaceBounded(f.content, find, replacement) })) };
+            break;
+        }
+        case 'text.replace': {
+            const find = String(p['find'] ?? '');
+            assert(find, 'PARAM', 'Пустой поиск');
+            value = { type: 'text', text: replaceBounded(getText(), find, String(p['replace'] ?? '')) };
+            break;
+        }
+        case 'text.stats': {
+            const text = getText();
+            value = { type: 'text', text: JSON.stringify({ lines: text ? text.split('\n').length : 0, characters: [...text].length, words: text.trim() ? text.trim().split(/\s+/u).length : 0, bytes: bytes(text) }, null, 2) };
+            break;
+        }
+        case 'files.report': {
+            const fs = getFiles();
+            assert(fs.length, 'EMPTY', 'Для отчёта нужен хотя бы один файл');
+            const rows = ['# Отчёт по проекту', '', '| Файл | Байт UTF-8 | Строк | SHA-256 |', '|---|---:|---:|---|'];
+            for (const f of fs)
+                rows.push(`| ${f.path.replaceAll('|', '\\|')} | ${bytes(f.content)} | ${f.content ? f.content.split('\n').length : 0} | ${await sha256(f.content)} |`);
+            rows.push('', `Всего файлов: ${fs.length}`, '');
+            value = { type: 'text', text: rows.join('\n') };
+            break;
+        }
+        case 'text.to_file':
+            value = { type: 'files', files: [{ path: safePath(String(p['path'] ?? '')), content: getText() }] };
+            break;
+        case 'files.merge': {
+            assert(p['readPolicy'] === 'all-once', 'READ_POLICY', 'Не задано правило чтения');
+            const map = new Map();
+            for (const input of inputs) {
+                assert(input.type === 'files', 'TYPE', 'Нужны файлы');
+                for (const f of input.files) {
+                    const old = map.get(f.path.toLowerCase());
+                    assert(!old || old.path === f.path && old.content === f.content, 'MERGE_CONFLICT', `Конфликт содержимого: ${f.path}`);
+                    map.set(f.path.toLowerCase(), f);
+                }
+            }
+            value = { type: 'files', files: [...map.values()] };
+            break;
+        }
+        case 'verify.files': {
+            const fs = getFiles();
+            findings = verify(fs, doc.goal.obligations);
+            assert(findings.length > 0 && findings.every(f => f.passed), 'VERIFICATION', findings.filter(f => !f.passed).map(f => f.description + ': ' + f.detail).join('; ') || 'Нет обязательств');
+            value = { type: 'files', files: fs };
+            break;
+        }
+        case 'result.files':
+            value = { type: 'files', files: getFiles() };
+            assert(value.files.length, 'EMPTY', 'Пустой набор не является результатом');
+            break;
+        default: throw new DomainError('UNAVAILABLE', 'Операция не имеет принятого исполнителя');
+    }
+    if (value.type === 'files')
+        validateFiles(value.files);
+    else
+        assert(bytes(value.text) <= LIMITS.fileBytes, 'LIMIT', 'Результат текста превышает 1 МиБ');
+    return { value, findings };
+}
+function replaceBounded(text, find, replacement) {
+    const count = text.split(find).length - 1;
+    // Bound before allocation; UTF-8 check follows after replacement.
+    assert(text.length + count * (replacement.length - find.length) <= LIMITS.fileBytes, 'LIMIT', 'Замена превысит допустимый размер');
+    return text.replaceAll(find, replacement);
+}
+/** Executes only compiled, built-in pure operations; never evals code or starts a process. */
+async function execute(document, sourceFiles, hooks = {}) {
+    validateDocument(document);
+    validateFiles(sourceFiles);
+    const doc = clone(document), files = clone(sourceFiles), plan = compile(doc);
+    assert(!plan.diagnostics.length, 'PREFLIGHT', plan.diagnostics.map(d => d.message).join('\n'));
+    const run = { id: id('run'), documentId: doc.id, revision: doc.revision, goalRevision: doc.goal.revision, state: 'running', startedAt: new Date().toISOString(), finishedAt: null, nodes: {}, previews: {}, events: [], artifacts: [], error: null, profile: hooks.profile ?? 'browser-local', inputHash: await sha256(canonical(files)), documentHash: await sha256(canonical(doc)), inputs: clone(files), goal: clone(doc.goal), accepted: false };
+    for (const n of plan.order)
+        run.nodes[n] = 'queued';
+    let eventSeq = 0;
+    const emit = (kind, message, nodeId = null) => {
+        run.events.push({ seq: ++eventSeq, runId: run.id, at: new Date().toISOString(), kind, nodeId, message });
+        if (run.events.length > LIMITS.events)
+            run.events.shift();
+        hooks.onUpdate?.(clone(run));
+    };
+    const outputs = new Map();
+    const findingsByNode = new Map();
+    let failure = null;
+    let retainedOutputBytes = 0;
+    const cancelled = () => {
+        if (hooks.signal?.aborted)
+            throw new DomainError('CANCELLED', 'Отменено владельцем');
+    };
+    const checkpoint = hooks.checkpoint ?? (() => new Promise(resolve => setTimeout(resolve, 0)));
+    const concurrency = Math.max(1, Math.min(4, hooks.concurrency ?? 2));
+    emit('run.started', 'Зафиксированы цель, конструкция и входы');
+    try {
+        for (const layer of plan.layers) {
+            cancelled();
+            for (let start = 0; start < layer.length; start += concurrency) {
+                const batch = layer.slice(start, start + concurrency);
+                await Promise.all(batch.map(async (nodeId) => {
+                    if (failure)
+                        return;
+                    const node = doc.nodes.find(n => n.id === nodeId);
+                    try {
+                        cancelled();
+                        run.nodes[nodeId] = 'running';
+                        emit('node.started', node.title, nodeId);
+                        await checkpoint();
+                        cancelled();
+                        const incoming = doc.edges.filter(e => e.target === nodeId).sort((a, b) => a.id < b.id ? -1 : 1);
+                        const inputs = incoming.map(e => { const v = outputs.get(e.source); assert(v, 'DEPENDENCY', 'Нет выхода зависимости'); return v; });
+                        const result = await operate(node, inputs, files, doc);
+                        cancelled();
+                        retainedOutputBytes += result.value.type === 'text' ? bytes(result.value.text) : result.value.files.reduce((n, f) => n + bytes(f.content), 0);
+                        assert(retainedOutputBytes <= 64 * 1024 * 1024, 'WORKING_SET', 'Логические выходы графа превысили 64 МиБ');
+                        outputs.set(nodeId, result.value);
+                        const inherited = incoming.flatMap(e => findingsByNode.get(e.source) ?? []);
+                        findingsByNode.set(nodeId, result.findings.length ? result.findings : inherited);
+                        run.previews[nodeId] = result.value.type === 'text' ? result.value.text.slice(0, 180) : `${result.value.files.length} файл(ов) · ${result.value.files.reduce((s, f) => s + bytes(f.content), 0).toLocaleString('ru')} Б`;
+                        if (node.kind === 'result.files' && result.value.type === 'files') {
+                            const checks = verify(result.value.files, doc.goal.obligations);
+                            assert(checks.length && checks.every(f => f.passed), 'VERIFICATION', 'Финальный повтор проверки не пройден');
+                            run.artifacts.push(await seal(result.value.files, doc, checks));
+                            cancelled();
+                        }
+                        run.nodes[nodeId] = 'completed';
+                        emit('node.completed', run.previews[nodeId] ?? 'Выполнено', nodeId);
+                    }
+                    catch (error) {
+                        run.nodes[nodeId] = hooks.signal?.aborted ? 'cancelled' : 'failed';
+                        const e = error instanceof Error ? error : new Error(String(error));
+                        failure = e;
+                        emit('node.failed', e.message, nodeId);
+                    }
+                }));
+                if (failure)
+                    throw failure;
+            }
+        }
+        cancelled();
+        assert(run.artifacts.length, 'EMPTY', 'Нет запечатанного результата');
+        run.state = 'review';
+        emit('run.review', 'Локальные проверки выполнены. Решение владельца ещё не принято.');
+    }
+    catch (error) {
+        run.state = hooks.signal?.aborted ? 'cancelled' : 'failed';
+        run.error = error instanceof Error ? error.message : String(error);
+        run.artifacts = [];
+        for (const n of plan.order)
+            if (run.nodes[n] === 'queued' || run.nodes[n] === 'running')
+                run.nodes[n] = 'cancelled';
+        emit(`run.${run.state}`, run.error);
+    }
+    run.finishedAt = new Date().toISOString();
+    hooks.onUpdate?.(clone(run));
+    return clone(run);
+}
+
+return {verify,seal,validateArtifact,diff,publicationConflicts,execute};
+})();
+__modules["core/review.js"] = (() => {
+/** Deterministic local reinspection. Not OS-isolated verification or semantic AI judgment. */
+const { assert, canonical, clone, sha256, validateFiles, safePath } = __modules["core/model.js"];
+const { validateArtifact, verify } = __modules["core/runtime.js"];
+/** No timestamp, display label or self-reported finding is an authority. */
+async function resultBinding(run) {
+    return sha256(canonical({
+        schema: 1, runId: run.id, documentId: run.documentId,
+        documentHash: run.documentHash, inputHash: run.inputHash, commandFingerprint: run.commandFingerprint ?? null,
+        graphRevision: run.revision, goalRevision: run.goalRevision,
+        goal: run.goal, artifactHashes: run.artifacts.map(a => a.hash)
+    }));
+}
+async function inspectResult(run) {
+    assert(run.state === 'review', 'STATE', 'Запуск не предъявлен для оценки');
+    assert(!run.cancelRequested, 'CANCELLED', 'Запрошена отмена; принятие запрещено');
+    assert(run.goal && run.goal.revision === run.goalRevision && run.goal.obligations.length > 0, 'GOAL_BINDING', 'Цель или её редакция не соответствует запуску');
+    const criterionIds = new Set();
+    for (const check of run.goal.obligations) {
+        assert(typeof check.id === 'string' && !criterionIds.has(check.id) && typeof check.value === 'string'
+            && typeof check.description === 'string' && ['file_exists', 'contains', 'not_contains', 'nonempty', 'normalized', 'valid_json'].includes(check.kind), 'CRITERION', 'Повреждённый или неизвестный критерий');
+        criterionIds.add(check.id);
+        if (check.path !== '*')
+            safePath(check.path);
+        if (check.kind === 'contains' || check.kind === 'not_contains')
+            assert(check.value.length > 0, 'CRITERION', 'Пустая проверочная строка');
+    }
+    assert(Number.isSafeInteger(run.revision) && run.revision > 0 && Number.isSafeInteger(run.goalRevision) && run.goalRevision > 0, 'REVISION', 'Повреждена редакция результата');
+    assert(/^[0-9a-f]{64}$/.test(run.documentHash) && /^[0-9a-f]{64}$/.test(run.inputHash), 'HASH', 'Нет отпечатка исходных данных');
+    validateFiles(run.inputs);
+    // Native v0.1 used a different JSON field order. Native inputs are verified by the host against its spec.
+    if (run.profile === 'browser-local')
+        assert(await sha256(canonical(run.inputs)) === run.inputHash, 'INPUT_BINDING', 'Исходный снимок запуска изменён');
+    const states = Object.values(run.nodes);
+    assert(states.length > 0 && states.every(s => s === 'completed'), 'INCOMPLETE', 'Не все операции завершены');
+    assert(run.artifacts.length > 0 && run.artifacts.length <= 500, 'EMPTY', 'Нет конечных артефактов');
+    const findings = [];
+    for (const a of run.artifacts) {
+        assert(a.files.length > 0, 'EMPTY', 'Пустой набор файлов не является результатом');
+        assert(a.goalRevision === run.goalRevision && a.graphRevision === run.revision, 'ARTIFACT_BINDING', 'Артефакт принадлежит другой редакции цели или конструкции');
+        assert(await validateArtifact(a), 'ARTIFACT', 'Содержимое, манифест или ID артефакта изменены');
+        const checks = verify(a.files, run.goal.obligations);
+        assert(checks.length > 0 && checks.every(f => f.passed), 'VERIFICATION', checks.filter(f => !f.passed).map(f => f.description + ': ' + f.detail).join('; '));
+        findings.push({ artifactHash: a.hash, checks });
+    }
+    return { runId: run.id, bindingHash: await resultBinding(run), artifactHashes: run.artifacts.map(a => a.hash),
+        findings, inspectedAt: new Date().toISOString(), scope: 'builtin-criteria' };
+}
+async function acceptResult(run, expectedBinding) {
+    // Freeze before the first await: edits in the UI cannot replace inspected bytes mid-command.
+    const snapshot = clone(run);
+    const checked = await inspectResult(snapshot);
+    assert(checked.bindingHash === expectedBinding, 'STALE_RESULT', 'Результат изменился после просмотра. Проверьте новую версию');
+    if (snapshot.acceptance)
+        assert(snapshot.acceptance.schema === 1 && snapshot.acceptance.actor === 'owner' && snapshot.acceptance.scope === 'builtin-criteria'
+            && snapshot.acceptance.runId === snapshot.id && snapshot.acceptance.bindingHash === expectedBinding
+            && canonical(snapshot.acceptance.artifactHashes) === canonical(checked.artifactHashes), 'ACCEPTANCE', 'Сохранённое решение принятия повреждено или относится к другому снимку');
+    snapshot.accepted = true;
+    snapshot.acceptance = snapshot.acceptance ?? { schema: 1, runId: snapshot.id,
+        bindingHash: checked.bindingHash, artifactHashes: checked.artifactHashes,
+        at: new Date().toISOString(), actor: 'owner', scope: 'builtin-criteria' };
+    return snapshot;
+}
+async function acceptedResultValid(run) {
+    try {
+        if (!run.accepted || !run.acceptance)
+            return false;
+        const receipt = run.acceptance;
+        const checked = await inspectResult(run);
+        return receipt.schema === 1 && receipt.actor === 'owner' && receipt.scope === 'builtin-criteria'
+            && receipt.runId === run.id && receipt.bindingHash === checked.bindingHash
+            && canonical(receipt.artifactHashes) === canonical(checked.artifactHashes);
+    }
+    catch {
+        return false;
+    }
+}
+/** Reject stale replies without mutating the newer cached projection. */
+function mergeProjection(previous, incoming) {
+    if (!previous)
+        return clone(incoming);
+    assert(previous.id === incoming.id && previous.documentId === incoming.documentId, 'RUN_BINDING', 'Ответ относится к другому запуску');
+    assert(previous.documentHash === incoming.documentHash && previous.inputHash === incoming.inputHash
+        && (previous.commandFingerprint ?? null) === (incoming.commandFingerprint ?? null)
+        && previous.revision === incoming.revision && previous.goalRevision === incoming.goalRevision
+        && canonical(previous.goal) === canonical(incoming.goal), 'RUN_BINDING', 'Ответ изменил зафиксированную задачу');
+    if (previous.state !== 'running' && incoming.state === 'running')
+        return clone(previous);
+    if (previous.state !== 'running') {
+        assert(incoming.state === previous.state && canonical(incoming.artifacts) === canonical(previous.artifacts), 'TERMINAL_IMMUTABLE', 'Завершённый результат не может быть заменён ответом исполнителя');
+        if (previous.accepted && !incoming.accepted)
+            return clone(previous);
+        if (previous.acceptance)
+            assert(canonical(previous.acceptance) === canonical(incoming.acceptance ?? null), 'ACCEPTANCE_REWRITE', 'Сохранённое решение владельца нельзя переписать');
+    }
+    if (previous.cancelRequested && !incoming.cancelRequested && incoming.state === 'running')
+        return clone(previous);
+    const oldSeq = previous.events.at(-1)?.seq ?? 0, newSeq = incoming.events.at(-1)?.seq ?? 0;
+    if (newSeq < oldSeq)
+        return clone(previous);
+    const overlap = new Map(previous.events.map(e => [e.seq, canonical(e)]));
+    for (const event of incoming.events)
+        assert(!overlap.has(event.seq) || overlap.get(event.seq) === canonical(event), 'EVENT_REWRITE', 'История событий переписана');
+    return clone(incoming);
+}
+
+return {resultBinding,inspectResult,acceptResult,acceptedResultValid,mergeProjection};
+})();
+__modules["core/outbox.js"] = (() => {
+/** Persisted start intent. Transport loss never means that execution did not start. */
+const { assert, bytes, canonical, clone, id, sha256, validateFiles } = __modules["core/model.js"];
+const { validateDocument } = __modules["core/graph.js"];
+function pendingIntent(intent) { return intent.state !== 'confirmed'; }
+async function validateIntent(intent) {
+    assert(intent.schema === 1 && /^[a-zA-Z0-9_-]{1,128}$/.test(intent.id)
+        && Number.isSafeInteger(intent.revision) && intent.revision >= 0
+        && Number.isSafeInteger(intent.attempts) && intent.attempts >= 0 && intent.attempts <= 100, 'INTENT', 'Повреждена запись команды');
+    assert(['prepared', 'sending', 'unknown', 'confirmed'].includes(intent.state), 'INTENT', 'Неизвестное состояние команды');
+    validateDocument(intent.document);
+    validateFiles(intent.files);
+    assert(intent.projectId === intent.document.projectId, 'INTENT', 'Команда другого проекта');
+    assert(bytes(canonical({ document: intent.document, files: intent.files })) <= 24 * 1024 * 1024, 'INTENT_LIMIT', 'Команда превышает 24 МиБ');
+    assert(intent.fingerprint === await sha256(canonical({ document: intent.document, files: intent.files })), 'INTENT_CHANGED', 'Зафиксированное поручение изменено');
+    assert(intent.state !== 'confirmed' || !!intent.runId, 'INTENT', 'Нет ID подтверждённого запуска');
+}
+class StartOutbox {
+    repository;
+    transport;
+    inflight = new Map();
+    constructor(repository, transport) {
+        this.repository = repository;
+        this.transport = transport;
+    }
+    async prepare(document, files) {
+        const snapshot = clone({ document, files });
+        const intent = { schema: 1, id: id('command'), revision: 0, projectId: document.projectId,
+            createdAt: new Date().toISOString(), state: 'prepared', ...snapshot,
+            fingerprint: await sha256(canonical(snapshot)), attempts: 0, runId: null, lastError: null };
+        await validateIntent(intent);
+        await this.repository.insert(intent); // No transport call is possible before durable insertion.
+        return clone(intent);
+    }
+    single(id, work) {
+        const old = this.inflight.get(id);
+        if (old)
+            return old;
+        const promise = Promise.resolve().then(work).finally(() => this.inflight.delete(id));
+        this.inflight.set(id, promise);
+        return promise;
+    }
+    async read(id) {
+        const intent = await this.repository.get(id);
+        assert(intent, 'INTENT', 'Команда не найдена');
+        await validateIntent(intent);
+        return intent;
+    }
+    async set(intent, patch) {
+        const next = { ...intent, ...patch, revision: intent.revision + 1 };
+        await this.repository.replace(next, intent.revision);
+        return next;
+    }
+    async receipt(intent, run) {
+        assert(run.profile === 'native-builtins' && run.documentId === intent.document.id
+            && run.revision === intent.document.revision && run.goalRevision === intent.document.goal.revision
+            && canonical(run.goal) === canonical(intent.document.goal)
+            && canonical(run.inputs) === canonical(intent.files), 'RECEIPT_BINDING', 'Хост подтвердил другую задачу');
+        assert(run.commandFingerprint === intent.fingerprint, 'RECEIPT_BINDING', 'Отпечаток принятой команды не совпадает');
+        if (intent.runId)
+            assert(intent.runId === run.id, 'RECEIPT_BINDING', 'Один ID команды дал два запуска');
+        if (intent.state !== 'confirmed')
+            await this.set(intent, { state: 'confirmed', runId: run.id, lastError: null });
+        return clone(run);
+    }
+    async reconcile(id) {
+        return this.single(id, async () => {
+            const intent = await this.read(id);
+            const run = await this.transport.lookup(id); // A read, never an automatic dispatch.
+            if (run)
+                return this.receipt(intent, run);
+            if (intent.state === 'confirmed')
+                throw new Error('Подтверждённая команда отсутствует у хоста. Проверьте профиль/базу; повтор запрещён');
+            if (intent.state !== 'prepared')
+                await this.set(intent, { state: 'unknown', lastError: 'Хост пока не подтвердил запись. Безопасен только повтор с тем же ID в профиле durableCommands.' });
+            return null;
+        });
+    }
+    async send(id) {
+        return this.single(id, async () => {
+            let intent = await this.read(id);
+            const capability = await this.transport.capabilities();
+            assert(capability.protocol === 2 && capability.durableCommands === true, 'PROTOCOL', 'Хост не поддерживает устойчивые команды протокола 2. Исполнение не начато');
+            // A confirmed command cannot be recreated in a different/empty host store.
+            const existing = await this.transport.lookup(id);
+            if (existing)
+                return this.receipt(intent, existing);
+            assert(intent.state !== 'confirmed', 'HOST_HISTORY_LOST', 'Хост утратил подтверждённую команду. Новый запуск запрещён');
+            assert(intent.attempts < 100, 'ATTEMPTS', 'Лимит отправок этой команды исчерпан');
+            intent = await this.set(intent, { state: 'sending', attempts: intent.attempts + 1, lastError: null });
+            try {
+                return await this.receipt(intent, await this.transport.start(id, clone(intent.document), clone(intent.files)));
+            }
+            catch (error) {
+                // Even a lost client commit may follow a successful host commit. Never generate another ID here.
+                try {
+                    await this.set(intent, { state: 'unknown', lastError: String(error).slice(0, 1000) });
+                }
+                catch { /* Keep the durable 'sending' intent for recovery; do not hide the original error. */ }
+                throw error;
+            }
+        });
+    }
+}
+
+return {pendingIntent,validateIntent,StartOutbox};
+})();
+__modules["ui/command-store.js"] = (() => {
+const { assert, bytes, clone } = __modules["core/model.js"];
+/** Local durable outbox separate from editable UI state; no in-memory fallback. */
+class IndexedIntentRepository {
+    db = null;
+    async open() {
+        if (this.db)
+            return;
+        this.db = await new Promise((resolve, reject) => {
+            const request = indexedDB.open('platform-studio-commands-v1', 1);
+            request.onupgradeneeded = () => request.result.createObjectStore('intents', { keyPath: 'id' });
+            request.onsuccess = () => { request.result.onversionchange = () => { request.result.close(); this.db = null; }; resolve(request.result); };
+            request.onerror = () => reject(request.error);
+            request.onblocked = () => reject(new Error('Хранилище команд занято другой версией приложения'));
+        });
+    }
+    transaction(mode) {
+        assert(this.db, 'OUTBOX_UNAVAILABLE', 'Нет устойчивого хранилища команд; новый запуск запрещён');
+        return this.db.transaction('intents', mode, { durability: 'strict' });
+    }
+    async get(id) {
+        return new Promise((resolve, reject) => {
+            const tx = this.transaction('readonly');
+            let value = null;
+            const req = tx.objectStore('intents').get(id);
+            req.onsuccess = () => { value = req.result ?? null; };
+            tx.oncomplete = () => resolve(value);
+            tx.onerror = tx.onabort = () => reject(tx.error ?? new Error('Не удалось прочитать команду'));
+        });
+    }
+    async list() {
+        return new Promise((resolve, reject) => {
+            const tx = this.transaction('readonly');
+            let value = [];
+            const req = tx.objectStore('intents').getAll();
+            req.onsuccess = () => { value = req.result; };
+            tx.oncomplete = () => resolve(value);
+            tx.onerror = tx.onabort = () => reject(tx.error ?? new Error('Не удалось прочитать команды'));
+        });
+    }
+    async insert(intent) {
+        return new Promise((resolve, reject) => {
+            const tx = this.transaction('readwrite'), store = tx.objectStore('intents');
+            let message = '';
+            const req = store.getAll();
+            req.onsuccess = () => {
+                const all = req.result;
+                // Never discard pending commands. Confirmed records remain in host commands for deduplication.
+                const keep = all.filter(x => x.state !== 'confirmed');
+                const confirmed = all.filter(x => x.state === 'confirmed').sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+                keep.push(...confirmed.slice(0, 31));
+                if (keep.length >= 64 || bytes(JSON.stringify([...keep, intent])) > 64 * 1024 * 1024) {
+                    message = 'Лимит очереди команд: сначала сверьте ожидающие результаты';
+                    tx.abort();
+                    return;
+                }
+                const kept = new Set(keep.map(x => x.id));
+                for (const old of all)
+                    if (!kept.has(old.id))
+                        store.delete(old.id);
+                store.add(clone(intent));
+            };
+            tx.oncomplete = () => resolve();
+            tx.onerror = tx.onabort = () => reject(new Error(message || tx.error?.message || 'Команда не сохранена; отправки не было'));
+        });
+    }
+    async replace(intent, expectedRevision) {
+        return new Promise((resolve, reject) => {
+            const tx = this.transaction('readwrite'), store = tx.objectStore('intents');
+            let conflict = false;
+            const req = store.get(intent.id);
+            req.onsuccess = () => {
+                const old = req.result;
+                if (!old || old.revision !== expectedRevision || intent.revision !== expectedRevision + 1
+                    || old.fingerprint !== intent.fingerprint) {
+                    conflict = true;
+                    tx.abort();
+                    return;
+                }
+                store.put(clone(intent));
+            };
+            tx.oncomplete = () => resolve();
+            tx.onerror = tx.onabort = () => reject(new Error(conflict ? 'OUTBOX_CONFLICT: команда изменена другим окном; нужна сверка' : tx.error?.message || 'Не удалось записать состояние команды'));
+        });
+    }
+}
+
+return {IndexedIntentRepository};
+})();
+__modules["core/codex.js"] = (() => {
+const { assert } = __modules["core/model.js"];
+/** Protocol builder only. No connection, no credential use, no unisolated process launch. */
+function codexInitialize(requestId) { return { id: requestId, method: 'initialize', params: { clientInfo: { name: 'platform_studio', title: 'Platform Studio', version: '0.1.0' }, capabilities: { experimentalApi: false } } }; }
+function codexThread(requestId, cwd) { return { id: requestId, method: 'thread/start', params: { cwd, approvalPolicy: 'never', sandbox: 'read-only' } }; }
+function codexSteer(requestId, threadId, turnId, text) { assert(threadId && turnId && text, 'CODEX', 'Не задан адрес активного хода'); return { id: requestId, method: 'turn/steer', params: { threadId, expectedTurnId: turnId, input: [{ type: 'text', text }] } }; }
+function codexInterrupt(requestId, threadId, turnId) { return { id: requestId, method: 'turn/interrupt', params: { threadId, turnId } }; }
+function supervisorContract(goal) {
+    // Never pretend that embedding the original is a correct automatic translation.
+    return `ROLE: accountable engineering supervisor\nReport to the owner in Russian. Write worker assignments and corrective feedback in English.\nPreserve the exact original request below. Produce an English interpretation with an explicit obligation-to-source mapping before execution. Do not silently narrow it.\nDo not launch applications, browsers, development servers, or unapproved processes. No Computer Use.\nA worker's claim is not evidence. Inspect artifacts, protected criteria, and independently observed effects.\nStop after the configured no-progress, time, or cost limit. A child or restart does not reset the budget.\nPublication requires separate owner authority.\n\nORIGINAL REQUEST (revision ${goal.revision}):\n${goal.original}\n\nOWNER CRITERIA:\n${JSON.stringify(goal.obligations, null, 2)}\n\nThis contract is data for a future adapter. It grants no permissions.`;
+}
+
+return {codexInitialize,codexThread,codexSteer,codexInterrupt,supervisorContract};
+})();
+__modules["ui/store.js"] = (() => {
+const { assert, clone, LIMITS, validateFiles } = __modules["core/model.js"];
+const { validateDocument } = __modules["core/graph.js"];
+function validateState(v) {
+    assert(v && typeof v === 'object', 'STATE', 'Некорректный архив');
+    const s = v;
+    assert(Number.isSafeInteger(s.revision) && s.revision >= 0 && (s.theme === 'dark' || s.theme === 'light'), 'STATE', 'Некорректная редакция или тема');
+    assert(s.schema === 1 && Array.isArray(s.projects) && s.projects.length > 0 && s.projects.length <= 32 && typeof s.activeProject === 'string' && Array.isArray(s.runs) && s.runs.length <= LIMITS.runs, 'STATE', 'Некорректная структура');
+    for (const p of s.projects) {
+        assert(typeof p.id === 'string' && typeof p.title === 'string' && Array.isArray(p.files), 'STATE', 'Некорректный проект');
+        validateDocument(p.document);
+        assert(p.document.projectId === p.id, 'STATE', 'Документ другого проекта');
+        validateFiles(p.files);
+    }
+    assert(new Set(s.projects.map(p => p.id)).size === s.projects.length && s.projects.some(p => p.id === s.activeProject), 'STATE', 'Неизвестный или повторный ID проекта');
+}
+const native = window.__TAURI__?.core ?? null;
+class Store {
+    db = null;
+    memory = null;
+    async open() {
+        if (native)
+            return;
+        this.db = await new Promise((resolve, reject) => { const r = indexedDB.open('platform-studio-v1', 1); r.onupgradeneeded = () => r.result.createObjectStore('state'); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error); });
+    }
+    async read() {
+        if (native)
+            return native.invoke('load_state');
+        if (!this.db)
+            return this.memory;
+        return new Promise((resolve, reject) => { const tx = this.db.transaction('state', 'readonly'); const q = tx.objectStore('state').get('current'); q.onsuccess = () => resolve(q.result ?? null); q.onerror = () => reject(q.error); });
+    }
+    async save(state, expected) {
+        validateState(state);
+        assert(new TextEncoder().encode(JSON.stringify(state)).byteLength <= 32 * 1024 * 1024, 'STORE_LIMIT', 'Состояние превысило 32 МиБ. Экспортируйте проект.');
+        if (native) {
+            await native.invoke('save_state', { state, expected });
+            return;
+        }
+        if (!this.db) {
+            if (this.memory)
+                assert(this.memory.revision === expected, 'CONFLICT', 'Состояние изменено в другом окне');
+            this.memory = clone(state);
+            return;
+        }
+        await new Promise((resolve, reject) => {
+            const tx = this.db.transaction('state', 'readwrite');
+            const store = tx.objectStore('state');
+            const q = store.get('current');
+            let conflict = false;
+            q.onsuccess = () => {
+                const old = q.result;
+                if (old && old.revision !== expected) {
+                    conflict = true;
+                    tx.abort();
+                    return;
+                }
+                store.put(clone(state), 'current');
+            };
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error);
+            tx.onabort = () => reject(new Error(conflict ? 'CONFLICT: состояние изменено в другом окне. Экспортируйте текущую работу и перезагрузите документ.' : 'Не удалось сохранить данные'));
+        });
+    }
+}
+
+return {validateState,native,Store};
+})();
+__modules["ui/app.js"] = (() => {
+const { assert, bytes, canonical, CATALOG, clone, definition, id, LIMITS, safePath, validateFiles } = __modules["core/model.js"];
+const { compile, createDocument, Editor, validateDocument } = __modules["core/graph.js"];
+const { diff, validateArtifact } = __modules["core/runtime.js"];
+const { acceptResult, acceptedResultValid, inspectResult, mergeProjection } = __modules["core/review.js"];
+const { StartOutbox, pendingIntent } = __modules["core/outbox.js"];
+const { IndexedIntentRepository } = __modules["ui/command-store.js"];
+const { supervisorContract } = __modules["core/codex.js"];
+const { native, Store, validateState } = __modules["ui/store.js"];
+const $ = (selector) => document.querySelector(selector);
+const esc = (text) => String(text).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const icon = (name) => `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${({
+    plus: '<path d="M12 5v14M5 12h14"/>', play: '<path d="m8 5 11 7-11 7Z"/>', stop: '<rect x="6" y="6" width="12" height="12" rx="2"/>',
+    grid: '<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',
+    search: '<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/>', folder: '<path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v10H3Z"/>',
+    arrow: '<path d="M12 19V5m-6 6 6-6 6 6"/>', check: '<path d="m5 12 4 4L19 6"/>', clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    file: '<path d="M14 3H5v18h14V8Z"/><path d="M14 3v5h5M8 12h8M8 16h5"/>', settings: '<path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="8" cy="18" r="2"/>',
+    x: '<path d="m6 6 12 12M18 6 6 18"/>', download: '<path d="M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4"/>',
+    link: '<path d="m9 15 6-6M8 17l-2 2a4 4 0 0 1-5-5l5-5a4 4 0 0 1 5 0M16 7l2-2a4 4 0 0 1 5 5l-5 5a4 4 0 0 1-5 0"/>',
+    undo: '<path d="M4 10h10a6 6 0 0 1 0 12M4 10l5-5M4 10l5 5"/>', spark: '<path d="m12 3 2.7 6.3L21 12l-6.3 2.7L12 21l-2.7-6.3L3 12l6.3-2.7Z"/>',
+    chevron: '<path d="m9 5 7 7-7 7"/>', split: '<path d="M4 12h5m0 0 5-6h6M9 12l5 6h6"/>', shield: '<path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6Z"/><path d="m8 12 3 3 5-6"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l2 2m10 10 2 2M19 5l-2 2M7 17l-2 2"/>',
+}[name] ?? '<circle cx="12" cy="12" r="7"/>')}</svg>`;
+const stateLabels = { queued: 'В очереди', running: 'В работе', completed: 'Выполнено', failed: 'Ошибка', cancelled: 'Отменено', review: 'Нужна оценка', interrupted: 'Прервано' };
+const opIcon = (kind) => kind.startsWith('source') ? 'folder' : kind.startsWith('verify') ? 'shield' : kind.startsWith('result') ? 'file' : kind.startsWith('agent') ? 'spark' : 'split';
+let state;
+let editor;
+const store = new Store();
+let selected = null;
+let mode = 'canvas';
+let worker = null;
+let busy = false;
+let currentRun = null;
+let sourceAtRun = [];
+let connectFrom = null;
+let saveTimer = null;
+let saving = false;
+let dirty = false;
+let persistenceFailed = false;
+let persistedRevision = 0;
+let paletteFilter = '';
+let lastPreviewFile = 0;
+let lastArtifact = 0;
+const intentRepository = new IndexedIntentRepository();
+let outbox = null;
+let intents = [];
+let commandBusy = false;
+let quiet = false;
+let nativeTimer = null;
+const active = () => state.projects.find(p => p.id === state.activeProject);
+const workspace = () => editor.document.workspaces.find(w => w.id === active().selectedWorkspace) ?? editor.document.workspaces[0];
+const sheet = () => workspace().sheets.find(s => s.id === active().selectedSheet) ?? workspace().sheets[0];
+const node = () => editor.document.nodes.find(n => n.id === selected);
+const run = () => currentRun ?? state.runs.find(r => r.id === active().selectedRun) ?? null;
+function toast(text, error = false) { const box = $('#toast'); box.textContent = text; box.classList.toggle('error', error); box.classList.add('show'); setTimeout(() => box.classList.remove('show'), 6000); }
+function errorMessage(e) { return e instanceof Error ? e.message : String(e); }
+function protect(fn) { void Promise.resolve().then(fn).catch(e => toast(errorMessage(e), true)); }
+function status(text, bad = false) { $('#save-state').textContent = text; $('#save-state').classList.toggle('bad', bad); }
+function changed(renderAll = true) {
+    active().document = clone(editor.document);
+    dirty = true;
+    if (saveTimer)
+        clearTimeout(saveTimer);
+    status('Сохраняется…');
+    saveTimer = setTimeout(() => void persist(), 300);
+    if (renderAll)
+        render();
+}
+async function persist() {
+    if (saving || !dirty || persistenceFailed)
+        return;
+    saving = true;
+    dirty = false;
+    const snapshot = clone(state);
+    snapshot.revision = persistedRevision + 1;
+    try {
+        await store.save(snapshot, persistedRevision);
+        persistedRevision = snapshot.revision;
+        state.revision = persistedRevision;
+        status('Сохранено локально');
+    }
+    catch (e) {
+        persistenceFailed = true;
+        dirty = true;
+        status('Не сохранено · экспортируйте проект', true);
+        toast(errorMessage(e), true);
+    }
+    finally {
+        saving = false;
+        if (dirty && !persistenceFailed)
+            void persist();
+    }
+}
+function initialProject(title = 'Пример · отчёт по проекту', template = 'report') {
+    const projectId = id('project'), document = createDocument(projectId, title, template);
+    return { id: projectId, title, document, files: [], selectedWorkspace: document.workspaces[0].id, selectedSheet: document.workspaces[0].sheets[0].id, selectedRun: null };
+}
+async function boot() {
+    try {
+        await store.open();
+        const saved = await store.read();
+        if (saved) {
+            validateState(saved);
+            state = saved;
+            persistedRevision = saved.revision;
+        }
+    }
+    catch (e) {
+        persistenceFailed = true;
+        toast('Хранилище недоступно: ' + errorMessage(e) + '. Сохраните работу экспортом.', true);
+    }
+    if (!state) {
+        const p = initialProject();
+        p.files = [{ path: 'README.md', content: '# Небольшой проект\r\n\r\nТекст для проверки локальной обработки.   \r\n' }, { path: 'config.json', content: '{\n  "theme": "dark",\n  "language": "ru"\n}\n' }];
+        state = { schema: 1, revision: 0, projects: [p], activeProject: p.id, runs: [], theme: 'dark' };
+        dirty = true;
+    }
+    for (const r of state.runs)
+        if (!native && r.state === 'running') {
+            r.state = 'interrupted';
+            r.error = 'Работа вкладки прервалась. Автоматический повтор не выполнялся.';
+            dirty = true;
+        }
+    editor = new Editor(active().document);
+    document.documentElement.dataset['theme'] = state.theme;
+    bind();
+    render();
+    if (!persistedRevision)
+        fit();
+    if (dirty)
+        void persist();
+    else
+        status('Сохранено локально');
+    $('#profile-label').textContent = native ? 'Нативный профиль · встроенные операции' : 'Локальная вкладка · без агента';
+    if (native) {
+        try {
+            await intentRepository.open();
+            outbox = new StartOutbox(intentRepository, {
+                capabilities: () => native.invoke('capabilities'),
+                lookup: commandId => native.invoke('get_command', { commandId }),
+                start: (commandId, document, files) => native.invoke('start_run', { commandId, specJson: canonical({ document, files }) })
+            });
+            await refreshIntents();
+        }
+        catch (error) {
+            toast('Новые нативные запуски заблокированы: ' + errorMessage(error), true);
+        }
+        const live = state.runs.find(r => r.documentId === editor.document.id && r.state === 'running');
+        if (live) {
+            busy = true;
+            updateRun(live);
+            pollNative(live.id);
+        }
+    }
+    $('#profile-note').textContent = native ? 'Внешний код закрыт до приёмки изоляции' : 'Работа прекращается при закрытии этой вкладки';
+}
+function render() { renderSidebar(); renderHeader(); renderCanvas(); renderInspector(); renderResult(); renderHistory(); renderComposer(); }
+function renderSidebar() {
+    $('#project-list').innerHTML = state.projects.map(p => `<button class="project-row ${p.id === state.activeProject ? 'active' : ''}" data-project="${esc(p.id)}">${icon('folder')}<span>${esc(p.title)}</span></button>`).join('');
+    $('#space-list').innerHTML = editor.document.workspaces.map(w => `<button class="space-row ${w.id === workspace().id ? 'active' : ''}" data-space="${esc(w.id)}"><span class="space-dot"></span><span>${esc(w.title)}</span><small>${w.sheets.length}</small></button>`).join('');
+    $('#source-count').textContent = String(active().files.length);
+    $('#recent-runs').innerHTML = state.runs.filter(r => r.documentId === editor.document.id).slice(-5).reverse().map(r => `<button class="run-row" data-run="${esc(r.id)}"><i class="state-dot ${r.state}"></i><span>${stateLabels[r.state] ?? r.state}</span><small>v${r.revision}</small></button>`).join('') || '<p class="muted small">Запусков пока нет</p>';
+}
+function renderHeader() {
+    $('#project-title').textContent = active().title;
+    $('#workspace-title').textContent = workspace().title;
+    $('#sheet-tabs').innerHTML = workspace().sheets.map(s => `<button class="sheet-tab ${s.id === sheet().id ? 'active' : ''}" data-sheet="${esc(s.id)}">${icon('grid')}${esc(s.title)}</button>`).join('') + `<button class="icon-button" data-action="add-sheet" title="Новый лист" aria-label="Новый лист">${icon('plus')}</button>`;
+    $('#graph-version').textContent = `Черновик v${editor.document.revision}`;
+    for (const b of document.querySelectorAll('[data-mode]'))
+        b.classList.toggle('active', b.dataset['mode'] === mode);
+    const b = $('#run-button');
+    b.disabled = commandBusy;
+    b.innerHTML = icon(busy ? 'stop' : 'play') + (busy ? 'Остановить' : 'Начать');
+    if (!busy && intents.some(i => pendingIntent(i) && i.document.id === editor.document.id))
+        b.innerHTML = icon('clock') + 'Сверить запуск';
+    $('#canvas-view').classList.toggle('hidden', mode !== 'canvas');
+    $('#result-view').classList.toggle('hidden', mode !== 'result');
+    $('#history-view').classList.toggle('hidden', mode !== 'history');
+}
+function renderCanvas() {
+    const s = sheet(), r = run();
+    const diagnostics = compile(editor.document).diagnostics;
+    $('#canvas-nodes').innerHTML = s.views.map(v => {
+        const n = editor.document.nodes.find(n => n.id === v.nodeId);
+        const def = definition(n.kind);
+        const runtime = r?.nodes[n.id];
+        const problem = diagnostics.find(x => x.nodeId === n.id);
+        const preview = r?.previews[n.id] ?? (n.kind === 'source.files' ? `${active().files.length} файлов в снимке` : n.kind === 'source.text' ? String(n.params['text'] ?? '') : n.kind === 'note' ? String(n.params['text'] ?? '') : def.description);
+        return `<article class="node ${selected === n.id ? 'selected' : ''} ${!def.available ? 'unavailable' : ''} ${runtime ?? ''}" data-node="${esc(n.id)}" data-view="${esc(v.id)}" style="left:${v.x}px;top:${v.y}px" tabindex="0" role="group" aria-label="${esc(n.title)}">
+      <div class="node-top" data-drag="${esc(v.id)}"><span class="node-symbol ${n.kind.split('.')[0]}">${icon(opIcon(n.kind))}</span><span class="node-category">${esc(def.category)}</span><span class="node-ellipsis">···</span></div>
+      <h3>${esc(n.title)}</h3><p class="node-preview">${esc(preview.slice(0, 125))}</p>
+      <div class="node-bottom"><span class="node-status ${problem && !runtime ? 'warning' : ''}">${runtime ? `<i class="state-dot ${runtime}"></i>${stateLabels[runtime]}` : problem ? 'Требует настройки' : n.kind === 'note' ? 'Не исполняется' : 'Готов к запуску'}</span><span class="node-type">${def.output ?? 'note'}</span></div>
+      ${def.input ? `<button class="port input" data-port-in="${esc(n.id)}" title="Вход · ${def.input}" aria-label="Соединить вход ${esc(n.title)}"></button>` : ''}
+      ${def.output ? `<button class="port output ${connectFrom === n.id ? 'connecting' : ''}" data-port-out="${esc(n.id)}" title="Выход · ${def.output}" aria-label="Соединить выход ${esc(n.title)}"></button>` : ''}
+      </article>`;
+    }).join('');
+    const views = new Map(s.views.map(v => [v.nodeId, v]));
+    let svg = '';
+    for (const edge of editor.document.edges) {
+        const a = views.get(edge.source), b = views.get(edge.target);
+        if (a && b) {
+            const x1 = a.x + 264, y1 = a.y + 92, x2 = b.x, y2 = b.y + 92, dx = Math.max(60, Math.abs(x2 - x1) * .5);
+            svg += `<g class="edge ${r?.nodes[edge.target] === 'running' ? 'flowing' : ''}" data-edge="${esc(edge.id)}"><path d="M${x1},${y1} C${x1 + dx},${y1} ${x2 - dx},${y2} ${x2},${y2}"/><circle cx="${x2}" cy="${y2}" r="3"/></g>`;
+        }
+    }
+    $('#canvas-edges').innerHTML = svg;
+    $('#canvas-empty').classList.toggle('hidden', s.views.length > 0);
+    const visible = new Set(s.views.map(v => v.nodeId));
+    const cross = editor.document.edges.filter(e => visible.has(e.source) !== visible.has(e.target));
+    $('#cross-links').innerHTML = cross.length ? `<span>${cross.length} межлистовых связей</span>` + cross.map(e => { const other = visible.has(e.source) ? e.target : e.source; return `<button data-locate="${esc(other)}">${icon('link')}${esc(editor.document.nodes.find(n => n.id === other)?.title ?? 'Узел')}</button>`; }).join('') : '';
+    $('#canvas-hint').textContent = connectFrom ? 'Выберите вход другого узла · Esc — отменить' : 'Перемещение: фон или средняя кнопка · масштаб: Ctrl + колесо · Ctrl + K — действия';
+    updateTransform();
+}
+function updateTransform() { const p = sheet().viewport; $('#canvas-world').style.transform = `translate(${p.x}px,${p.y}px) scale(${p.zoom})`; $('#zoom-label').textContent = `${Math.round(p.zoom * 100)}%`; $('#canvas-surface').style.backgroundPosition = `${p.x}px ${p.y}px`; $('#canvas-surface').style.backgroundSize = `${24 * p.zoom}px ${24 * p.zoom}px`; }
+function fit() {
+    const v = sheet().views;
+    if (!v.length)
+        return;
+    const surface = $('#canvas-surface');
+    const minX = Math.min(...v.map(v => v.x)), minY = Math.min(...v.map(v => v.y)), maxX = Math.max(...v.map(v => v.x + 264)), maxY = Math.max(...v.map(v => v.y + 184));
+    const z = Math.max(.2, Math.min(.95, (surface.clientWidth - 100) / (maxX - minX), (surface.clientHeight - 240) / (maxY - minY)));
+    sheet().viewport = { x: (surface.clientWidth - (maxX - minX) * z) / 2 - minX * z, y: Math.max(60, (surface.clientHeight - 160 - (maxY - minY) * z) / 2 - minY * z), zoom: z };
+    updateTransform();
+    changed(false);
+}
+function renderInspector() {
+    const n = node();
+    $('#inspector').classList.toggle('hidden', !n);
+    if (!n)
+        return;
+    const d = definition(n.kind);
+    const diagnostics = compile(editor.document).diagnostics.filter(x => x.nodeId === n.id);
+    const r = run();
+    let params = '';
+    for (const [key, value] of Object.entries(n.params)) {
+        const label = { text: 'Содержимое', find: 'Найти точную строку', replace: 'Заменить на', path: 'Путь результата', match: 'Путь содержит', readPolicy: 'Правило чтения' };
+        params += `<label class="field-label">${label[key] ?? esc(key)}${key === 'text' ? `<textarea data-param="${esc(key)}" rows="5">${esc(value)}</textarea>` : `<input data-param="${esc(key)}" value="${esc(value)}" ${key === 'readPolicy' ? 'readonly' : ''}>`}</label>`;
+    }
+    const criteria = n.kind === 'verify.files' ? `<div class="section-label">Критерии цели · v${editor.document.goal.revision}</div>${editor.document.goal.obligations.map(c => `<div class="criterion"><b>${esc(c.description)}</b><small>${esc(c.kind)} · ${esc(c.path)}</small><button class="text-button danger" data-remove-check="${esc(c.id)}">Удалить критерий</button></div>`).join('')}<button class="secondary full" data-action="add-check">${icon('plus')}Добавить критерий</button>` : '';
+    const incoming = editor.document.edges.filter(e => e.target === n.id);
+    const sources = editor.document.nodes.filter(x => x.id !== n.id && definition(x.kind)?.output === d.input);
+    const connection = d.input ? `<div class="section-label">Входящие связи</div>${incoming.map(e => `<div class="connection-row"><button data-locate="${esc(e.source)}">${esc(editor.document.nodes.find(x => x.id === e.source)?.title ?? e.source)}</button><button class="icon-button" data-remove-edge="${esc(e.id)}" title="Удалить связь">${icon('x')}</button></div>`).join('')}<div class="connect-form"><select id="source-select" aria-label="Источник для соединения"><option value="">Выберите источник</option>${sources.map(s => `<option value="${esc(s.id)}">${esc(s.title)}</option>`).join('')}</select><button class="icon-button" data-action="connect-select" aria-label="Подключить источник">${icon('plus')}</button></div>` : '';
+    $('#inspector-body').innerHTML = `<span class="eyebrow">${esc(d.category)}</span><label class="field-label">Название<input id="node-title" value="${esc(n.title)}"></label><p class="muted">${esc(d.description)}</p>
+    ${diagnostics.map(d => `<div class="notice warning">${esc(d.message)}</div>`).join('')}${params}${criteria}${connection}
+    <div class="section-label">Представление</div><label class="field-label">Показать на другом листе<select id="reference-sheet"><option value="">Выберите лист…</option>${editor.document.workspaces.flatMap(w => w.sheets.filter(s => s.id !== sheet().id).map(s => `<option value="${esc(w.id + '|' + s.id)}">${esc(w.title + ' / ' + s.title)}</option>`)).join('')}</select></label>
+    <div class="section-label">Последний результат узла</div><pre class="mini-preview">${esc(r?.previews[n.id] ?? 'Ещё не исполнялся')}</pre>
+    ${n.kind === 'agent.codex' ? `<button class="secondary full" data-action="contract">Посмотреть контракт руководителя</button>` : ''}
+    <button class="text-button danger" data-action="remove-node">Удалить узел и его связи</button>`;
+}
+function renderComposer() {
+    const input = $('#goal-input');
+    if (document.activeElement !== input)
+        input.value = editor.document.goal.original;
+    $('#goal-target').textContent = 'Цель всей работы';
+    $('#goal-revision').textContent = `Цель v${editor.document.goal.revision}`;
+}
+function renderResult() {
+    const r = run();
+    if (!r) {
+        $('#result-body').innerHTML = `<div class="empty-state">${icon('file')}<h2>Здесь появится результат</h2><p>Сначала импортируйте файлы и запустите конструкцию.<br>Статус узла сам по себе не считается результатом.</p><button class="secondary" data-action="show-canvas">Перейти к конструкции</button></div>`;
+        return;
+    }
+    lastArtifact = Math.min(lastArtifact, Math.max(0, r.artifacts.length - 1));
+    const a = r.artifacts[lastArtifact];
+    if (!a) {
+        $('#result-body').innerHTML = `<div class="empty-state">${icon(r.state === 'running' ? 'clock' : 'shield')}<span class="eyebrow">Запуск v${r.revision}</span><h2>${stateLabels[r.state] ?? r.state}</h2><p>${esc(r.error ?? 'Выполняются локальные операции. Изменения оригиналов не производятся.')}</p><button class="secondary" data-mode="history">Открыть историю</button></div>`;
+        return;
+    }
+    lastPreviewFile = Math.min(lastPreviewFile, a.files.length - 1);
+    const f = a.files[Math.max(0, lastPreviewFile)];
+    const base = r.inputs ?? [];
+    const changes = diff(base, a.files);
+    const c = changes.find(c => c.path === f.path);
+    $('#result-body').innerHTML = `<div class="result-heading"><div><span class="eyebrow">Реальный артефакт · v${r.revision}</span><h2>${r.accepted && r.acceptance ? 'Этот снимок принят владельцем' : 'Результат готов к оценке'}</h2><p class="muted">${a.files.length} файл(ов) · ${a.findings.length} локальных проверок · исходники не перезаписаны</p></div><div class="result-actions"><button class="secondary" data-action="inspect-result">Перепроверить</button><button class="secondary" data-action="export-artifact">${icon('download')}Экспорт пакета</button>${native ? '<button class="secondary" data-action="native-export">В отдельную папку</button>' : ''}<button class="primary" data-action="accept" ${r.accepted && r.acceptance ? 'disabled' : ''}>${icon('check')}${r.accepted && r.acceptance ? 'Принято' : 'Принять этот снимок'}</button></div></div>
+    <div class="artifact-tabs" role="navigation" aria-label="Артефакты запуска">
+    ${r.artifacts.map((item, index) => `<button class="secondary ${index === lastArtifact ? 'active' : ''}" data-artifact="${index}">Результат ${index + 1} · ${item.files.length} файл(ов)</button>`).join('')}</div><div class="notice">Проверки вычислены программой. Это не независимая OS-среда и не доказательство смыслового выполнения любой задачи.</div>
+    <div class="result-layout"><aside class="file-list">${a.files.map((f, i) => `<button class="${i === lastPreviewFile ? 'active' : ''}" data-preview="${i}">${icon('file')}${esc(f.path)}</button>`).join('')}<div class="section-label">Критерии</div>${a.findings.map(f => `<div class="finding">${icon(f.passed ? 'check' : 'x')}<span>${esc(f.description)}</span></div>`).join('')}</aside>
+    <section class="file-preview"><div class="preview-bar"><span>${esc(f.path)}</span><span class="pill">${esc(c?.status ?? 'result')}</span><button class="text-button" data-action="download-file">Сохранить файл</button></div>${c?.status === 'modified' ? `<div class="diff-columns"><div><div class="diff-heading">Исходная копия</div><pre>${esc(c.before)}</pre></div><div><div class="diff-heading">Предложенный результат</div><pre>${esc(f.content)}</pre></div></div>` : `<pre>${esc(f.content)}</pre>`}</section></div>
+    <details class="evidence"><summary>Происхождение и границы проверки</summary><dl><dt>SHA-256 манифеста</dt><dd>${esc(a.hash)}</dd><dt>Цель / конструкция</dt><dd>v${a.goalRevision} / v${a.graphRevision}</dd><dt>Профиль</dt><dd>${esc(r.profile)}</dd><dt>Привязка решения владельца</dt><dd>${esc(r.acceptance?.bindingHash ?? 'Ещё не принято; старые принятия 0.1 требуют повторной проверки')}</dd><dt>Публикация в исходную папку</dt><dd>Не выполнялась. Доступен экспорт отдельного предложения.</dd></dl></details>`;
+}
+function renderHistory() {
+    const r = run();
+    $('#history-body').innerHTML = `<div class="result-heading"><div><span class="eyebrow">Факты исполнения</span><h2>История работы</h2><p class="muted">${r ? 'Конструкция v' + r.revision + ' · ' + esc(r.profile) : 'Выберите запуск или начните работу'}</p></div></div>${r ? `<div class="timeline">${r.events.map(e => `<div class="timeline-row"><time>${new Date(e.at).toLocaleTimeString('ru')}</time><i class="timeline-dot ${e.kind.includes('failed') ? 'failed' : ''}"></i><div><b>${esc(e.nodeId ? editor.document.nodes.find(n => n.id === e.nodeId)?.title ?? 'Узел' : e.kind)}</b><p>${esc(e.message)}</p><small>${esc(e.kind)} · #${e.seq}</small></div>${e.nodeId ? `<button class="text-button" data-locate="${esc(e.nodeId)}">На канвасе</button>` : ''}</div>`).join('')}</div>` : ''}`;
+}
+function showModal(title, body) { $('#modal-title').textContent = title; $('#modal-body').innerHTML = body; $('#modal').showModal(); }
+function closeModal() { $('#modal').close(); }
+function palette() { paletteFilter = ''; showModal('Добавить действие', `<label class="search-field">${icon('search')}<input id="palette-search" placeholder="Найти действие…" autofocus></label><div id="palette-items"></div>`); renderPalette(); setTimeout(() => $('#palette-search').focus(), 0); }
+function renderPalette() { $('#palette-items').innerHTML = CATALOG.filter(c => (c.label + ' ' + c.description).toLowerCase().includes(paletteFilter)).map(c => `<button class="palette-item" data-add-kind="${esc(c.kind)}"><span class="palette-symbol">${icon(opIcon(c.kind))}</span><span><b>${esc(c.label)}</b><small>${esc(c.description)}</small></span>${!c.available ? '<span class="pill">Заблокирован</span>' : icon('plus')}</button>`).join(''); }
+function newProjectDialog() { showModal('Новая работа', `<label class="field-label">Название<input id="new-title" value="Новая работа"></label><div class="template-grid"><button class="template-card" data-template="report">${icon('file')}<b>Отчёт по проекту</b><span>Файлы → отчёт → проверка → результат</span></button><button class="template-card" data-template="normalize">${icon('split')}<b>Нормализация текстов</b><span>Чистая копия и сравнение изменений</span></button><button class="template-card" data-template="empty">${icon('plus')}<b>Пустая конструкция</b><span>Собрать работу самостоятельно</span></button><button class="template-card" data-template="agent">${icon('spark')}<b>Команда с Codex</b><span>Конструкция доступна; исполнение заблокировано</span></button></div>`); }
+function criteriaDialog() { showModal('Добавить обязательство цели', `<p class="muted">Изменение создаёт новую редакцию цели. Уже начатый запуск сохранит прежние критерии.</p><label class="field-label">Описание<input id="check-desc" placeholder="Например, в отчёте есть все файлы"></label><label class="field-label">Условие<select id="check-kind"><option value="nonempty">Файл не пуст</option><option value="file_exists">Файл существует</option><option value="contains">Содержит текст</option><option value="not_contains">Не содержит текст</option><option value="valid_json">Корректный JSON</option><option value="normalized">Нормализованные строки</option></select></label><label class="field-label">Путь или * для всех<input id="check-path" value="*"></label><label class="field-label">Искомый текст<input id="check-value"></label><button class="primary full" data-action="save-check">Добавить критерий</button>`); }
+function settingsDialog() { showModal('Профиль работы и ограничения', `<div class="profile-card">${icon('shield')}<div><h3>Только встроенные операции</h3><p>Нет shell, Python, eval, внешних запросов и запуска приложений. Импортированные данные не исполняются.</p></div></div><label class="field-label">Конкурентность<select id="parallelism"><option value="normal" ${!quiet ? 'selected' : ''}>До двух независимых операций</option><option value="quiet" ${quiet ? 'selected' : ''}>Одна операция за раз</option></select></label><dl class="settings-dl"><dt>Один текстовый файл</dt><dd>До 1 МиБ</dd><dt>Исходный набор</dt><dd>До 8 МиБ / 256 файлов</dd><dt>GPU / доля CPU / RAM ОС</dt><dd>Не выделяются; гарантия не заявлена</dd><dt>Фоновое исполнение</dt><dd>${native ? 'Требует сборки и проверки независимого хоста' : 'В пределах жизни вкладки; закрытие прервёт работу'}</dd><dt>Платные обращения</dt><dd>Не выполняются</dd><dt>Codex / внешние беседы</dt><dd>Недоступны; не заменены симуляцией</dd></dl><button class="secondary full" data-action="contract">Рабочий контракт руководителя</button>`); }
+async function importFiles(list) {
+    assert(list.length <= LIMITS.files, 'LIMIT', 'Максимум 256 файлов за импорт');
+    const files = [];
+    let total = 0;
+    const decoder = new TextDecoder('utf-8', { fatal: true });
+    for (const f of Array.from(list)) {
+        total += f.size;
+        assert(f.size <= LIMITS.fileBytes && total <= LIMITS.totalBytes, 'LIMIT', 'Превышен предел файла / набора');
+        const path = safePath(f.webkitRelativePath || f.name);
+        let content;
+        try {
+            content = decoder.decode(await f.arrayBuffer());
+        }
+        catch {
+            throw new Error('Набор не импортирован. Не UTF-8: ' + path);
+        }
+        files.push({ path, content });
+    }
+    validateFiles(files);
+    active().files = files;
+    changed();
+    toast(`Импортирована копия ${files.length} файлов. Оригиналы не изменяются.`);
+}
+function saveGoal() { const text = $('#goal-input').value; editor.commit(d => { d.goal.original = text; d.goal.revision++; }); changed(); toast('Цель сохранена. Автоматическое ИИ-планирование ещё не подключено.'); }
+function updateRun(value, finish = false) {
+    const previous = state.runs.find(r => r.id === value.id) ?? null;
+    value = mergeProjection(previous, value);
+    const owner = state.projects.find(p => p.document.id === value.documentId);
+    assert(owner, 'PROJECT', 'Ответ не связан с сохранённым проектом');
+    owner.selectedRun = value.id;
+    currentRun = value.documentId === editor.document.id ? value : currentRun;
+    const i = state.runs.findIndex(r => r.id === value.id);
+    if (i < 0)
+        state.runs.push(clone(value));
+    else
+        state.runs[i] = clone(value);
+    if (state.runs.length > LIMITS.runs)
+        state.runs.splice(0, state.runs.length - LIMITS.runs);
+    dirty = true;
+    if (finish) {
+        busy = false;
+        worker?.terminate();
+        worker = null;
+        if (nativeTimer)
+            clearInterval(nativeTimer);
+        nativeTimer = null;
+        void persist();
+        render();
+        toast(value.state === 'review' ? 'Результат предъявлен. Откройте его и проверьте.' : value.error ?? stateLabels[value.state] ?? value.state, value.state === 'failed');
+    }
+    else {
+        if (!saveTimer)
+            saveTimer = setTimeout(() => { saveTimer = null; void persist(); }, 300);
+        renderCanvas();
+        renderHeader();
+        renderHistory();
+        renderSidebar();
+        if (mode === 'result')
+            renderResult();
+    }
+}
+function pollNative(runId) {
+    if (nativeTimer)
+        clearTimeout(nativeTimer);
+    nativeTimer = setTimeout(() => {
+        void (async () => {
+            try {
+                const value = await native.invoke('get_run', { runId });
+                updateRun(value, value.state !== 'running');
+                if (value.state === 'running')
+                    pollNative(runId);
+            }
+            catch (e) {
+                status('Нет связи с хостом · исход неизвестен', true);
+                toast(errorMessage(e), true);
+                nativeTimer = setTimeout(() => pollNative(runId), 1500);
+            }
+        })();
+    }, 250);
+}
+async function refreshIntents() {
+    intents = await intentRepository.list();
+    const pending = intents.filter(pendingIntent).length;
+    $('#command-count').textContent = String(pending);
+    $('#command-count').classList.toggle('attention-count', pending > 0);
+    if (state)
+        renderHeader();
+}
+async function commandsDialog() {
+    if (!native || !outbox) {
+        showModal('Доставка команд', '<p>Устойчивые команды доступны в нативной ветке. Автономная HTML-студия работает только в открытой вкладке.</p>');
+        return;
+    }
+    await refreshIntents();
+    const labels = { prepared: 'Сохранена, ещё не отправлена', sending: 'Отправка начата; ответ не закреплён', unknown: 'Нужно сверить исход', confirmed: 'Хост подтвердил запуск' };
+    showModal('Команды и восстановление', '<p class="muted">Сверка только читает состояние. Повтор использует исходный ID и неизменённое поручение: новый запуск вместо потерянного ответа не создаётся.</p>' +
+        ([...intents].reverse().map(i => '<section class="command-card"><strong>' + esc(i.document.title) + '</strong><p>' + labels[i.state] + '</p><small>' + esc(i.id) + ' · попыток доставки: ' + i.attempts + '</small>' +
+            (i.lastError ? '<p class="notice warning">' + esc(i.lastError) + '</p>' : '') +
+            '<div class="result-actions"><button class="secondary" data-reconcile="' + esc(i.id) + '">Сверить с хостом</button>' +
+            (i.state !== 'confirmed' ? '<button class="primary" data-resend="' + esc(i.id) + '">Доставить ту же команду</button>' : '') + '</div></section>').join('') || '<p>Команд пока нет</p>'));
+}
+async function deliverIntent(commandId, send) {
+    assert(outbox, 'OUTBOX', 'Хранилище команд недоступно');
+    assert(!commandBusy, 'BUSY', 'Другая команда ещё обрабатывается');
+    const intent = intents.find(i => i.id === commandId) ?? await intentRepository.get(commandId);
+    assert(intent, 'INTENT', 'Неизвестная команда');
+    assert(!busy || currentRun?.documentId === intent.document.id, 'BUSY', 'Сначала завершите выбранную работу');
+    if (state.activeProject !== intent.projectId)
+        switchProject(intent.projectId);
+    commandBusy = true;
+    renderHeader();
+    try {
+        const result = send ? await outbox.send(commandId) : await outbox.reconcile(commandId);
+        if (result) {
+            closeModal();
+            busy = result.state === 'running';
+            updateRun(result, result.state !== 'running');
+            if (result.state === 'running')
+                pollNative(result.id);
+        }
+        else
+            toast('Запуск пока не подтверждён. Автоматической повторной отправки не было.', true);
+    }
+    finally {
+        commandBusy = false;
+        await refreshIntents();
+    }
+}
+async function ensureDraftSaved() {
+    if (saveTimer) {
+        clearTimeout(saveTimer);
+        saveTimer = null;
+    }
+    for (let attempt = 0; attempt < 100 && saving; attempt++)
+        await new Promise(resolve => setTimeout(resolve, 50));
+    await persist();
+    assert(!saving && !dirty && !persistenceFailed, 'PERSISTENCE', 'Сначала сохраните проект. Новый запуск не отправлен');
+}
+async function start() {
+    assert(!commandBusy, 'BUSY', 'Команда уже обрабатывается');
+    if (busy) {
+        if (native && currentRun) {
+            commandBusy = true;
+            renderHeader();
+            try {
+                await native.invoke('cancel_run', { runId: currentRun.id });
+                const observed = await native.invoke('get_run', { runId: currentRun.id });
+                updateRun(observed, observed.state !== 'running');
+            }
+            finally {
+                commandBusy = false;
+                renderHeader();
+            }
+        }
+        else
+            worker?.postMessage({ type: 'cancel' });
+        toast('Запрос отмены передан. Ожидается подтверждение прекращения.');
+        return;
+    }
+    if (native && intents.some(i => pendingIntent(i) && i.document.id === editor.document.id)) {
+        await commandsDialog();
+        return;
+    }
+    if ($('#goal-input').value !== editor.document.goal.original)
+        saveGoal();
+    const plan = compile(editor.document);
+    if (plan.diagnostics.length) {
+        showModal('Конструкция ещё не готова', `<p class="muted">Никакие операции не запускались.</p>${plan.diagnostics.map(d => `<button class="diagnostic" ${d.nodeId ? `data-locate="${esc(d.nodeId)}"` : ''}><b>${esc(d.code)}</b><span>${esc(d.message)}</span></button>`).join('')}`);
+        return;
+    }
+    if (editor.document.nodes.some(n => n.kind === 'source.files') && !active().files.length) {
+        toast('Сначала выберите файлы проекта', true);
+        return;
+    }
+    sourceAtRun = clone(active().files);
+    currentRun = null;
+    busy = true;
+    renderHeader();
+    if (native) {
+        busy = false;
+        assert(outbox, 'OUTBOX', 'Устойчивое хранилище команд недоступно; запуск запрещён');
+        commandBusy = true;
+        renderHeader();
+        let intent;
+        try {
+            await ensureDraftSaved();
+            intent = await outbox.prepare(clone(editor.document), sourceAtRun);
+            await refreshIntents();
+        }
+        finally {
+            commandBusy = false;
+            renderHeader();
+        }
+        await deliverIntent(intent.id, true);
+        return;
+    }
+    const blob = new Blob([window.__STUDIO_WORKER__], { type: 'text/javascript' });
+    const url = URL.createObjectURL(blob);
+    try {
+        worker = new Worker(url);
+    }
+    catch (e) {
+        busy = false;
+        renderHeader();
+        throw e;
+    }
+    finally {
+        URL.revokeObjectURL(url);
+    }
+    worker.onmessage = (event) => {
+        if (event.data.run)
+            updateRun(event.data.run, event.data.type === 'done');
+        else if (event.data.type === 'error') {
+            busy = false;
+            worker?.terminate();
+            worker = null;
+            renderHeader();
+            toast(event.data.message ?? 'Ошибка исполнителя', true);
+        }
+    };
+    worker.onerror = () => {
+        busy = false;
+        if (currentRun) {
+            currentRun.state = 'interrupted';
+            currentRun.error = 'Исполнитель прервался. Автоматического повтора нет.';
+            updateRun(currentRun, true);
+        }
+        else {
+            renderHeader();
+            toast('Не удалось создать локального исполнителя', true);
+        }
+    };
+    worker.postMessage({ type: 'run', document: clone(editor.document), files: sourceAtRun, concurrency: quiet ? 1 : 2 });
+}
+function download(name, text, type = 'application/json') { const blob = new Blob([text], { type }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = name; document.body.append(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 1000); }
+function locate(nodeId) {
+    for (const w of editor.document.workspaces)
+        for (const s of w.sheets) {
+            const v = s.views.find(v => v.nodeId === nodeId);
+            if (v) {
+                active().selectedWorkspace = w.id;
+                active().selectedSheet = s.id;
+                selected = nodeId;
+                mode = 'canvas';
+                closeModal();
+                render();
+                const area = $('#canvas-surface');
+                s.viewport = { x: area.clientWidth / 2 - v.x * .85 - 132 * .85, y: 100 - v.y * .85, zoom: .85 };
+                updateTransform();
+                changed(false);
+                return;
+            }
+        }
+    toast('Узел не показан ни на одном листе', true);
+}
+function switchProject(projectId) { assert(!busy, 'BUSY', 'Сначала дождитесь результата или отмените запуск в этом профиле'); active().document = clone(editor.document); state.activeProject = projectId; editor = new Editor(active().document); currentRun = null; selected = null; mode = 'canvas'; changed(); }
+function bind() {
+    document.addEventListener('click', event => protect(async () => {
+        const target = event.target;
+        const b = target.closest('button,[data-mode]');
+        if (!b)
+            return;
+        const d = b.dataset;
+        if (d['reconcile']) {
+            await deliverIntent(d['reconcile'], false);
+            return;
+        }
+        if (d['resend']) {
+            await deliverIntent(d['resend'], true);
+            return;
+        }
+        if (d['artifact'] !== undefined) {
+            lastArtifact = Number(d['artifact']);
+            lastPreviewFile = 0;
+            renderResult();
+            return;
+        }
+        if (d['project']) {
+            switchProject(d['project']);
+            return;
+        }
+        if (d['space']) {
+            active().selectedWorkspace = d['space'];
+            active().selectedSheet = workspace().sheets[0].id;
+            selected = null;
+            changed();
+            return;
+        }
+        if (d['sheet']) {
+            active().selectedSheet = d['sheet'];
+            selected = null;
+            changed();
+            return;
+        }
+        if (d['mode']) {
+            mode = d['mode'];
+            renderHeader();
+            renderResult();
+            renderHistory();
+            return;
+        }
+        if (d['run']) {
+            assert(!busy, 'BUSY', 'Дождитесь текущего запуска');
+            active().selectedRun = d['run'];
+            currentRun = null;
+            mode = 'result';
+            changed();
+            return;
+        }
+        if (d['locate']) {
+            locate(d['locate']);
+            return;
+        }
+        if (d['addKind']) {
+            const view = sheet().viewport;
+            const area = $('#canvas-surface');
+            selected = editor.add(d['addKind'], workspace().id, sheet().id, (area.clientWidth / 2 - view.x) / view.zoom - 132, (180 - view.y) / view.zoom);
+            closeModal();
+            changed();
+            return;
+        }
+        if (d['template']) {
+            assert(!busy, 'BUSY', 'Сначала завершите запуск');
+            const title = $('#new-title').value.trim() || 'Новая работа';
+            const p = initialProject(title, d['template']);
+            p.files = clone(active().files);
+            state.projects.push(p);
+            closeModal();
+            switchProject(p.id);
+            fit();
+            return;
+        }
+        if (d['portOut']) {
+            connectFrom = d['portOut'];
+            renderCanvas();
+            return;
+        }
+        if (d['portIn']) {
+            if (connectFrom) {
+                editor.connect(connectFrom, d['portIn']);
+                connectFrom = null;
+                changed();
+            }
+            else
+                toast('Сначала выберите выход источника');
+            return;
+        }
+        if (d['removeEdge']) {
+            editor.commit(doc => { doc.edges = doc.edges.filter(e => e.id !== d['removeEdge']); });
+            changed();
+            return;
+        }
+        if (d['removeCheck']) {
+            editor.commit(doc => { doc.goal.obligations = doc.goal.obligations.filter(o => o.id !== d['removeCheck']); doc.goal.revision++; });
+            changed();
+            return;
+        }
+        if (d['preview']) {
+            lastPreviewFile = Number(d['preview']);
+            renderResult();
+            return;
+        }
+        const action = d['action'];
+        switch (action) {
+            case 'commands':
+                await commandsDialog();
+                break;
+            case 'new-project':
+                newProjectDialog();
+                break;
+            case 'add-node':
+                palette();
+                break;
+            case 'add-sheet':
+                showModal('Новый лист', '<label class="field-label">Название<input id="new-sheet-title" value="Проверка и результат"></label><button class="primary full" data-action="save-sheet">Создать лист</button>');
+                break;
+            case 'save-sheet': {
+                const title = $('#new-sheet-title').value.trim() || 'Новый лист';
+                const sid = id('sheet');
+                editor.commit(doc => { doc.workspaces.find(w => w.id === workspace().id).sheets.push({ id: sid, title, views: [], viewport: { x: 100, y: 100, zoom: 1 } }); });
+                active().selectedSheet = sid;
+                closeModal();
+                selected = null;
+                changed();
+                break;
+            }
+            case 'new-space':
+                showModal('Новое пространство', '<label class="field-label">Название<input id="new-space-title" value="Новая задача"></label><button class="primary full" data-action="save-space">Создать пространство</button>');
+                break;
+            case 'save-space': {
+                const wid = id('space'), sid = id('sheet'), title = $('#new-space-title').value.trim() || 'Пространство';
+                editor.commit(doc => doc.workspaces.push({ id: wid, title, sheets: [{ id: sid, title: 'Конструкция', views: [], viewport: { x: 60, y: 100, zoom: 1 } }] }));
+                active().selectedWorkspace = wid;
+                active().selectedSheet = sid;
+                selected = null;
+                closeModal();
+                changed();
+                break;
+            }
+            case 'files':
+                $('#file-input').click();
+                break;
+            case 'folder':
+                if (native) {
+                    const result = await native.invoke('choose_folder');
+                    if (result) {
+                        validateFiles(result.files);
+                        active().files = result.files;
+                        changed();
+                    }
+                }
+                else
+                    $('#folder-input').click();
+                break;
+            case 'show-sources':
+                showModal('Исходные копии файлов', `<p class="muted">Читается только выбранная копия. Исходники не перезаписываются.</p>${active().files.map(f => `<details class="source-detail"><summary>${esc(f.path)} <small>${bytes(f.content)} Б</small></summary><pre>${esc(f.content.slice(0, 10000))}</pre></details>`).join('') || '<p>Сначала импортируйте файлы.</p>'}<button class="secondary full" data-action="files">Выбрать файлы</button>`);
+                break;
+            case 'goal-save':
+                saveGoal();
+                break;
+            case 'run':
+                await start();
+                break;
+            case 'preflight': {
+                const p = compile(editor.document);
+                showModal('Проверка конструкции', p.diagnostics.length ? p.diagnostics.map(d => `<div class="notice warning">${esc(d.message)}</div>`).join('') : `<div class="notice success">${p.order.length} операций, ${p.layers.length} уровней зависимостей. Типы и порядок согласованы. Это не проверка фактического результата.</div>`);
+                break;
+            }
+            case 'fit':
+                fit();
+                break;
+            case 'zoom-in':
+                sheet().viewport.zoom = Math.min(2, sheet().viewport.zoom + .1);
+                updateTransform();
+                changed(false);
+                break;
+            case 'zoom-out':
+                sheet().viewport.zoom = Math.max(.2, sheet().viewport.zoom - .1);
+                updateTransform();
+                changed(false);
+                break;
+            case 'undo':
+                editor.undo();
+                changed();
+                break;
+            case 'redo':
+                editor.redo();
+                changed();
+                break;
+            case 'close-inspector':
+                selected = null;
+                render();
+                break;
+            case 'close-modal':
+                closeModal();
+                break;
+            case 'settings':
+                settingsDialog();
+                break;
+            case 'theme':
+                state.theme = state.theme === 'dark' ? 'light' : 'dark';
+                document.documentElement.dataset['theme'] = state.theme;
+                changed(false);
+                break;
+            case 'remove-node':
+                if (selected) {
+                    editor.remove(selected);
+                    selected = null;
+                    changed();
+                }
+                break;
+            case 'connect-select': {
+                const source = $('#source-select').value;
+                assert(source && selected, 'INPUT', 'Выберите источник');
+                editor.connect(source, selected);
+                changed();
+                break;
+            }
+            case 'add-check':
+                criteriaDialog();
+                break;
+            case 'save-check': {
+                const path = $('#check-path').value;
+                if (path !== '*')
+                    safePath(path);
+                const kind = $('#check-kind').value;
+                const value = $('#check-value').value;
+                const description = $('#check-desc').value.trim() || kind;
+                editor.commit(doc => { doc.goal.obligations.push({ id: id('obligation'), path, kind, value, description }); doc.goal.revision++; });
+                closeModal();
+                changed();
+                break;
+            }
+            case 'export-project':
+                download(`${active().title.replace(/[^\p{L}\p{N}_-]/gu, '_')}.studio.json`, JSON.stringify({ format: 'platform-studio-project-v1', project: { ...active(), document: editor.document, selectedRun: null } }, null, 2));
+                break;
+            case 'import-project':
+                $('#project-input').click();
+                break;
+            case 'export-artifact': {
+                const r = run(), a = r?.artifacts[lastArtifact];
+                assert(a && await validateArtifact(a), 'ARTIFACT', 'Артефакт не прошёл повторную проверку');
+                download('result.artifact.json', JSON.stringify({ format: 'platform-studio-artifact-v1', artifact: a, acceptedByOwner: await acceptedResultValid(r), acceptance: r.acceptance ?? null, publication: 'not-applied-to-original' }, null, 2));
+                break;
+            }
+            case 'native-export': {
+                const r = run();
+                assert(native && r && await acceptedResultValid(r), 'ACCEPTANCE', 'Сначала примите проверенный снимок');
+                const binding = (await inspectResult(r)).bindingHash;
+                const result = await native.invoke('export_proposal', { runId: r.id, expectedBinding: binding, artifactHash: r.artifacts[lastArtifact].hash });
+                if (result)
+                    toast('Отдельная папка результата: ' + result.path);
+                break;
+            }
+            case 'download-file': {
+                const a = run()?.artifacts[lastArtifact];
+                assert(a && await validateArtifact(a), 'ARTIFACT', 'Артефакт повреждён');
+                const f = a.files[lastPreviewFile];
+                download(f.path.split('/').at(-1), f.content, 'text/plain;charset=utf-8');
+                break;
+            }
+            case 'inspect-result': {
+                const r = run();
+                assert(r, 'RUN', 'Нет запуска');
+                const checked = await inspectResult(clone(r));
+                showModal('Повторная проверка снимка', '<div class="notice success">Перечитаны все ' + checked.artifactHashes.length + ' артефакт(ов). Их хэши, редакции и критерии совпали.</div>' +
+                    '<p>Это детерминированная проверка встроенных критериев, не оценка скрытых рассуждений и не независимая среда ОС.</p><pre>' + esc(checked.bindingHash) + '</pre>' +
+                    checked.findings.map(f => '<h3>' + esc(f.artifactHash.slice(0, 12)) + '</h3>' + f.checks.map(c => '<p>✓ ' + esc(c.description) + '</p>').join('')).join(''));
+                break;
+            }
+            case 'accept': {
+                const r = run();
+                assert(r, 'RUN', 'Нет запуска');
+                const snapshot = clone(r), checked = await inspectResult(snapshot);
+                let accepted;
+                if (native)
+                    accepted = await native.invoke('accept_run', { runId: r.id, expectedBinding: checked.bindingHash });
+                else
+                    accepted = await acceptResult(snapshot, checked.bindingHash);
+                updateRun(accepted);
+                try {
+                    await ensureDraftSaved();
+                }
+                catch (error) {
+                    if (!native) {
+                        const index = state.runs.findIndex(x => x.id === snapshot.id);
+                        if (index >= 0)
+                            state.runs[index] = snapshot;
+                        currentRun = snapshot;
+                        dirty = true;
+                    }
+                    renderResult();
+                    throw error;
+                }
+                renderResult();
+                toast('Принят именно этот снимок. Исходная папка не изменялась.');
+                break;
+            }
+            case 'show-canvas':
+                mode = 'canvas';
+                render();
+                break;
+            case 'contract':
+                showModal('Контракт руководителя · ещё не отправлен', `<p class="muted">Английские рабочие инструкции и неизменённый оригинал запроса. Права не выдаются этим текстом.</p><pre class="contract">${esc(supervisorContract(editor.document.goal))}</pre>`);
+                break;
+            case 'help':
+                showModal('Локальная студия · инкремент 0.2', `<p>Это работающий редактор с реальными встроенными преобразованиями, не подключённый ИИ.</p><ol><li>Выберите файлы или воспользуйтесь примером.</li><li>Измените задачу, узлы, параметры и критерии.</li><li>Нажмите «Начать» и откройте результат.</li><li>Проверьте содержимое и экспортируйте отдельную копию.</li></ol><p>Ctrl+K — добавить действие. Ctrl+Z / Ctrl+Shift+Z — отменить/вернуть правку. Delete — удалить узел. Порты соединяются последовательными кликами; есть выбор источника в инспекторе.</p><div class="notice warning">Нет гарантий Windows-изоляции, независимого проверяющего, внешних бесед и фонового агента. Эти функции не подменены анимацией.</div>`);
+                break;
+        }
+    }));
+    document.addEventListener('change', event => protect(async () => {
+        const el = event.target;
+        const n = node();
+        if (el.dataset['param'] && n) {
+            const key = el.dataset['param'];
+            editor.commit(doc => { doc.nodes.find(x => x.id === n.id).params[key] = el.value; });
+            changed();
+        }
+        if (el.id === 'node-title' && n) {
+            editor.commit(doc => { doc.nodes.find(x => x.id === n.id).title = el.value; });
+            changed();
+        }
+        if (el.id === 'reference-sheet' && n && el.value) {
+            const [w, s] = el.value.split('|');
+            editor.reference(n.id, w, s);
+            changed();
+            toast('Добавлено представление того же узла, не второй исполнитель');
+        }
+        if (el.id === 'parallelism')
+            quiet = el.value === 'quiet';
+        if ((el.id === 'file-input' || el.id === 'folder-input') && el.files) {
+            await importFiles(el.files);
+            el.value = '';
+        }
+        if (el.id === 'project-input' && el.files?.[0]) {
+            assert(!busy, 'BUSY', 'Сначала завершите запуск');
+            const f = el.files[0];
+            assert(f.size <= 16 * 1024 * 1024, 'LIMIT', 'Архив слишком велик');
+            const data = JSON.parse(await f.text());
+            assert(data.format === 'platform-studio-project-v1', 'FORMAT', 'Неизвестный формат');
+            validateDocument(data.project.document);
+            validateFiles(data.project.files);
+            const p = clone(data.project);
+            p.id = id('project');
+            p.document.id = id('doc');
+            p.document.projectId = p.id;
+            p.selectedRun = null;
+            p.selectedWorkspace = p.document.workspaces[0].id;
+            p.selectedSheet = p.document.workspaces[0].sheets[0].id;
+            state.projects.push(p);
+            switchProject(p.id);
+            el.value = '';
+            toast('Проект импортирован без запусков и полномочий');
+        }
+    }));
+    document.addEventListener('input', event => {
+        const e = event.target;
+        if (e.id === 'palette-search') {
+            paletteFilter = e.value.toLowerCase();
+            renderPalette();
+        }
+    });
+    document.addEventListener('keydown', event => protect(() => {
+        const input = event.target.closest('input,textarea,select');
+        if (event.key === 'Escape') {
+            connectFrom = null;
+            renderCanvas();
+            return;
+        }
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+            event.preventDefault();
+            palette();
+            return;
+        }
+        if (input)
+            return;
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') {
+            event.preventDefault();
+            event.shiftKey ? editor.redo() : editor.undo();
+            changed();
+        }
+        if (event.key === 'Delete' && selected) {
+            editor.remove(selected);
+            selected = null;
+            changed();
+        }
+        if (selected && ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+            event.preventDefault();
+            const step = event.shiftKey ? 20 : 5;
+            editor.commit(doc => {
+                for (const w of doc.workspaces)
+                    for (const s of w.sheets)
+                        if (s.id === sheet().id) {
+                            const v = s.views.find(v => v.nodeId === selected);
+                            if (v) {
+                                v.x += event.key === 'ArrowLeft' ? -step : event.key === 'ArrowRight' ? step : 0;
+                                v.y += event.key === 'ArrowUp' ? -step : event.key === 'ArrowDown' ? step : 0;
+                            }
+                        }
+            });
+            changed();
+        }
+    }));
+    const surface = $('#canvas-surface');
+    surface.addEventListener('wheel', event => {
+        const e = event;
+        e.preventDefault();
+        const p = sheet().viewport;
+        if (e.ctrlKey || e.metaKey) {
+            const rect = surface.getBoundingClientRect(), x = e.clientX - rect.left, y = e.clientY - rect.top, z = Math.max(.2, Math.min(2, p.zoom * Math.exp(-e.deltaY * .002)));
+            p.x = x - (x - p.x) * z / p.zoom;
+            p.y = y - (y - p.y) * z / p.zoom;
+            p.zoom = z;
+        }
+        else {
+            p.x -= e.deltaX;
+            p.y -= e.deltaY;
+        }
+        updateTransform();
+        changed(false);
+    }, { passive: false });
+    surface.addEventListener('pointerdown', event => {
+        const e = event;
+        const target = e.target;
+        if (target.closest('button'))
+            return;
+        const article = target.closest('[data-node]');
+        if (article) {
+            selected = article.dataset['node'];
+            renderInspector();
+            renderComposer();
+            for (const el of document.querySelectorAll('[data-node]'))
+                el.classList.toggle('selected', el.dataset['node'] === selected);
+        }
+        else {
+            selected = null;
+            renderInspector();
+            renderComposer();
+        }
+        const drag = target.closest('[data-drag]');
+        const view = drag ? sheet().views.find(v => v.id === drag.dataset['drag']) : undefined;
+        if (article && !view && e.button !== 1)
+            return;
+        const start = { x: e.clientX, y: e.clientY, px: sheet().viewport.x, py: sheet().viewport.y, vx: view?.x ?? 0, vy: view?.y ?? 0 };
+        const original = clone(editor.document);
+        let moved = false;
+        surface.setPointerCapture(e.pointerId);
+        const move = (ev) => {
+            const dx = ev.clientX - start.x, dy = ev.clientY - start.y;
+            moved = moved || Math.abs(dx) + Math.abs(dy) > 2;
+            if (view) {
+                view.x = start.vx + dx / sheet().viewport.zoom;
+                view.y = start.vy + dy / sheet().viewport.zoom;
+                renderCanvas();
+            }
+            else {
+                sheet().viewport.x = start.px + dx;
+                sheet().viewport.y = start.py + dy;
+                updateTransform();
+            }
+        };
+        const end = () => {
+            surface.removeEventListener('pointermove', move);
+            surface.removeEventListener('pointerup', end);
+            surface.removeEventListener('pointercancel', end);
+            if (moved && view) {
+                const x = view.x, y = view.y, vid = view.id;
+                editor.document = original;
+                editor.commit(d => {
+                    for (const w of d.workspaces)
+                        for (const s of w.sheets) {
+                            const v = s.views.find(v => v.id === vid);
+                            if (v) {
+                                v.x = x;
+                                v.y = y;
+                            }
+                        }
+                });
+                changed();
+            }
+            else if (moved)
+                changed(false);
+        };
+        surface.addEventListener('pointermove', move);
+        surface.addEventListener('pointerup', end);
+        surface.addEventListener('pointercancel', end);
+    });
+    window.addEventListener('beforeunload', event => {
+        if (commandBusy || (busy && !native) || dirty || saving) {
+            event.preventDefault();
+            event.returnValue = '';
+        }
+    });
+}
+void boot().catch(e => { document.body.textContent = 'Не удалось открыть студию: ' + errorMessage(e); });
+
+return {};
+})();
+})();</script></body></html>

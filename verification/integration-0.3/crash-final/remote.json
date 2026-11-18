@@ -1,0 +1,1 @@
+{"threadId":"fixture-thread","turns":[{"id":"fixture-turn-1","status":"completed","items":[{"type":"userMessage","id":"user-1","content":[{"type":"text","text":"Synthetic integration request — не пользовательские данные\n\n[PlatformStudio command crash_evidence]"}]}]}],"mutations":1}

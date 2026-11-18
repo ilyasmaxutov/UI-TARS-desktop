@@ -1,0 +1,33 @@
+{
+  "id": "sha256:5659000652b4f1d680eef7dad91e09d86e995ca4338496ab5308aef6c5b709f6",
+  "files": [
+    {
+      "path": "project-report.md",
+      "content": "# Отчёт по проекту\n\n| Файл | Байт UTF-8 | Строк | SHA-256 |\n|---|---:|---:|---|\n| README.md | 100 | 4 | 1b961542633e7faf6e0f406a7a697ef8952be3367ae39d51784d94ebf1625f2f |\n| config.json | 42 | 5 | dc7dd5e967edb58a23963a0bcdaaa7849fd85fd75bdb99c8f8972eac9d5f3be0 |\n\nВсего файлов: 2\n"
+    }
+  ],
+  "manifest": [
+    {
+      "path": "project-report.md",
+      "hash": "36656c7b31874844d7e8417dd581e3e7b4af053829c401027d401ce83036a65f",
+      "bytes": 318
+    }
+  ],
+  "hash": "5659000652b4f1d680eef7dad91e09d86e995ca4338496ab5308aef6c5b709f6",
+  "goalRevision": 1,
+  "graphRevision": 1,
+  "findings": [
+    {
+      "obligationId": "obligation_559f0e98-0ffa-469a-a393-a83099864c96",
+      "description": "В отчёте есть хэши исходных файлов",
+      "passed": true,
+      "detail": "1 файл(ов) · условие выполнено"
+    },
+    {
+      "obligationId": "obligation_e7e7c44d-ff21-4221-bf4d-7f05cfd495eb",
+      "description": "Отчёт не пуст",
+      "passed": true,
+      "detail": "1 файл(ов) · условие выполнено"
+    }
+  ]
+}

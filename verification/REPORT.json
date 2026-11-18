@@ -1,0 +1,97 @@
+{
+  "release": "0.2.0",
+  "date": "2026-11-08",
+  "baseCommit": "04944862ff0525fe347b13b8939738418d98e905",
+  "platform": "linux",
+  "arch": "x64",
+  "node": "v22.16.0",
+  "typescript": "Version 5.8.3",
+  "tests": {
+    "total": 133,
+    "passed": 133,
+    "failed": 0,
+    "skipped": 0,
+    "baselineReproduced": 86,
+    "added": 47
+  },
+  "checks": {
+    "typescript": "passed",
+    "offlineBundle": "passed",
+    "workerBundleInNodeVM": "passed",
+    "actualFileReadWriteReadback": "passed",
+    "allArtifactReinspection": "passed",
+    "commandCrashRecovery": "passed",
+    "productionSQLContracts": "passed"
+  },
+  "recoveryLab": {
+    "release": "0.2.0",
+    "scope": "Node CLI contract lab; actual production SQL migration and TypeScript outbox; test-only file repository and receiver",
+    "fault": "process.exit(91) after receiver SQL COMMIT, before receipt is returned",
+    "excluded": [
+      "Rust host execution",
+      "Windows IPC",
+      "IndexedDB",
+      "OS power loss",
+      "untrusted-code isolation"
+    ],
+    "platform": "linux",
+    "node": "v22.16.0",
+    "sqlite": "3.49.1",
+    "commandId": "command_495d1e95-40df-4735-bd6e-de5c16e1e34f",
+    "commandFingerprint": "fec6a28393a9af52caddbba3b7a8e036fea84e983654673f94e8f55705c59421",
+    "runId": "run_c77bc285-a353-4d49-b300-ef5cf171235f",
+    "childExitCode": 91,
+    "beforeReconcile": "sending",
+    "afterReconcile": "confirmed",
+    "logicalRunCount": 1,
+    "dispatchesDuringRecovery": 0,
+    "sameRunAfterExplicitSameIdSend": true,
+    "output": {
+      "path": "control.txt",
+      "content": "Реальная строка\n"
+    },
+    "artifactHash": "7696e6a0aa342054e46371c3875629b8d7053e3ae615e7c3e8b2f4f9603de341",
+    "sqlMigrationSha256": "b18d3cd20cd0d705066843165a1075a37efbffb6311885afadf9c0f5ccab98f4",
+    "passed": true
+  },
+  "sqlScope": {
+    "engine": "Node built-in SQLite",
+    "version": "3.49.1",
+    "journal": "rollback (not target WAL)",
+    "schema": "actual native schema/v1.sql and schema/v2.sql",
+    "nativeCallbacksExecuted": false,
+    "targetMinimum": "3.51.3"
+  },
+  "native": {
+    "sourceTestCases": 26,
+    "compiled": false,
+    "executed": false,
+    "cargoLockPresent": false,
+    "reason": "No rustc/cargo or Windows host available; dependencies unresolved."
+  },
+  "gui": {
+    "launched": false,
+    "visuallyInspected": false,
+    "indexedDBExecuted": false,
+    "reason": "Application/browser/dev-server/Computer Use not permitted."
+  },
+  "providers": {
+    "calls": 0,
+    "paidCalls": 0,
+    "credentialsUsed": false
+  },
+  "offlineHtml": {
+    "bytes": 201799,
+    "sha256": "9540d34a496751397b6f201296576f0c8af1176a7b7425a607f4f1485a6e984d"
+  },
+  "requirements": {
+    "retained": 96,
+    "fullyAccepted": 0,
+    "sourceSha256": "52844c0d2e6e2b3913527e21ea9af295bfed60c4aef316f948a37246eec798b4"
+  },
+  "gates": {
+    "G1": false,
+    "G2": false,
+    "G3": false
+  }
+}

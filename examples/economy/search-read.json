@@ -1,0 +1,8 @@
+{
+  "id": "inspect-settings-001",
+  "operations": [
+    {"id": "find", "op": "search", "paths": ["."], "query": "saveSettings", "limit": 12},
+    {"id": "context", "op": "read_matches", "from": "find", "before": 8, "after": 18, "limit": 8},
+    {"id": "git", "op": "git_status"}
+  ]
+}

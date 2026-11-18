@@ -1,0 +1,113 @@
+{
+  "sweepId": "sweep_write-conflict",
+  "plan": {
+    "schema": 1,
+    "investigationId": "inv_write-conflict",
+    "taskId": "task_write-conflict",
+    "goalRevision": 1,
+    "originalGoal": "Почему предложение нельзя применить?",
+    "planVersion": 1,
+    "question": "Почему предложение нельзя применить?",
+    "scope": [
+      "observation.txt",
+      "state.txt"
+    ],
+    "stopRules": [
+      "Не менять исходники до различающей проверки.",
+      "Остановиться при неполном источнике или достижении лимита."
+    ],
+    "budget": {
+      "maxSweeps": 6,
+      "wallSeconds": 30,
+      "outputUtf8Bytes": 24576,
+      "maxNoProgress": 3
+    },
+    "hypotheses": [
+      {
+        "id": "h1",
+        "claim": "Изменилась базовая редакция",
+        "predicts": [
+          "В observation.txt есть характерный признак; state.txt исключает альтернативу."
+        ],
+        "state": "open"
+      },
+      {
+        "id": "h2",
+        "claim": "Недостаточно прав на целевой путь",
+        "predicts": [
+          "Состояние в state.txt согласуется с альтернативой, а первый признак недостаточен."
+        ],
+        "state": "open"
+      }
+    ],
+    "probes": [
+      {
+        "id": "p1",
+        "question": "Какие события и признаки наблюдались до сбоя?",
+        "discriminates": [
+          "h1",
+          "h2"
+        ],
+        "operations": [
+          {
+            "id": "read_observation",
+            "op": "read",
+            "path": "observation.txt",
+            "startLine": 1,
+            "lines": 30
+          }
+        ],
+        "effect": "read-only",
+        "priority": 0,
+        "expectedInformation": "Сопоставить наблюдаемое поведение с двумя предсказаниями.",
+        "acceptance": "Доступны точные строки и версия источника."
+      },
+      {
+        "id": "p2",
+        "question": "Какое состояние отличает альтернативные причины?",
+        "discriminates": [
+          "h1",
+          "h2"
+        ],
+        "operations": [
+          {
+            "id": "read_state",
+            "op": "read",
+            "path": "state.txt",
+            "startLine": 1,
+            "lines": 30
+          }
+        ],
+        "effect": "read-only",
+        "priority": 1,
+        "expectedInformation": "Сравнить base/ours/theirs; проверить объединённое предложение в новой редакции.",
+        "acceptance": "Состояние привязано к той же работе; несовпадение или неполнота показаны."
+      }
+    ]
+  },
+  "sourceSnapshot": {
+    "rootHash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "pins": [
+      {
+        "path": "observation.txt",
+        "sha256": "830d9eb4de7bdfccc211e05f26a134d89d534e1200f426114e4a0b23bb796f27"
+      },
+      {
+        "path": "state.txt",
+        "sha256": "85d180aeb71316ead93cd61c0bed32a12dd1e1e14685edc971addb6f09c3d3fa"
+      }
+    ]
+  },
+  "limits": {
+    "outputUtf8Bytes": 24576,
+    "wallSeconds": 30
+  },
+  "permissionScope": {
+    "paths": [
+      "observation.txt",
+      "state.txt"
+    ],
+    "effect": "read-only",
+    "allowGit": false
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "basis": "generated fixtures, actual local files/processes and loopback HTTP only",
+  "localModelCalls": 0,
+  "providerCalls": 0,
+  "computerUse": false,
+  "windowsExeCrossCompiled": true,
+  "windowsExeExecuted": false,
+  "rustCompiled": false,
+  "nativeIntegrationSourceTestsNotRun": 38,
+  "studioExistingTestsPassed": 305,
+  "economyGoTestsPassed": 65,
+  "raceEnabled": true,
+  "vetPassed": true,
+  "limits": {
+    "packetUtf8Bytes": 24576,
+    "itemUtf8Bytes": 4096,
+    "operations": 32,
+    "scanBytes": 33554432,
+    "captureBytes": 134217728
+  },
+  "fullCodexHardTokenLimitAccepted": false,
+  "subscriptionSavingsMeasured": false,
+  "requestGate": {
+    "defaultEnabled": false,
+    "scope": "explicit HTTP/SSE Responses request; bounded and observed input only",
+    "retries": 0,
+    "unobservedHistory": "reject",
+    "opaqueReasoning": "reject by default",
+    "windowsAcceptance": false
+  },
+  "rawCaptureExcludedFromArchive": "104857636 bytes; recreate with demo; SHA-256 in capture-manifest.json"
+}

@@ -1,0 +1,12 @@
+{
+  "src/core/model.ts": "a75d8aae77aecda6d1dd241d229d6201100458029d9afb67096742f62f2325fc",
+  "src/assistant/executor-outbox.ts": "e4918410a1cdcb94bb4f446ca9d793229975b2eb97399605207a6122bbe667b6",
+  "src/assistant/app.ts": "74b5ba8f0e1d81ff3f64cede0e40bacd0930cf54b33bc9255f9f2f858761dc3f",
+  "assistant/src/telemetry.js": "3664462691238081a389934bfbdbde4a2780f67639f4da7e90629883887c7904",
+  "assistant/src/live-events.js": "fe14fbf0511b42894f995cbd342cdf325209faf5a1621618959f777b6d9da0ad",
+  "native/crates/core/src/task_store.rs": "5425657bd2a23b8064df5c34924a1b479de2e569b90974b0d6651e611413d83b",
+  "native/crates/core/src/schema/v3.sql": "23f1793ba85e0d3d980ed0cf4b4d7317fbe9c8f747824e3c6a4dcfa166068a5e",
+  "native/crates/host/src/codex/protocol.rs": "a8f74c295435e966e17a27aab9bc4b26c39c49513ba4a21ea4ecf326f202c916",
+  "native/crates/host/src/codex/peer.rs": "5bbc96c06811da9dbd06282936e879d0f5d683292031d2930017da9ca60b18d7",
+  "native/crates/host/src/codex/mod.rs": "c3eaed0aa0c36aa596214ed1b7e7e93ff62bf7cb810a5e4b4e17ce278487148a"
+}

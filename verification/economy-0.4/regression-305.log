@@ -1,0 +1,1870 @@
+
+> platform-studio@0.4.0 verify
+> npm run check && npm test
+
+
+> platform-studio@0.4.0 check
+> tsc -p tsconfig.json --noEmit
+
+
+> platform-studio@0.4.0 test
+> npm run build && node --test tests/*.test.mjs assistant/tests/*.test.cjs
+
+
+> platform-studio@0.4.0 build
+> npm run compile && node tools/build-assistant.mjs
+
+
+> platform-studio@0.4.0 compile
+> tsc -p tsconfig.json
+
+Built offline HTML (201898 bytes), 13 module factories. No application was launched.
+Built host-backed assistant (71571 bytes); scenario UI is a separate file.
+TAP version 13
+# Subtest: 12 scenario identities are unique
+ok 1 - 12 scenario identities are unique
+  ---
+  duration_ms: 0.916271
+  type: 'test'
+  ...
+# Subtest: starting disconnected never increments commands
+ok 2 - starting disconnected never increments commands
+  ---
+  duration_ms: 0.574918
+  type: 'test'
+  ...
+# Subtest: normal scenario separates run, result and acceptance
+ok 3 - normal scenario separates run, result and acceptance
+  ---
+  duration_ms: 0.312181
+  type: 'test'
+  ...
+# Subtest: running task cannot start a second duplicate
+ok 4 - running task cannot start a second duplicate
+  ---
+  duration_ms: 0.242628
+  type: 'test'
+  ...
+# Subtest: unknown ACK prevents retry
+ok 5 - unknown ACK prevents retry
+  ---
+  duration_ms: 0.204161
+  type: 'test'
+  ...
+# Subtest: reconciliation reads prior effect without new command
+ok 6 - reconciliation reads prior effect without new command
+  ---
+  duration_ms: 0.189599
+  type: 'test'
+  ...
+# Subtest: unknown outcome queues correction but does not send it
+ok 7 - unknown outcome queues correction but does not send it
+  ---
+  duration_ms: 0.284369
+  type: 'test'
+  ...
+# Subtest: race after completion queues correction, no implicit continuation
+ok 8 - race after completion queues correction, no implicit continuation
+  ---
+  duration_ms: 0.307955
+  type: 'test'
+  ...
+# Subtest: explicit continuation sends a single new command
+ok 9 - explicit continuation sends a single new command
+  ---
+  duration_ms: 0.500509
+  type: 'test'
+  ...
+# Subtest: empty correction is not sent
+ok 10 - empty correction is not sent
+  ---
+  duration_ms: 0.492656
+  type: 'test'
+  ...
+# Subtest: current turn can be steered without changing the original goal
+ok 11 - current turn can be steered without changing the original goal
+  ---
+  duration_ms: 0.308225
+  type: 'test'
+  ...
+# Subtest: old goal verdict cannot be accepted
+ok 12 - old goal verdict cannot be accepted
+  ---
+  duration_ms: 0.209209
+  type: 'test'
+  ...
+# Subtest: editing goal invalidates acceptance
+ok 13 - editing goal invalidates acceptance
+  ---
+  duration_ms: 0.268777
+  type: 'test'
+  ...
+# Subtest: new goal needs its own verification
+ok 14 - new goal needs its own verification
+  ---
+  duration_ms: 0.144884
+  type: 'test'
+  ...
+# Subtest: manual conflict blocks acceptance
+ok 15 - manual conflict blocks acceptance
+  ---
+  duration_ms: 0.200236
+  type: 'test'
+  ...
+# Subtest: merge creates unverified proposal rather than accepted mutation
+ok 16 - merge creates unverified proposal rather than accepted mutation
+  ---
+  duration_ms: 0.164192
+  type: 'test'
+  ...
+# Subtest: invalid merge does not discard conflict
+ok 17 - invalid merge does not discard conflict
+  ---
+  duration_ms: 0.133588
+  type: 'test'
+  ...
+# Subtest: failed reviewer is not overridden by optimistic executor
+ok 18 - failed reviewer is not overridden by optimistic executor
+  ---
+  duration_ms: 0.129431
+  type: 'test'
+  ...
+# Subtest: fix prepares specific continuation without starting it
+ok 19 - fix prepares specific continuation without starting it
+  ---
+  duration_ms: 0.194447
+  type: 'test'
+  ...
+# Subtest: cancel request is not stopped
+ok 20 - cancel request is not stopped
+  ---
+  duration_ms: 0.14243
+  type: 'test'
+  ...
+# Subtest: late COMPLETE cannot override cancellation
+ok 21 - late COMPLETE cannot override cancellation
+  ---
+  duration_ms: 0.163992
+  type: 'test'
+  ...
+# Subtest: stopped requires separate observation
+ok 22 - stopped requires separate observation
+  ---
+  duration_ms: 0.133707
+  type: 'test'
+  ...
+# Subtest: quota wait does not create model calls
+ok 23 - quota wait does not create model calls
+  ---
+  duration_ms: 0.14247
+  type: 'test'
+  ...
+# Subtest: active model replacement only records intention
+ok 24 - active model replacement only records intention
+  ---
+  duration_ms: 0.186485
+  type: 'test'
+  ...
+# Subtest: stopped model replacement still needs transfer approval
+ok 25 - stopped model replacement still needs transfer approval
+  ---
+  duration_ms: 0.259643
+  type: 'test'
+  ...
+# Subtest: stale prompt saves both versions instead of overwrite
+ok 26 - stale prompt saves both versions instead of overwrite
+  ---
+  duration_ms: 0.179374
+  type: 'test'
+  ...
+# Subtest: explicit local draft adoption creates new version
+ok 27 - explicit local draft adoption creates new version
+  ---
+  duration_ms: 0.225422
+  type: 'test'
+  ...
+# Subtest: local task does not fake English generation
+ok 28 - local task does not fake English generation
+  ---
+  duration_ms: 0.149351
+  type: 'test'
+  ...
+# Subtest: reducer never mutates input state
+ok 29 - reducer never mutates input state
+  ---
+  duration_ms: 0.156761
+  type: 'test'
+  ...
+# Subtest: handoff states transfer requirement and design provenance
+ok 30 - handoff states transfer requirement and design provenance
+  ---
+  duration_ms: 0.198894
+  type: 'test'
+  ...
+# Subtest: quota waiting cannot be bypassed by a queued continuation
+ok 31 - quota waiting cannot be bypassed by a queued continuation
+  ---
+  duration_ms: 0.185954
+  type: 'test'
+  ...
+# Subtest: new goal removes the accepted screen status as well as receipt
+ok 32 - new goal removes the accepted screen status as well as receipt
+  ---
+  duration_ms: 0.266042
+  type: 'test'
+  ...
+# Subtest: goal history retains exact earlier user wording
+ok 33 - goal history retains exact earlier user wording
+  ---
+  duration_ms: 0.147347
+  type: 'test'
+  ...
+# Subtest: prompt saves keep both content versions, not only a revision counter
+ok 34 - prompt saves keep both content versions, not only a revision counter
+  ---
+  duration_ms: 0.179625
+  type: 'test'
+  ...
+# Subtest: changed user intent cannot start with an old prompt
+ok 35 - changed user intent cannot start with an old prompt
+  ---
+  duration_ms: 0.157852
+  type: 'test'
+  ...
+# Subtest: host envelope keeps event identity and explicitly receipt time
+ok 36 - host envelope keeps event identity and explicitly receipt time
+  ---
+  duration_ms: 1.089167
+  type: 'test'
+  ...
+# Subtest: missing sequence is not silently fabricated
+ok 37 - missing sequence is not silently fabricated
+  ---
+  duration_ms: 0.109272
+  type: 'test'
+  ...
+# Subtest: timestamp difference is not TTFT
+ok 38 - timestamp difference is not TTFT
+  ---
+  duration_ms: 0.84703
+  type: 'test'
+  ...
+# Subtest: raw delta replay counted only once
+ok 39 - raw delta replay counted only once
+  ---
+  duration_ms: 0.241226
+  type: 'test'
+  ...
+# Subtest: cumulative usage delta does not double add cached/reasoning
+ok 40 - cumulative usage delta does not double add cached/reasoning
+  ---
+  duration_ms: 0.439278
+  type: 'test'
+  ...
+# Subtest: gap and synthetic peer remain visible
+ok 41 - gap and synthetic peer remain visible
+  ---
+  duration_ms: 0.453278
+  type: 'test'
+  ...
+# Subtest: prompt/tool contents absent from telemetry export
+ok 42 - prompt/tool contents absent from telemetry export
+  ---
+  duration_ms: 0.274846
+  type: 'test'
+  ...
+# Subtest: screen markup renders without a browser: task
+ok 43 - screen markup renders without a browser: task
+  ---
+  duration_ms: 7.178106
+  type: 'test'
+  ...
+# Subtest: screen markup renders without a browser: prompt
+ok 44 - screen markup renders without a browser: prompt
+  ---
+  duration_ms: 2.925416
+  type: 'test'
+  ...
+# Subtest: screen markup renders without a browser: changes
+ok 45 - screen markup renders without a browser: changes
+  ---
+  duration_ms: 2.104405
+  type: 'test'
+  ...
+# Subtest: screen markup renders without a browser: observe
+ok 46 - screen markup renders without a browser: observe
+  ---
+  duration_ms: 2.741995
+  type: 'test'
+  ...
+# Subtest: screen markup renders without a browser: team
+ok 47 - screen markup renders without a browser: team
+  ---
+  duration_ms: 2.237261
+  type: 'test'
+  ...
+# Subtest: screen markup renders without a browser: connections
+ok 48 - screen markup renders without a browser: connections
+  ---
+  duration_ms: 1.770162
+  type: 'test'
+  ...
+# Subtest: all twelve scenarios render their intended screen states
+ok 49 - all twelve scenarios render their intended screen states
+  ---
+  duration_ms: 8.530585
+  type: 'test'
+  ...
+# Subtest: dialog uses accessible modal title and explicit scenario provenance
+ok 50 - dialog uses accessible modal title and explicit scenario provenance
+  ---
+  duration_ms: 2.244391
+  type: 'test'
+  ...
+# Subtest: sample telemetry is explicitly labelled and does not imply account spending
+ok 51 - sample telemetry is explicitly labelled and does not imply account spending
+  ---
+  duration_ms: 21.631672
+  type: 'test'
+  ...
+# Subtest: model outcome cannot be accepted through conflict screen
+ok 52 - model outcome cannot be accepted through conflict screen
+  ---
+  duration_ms: 2.212924
+  type: 'test'
+  ...
+# Subtest: unsaved English text survives leaving and returning to the editor
+ok 53 - unsaved English text survives leaving and returning to the editor
+  ---
+  duration_ms: 1.61336
+  type: 'test'
+  ...
+# Subtest: draft text is scoped to the selected artifact rather than silently retargeted
+ok 54 - draft text is scoped to the selected artifact rather than silently retargeted
+  ---
+  duration_ms: 1.382469
+  type: 'test'
+  ...
+# Subtest: switching scenario preserves previous local work
+ok 55 - switching scenario preserves previous local work
+  ---
+  duration_ms: 2.157803
+  type: 'test'
+  ...
+# Subtest: new request does not hallucinate a translated prompt
+ok 56 - new request does not hallucinate a translated prompt
+  ---
+  duration_ms: 1.553993
+  type: 'test'
+  ...
+# Subtest: user-provided markup is escaped in the screen
+ok 57 - user-provided markup is escaped in the screen
+  ---
+  duration_ms: 1.347868
+  type: 'test'
+  ...
+# Subtest: team secondary sheet references the same role identity
+ok 58 - team secondary sheet references the same role identity
+  ---
+  duration_ms: 1.318946
+  type: 'test'
+  ...
+# Subtest: missing usage is unknown, not zero
+ok 59 - missing usage is unknown, not zero
+  ---
+  duration_ms: 2.203061
+  type: 'test'
+  ...
+# Subtest: boolean counters are not accepted as numbers
+ok 60 - boolean counters are not accepted as numbers
+  ---
+  duration_ms: 0.18968
+  type: 'test'
+  ...
+# Subtest: negative counters are unknown
+ok 61 - negative counters are unknown
+  ---
+  duration_ms: 0.103062
+  type: 'test'
+  ...
+# Subtest: unsafe large counters are not rounded into facts
+ok 62 - unsafe large counters are not rounded into facts
+  ---
+  duration_ms: 0.099407
+  type: 'test'
+  ...
+# Subtest: cached and reasoning are not added to total
+ok 63 - cached and reasoning are not added to total
+  ---
+  duration_ms: 1.428568
+  type: 'test'
+  ...
+# Subtest: modern records take precedence over mirrored legacy counters
+ok 64 - modern records take precedence over mirrored legacy counters
+  ---
+  duration_ms: 0.551553
+  type: 'test'
+  ...
+# Subtest: same response ID cannot be counted twice at different timestamps
+ok 65 - same response ID cannot be counted twice at different timestamps
+  ---
+  duration_ms: 0.35198
+  type: 'test'
+  ...
+# Subtest: legacy counters are differenced rather than summed
+ok 66 - legacy counters are differenced rather than summed
+  ---
+  duration_ms: 0.44757
+  type: 'test'
+  ...
+# Subtest: first legacy sample is a baseline, not inferred new spending
+ok 67 - first legacy sample is a baseline, not inferred new spending
+  ---
+  duration_ms: 0.494619
+  type: 'test'
+  ...
+# Subtest: reset does not create a negative or fabricated increment
+ok 68 - reset does not create a negative or fabricated increment
+  ---
+  duration_ms: 0.647175
+  type: 'test'
+  ...
+# Subtest: archived copy of same events does not double-count
+ok 69 - archived copy of same events does not double-count
+  ---
+  duration_ms: 0.362124
+  type: 'test'
+  ...
+# Subtest: sources without metadata remain distinct
+ok 70 - sources without metadata remain distinct
+  ---
+  duration_ms: 1.042598
+  type: 'test'
+  ...
+# Subtest: overlapping tool intervals are a union, not sum
+ok 71 - overlapping tool intervals are a union, not sum
+  ---
+  duration_ms: 0.394411
+  type: 'test'
+  ...
+# Subtest: parallel turn tool intervals do not contaminate each other
+ok 72 - parallel turn tool intervals do not contaminate each other
+  ---
+  duration_ms: 0.466318
+  type: 'test'
+  ...
+# Subtest: incomplete turn has unknown duration
+ok 73 - incomplete turn has unknown duration
+  ---
+  duration_ms: 0.165784
+  type: 'test'
+  ...
+# Subtest: complete message is not first-token latency
+ok 74 - complete message is not first-token latency
+  ---
+  duration_ms: 0.200746
+  type: 'test'
+  ...
+# Subtest: reported TTFT is kept separately from first visible message
+ok 75 - reported TTFT is kept separately from first visible message
+  ---
+  duration_ms: 0.194197
+  type: 'test'
+  ...
+# Subtest: later full message does not change first delta provenance
+ok 76 - later full message does not change first delta provenance
+  ---
+  duration_ms: 0.215719
+  type: 'test'
+  ...
+# Subtest: tool explicit duration can recover a missing start boundary
+ok 77 - tool explicit duration can recover a missing start boundary
+  ---
+  duration_ms: 0.154248
+  type: 'test'
+  ...
+# Subtest: sparse rate limits remain unknown
+ok 78 - sparse rate limits remain unknown
+  ---
+  duration_ms: 0.151453
+  type: 'test'
+  ...
+# Subtest: truncated JSONL tail is visible
+ok 79 - truncated JSONL tail is visible
+  ---
+  duration_ms: 0.434971
+  type: 'test'
+  ...
+# Subtest: malformed non-tail line is visible
+ok 80 - malformed non-tail line is visible
+  ---
+  duration_ms: 0.150251
+  type: 'test'
+  ...
+# Subtest: oversized line is bounded and omitted
+ok 81 - oversized line is bounded and omitted
+  ---
+  duration_ms: 5.375239
+  type: 'test'
+  ...
+# Subtest: prompt/tool arguments/output secrets never enter normalized report
+ok 82 - prompt/tool arguments/output secrets never enter normalized report
+  ---
+  duration_ms: 0.355084
+  type: 'test'
+  ...
+# Subtest: normalized event imports are whitelisted, not blindly trusted
+ok 83 - normalized event imports are whitelisted, not blindly trusted
+  ---
+  duration_ms: 0.293183
+  type: 'test'
+  ...
+# Subtest: capture format import preserves source and notices
+ok 84 - capture format import preserves source and notices
+  ---
+  duration_ms: 1.547163
+  type: 'test'
+  ...
+# Subtest: App Server envelope maps turn, tokens and explicit command duration
+ok 85 - App Server envelope maps turn, tokens and explicit command duration
+  ---
+  duration_ms: 0.315335
+  type: 'test'
+  ...
+# Subtest: fork inheritance is disclosed
+ok 86 - fork inheritance is disclosed
+  ---
+  duration_ms: 0.213475
+  type: 'test'
+  ...
+# Subtest: union clips to the bounds of the measured turn
+ok 87 - union clips to the bounds of the measured turn
+  ---
+  duration_ms: 0.133127
+  type: 'test'
+  ...
+# Subtest: unknown event names stay visible in coverage
+ok 88 - unknown event names stay visible in coverage
+  ---
+  duration_ms: 0.252703
+  type: 'test'
+  ...
+# Subtest: same timestamp quota changes are retained despite repeated token totals
+ok 89 - same timestamp quota changes are retained despite repeated token totals
+  ---
+  duration_ms: 0.239814
+  type: 'test'
+  ...
+# Subtest: reject path "../x"
+ok 90 - reject path "../x"
+  ---
+  duration_ms: 1.792074
+  type: 'test'
+  ...
+# Subtest: reject path "/etc/passwd"
+ok 91 - reject path "/etc/passwd"
+  ---
+  duration_ms: 0.145355
+  type: 'test'
+  ...
+# Subtest: reject path "C:/x"
+ok 92 - reject path "C:/x"
+  ---
+  duration_ms: 0.109221
+  type: 'test'
+  ...
+# Subtest: reject path "a\\\\b"
+ok 93 - reject path "a\\\\b"
+  ---
+  duration_ms: 0.073058
+  type: 'test'
+  ...
+# Subtest: reject path "a:stream"
+ok 94 - reject path "a:stream"
+  ---
+  duration_ms: 0.184602
+  type: 'test'
+  ...
+# Subtest: reject path "a//b"
+ok 95 - reject path "a//b"
+  ---
+  duration_ms: 0.265091
+  type: 'test'
+  ...
+# Subtest: reject path "a/./b"
+ok 96 - reject path "a/./b"
+  ---
+  duration_ms: 0.1356
+  type: 'test'
+  ...
+# Subtest: reject path "CON.txt"
+ok 97 - reject path "CON.txt"
+  ---
+  duration_ms: 0.065036
+  type: 'test'
+  ...
+# Subtest: reject path "LPT1"
+ok 98 - reject path "LPT1"
+  ---
+  duration_ms: 0.370987
+  type: 'test'
+  ...
+# Subtest: reject path "folder./x"
+ok 99 - reject path "folder./x"
+  ---
+  duration_ms: 0.292792
+  type: 'test'
+  ...
+# Subtest: reject path "file "
+ok 100 - reject path "file "
+  ---
+  duration_ms: 0.125975
+  type: 'test'
+  ...
+# Subtest: reject path "a\\u0000b"
+ok 101 - reject path "a\\u0000b"
+  ---
+  duration_ms: 0.090264
+  type: 'test'
+  ...
+# Subtest: reject path "aux.js"
+ok 102 - reject path "aux.js"
+  ---
+  duration_ms: 0.058657
+  type: 'test'
+  ...
+# Subtest: reject path "a?.js"
+ok 103 - reject path "a?.js"
+  ---
+  duration_ms: 0.049523
+  type: 'test'
+  ...
+# Subtest: unicode relative path allowed
+ok 104 - unicode relative path allowed
+  ---
+  duration_ms: 0.290719
+  type: 'test'
+  ...
+# Subtest: case-insensitive path collision rejected
+ok 105 - case-insensitive path collision rejected
+  ---
+  duration_ms: 0.208447
+  type: 'test'
+  ...
+# Subtest: binary NUL rejected
+ok 106 - binary NUL rejected
+  ---
+  duration_ms: 0.086257
+  type: 'test'
+  ...
+# Subtest: size limit counts UTF-8 bytes
+ok 107 - size limit counts UTF-8 bytes
+  ---
+  duration_ms: 2.195158
+  type: 'test'
+  ...
+# Subtest: normalization is idempotent
+ok 108 - normalization is idempotent
+  ---
+  duration_ms: 0.210721
+  type: 'test'
+  ...
+# Subtest: canonical serialization sorts keys
+ok 109 - canonical serialization sorts keys
+  ---
+  duration_ms: 0.181157
+  type: 'test'
+  ...
+# Subtest: SHA-256 standard vector
+ok 110 - SHA-256 standard vector
+  ---
+  duration_ms: 26.793451
+  type: 'test'
+  ...
+# Subtest: report template compiles
+ok 111 - report template compiles
+  ---
+  duration_ms: 1.598708
+  type: 'test'
+  ...
+# Subtest: normalize template compiles
+ok 112 - normalize template compiles
+  ---
+  duration_ms: 0.319291
+  type: 'test'
+  ...
+# Subtest: missing required input identified
+ok 113 - missing required input identified
+  ---
+  duration_ms: 0.310097
+  type: 'test'
+  ...
+# Subtest: type mismatch identified
+ok 114 - type mismatch identified
+  ---
+  duration_ms: 0.156601
+  type: 'test'
+  ...
+# Subtest: unknown port rejected at import
+ok 115 - unknown port rejected at import
+  ---
+  duration_ms: 0.385438
+  type: 'test'
+  ...
+# Subtest: cycles fail preflight
+ok 116 - cycles fail preflight
+  ---
+  duration_ms: 0.164423
+  type: 'test'
+  ...
+# Subtest: result cannot bypass checker
+ok 117 - result cannot bypass checker
+  ---
+  duration_ms: 0.195689
+  type: 'test'
+  ...
+# Subtest: orphan work is not silently accepted
+ok 118 - orphan work is not silently accepted
+  ---
+  duration_ms: 0.186645
+  type: 'test'
+  ...
+# Subtest: Codex unavailable rather than synthetic success
+ok 119 - Codex unavailable rather than synthetic success
+  ---
+  duration_ms: 0.907318
+  type: 'test'
+  ...
+# Subtest: deleted obligation blocks checker
+ok 120 - deleted obligation blocks checker
+  ---
+  duration_ms: 0.174307
+  type: 'test'
+  ...
+# Subtest: editor CAS rejects stale agent patch
+ok 121 - editor CAS rejects stale agent patch
+  ---
+  duration_ms: 0.43434
+  type: 'test'
+  ...
+# Subtest: undo/redo never rewinds revision identity
+ok 122 - undo/redo never rewinds revision identity
+  ---
+  duration_ms: 0.48129
+  type: 'test'
+  ...
+# Subtest: second view is not a second operation
+ok 123 - second view is not a second operation
+  ---
+  duration_ms: 0.440249
+  type: 'test'
+  ...
+# Subtest: removing a node removes all its views and edges
+ok 124 - removing a node removes all its views and edges
+  ---
+  duration_ms: 0.33858
+  type: 'test'
+  ...
+# Subtest: duplicate semantic IDs rejected
+ok 125 - duplicate semantic IDs rejected
+  ---
+  duration_ms: 0.194086
+  type: 'test'
+  ...
+# Subtest: prototype assignment blocked
+ok 126 - prototype assignment blocked
+  ---
+  duration_ms: 0.158434
+  type: 'test'
+  ...
+# Subtest: bad viewport rejected
+ok 127 - bad viewport rejected
+  ---
+  duration_ms: 0.165424
+  type: 'test'
+  ...
+# Subtest: real report includes actual hashes and paths
+ok 128 - real report includes actual hashes and paths
+  ---
+  duration_ms: 31.008796
+  type: 'test'
+  ...
+# Subtest: normalization changes outputs not source
+ok 129 - normalization changes outputs not source
+  ---
+  duration_ms: 11.07663
+  type: 'test'
+  ...
+# Subtest: artifact tampering invalidates digest
+ok 130 - artifact tampering invalidates digest
+  ---
+  duration_ms: 10.866726
+  type: 'test'
+  ...
+# Subtest: manifest alteration invalidates digest
+ok 131 - manifest alteration invalidates digest
+  ---
+  duration_ms: 7.1106
+  type: 'test'
+  ...
+# Subtest: false success rejected by frozen criterion
+ok 132 - false success rejected by frozen criterion
+  ---
+  duration_ms: 6.193256
+  type: 'test'
+  ...
+# Subtest: empty input does not produce a success report
+ok 133 - empty input does not produce a success report
+  ---
+  duration_ms: 3.207342
+  type: 'test'
+  ...
+# Subtest: frozen run ignores edits after start
+ok 134 - frozen run ignores edits after start
+  ---
+  duration_ms: 6.687446
+  type: 'test'
+  ...
+# Subtest: cancellation stops before a result and is not success
+ok 135 - cancellation stops before a result and is not success
+  ---
+  duration_ms: 2.597692
+  type: 'test'
+  ...
+# Subtest: monotonic event sequence
+ok 136 - monotonic event sequence
+  ---
+  duration_ms: 8.159717
+  type: 'test'
+  ...
+# Subtest: missing target file fails criterion not vacuous success
+ok 137 - missing target file fails criterion not vacuous success
+  ---
+  duration_ms: 0.167276
+  type: 'test'
+  ...
+# Subtest: invalid JSON criterion fails
+ok 138 - invalid JSON criterion fails
+  ---
+  duration_ms: 0.127939
+  type: 'test'
+  ...
+# Subtest: diff includes deleted files and new files
+ok 139 - diff includes deleted files and new files
+  ---
+  duration_ms: 0.289377
+  type: 'test'
+  ...
+# Subtest: external manual edit produces conflict
+ok 140 - external manual edit produces conflict
+  ---
+  duration_ms: 0.167146
+  type: 'test'
+  ...
+# Subtest: matching external edit is not a new conflict
+ok 141 - matching external edit is not a new conflict
+  ---
+  duration_ms: 0.091305
+  type: 'test'
+  ...
+# Subtest: budget reserve then estimate does not free money
+ok 142 - budget reserve then estimate does not free money
+  ---
+  duration_ms: 0.301524
+  type: 'test'
+  ...
+# Subtest: unknown price fails closed
+ok 143 - unknown price fails closed
+  ---
+  duration_ms: 0.086868
+  type: 'test'
+  ...
+# Subtest: budget restart preserves open reserves
+ok 144 - budget restart preserves open reserves
+  ---
+  duration_ms: 0.150793
+  type: 'test'
+  ...
+# Subtest: double settlement cannot refund twice
+ok 145 - double settlement cannot refund twice
+  ---
+  duration_ms: 0.134588
+  type: 'test'
+  ...
+# Subtest: uncertain external effect is not automatically retried
+ok 146 - uncertain external effect is not automatically retried
+  ---
+  duration_ms: 0.111895
+  type: 'test'
+  ...
+# Subtest: a supported receiver key permits logical retry
+ok 147 - a supported receiver key permits logical retry
+  ---
+  duration_ms: 0.07475
+  type: 'test'
+  ...
+# Subtest: old generation loses retry permission
+ok 148 - old generation loses retry permission
+  ---
+  duration_ms: 0.066107
+  type: 'test'
+  ...
+# Subtest: three no-progress cycles block fourth after restore
+ok 149 - three no-progress cycles block fourth after restore
+  ---
+  duration_ms: 0.217651
+  type: 'test'
+  ...
+# Subtest: rewording a claim is not progress
+ok 150 - rewording a claim is not progress
+  ---
+  duration_ms: 0.110654
+  type: 'test'
+  ...
+# Subtest: observed new evidence resets consecutive stall count
+ok 151 - observed new evidence resets consecutive stall count
+  ---
+  duration_ms: 0.110382
+  type: 'test'
+  ...
+# Subtest: cancel ACK does not release a lease
+ok 152 - cancel ACK does not release a lease
+  ---
+  duration_ms: 0.125816
+  type: 'test'
+  ...
+# Subtest: concurrent duplicate commands execute once
+ok 153 - concurrent duplicate commands execute once
+  ---
+  duration_ms: 5.248182
+  type: 'test'
+  ...
+# Subtest: bounded queue rejects instead of silent loss
+ok 154 - bounded queue rejects instead of silent loss
+  ---
+  duration_ms: 0.289698
+  type: 'test'
+  ...
+# Subtest: latest queue records dropped sequence
+ok 155 - latest queue records dropped sequence
+  ---
+  duration_ms: 0.148499
+  type: 'test'
+  ...
+# Subtest: arrival and event-time policies differ on late language
+ok 156 - arrival and event-time policies differ on late language
+  ---
+  duration_ms: 0.379801
+  type: 'test'
+  ...
+# Subtest: event time waits for both watermarks
+ok 157 - event time waits for both watermarks
+  ---
+  duration_ms: 0.097985
+  type: 'test'
+  ...
+# Subtest: protocol builder never enables sandbox bypass
+ok 158 - protocol builder never enables sandbox bypass
+  ---
+  duration_ms: 0.187296
+  type: 'test'
+  ...
+# Subtest: supervisor contract preserves original Russian request
+ok 159 - supervisor contract preserves original Russian request
+  ---
+  duration_ms: 0.252873
+  type: 'test'
+  ...
+# Subtest: real filesystem route reads source, computes report, writes new proposal and reads back
+ok 160 - real filesystem route reads source, computes report, writes new proposal and reads back
+  ---
+  duration_ms: 15.123822
+  type: 'test'
+  ...
+# Subtest: inline profile keeps NUL rejection
+ok 161 - inline profile keeps NUL rejection
+  ---
+  duration_ms: 1.880114
+  type: 'test'
+  ...
+# Subtest: mounted repository contains no file snapshot
+ok 162 - mounted repository contains no file snapshot
+  ---
+  duration_ms: 0.327423
+  type: 'test'
+  ...
+# Subtest: mounted metadata does not inherit 256-file cap
+ok 163 - mounted metadata does not inherit 256-file cap
+  ---
+  duration_ms: 0.361994
+  type: 'test'
+  ...
+# Subtest: relative mounted path rejected
+ok 164 - relative mounted path rejected
+  ---
+  duration_ms: 0.176871
+  type: 'test'
+  ...
+# Subtest: NUL mounted path rejected
+ok 165 - NUL mounted path rejected
+  ---
+  duration_ms: 0.16284
+  type: 'test'
+  ...
+# Subtest: unknown access rejected
+ok 166 - unknown access rejected
+  ---
+  duration_ms: 0.237109
+  type: 'test'
+  ...
+# Subtest: prepare never touches transport
+ok 167 - prepare never touches transport
+  ---
+  duration_ms: 15.251179
+  type: 'test'
+  ...
+# Subtest: failed insertion never dispatches
+ok 168 - failed insertion never dispatches
+  ---
+  duration_ms: 1.604307
+  type: 'test'
+  ...
+# Subtest: persist sending before first possible write
+ok 169 - persist sending before first possible write
+  ---
+  duration_ms: 1.917388
+  type: 'test'
+  ...
+# Subtest: send fence persistence failure prevents write
+ok 170 - send fence persistence failure prevents write
+  ---
+  duration_ms: 1.469458
+  type: 'test'
+  ...
+# Subtest: confirmed command cannot be resent
+ok 171 - confirmed command cannot be resent
+  ---
+  duration_ms: 1.676333
+  type: 'test'
+  ...
+# Subtest: same ID changed body rejected
+ok 172 - same ID changed body rejected
+  ---
+  duration_ms: 2.055282
+  type: 'test'
+  ...
+# Subtest: frozen params tamper rejected before transport
+ok 173 - frozen params tamper rejected before transport
+  ---
+  duration_ms: 3.190948
+  type: 'test'
+  ...
+# Subtest: lost ACK becomes unknown and repeated send is blocked
+ok 174 - lost ACK becomes unknown and repeated send is blocked
+  ---
+  duration_ms: 2.356997
+  type: 'test'
+  ...
+# Subtest: restart in-flight is reconciliation only
+ok 175 - restart in-flight is reconciliation only
+  ---
+  duration_ms: 1.158288
+  type: 'test'
+  ...
+# Subtest: empty complete readback does not prove absence
+ok 176 - empty complete readback does not prove absence
+  ---
+  duration_ms: 0.914289
+  type: 'test'
+  ...
+# Subtest: exact nonce + exact user text can reconcile
+ok 177 - exact nonce + exact user text can reconcile
+  ---
+  duration_ms: 1.163487
+  type: 'test'
+  ...
+# Subtest: unknown can later become confirmed
+ok 178 - unknown can later become confirmed
+  ---
+  duration_ms: 0.920237
+  type: 'test'
+  ...
+# Subtest: assistant echo never proves delivery
+ok 179 - assistant echo never proves delivery
+  ---
+  duration_ms: 0.525235
+  type: 'test'
+  ...
+# Subtest: same text in a different thread rejected
+ok 180 - same text in a different thread rejected
+  ---
+  duration_ms: 0.129601
+  type: 'test'
+  ...
+# Subtest: nonce without exact input rejected
+ok 181 - nonce without exact input rejected
+  ---
+  duration_ms: 0.127348
+  type: 'test'
+  ...
+# Subtest: multiple exact matches remain ambiguous
+ok 182 - multiple exact matches remain ambiguous
+  ---
+  duration_ms: 0.152785
+  type: 'test'
+  ...
+# Subtest: steer readback must be in expected turn
+ok 183 - steer readback must be in expected turn
+  ---
+  duration_ms: 0.114248
+  type: 'test'
+  ...
+# Subtest: steer refuses mismatched ACK
+ok 184 - steer refuses mismatched ACK
+  ---
+  duration_ms: 2.610081
+  type: 'test'
+  ...
+# Subtest: interrupt ACK does not prove stopped
+ok 185 - interrupt ACK does not prove stopped
+  ---
+  duration_ms: 1.78934
+  type: 'test'
+  ...
+# Subtest: interrupt reconciles only observed interrupted target
+ok 186 - interrupt reconciles only observed interrupted target
+  ---
+  duration_ms: 0.187287
+  type: 'test'
+  ...
+# Subtest: competing outbox instances issue at most one write
+ok 187 - competing outbox instances issue at most one write
+  ---
+  duration_ms: 2.083884
+  type: 'test'
+  ...
+# Subtest: review is scoped to goal and real dependencies
+ok 188 - review is scoped to goal and real dependencies
+  ---
+  duration_ms: 0.24424
+  type: 'test'
+  ...
+# Subtest: review invalidated by taskId
+ok 189 - review invalidated by taskId
+  ---
+  duration_ms: 0.186786
+  type: 'test'
+  ...
+# Subtest: review invalidated by criteriaHash
+ok 190 - review invalidated by criteriaHash
+  ---
+  duration_ms: 0.079918
+  type: 'test'
+  ...
+# Subtest: review invalidated by artifactHash
+ok 191 - review invalidated by artifactHash
+  ---
+  duration_ms: 0.085987
+  type: 'test'
+  ...
+# Subtest: review invalidated by dependencyFingerprint
+ok 192 - review invalidated by dependencyFingerprint
+  ---
+  duration_ms: 0.09474
+  type: 'test'
+  ...
+# Subtest: review invalidated by verifierProfile
+ok 193 - review invalidated by verifierProfile
+  ---
+  duration_ms: 0.080078
+  type: 'test'
+  ...
+# Subtest: review invalidated by goal revision
+ok 194 - review invalidated by goal revision
+  ---
+  duration_ms: 0.11511
+  type: 'test'
+  ...
+# Subtest: unknown workspace fingerprint cannot pass
+ok 195 - unknown workspace fingerprint cannot pass
+  ---
+  duration_ms: 0.092517
+  type: 'test'
+  ...
+# Subtest: partial scan cannot pass
+ok 196 - partial scan cannot pass
+  ---
+  duration_ms: 0.085656
+  type: 'test'
+  ...
+# Subtest: unrelated chat turn does not invalidate a sealed result
+ok 197 - unrelated chat turn does not invalidate a sealed result
+  ---
+  duration_ms: 0.191793
+  type: 'test'
+  ...
+# Subtest: host RPC rejects arbitrary methods before invocation
+ok 198 - host RPC rejects arbitrary methods before invocation
+  ---
+  duration_ms: 0.233585
+  type: 'test'
+  ...
+# Subtest: host RPC forwards named operation only
+ok 199 - host RPC forwards named operation only
+  ---
+  duration_ms: 0.82667
+  type: 'test'
+  ...
+# Subtest: working task can be interrupted but cannot start another turn
+ok 200 - working task can be interrupted but cannot start another turn
+  ---
+  duration_ms: 0.160587
+  type: 'test'
+  ...
+# Subtest: unknown send disables steer without disabling cancellation
+ok 201 - unknown send disables steer without disabling cancellation
+  ---
+  duration_ms: 0.119316
+  type: 'test'
+  ...
+# Subtest: no live acceptance from a model message
+ok 202 - no live acceptance from a model message
+  ---
+  duration_ms: 0.101139
+  type: 'test'
+  ...
+# Subtest: events from another session are excluded
+ok 203 - events from another session are excluded
+  ---
+  duration_ms: 0.154388
+  type: 'test'
+  ...
+# Subtest: replayed event sequence deduplicated
+ok 204 - replayed event sequence deduplicated
+  ---
+  duration_ms: 0.141579
+  type: 'test'
+  ...
+# Subtest: final assistant item replaces streamed text, not double-appended
+ok 205 - final assistant item replaces streamed text, not double-appended
+  ---
+  duration_ms: 0.20383
+  type: 'test'
+  ...
+# Subtest: tool completion alone is not fresh evidence
+ok 206 - tool completion alone is not fresh evidence
+  ---
+  duration_ms: 0.223369
+  type: 'test'
+  ...
+# (node:14013) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: real child crash after recorded acceptance; reopened SQLite reconciles without second send
+ok 207 - real child crash after recorded acceptance; reopened SQLite reconciles without second send
+  ---
+  duration_ms: 117.031819
+  type: 'test'
+  ...
+# Subtest: notifications can precede start acknowledgement
+ok 208 - notifications can precede start acknowledgement
+  ---
+  duration_ms: 32.775613
+  type: 'test'
+  ...
+# (node:14029) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: actual v3 migration coexists with v1/v2
+ok 209 - actual v3 migration coexists with v1/v2
+  ---
+  duration_ms: 3.418052
+  type: 'test'
+  ...
+# Subtest: migration is repeatable
+ok 210 - migration is repeatable
+  ---
+  duration_ms: 1.023019
+  type: 'test'
+  ...
+# Subtest: send fence sets exactly one attempt
+ok 211 - send fence sets exactly one attempt
+  ---
+  duration_ms: 1.506903
+  type: 'test'
+  ...
+# Subtest: prepared cannot skip the pre-write fence
+ok 212 - prepared cannot skip the pre-write fence
+  ---
+  duration_ms: 1.338695
+  type: 'test'
+  ...
+# Subtest: unknown cannot become prepared for a retry
+ok 213 - unknown cannot become prepared for a retry
+  ---
+  duration_ms: 1.257135
+  type: 'test'
+  ...
+# Subtest: unknown decision remains reconcilable
+ok 214 - unknown decision remains reconcilable
+  ---
+  duration_ms: 1.297794
+  type: 'test'
+  ...
+# Subtest: confirmed cannot be reopened by late failure
+ok 215 - confirmed cannot be reopened by late failure
+  ---
+  duration_ms: 1.190847
+  type: 'test'
+  ...
+# Subtest: external immutable intent cannot change params
+ok 216 - external immutable intent cannot change params
+  ---
+  duration_ms: 1.324163
+  type: 'test'
+  ...
+# Subtest: external immutable task_id
+ok 217 - external immutable task_id
+  ---
+  duration_ms: 0.97593
+  type: 'test'
+  ...
+# Subtest: external immutable session_id
+ok 218 - external immutable session_id
+  ---
+  duration_ms: 0.91512
+  type: 'test'
+  ...
+# Subtest: external immutable goal_revision
+ok 219 - external immutable goal_revision
+  ---
+  duration_ms: 0.727043
+  type: 'test'
+  ...
+# Subtest: external immutable generation
+ok 220 - external immutable generation
+  ---
+  duration_ms: 0.868942
+  type: 'test'
+  ...
+# Subtest: external immutable method
+ok 221 - external immutable method
+  ---
+  duration_ms: 0.666313
+  type: 'test'
+  ...
+# Subtest: external immutable fingerprint
+ok 222 - external immutable fingerprint
+  ---
+  duration_ms: 1.604016
+  type: 'test'
+  ...
+# Subtest: external immutable expected_thread_id
+ok 223 - external immutable expected_thread_id
+  ---
+  duration_ms: 0.704049
+  type: 'test'
+  ...
+# Subtest: external immutable expected_turn_id
+ok 224 - external immutable expected_turn_id
+  ---
+  duration_ms: 0.687545
+  type: 'test'
+  ...
+# Subtest: external immutable marker
+ok 225 - external immutable marker
+  ---
+  duration_ms: 0.664531
+  type: 'test'
+  ...
+# Subtest: external immutable exact_input
+ok 226 - external immutable exact_input
+  ---
+  duration_ms: 0.641136
+  type: 'test'
+  ...
+# Subtest: two sessions keep one task progress counter
+ok 227 - two sessions keep one task progress counter
+  ---
+  duration_ms: 0.64378
+  type: 'test'
+  ...
+# Subtest: external session cannot be bound twice
+ok 228 - external session cannot be bound twice
+  ---
+  duration_ms: 0.596249
+  type: 'test'
+  ...
+# Subtest: goal history is immutable
+ok 229 - goal history is immutable
+  ---
+  duration_ms: 0.613265
+  type: 'test'
+  ...
+# Subtest: host restart preserves unknown without replay
+ok 230 - host restart preserves unknown without replay
+  ---
+  duration_ms: 28.267541
+  type: 'test'
+  ...
+# Subtest: rollback of fence prevents partial dispatch state
+ok 231 - rollback of fence prevents partial dispatch state
+  ---
+  duration_ms: 0.838917
+  type: 'test'
+  ...
+# Subtest: tombstone fences an IPC command that arrives after local cancellation
+ok 232 - tombstone fences an IPC command that arrives after local cancellation
+  ---
+  duration_ms: 0.883474
+  type: 'test'
+  ...
+# Subtest: retiring prepared intent atomically forbids later dispatch
+ok 233 - retiring prepared intent atomically forbids later dispatch
+  ---
+  duration_ms: 0.793862
+  type: 'test'
+  ...
+# Subtest: retiring in-flight intent cannot reset its attempts to zero
+ok 234 - retiring in-flight intent cannot reset its attempts to zero
+  ---
+  duration_ms: 0.770767
+  type: 'test'
+  ...
+# Subtest: standalone live screen explicitly lacks a host and has no scenario reducer
+ok 235 - standalone live screen explicitly lacks a host and has no scenario reducer
+  ---
+  duration_ms: 8.277171
+  type: 'test'
+  ...
+# Subtest: boot is read-only: no provider process or model request
+ok 236 - boot is read-only: no provider process or model request
+  ---
+  duration_ms: 2.986186
+  type: 'test'
+  ...
+# Subtest: prompt draft survives screen navigation and is escaped
+ok 237 - prompt draft survives screen navigation and is escaped
+  ---
+  duration_ms: 5.895878
+  type: 'test'
+  ...
+# Subtest: consent is read before rendering busy state removes the checkbox
+ok 238 - consent is read before rendering busy state removes the checkbox
+  ---
+  duration_ms: 3.635824
+  type: 'test'
+  ...
+# Subtest: configuration without consent never reaches the host
+ok 239 - configuration without consent never reaches the host
+  ---
+  duration_ms: 3.76206
+  type: 'test'
+  ...
+# Subtest: submitting writes a local command before calling the transport
+ok 240 - submitting writes a local command before calling the transport
+  ---
+  duration_ms: 6.601018
+  type: 'test'
+  ...
+# Subtest: lost host response keeps exact pending command; it is not resent by polling
+ok 241 - lost host response keeps exact pending command; it is not resent by polling
+  ---
+  duration_ms: 6.867932
+  type: 'test'
+  ...
+# Subtest: polling does not replace a focused editor
+ok 242 - polling does not replace a focused editor
+  ---
+  duration_ms: 1.815809
+  type: 'test'
+  ...
+# Subtest: observe and history are real projections and do not contain demo measurements
+ok 243 - observe and history are real projections and do not contain demo measurements
+  ---
+  duration_ms: 2.484926
+  type: 'test'
+  ...
+# (node:14071) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: command is frozen and durably prepared before any transport call
+ok 244 - command is frozen and durably prepared before any transport call
+  ---
+  duration_ms: 9.507957
+  type: 'test'
+  ...
+# Subtest: cannot send if durable prepare fails
+ok 245 - cannot send if durable prepare fails
+  ---
+  duration_ms: 1.987923
+  type: 'test'
+  ...
+# Subtest: cannot dispatch before sending marker commit
+ok 246 - cannot dispatch before sending marker commit
+  ---
+  duration_ms: 2.295356
+  type: 'test'
+  ...
+# Subtest: lost acknowledgement recovers one run after client object is recreated
+ok 247 - lost acknowledgement recovers one run after client object is recreated
+  ---
+  duration_ms: 22.937218
+  type: 'test'
+  ...
+# Subtest: reconciliation is read-only when nothing was accepted
+ok 248 - reconciliation is read-only when nothing was accepted
+  ---
+  duration_ms: 2.751239
+  type: 'test'
+  ...
+# Subtest: explicit retry uses SAME command ID and frozen payload
+ok 249 - explicit retry uses SAME command ID and frozen payload
+  ---
+  duration_ms: 7.290855
+  type: 'test'
+  ...
+# Subtest: simultaneous sends within one client coalesce rather than duplicate
+ok 250 - simultaneous sends within one client coalesce rather than duplicate
+  ---
+  duration_ms: 7.912784
+  type: 'test'
+  ...
+# Subtest: tampered queued payload is rejected before transport
+ok 251 - tampered queued payload is rejected before transport
+  ---
+  duration_ms: 1.381028
+  type: 'test'
+  ...
+# Subtest: old host protocol cannot silently weaken delivery guarantees
+ok 252 - old host protocol cannot silently weaken delivery guarantees
+  ---
+  duration_ms: 2.489413
+  type: 'test'
+  ...
+# Subtest: wrong run receipt remains unknown instead of attaching another task
+ok 253 - wrong run receipt remains unknown instead of attaching another task
+  ---
+  duration_ms: 7.328361
+  type: 'test'
+  ...
+# Subtest: confirmed command missing from a replaced host database is never replayed
+ok 254 - confirmed command missing from a replaced host database is never replayed
+  ---
+  duration_ms: 13.676361
+  type: 'test'
+  ...
+# Subtest: new intentional owner request gets new ID even for identical inputs
+ok 255 - new intentional owner request gets new ID even for identical inputs
+  ---
+  duration_ms: 2.22979
+  type: 'test'
+  ...
+# Subtest: actual child process exits after SQL commit; disk outbox recovers without second dispatch
+ok 256 - actual child process exits after SQL commit; disk outbox recovers without second dispatch
+  ---
+  duration_ms: 108.335271
+  type: 'test'
+  ...
+# Subtest: production worker bundle computes actual report in JS VM, no browser
+ok 257 - production worker bundle computes actual report in JS VM, no browser
+  ---
+  duration_ms: 29.904166
+  type: 'test'
+  ...
+# Subtest: production worker rejects Codex rather than generating simulated activity
+ok 258 - production worker rejects Codex rather than generating simulated activity
+  ---
+  duration_ms: 2.136892
+  type: 'test'
+  ...
+# Subtest: input snapshots and goal survive subsequent source and goal changes
+ok 259 - input snapshots and goal survive subsequent source and goal changes
+  ---
+  duration_ms: 10.12704
+  type: 'test'
+  ...
+# Subtest: undo changes goal identity rather than reusing an earlier revision
+ok 260 - undo changes goal identity rather than reusing an earlier revision
+  ---
+  duration_ms: 0.415693
+  type: 'test'
+  ...
+# Subtest: empty contains criterion rejected before work
+ok 261 - empty contains criterion rejected before work
+  ---
+  duration_ms: 0.551834
+  type: 'test'
+  ...
+# Subtest: concurrent cancellation drains all stage work before terminal state
+ok 262 - concurrent cancellation drains all stage work before terminal state
+  ---
+  duration_ms: 26.03649
+  type: 'test'
+  ...
+# Subtest: already removed target is not a conflict for intended deletion
+ok 263 - already removed target is not a conflict for intended deletion
+  ---
+  duration_ms: 0.530642
+  type: 'test'
+  ...
+# Subtest: actual CLI creates new files, does not mutate originals and refuses overwrite
+ok 264 - actual CLI creates new files, does not mutate originals and refuses overwrite
+  ---
+  duration_ms: 26.542938
+  type: 'test'
+  ...
+# Subtest: CLI cannot write a proposal inside the source tree
+ok 265 - CLI cannot write a proposal inside the source tree
+  ---
+  duration_ms: 2.197682
+  type: 'test'
+  ...
+# Subtest: CLI fails on unsupported binary data instead of silent omission
+ok 266 - CLI fails on unsupported binary data instead of silent omission
+  ---
+  duration_ms: 2.027511
+  type: 'test'
+  ...
+# Subtest: offline HTML scripts parse; all code and styles are local
+ok 267 - offline HTML scripts parse; all code and styles are local
+  ---
+  duration_ms: 3.894575
+  type: 'test'
+  ...
+# Subtest: static HTML has unique IDs and primary action bindings exist
+ok 268 - static HTML has unique IDs and primary action bindings exist
+  ---
+  duration_ms: 1.643215
+  type: 'test'
+  ...
+# Subtest: restored budget rejects negative or duplicate reservations
+ok 269 - restored budget rejects negative or duplicate reservations
+  ---
+  duration_ms: 0.324579
+  type: 'test'
+  ...
+# Subtest: drop history stays bounded and missing older detail is counted
+ok 270 - drop history stays bounded and missing older detail is counted
+  ---
+  duration_ms: 1.534313
+  type: 'test'
+  ...
+# Subtest: invalid queue limits are rejected
+ok 271 - invalid queue limits are rejected
+  ---
+  duration_ms: 0.147718
+  type: 'test'
+  ...
+# Subtest: inspection recomputes bytes and criteria, acceptance binds exact snapshot
+ok 272 - inspection recomputes bytes and criteria, acceptance binds exact snapshot
+  ---
+  duration_ms: 31.687997
+  type: 'test'
+  ...
+# Subtest: inspection rejects wrong artifact ID even with an unchanged hash
+ok 273 - inspection rejects wrong artifact ID even with an unchanged hash
+  ---
+  duration_ms: 8.22947
+  type: 'test'
+  ...
+# Subtest: valid self-consistent artifact of another graph revision is not acceptable
+ok 274 - valid self-consistent artifact of another graph revision is not acceptable
+  ---
+  duration_ms: 7.138422
+  type: 'test'
+  ...
+# Subtest: a convincing success finding cannot hide failed frozen criteria
+ok 275 - a convincing success finding cannot hide failed frozen criteria
+  ---
+  duration_ms: 6.391219
+  type: 'test'
+  ...
+# Subtest: review checks every result, not only first artifact
+ok 276 - review checks every result, not only first artifact
+  ---
+  duration_ms: 6.836815
+  type: 'test'
+  ...
+# Subtest: actual two-output graph is fully inspected and accepted
+ok 277 - actual two-output graph is fully inspected and accepted
+  ---
+  duration_ms: 21.171147
+  type: 'test'
+  ...
+# Subtest: empty self-consistent output is rejected
+ok 278 - empty self-consistent output is rejected
+  ---
+  duration_ms: 7.852154
+  type: 'test'
+  ...
+# Subtest: cancellation is an acceptance fence even before worker termination
+ok 279 - cancellation is an acceptance fence even before worker termination
+  ---
+  duration_ms: 6.646065
+  type: 'test'
+  ...
+# Subtest: late completion with queued node does not pass inspection
+ok 280 - late completion with queued node does not pass inspection
+  ---
+  duration_ms: 6.79922
+  type: 'test'
+  ...
+# Subtest: changed frozen inputs fail inspection, not just artifact inspection
+ok 281 - changed frozen inputs fail inspection, not just artifact inspection
+  ---
+  duration_ms: 7.831454
+  type: 'test'
+  ...
+# Subtest: stale owner decision rejected after goal content change without revision bump
+ok 282 - stale owner decision rejected after goal content change without revision bump
+  ---
+  duration_ms: 14.05184
+  type: 'test'
+  ...
+# Subtest: acceptance receipt cannot be copied from a different run
+ok 283 - acceptance receipt cannot be copied from a different run
+  ---
+  duration_ms: 7.778836
+  type: 'test'
+  ...
+# Subtest: bare accepted boolean from version 0.1 is not a new acceptance receipt
+ok 284 - bare accepted boolean from version 0.1 is not a new acceptance receipt
+  ---
+  duration_ms: 8.596972
+  type: 'test'
+  ...
+# Subtest: owner acceptance survives stale running and pre-acceptance replies
+ok 285 - owner acceptance survives stale running and pre-acceptance replies
+  ---
+  duration_ms: 13.43469
+  type: 'test'
+  ...
+# Subtest: terminal result and task envelope cannot be replaced
+ok 286 - terminal result and task envelope cannot be replaced
+  ---
+  duration_ms: 5.85717
+  type: 'test'
+  ...
+# Subtest: projection detects rewritten event and ignores older checkpoint
+ok 287 - projection detects rewritten event and ignores older checkpoint
+  ---
+  duration_ms: 6.453271
+  type: 'test'
+  ...
+# Subtest: review binding uses canonical data, not self-reported finding descriptions
+ok 288 - review binding uses canonical data, not self-reported finding descriptions
+  ---
+  duration_ms: 7.090029
+  type: 'test'
+  ...
+# Subtest: unknown criterion cannot be accepted after JSON import
+ok 289 - unknown criterion cannot be accepted after JSON import
+  ---
+  duration_ms: 10.394354
+  type: 'test'
+  ...
+# Subtest: accepted receipt is not silently rewritten by later projections
+ok 290 - accepted receipt is not silently rewritten by later projections
+  ---
+  duration_ms: 8.542031
+  type: 'test'
+  ...
+# Subtest: projection preserves exact original command fingerprint
+ok 291 - projection preserves exact original command fingerprint
+  ---
+  duration_ms: 6.00535
+  type: 'test'
+  ...
+# Subtest: checked-in cross-language binding fixture matches TypeScript contract
+ok 292 - checked-in cross-language binding fixture matches TypeScript contract
+  ---
+  duration_ms: 1.945981
+  type: 'test'
+  ...
+# Subtest: acceptance cannot reuse a malformed receipt with an otherwise matching hash
+ok 293 - acceptance cannot reuse a malformed receipt with an otherwise matching hash
+  ---
+  duration_ms: 8.060801
+  type: 'test'
+  ...
+# (node:14115) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: production SQL migration v1 -> v2 preserves original records
+ok 294 - production SQL migration v1 -> v2 preserves original records
+  ---
+  duration_ms: 1.684055
+  type: 'test'
+  ...
+# Subtest: interrupted migration rolls back schema and user_version together
+ok 295 - interrupted migration rolls back schema and user_version together
+  ---
+  duration_ms: 0.766361
+  type: 'test'
+  ...
+# Subtest: late success cannot cross a persisted cancellation fence
+ok 296 - late success cannot cross a persisted cancellation fence
+  ---
+  duration_ms: 1.052943
+  type: 'test'
+  ...
+# Subtest: cancellation cannot be cleared or reset by a late client
+ok 297 - cancellation cannot be cleared or reset by a late client
+  ---
+  duration_ms: 0.594577
+  type: 'test'
+  ...
+# Subtest: terminal state cannot regress to running or change to another outcome
+ok 298 - terminal state cannot regress to running or change to another outcome
+  ---
+  duration_ms: 0.617401
+  type: 'test'
+  ...
+# Subtest: frozen spec cannot be rewritten after start
+ok 299 - frozen spec cannot be rewritten after start
+  ---
+  duration_ms: 0.572605
+  type: 'test'
+  ...
+# Subtest: accepted bytes and acceptance identity are immutable
+ok 300 - accepted bytes and acceptance identity are immutable
+  ---
+  duration_ms: 1.297193
+  type: 'test'
+  ...
+# Subtest: cancelled control row cannot receive an acceptance
+ok 301 - cancelled control row cannot receive an acceptance
+  ---
+  duration_ms: 0.688025
+  type: 'test'
+  ...
+# Subtest: command history cannot be dropped or repointed to duplicate an effect
+ok 302 - command history cannot be dropped or repointed to duplicate an effect
+  ---
+  duration_ms: 0.999134
+  type: 'test'
+  ...
+# Subtest: events cannot silently overwrite earlier evidence
+ok 303 - events cannot silently overwrite earlier evidence
+  ---
+  duration_ms: 1.055157
+  type: 'test'
+  ...
+# Subtest: cancel commit survives closing and reopening a real database
+ok 304 - cancel commit survives closing and reopening a real database
+  ---
+  duration_ms: 8.840506
+  type: 'test'
+  ...
+# Subtest: one cancellation does not fence another independent run
+ok 305 - one cancellation does not fence another independent run
+  ---
+  duration_ms: 0.827611
+  type: 'test'
+  ...
+1..305
+# tests 305
+# suites 0
+# pass 305
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 651.844326

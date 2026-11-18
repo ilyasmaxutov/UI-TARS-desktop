@@ -1,0 +1,286 @@
+TAP version 13
+# Subtest: inline profile keeps NUL rejection
+ok 1 - inline profile keeps NUL rejection
+  ---
+  duration_ms: 1.513503
+  type: 'test'
+  ...
+# Subtest: mounted repository contains no file snapshot
+ok 2 - mounted repository contains no file snapshot
+  ---
+  duration_ms: 0.24548
+  type: 'test'
+  ...
+# Subtest: mounted metadata does not inherit 256-file cap
+ok 3 - mounted metadata does not inherit 256-file cap
+  ---
+  duration_ms: 0.253252
+  type: 'test'
+  ...
+# Subtest: relative mounted path rejected
+ok 4 - relative mounted path rejected
+  ---
+  duration_ms: 0.117428
+  type: 'test'
+  ...
+# Subtest: NUL mounted path rejected
+ok 5 - NUL mounted path rejected
+  ---
+  duration_ms: 0.101232
+  type: 'test'
+  ...
+# Subtest: unknown access rejected
+ok 6 - unknown access rejected
+  ---
+  duration_ms: 0.100401
+  type: 'test'
+  ...
+# Subtest: prepare never touches transport
+ok 7 - prepare never touches transport
+  ---
+  duration_ms: 9.558709
+  type: 'test'
+  ...
+# Subtest: failed insertion never dispatches
+ok 8 - failed insertion never dispatches
+  ---
+  duration_ms: 0.852586
+  type: 'test'
+  ...
+# Subtest: persist sending before first possible write
+ok 9 - persist sending before first possible write
+  ---
+  duration_ms: 1.870772
+  type: 'test'
+  ...
+# Subtest: send fence persistence failure prevents write
+ok 10 - send fence persistence failure prevents write
+  ---
+  duration_ms: 1.221973
+  type: 'test'
+  ...
+# Subtest: confirmed command cannot be resent
+ok 11 - confirmed command cannot be resent
+  ---
+  duration_ms: 1.214012
+  type: 'test'
+  ...
+# Subtest: same ID changed body rejected
+ok 12 - same ID changed body rejected
+  ---
+  duration_ms: 1.377668
+  type: 'test'
+  ...
+# Subtest: frozen params tamper rejected before transport
+ok 13 - frozen params tamper rejected before transport
+  ---
+  duration_ms: 1.431419
+  type: 'test'
+  ...
+# Subtest: lost ACK becomes unknown and repeated send is blocked
+ok 14 - lost ACK becomes unknown and repeated send is blocked
+  ---
+  duration_ms: 0.982261
+  type: 'test'
+  ...
+# Subtest: restart in-flight is reconciliation only
+ok 15 - restart in-flight is reconciliation only
+  ---
+  duration_ms: 1.161151
+  type: 'test'
+  ...
+# Subtest: empty complete readback does not prove absence
+ok 16 - empty complete readback does not prove absence
+  ---
+  duration_ms: 0.656991
+  type: 'test'
+  ...
+# Subtest: exact nonce + exact user text can reconcile
+ok 17 - exact nonce + exact user text can reconcile
+  ---
+  duration_ms: 1.208823
+  type: 'test'
+  ...
+# Subtest: unknown can later become confirmed
+ok 18 - unknown can later become confirmed
+  ---
+  duration_ms: 1.167822
+  type: 'test'
+  ...
+# Subtest: assistant echo never proves delivery
+ok 19 - assistant echo never proves delivery
+  ---
+  duration_ms: 0.240623
+  type: 'test'
+  ...
+# Subtest: same text in a different thread rejected
+ok 20 - same text in a different thread rejected
+  ---
+  duration_ms: 0.089915
+  type: 'test'
+  ...
+# Subtest: nonce without exact input rejected
+ok 21 - nonce without exact input rejected
+  ---
+  duration_ms: 0.075634
+  type: 'test'
+  ...
+# Subtest: multiple exact matches remain ambiguous
+ok 22 - multiple exact matches remain ambiguous
+  ---
+  duration_ms: 0.141533
+  type: 'test'
+  ...
+# Subtest: steer readback must be in expected turn
+ok 23 - steer readback must be in expected turn
+  ---
+  duration_ms: 0.082684
+  type: 'test'
+  ...
+# Subtest: steer refuses mismatched ACK
+ok 24 - steer refuses mismatched ACK
+  ---
+  duration_ms: 2.038404
+  type: 'test'
+  ...
+# Subtest: interrupt ACK does not prove stopped
+ok 25 - interrupt ACK does not prove stopped
+  ---
+  duration_ms: 1.182704
+  type: 'test'
+  ...
+# Subtest: interrupt reconciles only observed interrupted target
+ok 26 - interrupt reconciles only observed interrupted target
+  ---
+  duration_ms: 0.137827
+  type: 'test'
+  ...
+# Subtest: competing outbox instances issue at most one write
+ok 27 - competing outbox instances issue at most one write
+  ---
+  duration_ms: 3.356062
+  type: 'test'
+  ...
+# Subtest: review is scoped to goal and real dependencies
+ok 28 - review is scoped to goal and real dependencies
+  ---
+  duration_ms: 0.175765
+  type: 'test'
+  ...
+# Subtest: review invalidated by taskId
+ok 29 - review invalidated by taskId
+  ---
+  duration_ms: 0.116316
+  type: 'test'
+  ...
+# Subtest: review invalidated by criteriaHash
+ok 30 - review invalidated by criteriaHash
+  ---
+  duration_ms: 0.055614
+  type: 'test'
+  ...
+# Subtest: review invalidated by artifactHash
+ok 31 - review invalidated by artifactHash
+  ---
+  duration_ms: 0.04661
+  type: 'test'
+  ...
+# Subtest: review invalidated by dependencyFingerprint
+ok 32 - review invalidated by dependencyFingerprint
+  ---
+  duration_ms: 0.043576
+  type: 'test'
+  ...
+# Subtest: review invalidated by verifierProfile
+ok 33 - review invalidated by verifierProfile
+  ---
+  duration_ms: 0.046941
+  type: 'test'
+  ...
+# Subtest: review invalidated by goal revision
+ok 34 - review invalidated by goal revision
+  ---
+  duration_ms: 0.069354
+  type: 'test'
+  ...
+# Subtest: unknown workspace fingerprint cannot pass
+ok 35 - unknown workspace fingerprint cannot pass
+  ---
+  duration_ms: 0.045809
+  type: 'test'
+  ...
+# Subtest: partial scan cannot pass
+ok 36 - partial scan cannot pass
+  ---
+  duration_ms: 0.041553
+  type: 'test'
+  ...
+# Subtest: unrelated chat turn does not invalidate a sealed result
+ok 37 - unrelated chat turn does not invalidate a sealed result
+  ---
+  duration_ms: 0.097877
+  type: 'test'
+  ...
+# Subtest: host RPC rejects arbitrary methods before invocation
+ok 38 - host RPC rejects arbitrary methods before invocation
+  ---
+  duration_ms: 0.9418
+  type: 'test'
+  ...
+# Subtest: host RPC forwards named operation only
+ok 39 - host RPC forwards named operation only
+  ---
+  duration_ms: 0.608718
+  type: 'test'
+  ...
+# Subtest: working task can be interrupted but cannot start another turn
+ok 40 - working task can be interrupted but cannot start another turn
+  ---
+  duration_ms: 0.100953
+  type: 'test'
+  ...
+# Subtest: unknown send disables steer without disabling cancellation
+ok 41 - unknown send disables steer without disabling cancellation
+  ---
+  duration_ms: 0.075254
+  type: 'test'
+  ...
+# Subtest: no live acceptance from a model message
+ok 42 - no live acceptance from a model message
+  ---
+  duration_ms: 0.052159
+  type: 'test'
+  ...
+# Subtest: events from another session are excluded
+ok 43 - events from another session are excluded
+  ---
+  duration_ms: 0.096646
+  type: 'test'
+  ...
+# Subtest: replayed event sequence deduplicated
+ok 44 - replayed event sequence deduplicated
+  ---
+  duration_ms: 0.095844
+  type: 'test'
+  ...
+# Subtest: final assistant item replaces streamed text, not double-appended
+ok 45 - final assistant item replaces streamed text, not double-appended
+  ---
+  duration_ms: 0.140042
+  type: 'test'
+  ...
+# Subtest: tool completion alone is not fresh evidence
+ok 46 - tool completion alone is not fresh evidence
+  ---
+  duration_ms: 0.236887
+  type: 'test'
+  ...
+1..46
+# tests 46
+# suites 0
+# pass 46
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 108.59365

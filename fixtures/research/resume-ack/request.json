@@ -1,0 +1,113 @@
+{
+  "sweepId": "sweep_resume-ack",
+  "plan": {
+    "schema": 1,
+    "investigationId": "inv_resume-ack",
+    "taskId": "task_resume-ack",
+    "goalRevision": 1,
+    "originalGoal": "Почему после resume интерфейс остаётся в ожидании?",
+    "planVersion": 1,
+    "question": "Почему после resume интерфейс остаётся в ожидании?",
+    "scope": [
+      "observation.txt",
+      "state.txt"
+    ],
+    "stopRules": [
+      "Не менять исходники до различающей проверки.",
+      "Остановиться при неполном источнике или достижении лимита."
+    ],
+    "budget": {
+      "maxSweeps": 6,
+      "wallSeconds": 30,
+      "outputUtf8Bytes": 24576,
+      "maxNoProgress": 3
+    },
+    "hypotheses": [
+      {
+        "id": "h1",
+        "claim": "Ответ потерян после принятия команды",
+        "predicts": [
+          "В observation.txt есть характерный признак; state.txt исключает альтернативу."
+        ],
+        "state": "open"
+      },
+      {
+        "id": "h2",
+        "claim": "Команда не дошла до обработчика",
+        "predicts": [
+          "Состояние в state.txt согласуется с альтернативой, а первый признак недостаточен."
+        ],
+        "state": "open"
+      }
+    ],
+    "probes": [
+      {
+        "id": "p1",
+        "question": "Какие события и признаки наблюдались до сбоя?",
+        "discriminates": [
+          "h1",
+          "h2"
+        ],
+        "operations": [
+          {
+            "id": "read_observation",
+            "op": "read",
+            "path": "observation.txt",
+            "startLine": 1,
+            "lines": 30
+          }
+        ],
+        "effect": "read-only",
+        "priority": 0,
+        "expectedInformation": "Сопоставить наблюдаемое поведение с двумя предсказаниями.",
+        "acceptance": "Доступны точные строки и версия источника."
+      },
+      {
+        "id": "p2",
+        "question": "Какое состояние отличает альтернативные причины?",
+        "discriminates": [
+          "h1",
+          "h2"
+        ],
+        "operations": [
+          {
+            "id": "read_state",
+            "op": "read",
+            "path": "state.txt",
+            "startLine": 1,
+            "lines": 30
+          }
+        ],
+        "effect": "read-only",
+        "priority": 1,
+        "expectedInformation": "Прочитать историю t-1 и сопоставить точный пользовательский маркер cmd-7; отсутствие записи на одной странице не разрешает повтор.",
+        "acceptance": "Состояние привязано к той же работе; несовпадение или неполнота показаны."
+      }
+    ]
+  },
+  "sourceSnapshot": {
+    "rootHash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "pins": [
+      {
+        "path": "observation.txt",
+        "sha256": "c41f01f14f8aa6d539c8d7ffe3ed1d190e6ba10b1047e89d9b872c6600e13144"
+      },
+      {
+        "path": "state.txt",
+        "sha256": "65d82181cf8bd78c1716adbe4e84c7bb1496e1803c8cd1a21d246ed256c14694"
+      }
+    ]
+  },
+  "limits": {
+    "outputUtf8Bytes": 24576,
+    "wallSeconds": 30
+  },
+  "permissionScope": {
+    "paths": [
+      "observation.txt",
+      "state.txt"
+    ],
+    "effect": "read-only",
+    "allowGit": false
+  }
+}

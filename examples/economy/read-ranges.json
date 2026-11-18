@@ -1,0 +1,8 @@
+{
+  "id": "ranges-001",
+  "operations": [
+    {"id": "readme", "op": "read", "path": "README.md", "startLine": 1, "lines": 60},
+    {"id": "package", "op": "read", "path": "package.json", "startLine": 1, "lines": 60},
+    {"id": "fingerprint", "op": "metadata", "path": "README.md"}
+  ]
+}

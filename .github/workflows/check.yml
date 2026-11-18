@@ -1,0 +1,112 @@
+name: Studio native build and verification
+on:
+  push:
+    branches: ['studio/**']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: studio-check-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  typescript:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+      - name: Reject incomplete or unrelated source trees
+        run: node scripts/verify-source.mjs
+      - name: Verify TypeScript and scenario contracts
+        run: |
+          npm install --ignore-scripts
+          npm run verify
+  go-linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: native/tools/economy/go.mod
+      - name: Reject incomplete or unrelated source trees
+        run: node scripts/verify-source.mjs
+      - name: Economy and Diagnostic Sweep tests
+        working-directory: native/tools/economy
+        run: |
+          go test -count=1 ./...
+          go vet ./...
+  go-windows:
+    runs-on: windows-2025
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: native/tools/economy/go.mod
+      - name: Reject incomplete or unrelated source trees
+        run: node scripts/verify-source.mjs
+      - name: Native Windows Go tests (no model, GUI, or browser)
+        working-directory: native/tools/economy
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          go test -count=1 ./...
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          go build -trimpath -o "$env:RUNNER_TEMP/studio-economy.exe" .
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: economy-windows-unsigned
+          path: ${{ runner.temp }}/studio-economy.exe
+          if-no-files-found: error
+          retention-days: 7
+  rust-windows:
+    runs-on: windows-2025
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: native/tools/economy/go.mod
+      - name: Reject incomplete or unrelated source trees
+        run: node scripts/verify-source.mjs
+      - name: Install pinned toolchain
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $text = Get-Content native/rust-toolchain.toml -Raw
+          if ($text -notmatch 'channel\s*=\s*"([^"]+)"') { throw 'Missing Rust pin' }
+          rustup toolchain install $Matches[1] --profile minimal
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build fresh frontend, test native code and package desktop plus host plus helper
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          New-Item -ItemType Directory -Force verification/native-ci | Out-Null
+          npm install --ignore-scripts --no-audit --no-fund
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & ./scripts/Build-Windows.ps1 -ResolveDependencies 2>&1 | Tee-Object verification/native-ci/build.log
+      - name: Upload complete compiled application only after successful build
+        uses: actions/upload-artifact@v4
+        with:
+          name: studio-windows-x64-unsigned
+          path: release/PlatformStudio/
+          if-no-files-found: error
+          retention-days: 7
+      - name: Preserve lockfile candidate and compiler diagnostics even on failure
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-build-evidence
+          path: |
+            native/Cargo.lock
+            verification/native-ci/
+          if-no-files-found: warn
+          retention-days: 7

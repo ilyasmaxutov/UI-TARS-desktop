@@ -1,0 +1,27 @@
+{
+  "node": "v22.16.0",
+  "typescript": "Version 5.8.3",
+  "os": "Linux-6.18.57-x86_64-with-glibc2.41",
+  "tools": {
+    "cargo": null,
+    "rustc": null,
+    "pwsh": null,
+    "codex": null
+  },
+  "nativeTestsWrittenNotRun": 36,
+  "requirementsUnchanged": true,
+  "baseCommit": "46b4a415b1b6e21988de7c7332dac186959a09e0",
+  "requirementsSHA256": "52844c0d2e6e2b3913527e21ea9af295bfed60c4aef316f948a37246eec798b4",
+  "tests": {
+    "passed": 305,
+    "failed": 0,
+    "skipped": 0,
+    "baselineStudio": 133,
+    "baselineDesk": 82,
+    "new": 90
+  },
+  "nativeCompiled": false,
+  "liveCodex": false,
+  "guiLaunched": false,
+  "firstIntegrationAccepted": false
+}

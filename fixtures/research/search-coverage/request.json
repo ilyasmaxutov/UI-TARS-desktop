@@ -1,0 +1,113 @@
+{
+  "sweepId": "sweep_search-coverage",
+  "plan": {
+    "schema": 1,
+    "investigationId": "inv_search-coverage",
+    "taskId": "task_search-coverage",
+    "goalRevision": 1,
+    "originalGoal": "Почему поиск не нашёл известную функцию?",
+    "planVersion": 1,
+    "question": "Почему поиск не нашёл известную функцию?",
+    "scope": [
+      "observation.txt",
+      "state.txt"
+    ],
+    "stopRules": [
+      "Не менять исходники до различающей проверки.",
+      "Остановиться при неполном источнике или достижении лимита."
+    ],
+    "budget": {
+      "maxSweeps": 6,
+      "wallSeconds": 30,
+      "outputUtf8Bytes": 24576,
+      "maxNoProgress": 3
+    },
+    "hypotheses": [
+      {
+        "id": "h1",
+        "claim": "Функция действительно отсутствует",
+        "predicts": [
+          "В observation.txt есть характерный признак; state.txt исключает альтернативу."
+        ],
+        "state": "open"
+      },
+      {
+        "id": "h2",
+        "claim": "Поиск остановлен до нужной области",
+        "predicts": [
+          "Состояние в state.txt согласуется с альтернативой, а первый признак недостаточен."
+        ],
+        "state": "open"
+      }
+    ],
+    "probes": [
+      {
+        "id": "p1",
+        "question": "Какие события и признаки наблюдались до сбоя?",
+        "discriminates": [
+          "h1",
+          "h2"
+        ],
+        "operations": [
+          {
+            "id": "read_observation",
+            "op": "read",
+            "path": "observation.txt",
+            "startLine": 1,
+            "lines": 30
+          }
+        ],
+        "effect": "read-only",
+        "priority": 0,
+        "expectedInformation": "Сопоставить наблюдаемое поведение с двумя предсказаниями.",
+        "acceptance": "Доступны точные строки и версия источника."
+      },
+      {
+        "id": "p2",
+        "question": "Какое состояние отличает альтернативные причины?",
+        "discriminates": [
+          "h1",
+          "h2"
+        ],
+        "operations": [
+          {
+            "id": "read_state",
+            "op": "read",
+            "path": "state.txt",
+            "startLine": 1,
+            "lines": 30
+          }
+        ],
+        "effect": "read-only",
+        "priority": 1,
+        "expectedInformation": "Провести ограниченный поиск только в src/b; не объявлять отсутствие по неполному обходу.",
+        "acceptance": "Состояние привязано к той же работе; несовпадение или неполнота показаны."
+      }
+    ]
+  },
+  "sourceSnapshot": {
+    "rootHash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "pins": [
+      {
+        "path": "observation.txt",
+        "sha256": "3d56fbe40e273a3a5226e056026a459515b4a55ae760d02140fcdc6be1e7817c"
+      },
+      {
+        "path": "state.txt",
+        "sha256": "ae934aabcfd13c5d6cb82f1f65a699cb576c1b6114fb72af02fd70263241d989"
+      }
+    ]
+  },
+  "limits": {
+    "outputUtf8Bytes": 24576,
+    "wallSeconds": 30
+  },
+  "permissionScope": {
+    "paths": [
+      "observation.txt",
+      "state.txt"
+    ],
+    "effect": "read-only",
+    "allowGit": false
+  }
+}

@@ -1,0 +1,502 @@
+TAP version 13
+# Subtest: 12 scenario identities are unique
+ok 1 - 12 scenario identities are unique
+  ---
+  duration_ms: 0.893077
+  type: 'test'
+  ...
+# Subtest: starting disconnected never increments commands
+ok 2 - starting disconnected never increments commands
+  ---
+  duration_ms: 0.972988
+  type: 'test'
+  ...
+# Subtest: normal scenario separates run, result and acceptance
+ok 3 - normal scenario separates run, result and acceptance
+  ---
+  duration_ms: 0.398241
+  type: 'test'
+  ...
+# Subtest: running task cannot start a second duplicate
+ok 4 - running task cannot start a second duplicate
+  ---
+  duration_ms: 0.186822
+  type: 'test'
+  ...
+# Subtest: unknown ACK prevents retry
+ok 5 - unknown ACK prevents retry
+  ---
+  duration_ms: 0.140662
+  type: 'test'
+  ...
+# Subtest: reconciliation reads prior effect without new command
+ok 6 - reconciliation reads prior effect without new command
+  ---
+  duration_ms: 0.121814
+  type: 'test'
+  ...
+# Subtest: unknown outcome queues correction but does not send it
+ok 7 - unknown outcome queues correction but does not send it
+  ---
+  duration_ms: 0.210137
+  type: 'test'
+  ...
+# Subtest: race after completion queues correction, no implicit continuation
+ok 8 - race after completion queues correction, no implicit continuation
+  ---
+  duration_ms: 0.221123
+  type: 'test'
+  ...
+# Subtest: explicit continuation sends a single new command
+ok 9 - explicit continuation sends a single new command
+  ---
+  duration_ms: 0.318741
+  type: 'test'
+  ...
+# Subtest: empty correction is not sent
+ok 10 - empty correction is not sent
+  ---
+  duration_ms: 0.357249
+  type: 'test'
+  ...
+# Subtest: current turn can be steered without changing the original goal
+ok 11 - current turn can be steered without changing the original goal
+  ---
+  duration_ms: 0.745875
+  type: 'test'
+  ...
+# Subtest: old goal verdict cannot be accepted
+ok 12 - old goal verdict cannot be accepted
+  ---
+  duration_ms: 0.228895
+  type: 'test'
+  ...
+# Subtest: editing goal invalidates acceptance
+ok 13 - editing goal invalidates acceptance
+  ---
+  duration_ms: 0.196426
+  type: 'test'
+  ...
+# Subtest: new goal needs its own verification
+ok 14 - new goal needs its own verification
+  ---
+  duration_ms: 0.144528
+  type: 'test'
+  ...
+# Subtest: manual conflict blocks acceptance
+ok 15 - manual conflict blocks acceptance
+  ---
+  duration_ms: 0.100953
+  type: 'test'
+  ...
+# Subtest: merge creates unverified proposal rather than accepted mutation
+ok 16 - merge creates unverified proposal rather than accepted mutation
+  ---
+  duration_ms: 0.100111
+  type: 'test'
+  ...
+# Subtest: invalid merge does not discard conflict
+ok 17 - invalid merge does not discard conflict
+  ---
+  duration_ms: 0.078338
+  type: 'test'
+  ...
+# Subtest: failed reviewer is not overridden by optimistic executor
+ok 18 - failed reviewer is not overridden by optimistic executor
+  ---
+  duration_ms: 0.069825
+  type: 'test'
+  ...
+# Subtest: fix prepares specific continuation without starting it
+ok 19 - fix prepares specific continuation without starting it
+  ---
+  duration_ms: 0.230778
+  type: 'test'
+  ...
+# Subtest: cancel request is not stopped
+ok 20 - cancel request is not stopped
+  ---
+  duration_ms: 0.110887
+  type: 'test'
+  ...
+# Subtest: late COMPLETE cannot override cancellation
+ok 21 - late COMPLETE cannot override cancellation
+  ---
+  duration_ms: 0.076756
+  type: 'test'
+  ...
+# Subtest: stopped requires separate observation
+ok 22 - stopped requires separate observation
+  ---
+  duration_ms: 0.080992
+  type: 'test'
+  ...
+# Subtest: quota wait does not create model calls
+ok 23 - quota wait does not create model calls
+  ---
+  duration_ms: 0.074022
+  type: 'test'
+  ...
+# Subtest: active model replacement only records intention
+ok 24 - active model replacement only records intention
+  ---
+  duration_ms: 0.117007
+  type: 'test'
+  ...
+# Subtest: stopped model replacement still needs transfer approval
+ok 25 - stopped model replacement still needs transfer approval
+  ---
+  duration_ms: 0.1789
+  type: 'test'
+  ...
+# Subtest: stale prompt saves both versions instead of overwrite
+ok 26 - stale prompt saves both versions instead of overwrite
+  ---
+  duration_ms: 0.115985
+  type: 'test'
+  ...
+# Subtest: explicit local draft adoption creates new version
+ok 27 - explicit local draft adoption creates new version
+  ---
+  duration_ms: 0.178239
+  type: 'test'
+  ...
+# Subtest: local task does not fake English generation
+ok 28 - local task does not fake English generation
+  ---
+  duration_ms: 0.133671
+  type: 'test'
+  ...
+# Subtest: reducer never mutates input state
+ok 29 - reducer never mutates input state
+  ---
+  duration_ms: 0.107372
+  type: 'test'
+  ...
+# Subtest: handoff states transfer requirement and design provenance
+ok 30 - handoff states transfer requirement and design provenance
+  ---
+  duration_ms: 0.103947
+  type: 'test'
+  ...
+# Subtest: quota waiting cannot be bypassed by a queued continuation
+ok 31 - quota waiting cannot be bypassed by a queued continuation
+  ---
+  duration_ms: 0.106751
+  type: 'test'
+  ...
+# Subtest: new goal removes the accepted screen status as well as receipt
+ok 32 - new goal removes the accepted screen status as well as receipt
+  ---
+  duration_ms: 0.14618
+  type: 'test'
+  ...
+# Subtest: goal history retains exact earlier user wording
+ok 33 - goal history retains exact earlier user wording
+  ---
+  duration_ms: 0.660016
+  type: 'test'
+  ...
+# Subtest: prompt saves keep both content versions, not only a revision counter
+ok 34 - prompt saves keep both content versions, not only a revision counter
+  ---
+  duration_ms: 0.118639
+  type: 'test'
+  ...
+# Subtest: changed user intent cannot start with an old prompt
+ok 35 - changed user intent cannot start with an old prompt
+  ---
+  duration_ms: 0.114763
+  type: 'test'
+  ...
+# Subtest: screen markup renders without a browser: task
+ok 36 - screen markup renders without a browser: task
+  ---
+  duration_ms: 6.11113
+  type: 'test'
+  ...
+# Subtest: screen markup renders without a browser: prompt
+ok 37 - screen markup renders without a browser: prompt
+  ---
+  duration_ms: 2.396576
+  type: 'test'
+  ...
+# Subtest: screen markup renders without a browser: changes
+ok 38 - screen markup renders without a browser: changes
+  ---
+  duration_ms: 1.336376
+  type: 'test'
+  ...
+# Subtest: screen markup renders without a browser: observe
+ok 39 - screen markup renders without a browser: observe
+  ---
+  duration_ms: 1.684922
+  type: 'test'
+  ...
+# Subtest: screen markup renders without a browser: team
+ok 40 - screen markup renders without a browser: team
+  ---
+  duration_ms: 1.439502
+  type: 'test'
+  ...
+# Subtest: screen markup renders without a browser: connections
+ok 41 - screen markup renders without a browser: connections
+  ---
+  duration_ms: 2.39271
+  type: 'test'
+  ...
+# Subtest: all twelve scenarios render their intended screen states
+ok 42 - all twelve scenarios render their intended screen states
+  ---
+  duration_ms: 7.690694
+  type: 'test'
+  ...
+# Subtest: dialog uses accessible modal title and explicit scenario provenance
+ok 43 - dialog uses accessible modal title and explicit scenario provenance
+  ---
+  duration_ms: 1.442066
+  type: 'test'
+  ...
+# Subtest: sample telemetry is explicitly labelled and does not imply account spending
+ok 44 - sample telemetry is explicitly labelled and does not imply account spending
+  ---
+  duration_ms: 16.589741
+  type: 'test'
+  ...
+# Subtest: model outcome cannot be accepted through conflict screen
+ok 45 - model outcome cannot be accepted through conflict screen
+  ---
+  duration_ms: 2.11461
+  type: 'test'
+  ...
+# Subtest: unsaved English text survives leaving and returning to the editor
+ok 46 - unsaved English text survives leaving and returning to the editor
+  ---
+  duration_ms: 1.382416
+  type: 'test'
+  ...
+# Subtest: draft text is scoped to the selected artifact rather than silently retargeted
+ok 47 - draft text is scoped to the selected artifact rather than silently retargeted
+  ---
+  duration_ms: 1.421244
+  type: 'test'
+  ...
+# Subtest: switching scenario preserves previous local work
+ok 48 - switching scenario preserves previous local work
+  ---
+  duration_ms: 1.879286
+  type: 'test'
+  ...
+# Subtest: new request does not hallucinate a translated prompt
+ok 49 - new request does not hallucinate a translated prompt
+  ---
+  duration_ms: 1.400813
+  type: 'test'
+  ...
+# Subtest: user-provided markup is escaped in the screen
+ok 50 - user-provided markup is escaped in the screen
+  ---
+  duration_ms: 1.349476
+  type: 'test'
+  ...
+# Subtest: team secondary sheet references the same role identity
+ok 51 - team secondary sheet references the same role identity
+  ---
+  duration_ms: 1.224608
+  type: 'test'
+  ...
+# Subtest: missing usage is unknown, not zero
+ok 52 - missing usage is unknown, not zero
+  ---
+  duration_ms: 2.02811
+  type: 'test'
+  ...
+# Subtest: boolean counters are not accepted as numbers
+ok 53 - boolean counters are not accepted as numbers
+  ---
+  duration_ms: 0.15243
+  type: 'test'
+  ...
+# Subtest: negative counters are unknown
+ok 54 - negative counters are unknown
+  ---
+  duration_ms: 0.099831
+  type: 'test'
+  ...
+# Subtest: unsafe large counters are not rounded into facts
+ok 55 - unsafe large counters are not rounded into facts
+  ---
+  duration_ms: 0.132019
+  type: 'test'
+  ...
+# Subtest: cached and reasoning are not added to total
+ok 56 - cached and reasoning are not added to total
+  ---
+  duration_ms: 1.434335
+  type: 'test'
+  ...
+# Subtest: modern records take precedence over mirrored legacy counters
+ok 57 - modern records take precedence over mirrored legacy counters
+  ---
+  duration_ms: 0.506194
+  type: 'test'
+  ...
+# Subtest: same response ID cannot be counted twice at different timestamps
+ok 58 - same response ID cannot be counted twice at different timestamps
+  ---
+  duration_ms: 0.340184
+  type: 'test'
+  ...
+# Subtest: legacy counters are differenced rather than summed
+ok 59 - legacy counters are differenced rather than summed
+  ---
+  duration_ms: 0.228705
+  type: 'test'
+  ...
+# Subtest: first legacy sample is a baseline, not inferred new spending
+ok 60 - first legacy sample is a baseline, not inferred new spending
+  ---
+  duration_ms: 0.316227
+  type: 'test'
+  ...
+# Subtest: reset does not create a negative or fabricated increment
+ok 61 - reset does not create a negative or fabricated increment
+  ---
+  duration_ms: 0.570711
+  type: 'test'
+  ...
+# Subtest: archived copy of same events does not double-count
+ok 62 - archived copy of same events does not double-count
+  ---
+  duration_ms: 0.986969
+  type: 'test'
+  ...
+# Subtest: sources without metadata remain distinct
+ok 63 - sources without metadata remain distinct
+  ---
+  duration_ms: 0.175395
+  type: 'test'
+  ...
+# Subtest: overlapping tool intervals are a union, not sum
+ok 64 - overlapping tool intervals are a union, not sum
+  ---
+  duration_ms: 0.273332
+  type: 'test'
+  ...
+# Subtest: parallel turn tool intervals do not contaminate each other
+ok 65 - parallel turn tool intervals do not contaminate each other
+  ---
+  duration_ms: 0.295867
+  type: 'test'
+  ...
+# Subtest: incomplete turn has unknown duration
+ok 66 - incomplete turn has unknown duration
+  ---
+  duration_ms: 0.107252
+  type: 'test'
+  ...
+# Subtest: complete message is not first-token latency
+ok 67 - complete message is not first-token latency
+  ---
+  duration_ms: 0.186291
+  type: 'test'
+  ...
+# Subtest: reported TTFT is kept separately from first visible message
+ok 68 - reported TTFT is kept separately from first visible message
+  ---
+  duration_ms: 0.180252
+  type: 'test'
+  ...
+# Subtest: later full message does not change first delta provenance
+ok 69 - later full message does not change first delta provenance
+  ---
+  duration_ms: 0.202846
+  type: 'test'
+  ...
+# Subtest: tool explicit duration can recover a missing start boundary
+ok 70 - tool explicit duration can recover a missing start boundary
+  ---
+  duration_ms: 0.199191
+  type: 'test'
+  ...
+# Subtest: sparse rate limits remain unknown
+ok 71 - sparse rate limits remain unknown
+  ---
+  duration_ms: 0.19846
+  type: 'test'
+  ...
+# Subtest: truncated JSONL tail is visible
+ok 72 - truncated JSONL tail is visible
+  ---
+  duration_ms: 0.554807
+  type: 'test'
+  ...
+# Subtest: malformed non-tail line is visible
+ok 73 - malformed non-tail line is visible
+  ---
+  duration_ms: 0.163286
+  type: 'test'
+  ...
+# Subtest: oversized line is bounded and omitted
+ok 74 - oversized line is bounded and omitted
+  ---
+  duration_ms: 6.003158
+  type: 'test'
+  ...
+# Subtest: prompt/tool arguments/output secrets never enter normalized report
+ok 75 - prompt/tool arguments/output secrets never enter normalized report
+  ---
+  duration_ms: 0.328706
+  type: 'test'
+  ...
+# Subtest: normalized event imports are whitelisted, not blindly trusted
+ok 76 - normalized event imports are whitelisted, not blindly trusted
+  ---
+  duration_ms: 0.203938
+  type: 'test'
+  ...
+# Subtest: capture format import preserves source and notices
+ok 77 - capture format import preserves source and notices
+  ---
+  duration_ms: 1.422025
+  type: 'test'
+  ...
+# Subtest: App Server envelope maps turn, tokens and explicit command duration
+ok 78 - App Server envelope maps turn, tokens and explicit command duration
+  ---
+  duration_ms: 0.267123
+  type: 'test'
+  ...
+# Subtest: fork inheritance is disclosed
+ok 79 - fork inheritance is disclosed
+  ---
+  duration_ms: 0.199311
+  type: 'test'
+  ...
+# Subtest: union clips to the bounds of the measured turn
+ok 80 - union clips to the bounds of the measured turn
+  ---
+  duration_ms: 0.135224
+  type: 'test'
+  ...
+# Subtest: unknown event names stay visible in coverage
+ok 81 - unknown event names stay visible in coverage
+  ---
+  duration_ms: 0.276016
+  type: 'test'
+  ...
+# Subtest: same timestamp quota changes are retained despite repeated token totals
+ok 82 - same timestamp quota changes are retained despite repeated token totals
+  ---
+  duration_ms: 0.186801
+  type: 'test'
+  ...
+1..82
+# tests 82
+# suites 0
+# pass 82
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 104.369693

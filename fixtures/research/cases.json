@@ -1,0 +1,62 @@
+[
+  {
+    "id": "resume-ack",
+    "request": "resume-ack/request.json",
+    "scope": "synthetic deterministic fixture, not a live model diagnosis",
+    "nextDistinctiveCheck": "Прочитать историю t-1 и сопоставить точный пользовательский маркер cmd-7; отсутствие записи на одной странице не разрешает повтор."
+  },
+  {
+    "id": "settings-path",
+    "request": "settings-path/request.json",
+    "scope": "synthetic deterministic fixture, not a live model diagnosis",
+    "nextDistinctiveCheck": "Сравнить существование и содержимое файлов readPath и writePath; не менять схему до этой проверки."
+  },
+  {
+    "id": "build-schema",
+    "request": "build-schema/request.json",
+    "scope": "synthetic deterministic fixture, not a live model diagnosis",
+    "nextDistinctiveCheck": "Сравнить поле turn.status в схемах v1/v2, затем проверить совместимый ответ."
+  },
+  {
+    "id": "cache-source",
+    "request": "cache-source/request.json",
+    "scope": "synthetic deterministic fixture, not a live model diagnosis",
+    "nextDistinctiveCheck": "Повторить чтение с ключом path+hash и сравнить байты, а не время выдачи."
+  },
+  {
+    "id": "io-latency",
+    "request": "io-latency/request.json",
+    "scope": "synthetic deterministic fixture, not a live model diagnosis",
+    "nextDistinctiveCheck": "Выполнить те же 12 чтений одним пакетом и сравнить полноту материалов; токены без телеметрии неизвестны."
+  },
+  {
+    "id": "binary-input",
+    "request": "binary-input/request.json",
+    "scope": "synthetic deterministic fixture, not a live model diagnosis",
+    "nextDistinctiveCheck": "Прочитать ограниченный диапазон байтов, определить структуру без выгрузки полного файла."
+  },
+  {
+    "id": "write-conflict",
+    "request": "write-conflict/request.json",
+    "scope": "synthetic deterministic fixture, not a live model diagnosis",
+    "nextDistinctiveCheck": "Сравнить base/ours/theirs; проверить объединённое предложение в новой редакции."
+  },
+  {
+    "id": "search-coverage",
+    "request": "search-coverage/request.json",
+    "scope": "synthetic deterministic fixture, not a live model diagnosis",
+    "nextDistinctiveCheck": "Провести ограниченный поиск только в src/b; не объявлять отсутствие по неполному обходу."
+  },
+  {
+    "id": "implementation-diff",
+    "request": "implementation-diff/request.json",
+    "scope": "synthetic deterministic fixture, not a live model diagnosis",
+    "nextDistinctiveCheck": "Подать одинаковую переставленную последовательность временных меток и сравнить пары результатов."
+  },
+  {
+    "id": "document-conflict",
+    "request": "document-conflict/request.json",
+    "scope": "synthetic deterministic fixture, not a live model diagnosis",
+    "nextDistinctiveCheck": "Сопоставить точные исходные фрагменты и авторизацию изменения; не подменять существующую беседу новой."
+  }
+]

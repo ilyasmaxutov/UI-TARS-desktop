@@ -1,0 +1,9 @@
+node_modules/
+native/target/
+release/
+*.tmp
+*.log
+.DS_Store
+# Generated transport artifacts; history lives inside the bundle, not in itself.
+repository.git.bundle
+CONTENTS.sha256

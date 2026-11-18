@@ -1,0 +1,10 @@
+[
+  {
+    "path": "README.md",
+    "content": "# Проверочный проект\r\n\r\nТекст с хвостовыми пробелами.   \r\n"
+  },
+  {
+    "path": "config.json",
+    "content": "{\n  \"theme\": \"dark\",\n  \"language\": \"ru\"\n}\n"
+  }
+]

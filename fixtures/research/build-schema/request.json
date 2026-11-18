@@ -1,0 +1,113 @@
+{
+  "sweepId": "sweep_build-schema",
+  "plan": {
+    "schema": 1,
+    "investigationId": "inv_build-schema",
+    "taskId": "task_build-schema",
+    "goalRevision": 1,
+    "originalGoal": "Почему сборка клиента не принимает ответ сервера?",
+    "planVersion": 1,
+    "question": "Почему сборка клиента не принимает ответ сервера?",
+    "scope": [
+      "observation.txt",
+      "state.txt"
+    ],
+    "stopRules": [
+      "Не менять исходники до различающей проверки.",
+      "Остановиться при неполном источнике или достижении лимита."
+    ],
+    "budget": {
+      "maxSweeps": 6,
+      "wallSeconds": 30,
+      "outputUtf8Bytes": 24576,
+      "maxNoProgress": 3
+    },
+    "hypotheses": [
+      {
+        "id": "h1",
+        "claim": "Схема клиента устарела",
+        "predicts": [
+          "В observation.txt есть характерный признак; state.txt исключает альтернативу."
+        ],
+        "state": "open"
+      },
+      {
+        "id": "h2",
+        "claim": "Сервер загружает старый собранный файл",
+        "predicts": [
+          "Состояние в state.txt согласуется с альтернативой, а первый признак недостаточен."
+        ],
+        "state": "open"
+      }
+    ],
+    "probes": [
+      {
+        "id": "p1",
+        "question": "Какие события и признаки наблюдались до сбоя?",
+        "discriminates": [
+          "h1",
+          "h2"
+        ],
+        "operations": [
+          {
+            "id": "read_observation",
+            "op": "read",
+            "path": "observation.txt",
+            "startLine": 1,
+            "lines": 30
+          }
+        ],
+        "effect": "read-only",
+        "priority": 0,
+        "expectedInformation": "Сопоставить наблюдаемое поведение с двумя предсказаниями.",
+        "acceptance": "Доступны точные строки и версия источника."
+      },
+      {
+        "id": "p2",
+        "question": "Какое состояние отличает альтернативные причины?",
+        "discriminates": [
+          "h1",
+          "h2"
+        ],
+        "operations": [
+          {
+            "id": "read_state",
+            "op": "read",
+            "path": "state.txt",
+            "startLine": 1,
+            "lines": 30
+          }
+        ],
+        "effect": "read-only",
+        "priority": 1,
+        "expectedInformation": "Сравнить поле turn.status в схемах v1/v2, затем проверить совместимый ответ.",
+        "acceptance": "Состояние привязано к той же работе; несовпадение или неполнота показаны."
+      }
+    ]
+  },
+  "sourceSnapshot": {
+    "rootHash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "pins": [
+      {
+        "path": "observation.txt",
+        "sha256": "f4ee318641a3705ee2544786a5fb9c292d35513024d5f3c578efc05a8cb77e06"
+      },
+      {
+        "path": "state.txt",
+        "sha256": "9b2d16bb6616c35c798faa9824b24dbdaedd25998570bd372914afe846bd7faa"
+      }
+    ]
+  },
+  "limits": {
+    "outputUtf8Bytes": 24576,
+    "wallSeconds": 30
+  },
+  "permissionScope": {
+    "paths": [
+      "observation.txt",
+      "state.txt"
+    ],
+    "effect": "read-only",
+    "allowGit": false
+  }
+}

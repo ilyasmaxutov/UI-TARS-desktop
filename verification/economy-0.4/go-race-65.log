@@ -1,0 +1,133 @@
+=== RUN   TestLocalTwentyReads
+    economy_test.go:61: 20 actual reads; 24432 response bytes; 0 local model calls
+--- PASS: TestLocalTwentyReads (0.50s)
+=== RUN   TestReplaySnapshotDoesNotRepeat
+--- PASS: TestReplaySnapshotDoesNotRepeat (0.02s)
+=== RUN   TestDuplicateReadSameWave
+--- PASS: TestDuplicateReadSameWave (0.01s)
+=== RUN   TestSameIDChangedIntentRejected
+--- PASS: TestSameIDChangedIntentRejected (0.01s)
+=== RUN   TestDependenciesAndFailureIsolation
+--- PASS: TestDependenciesAndFailureIsolation (0.01s)
+=== RUN   TestCycleDeniedBeforeEffects
+--- PASS: TestCycleDeniedBeforeEffects (0.00s)
+=== RUN   TestUnapprovedCheckNoProcess
+--- PASS: TestUnapprovedCheckNoProcess (0.00s)
+=== RUN   TestRecoveredRunningCheckNeverReexecutes
+--- PASS: TestRecoveredRunningCheckNeverReexecutes (0.00s)
+=== RUN   TestPathAndSecretGuards
+--- PASS: TestPathAndSecretGuards (0.01s)
+=== RUN   TestSymlinkDenied
+--- PASS: TestSymlinkDenied (0.00s)
+=== RUN   TestGeneratedExcludedButExplicitlyAvailable
+--- PASS: TestGeneratedExcludedButExplicitlyAvailable (0.01s)
+=== RUN   TestRangeIsBoundedAndBinaryExplicit
+--- PASS: TestRangeIsBoundedAndBinaryExplicit (0.01s)
+=== RUN   TestLongLineIsExplicitlyIncomplete
+--- PASS: TestLongLineIsExplicitlyIncomplete (0.00s)
+=== RUN   TestSearchLiteralNotRegex
+--- PASS: TestSearchLiteralNotRegex (0.01s)
+=== RUN   TestContextKeepsGoalAndRules
+--- PASS: TestContextKeepsGoalAndRules (0.01s)
+=== RUN   TestContextRejectsCorruptedMaterial
+--- PASS: TestContextRejectsCorruptedMaterial (0.00s)
+=== RUN   TestStoreLimitBeforeWork
+--- PASS: TestStoreLimitBeforeWork (0.00s)
+=== RUN   TestOutputBoundPreservesStatusAndRefs
+--- PASS: TestOutputBoundPreservesStatusAndRefs (0.56s)
+=== RUN   TestCaptureHelper
+--- PASS: TestCaptureHelper (0.00s)
+=== RUN   TestRealCaptureExitCodeAndInspect
+--- PASS: TestRealCaptureExitCodeAndInspect (0.05s)
+=== RUN   TestCaptureQuotaNotFalseSuccess
+--- PASS: TestCaptureQuotaNotFalseSuccess (0.05s)
+=== RUN   TestCaptureSourceUnchanged
+--- PASS: TestCaptureSourceUnchanged (1.02s)
+=== RUN   TestMCPRealPipes
+--- PASS: TestMCPRealPipes (0.01s)
+=== RUN   TestGitStatusAndDiffLocal
+--- PASS: TestGitStatusAndDiffLocal (0.02s)
+=== RUN   TestCancellationBeforeBatch
+--- PASS: TestCancellationBeforeBatch (0.00s)
+=== RUN   TestLockSecondOwnerDenied
+--- PASS: TestLockSecondOwnerDenied (0.00s)
+=== RUN   TestJSONStrictUnknownField
+--- PASS: TestJSONStrictUnknownField (0.00s)
+=== RUN   TestPacketOperationLimit
+--- PASS: TestPacketOperationLimit (0.00s)
+=== RUN   TestPrivateStoreOutsideProject
+--- PASS: TestPrivateStoreOutsideProject (0.00s)
+=== RUN   TestMCPDescriptorsSmall
+--- PASS: TestMCPDescriptorsSmall (0.00s)
+=== RUN   TestNoNetworkPackagesInLocalFiles
+--- PASS: TestNoNetworkPackagesInLocalFiles (0.00s)
+=== RUN   TestEnvelopeByteCountExact
+--- PASS: TestEnvelopeByteCountExact (0.00s)
+=== RUN   TestInspectBinaryRangeInLongLog
+--- PASS: TestInspectBinaryRangeInLongLog (0.00s)
+=== RUN   TestResolveNpmCodexWithoutExecutingShim
+--- PASS: TestResolveNpmCodexWithoutExecutingShim (0.00s)
+=== RUN   TestOwnerCheckManifestForwardedWithoutReplacingInstructions
+--- PASS: TestOwnerCheckManifestForwardedWithoutReplacingInstructions (0.00s)
+=== RUN   TestGateRejects300kBeforeNetwork
+--- PASS: TestGateRejects300kBeforeNetwork (0.01s)
+=== RUN   TestGateCountsToolSchemasAndInstructions
+--- PASS: TestGateCountsToolSchemasAndInstructions (0.01s)
+=== RUN   TestGateRejectsUnknownContext
+--- PASS: TestGateRejectsUnknownContext (0.00s)
+=== RUN   TestGateRejectsRemoteTools
+--- PASS: TestGateRejectsRemoteTools (0.00s)
+=== RUN   TestGateFullRequestWithinLimit
+--- PASS: TestGateFullRequestWithinLimit (0.00s)
+=== RUN   TestGateNoDoubleSendAfterSuccess
+--- PASS: TestGateNoDoubleSendAfterSuccess (0.01s)
+=== RUN   TestGateDisconnectCannotTriggerRetry
+--- PASS: TestGateDisconnectCannotTriggerRetry (0.01s)
+=== RUN   TestGateBudgetPersistsAcrossRestart
+--- PASS: TestGateBudgetPersistsAcrossRestart (0.01s)
+=== RUN   TestGateVolatileMetadataNotNewRequest
+--- PASS: TestGateVolatileMetadataNotNewRequest (0.00s)
+=== RUN   TestGateCanonicalizesDuplicateJSONFields
+--- PASS: TestGateCanonicalizesDuplicateJSONFields (0.00s)
+=== RUN   TestGateUnexpectedEndpointDenied
+--- PASS: TestGateUnexpectedEndpointDenied (0.00s)
+=== RUN   TestGateRejectsWrongCapabilityAndOrigin
+--- PASS: TestGateRejectsWrongCapabilityAndOrigin (0.00s)
+=== RUN   TestGateGzipBombDenied
+--- PASS: TestGateGzipBombDenied (0.04s)
+=== RUN   TestGateZstdNotSilentlyForwarded
+--- PASS: TestGateZstdNotSilentlyForwarded (0.00s)
+=== RUN   TestGateAuthNotLoggedAndNoRedirect
+--- PASS: TestGateAuthNotLoggedAndNoRedirect (0.01s)
+=== RUN   TestGateConcurrentAdmissionsOneSend
+--- PASS: TestGateConcurrentAdmissionsOneSend (0.01s)
+=== RUN   TestGateNoRetryOn429
+--- PASS: TestGateNoRetryOn429 (0.01s)
+=== RUN   TestGateTerminalEventNotArbitraryText
+--- PASS: TestGateTerminalEventNotArbitraryText (0.01s)
+=== RUN   TestGateRegistersUsageButOpaqueDefaultStillDenied
+--- PASS: TestGateRegistersUsageButOpaqueDefaultStillDenied (0.00s)
+=== RUN   TestGateServerUsageOverLocalLimitQuarantines
+--- PASS: TestGateServerUsageOverLocalLimitQuarantines (0.01s)
+=== RUN   TestGateNoResponseBudgetNoDispatch
+--- PASS: TestGateNoResponseBudgetNoDispatch (0.00s)
+=== RUN   TestGateResponseLimitMakesUnknown
+--- PASS: TestGateResponseLimitMakesUnknown (0.01s)
+=== RUN   TestGateRestartInFlightBecomesUnknown
+--- PASS: TestGateRestartInFlightBecomesUnknown (0.00s)
+=== RUN   TestGatePolicyCannotResetExistingTask
+--- PASS: TestGatePolicyCannotResetExistingTask (0.00s)
+=== RUN   TestGateUnknownFieldDenied
+--- PASS: TestGateUnknownFieldDenied (0.00s)
+=== RUN   TestGatePublicHTTPNotAllowed
+--- PASS: TestGatePublicHTTPNotAllowed (0.00s)
+=== RUN   TestGatePartialSSEFrame
+--- PASS: TestGatePartialSSEFrame (0.00s)
+=== RUN   TestGateNegativeUsageNotTrusted
+--- PASS: TestGateNegativeUsageNotTrusted (0.00s)
+=== RUN   TestGateDoesNotChangePayloadSemantics
+--- PASS: TestGateDoesNotChangePayloadSemantics (0.01s)
+=== RUN   TestGateResponseSavedLocally
+--- PASS: TestGateResponseSavedLocally (0.01s)
+PASS
+ok  	platformstudio.local/economy	3.506s

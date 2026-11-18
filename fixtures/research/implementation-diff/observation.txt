@@ -1,0 +1,2 @@
+old=arrival-latch
+new=event-time

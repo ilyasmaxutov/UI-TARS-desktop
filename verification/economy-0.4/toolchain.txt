@@ -1,0 +1,13 @@
+go version go1.23.2 linux/amd64
+v22.16.0
+Version 5.8.3
+release/economy/studio-economy.exe: go1.23.2
+	path	platformstudio.local/economy
+	mod	platformstudio.local/economy	(devel)
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	-trimpath=true
+	build	CGO_ENABLED=0
+	build	GOARCH=amd64
+	build	GOOS=windows
+	build	GOAMD64=v1

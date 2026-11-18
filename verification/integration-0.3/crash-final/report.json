@@ -1,0 +1,72 @@
+{
+  "passed": true,
+  "fixture": true,
+  "liveCodex": false,
+  "rustTransport": false,
+  "windows": false,
+  "sqlite": "3.49.1",
+  "node": "v22.16.0",
+  "failure": "Error: fixture exited 91",
+  "afterFailure": {
+    "id": "crash_evidence",
+    "taskId": "task",
+    "sessionId": "session",
+    "goalRevision": 1,
+    "generation": "g",
+    "method": "turn/start",
+    "params": {
+      "threadId": "fixture-thread",
+      "input": [
+        {
+          "type": "text",
+          "text": "Synthetic integration request — не пользовательские данные\n\n[PlatformStudio command crash_evidence]"
+        }
+      ]
+    },
+    "fingerprint": "e54e388502f49ab23e2782a4bdd31984feeb41cc81821ee9af3302aa46828d34",
+    "expectedThreadId": "fixture-thread",
+    "expectedTurnId": null,
+    "marker": "[PlatformStudio command crash_evidence]",
+    "exactInput": "Synthetic integration request — не пользовательские данные\n\n[PlatformStudio command crash_evidence]",
+    "state": "unverified_outcome",
+    "revision": 2,
+    "attempts": 1,
+    "remoteId": null,
+    "reason": "Error: fixture exited 91"
+  },
+  "recovered": {
+    "id": "crash_evidence",
+    "taskId": "task",
+    "sessionId": "session",
+    "goalRevision": 1,
+    "generation": "g",
+    "method": "turn/start",
+    "params": {
+      "threadId": "fixture-thread",
+      "input": [
+        {
+          "type": "text",
+          "text": "Synthetic integration request — не пользовательские данные\n\n[PlatformStudio command crash_evidence]"
+        }
+      ]
+    },
+    "fingerprint": "e54e388502f49ab23e2782a4bdd31984feeb41cc81821ee9af3302aa46828d34",
+    "expectedThreadId": "fixture-thread",
+    "expectedTurnId": null,
+    "marker": "[PlatformStudio command crash_evidence]",
+    "exactInput": "Synthetic integration request — не пользовательские данные\n\n[PlatformStudio command crash_evidence]",
+    "state": "confirmed",
+    "revision": 3,
+    "attempts": 1,
+    "remoteId": "fixture-turn-1",
+    "reason": "observed_in_thread"
+  },
+  "sends": 1,
+  "recoverySends": 0,
+  "remoteMutations": 1,
+  "readbackMethods": [
+    "thread/read",
+    "thread/turns/list"
+  ],
+  "limits": "Test-only JS repository/peer adapter; real child termination after fsync; no power-loss or Windows claim."
+}

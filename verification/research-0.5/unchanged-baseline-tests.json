@@ -1,0 +1,81 @@
+{
+  "baseline": "3967b46d7b2e0e4b47ef4bdae98b6c01c415f378",
+  "files": [
+    {
+      "path": "assistant/tests/core.test.cjs",
+      "sha256": "fe5f887a44f89f9d757f966617a0d644e0d9e069fb8e65100d55de0d483fc86d",
+      "unchanged": true
+    },
+    {
+      "path": "assistant/tests/live-events.test.cjs",
+      "sha256": "450defbf457d9bd8ed95ef16a455231ba84165ab52308cc8aff7dbf670da9052",
+      "unchanged": true
+    },
+    {
+      "path": "assistant/tests/render.test.cjs",
+      "sha256": "41027cc0d427a8cf457071e94750c43d2572489678cd3ca1d52c71223eb35102",
+      "unchanged": true
+    },
+    {
+      "path": "assistant/tests/telemetry.test.cjs",
+      "sha256": "b5042fe9dfb3bb7fa7477fa8391608be0977d6a2913d0f2690cfdf847da993ee",
+      "unchanged": true
+    },
+    {
+      "path": "native/tools/economy/economy_test.go",
+      "sha256": "ffe2199c5a0a0d7246fd76eeac8458cc582a21e691eec980c85139740ae67805",
+      "unchanged": true
+    },
+    {
+      "path": "native/tools/economy/gate_test.go",
+      "sha256": "7f4e177e40f638bc7c888411ec3eb32de97f9142ec77b03cb1b1c3f86a150cbf",
+      "unchanged": true
+    },
+    {
+      "path": "tests/core.test.mjs",
+      "sha256": "77da83c32d4f6006e5deaf8586d1ac35ef6cf5e8ec6a71c316be003dd8d2de90",
+      "unchanged": true
+    },
+    {
+      "path": "tests/integration-direct.test.mjs",
+      "sha256": "f32ce3b47656e6aa5a7cd6da36a4cae6725078c16f5f01ed6ade6d5311b8d39c",
+      "unchanged": true
+    },
+    {
+      "path": "tests/integration-process.test.mjs",
+      "sha256": "2f733dd466e62af033421d9daee3b704831169be5fb07babd478aed060b43659",
+      "unchanged": true
+    },
+    {
+      "path": "tests/integration-sql.test.mjs",
+      "sha256": "2e2885c2a4ec93e4385d9ad5873466cf3a9c614137abfeec0ef3f2c70d224671",
+      "unchanged": true
+    },
+    {
+      "path": "tests/integration-ui.test.mjs",
+      "sha256": "c9fff6146721e095a0dc562636fad466baef6b88536e4a1fae3426b8509ca560",
+      "unchanged": true
+    },
+    {
+      "path": "tests/outbox.test.mjs",
+      "sha256": "87045c19dd3b52c59ab120fb7e7e9566a1526837d02f75bb4d669d131824bab8",
+      "unchanged": true
+    },
+    {
+      "path": "tests/production.test.mjs",
+      "sha256": "81e7637bf02fd68e59745df1ad31c2cf696a25807f2bf2ab8aca1d99cd5286f2",
+      "unchanged": true
+    },
+    {
+      "path": "tests/review.test.mjs",
+      "sha256": "fa4d962c4751fbf5f59b14705b8fd01b5bcae50a6401fad6729dc8fa7263101f",
+      "unchanged": true
+    },
+    {
+      "path": "tests/sql-state.test.mjs",
+      "sha256": "a7c3b6b23ce61651d283d9d15d96e06ea512610cc4523609b72193c691af15ce",
+      "unchanged": true
+    }
+  ],
+  "allUnchanged": true
+}

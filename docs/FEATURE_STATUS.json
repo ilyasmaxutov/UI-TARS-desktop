@@ -1,0 +1,1577 @@
+[
+  {
+    "id": "PF001",
+    "title": "Первый запуск без учётной записи",
+    "phase": "P1",
+    "wbs": "W06",
+    "requirements": [
+      "F01",
+      "F38",
+      "F40",
+      "C01"
+    ],
+    "acceptance": "В чистой Windows можно создать локальный проект без аккаунта; отсутствующий профиль назван до запуска",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts; public/index.html",
+    "scope": "Есть автономный вход/пример; чистая Windows и capability probe не приняты.",
+    "accepted": false
+  },
+  {
+    "id": "PF002",
+    "title": "Открыть и перепривязать проект",
+    "phase": "P1",
+    "wbs": "W05",
+    "requirements": [
+      "F01",
+      "F40"
+    ],
+    "acceptance": "Перенести каталог, создать тёзку, открыть историю у прежнего ID и выбрать верную привязку",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts; native/crates/core/src/files.rs",
+    "scope": "Импорт текстовых копий; перенос/перепривязка живого корня не реализованы.",
+    "accepted": false
+  },
+  {
+    "id": "PF003",
+    "title": "Пространства без обязательной вложенности",
+    "phase": "P2",
+    "wbs": "W09",
+    "requirements": [
+      "F36",
+      "C01"
+    ],
+    "acceptance": "Первый запуск не требует ручного создания проекта, пространства, документа и листа по отдельности",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts; src/core/graph.ts",
+    "scope": "Создание пространств и первая структура; нет полноценного lifecycle.",
+    "accepted": false
+  },
+  {
+    "id": "PF004",
+    "title": "Многолистовая работа",
+    "phase": "P4",
+    "wbs": "W17",
+    "requirements": [
+      "F43",
+      "C01",
+      "C02"
+    ],
+    "acceptance": "Узел виден на двух листах, исполняется один раз; закрытие листа не меняет run",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/graph.ts; src/ui/app.ts",
+    "scope": "Многолистовые views/ID проверены core-тестами; UI не запускался.",
+    "accepted": false
+  },
+  {
+    "id": "PF005",
+    "title": "Продолжить с прошлого места",
+    "phase": "P2",
+    "wbs": "W09",
+    "requirements": [
+      "F21",
+      "F36",
+      "C05"
+    ],
+    "acceptance": "Закрыть клиент, дождаться результата, открыть на том же объекте с правильным состоянием",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/store.ts; src/ui/app.ts",
+    "scope": "Сохранение/возврат состояния написаны; restart IndexedDB не испытан.",
+    "accepted": false
+  },
+  {
+    "id": "PF006",
+    "title": "Быстрый поиск и командная палитра",
+    "phase": "P2",
+    "wbs": "W09",
+    "requirements": [
+      "F03",
+      "F36",
+      "F38"
+    ],
+    "acceptance": "По имени результата перейти к нужной версии и её источникам без обхода дерева",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts",
+    "scope": "Палитра операций, не глобальный поиск проектов/данных.",
+    "accepted": false
+  },
+  {
+    "id": "PF007",
+    "title": "Архивирование, восстановление и удаление",
+    "phase": "P2",
+    "wbs": "W10",
+    "requirements": [
+      "F01",
+      "F40"
+    ],
+    "acceptance": "После архивации остановки не происходят скрыто; восстановление возвращает идентичность",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF008",
+    "title": "Перенос проекта и конструкции",
+    "phase": "P4",
+    "wbs": "W17",
+    "requirements": [
+      "F40",
+      "F42",
+      "C10"
+    ],
+    "acceptance": "Перенести на чистый профиль без токенов; никто не получает старые полномочия",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/graph.ts; src/ui/app.ts",
+    "scope": "Валидация импортируемой схемы проверена; GUI импорт/экспорт не испытан.",
+    "accepted": false
+  },
+  {
+    "id": "PF009",
+    "title": "Контекстное поле запроса",
+    "phase": "P3",
+    "wbs": "W14",
+    "requirements": [
+      "F08",
+      "F37"
+    ],
+    "acceptance": "Одно уточнение попадает только в выбранную роль; исходная цель доступна",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts",
+    "scope": "Поле общей цели, не адресуемый разговор с ролью.",
+    "accepted": false
+  },
+  {
+    "id": "PF010",
+    "title": "Карточка ожидаемого результата",
+    "phase": "P3",
+    "wbs": "W13",
+    "requirements": [
+      "F08",
+      "F09",
+      "F15"
+    ],
+    "acceptance": "Удалённое из плана обязательство остаётся в цели и блокирует полноту",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/model.ts; src/core/runtime.ts",
+    "scope": "Оригинал и критерии зафиксированы; NLP разложения нет.",
+    "accepted": false
+  },
+  {
+    "id": "PF011",
+    "title": "Контекст и материалы задачи",
+    "phase": "P5",
+    "wbs": "W21",
+    "requirements": [
+      "F02",
+      "F03",
+      "F04",
+      "F05",
+      "F11"
+    ],
+    "acceptance": "В пакете задания видны фактически переданные источники и версии",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "tools/local-run.mjs; src/core/model.ts",
+    "scope": "Ограниченные текстовые копии; политик межпроектной передачи нет.",
+    "accepted": false
+  },
+  {
+    "id": "PF012",
+    "title": "План как редактируемое предложение",
+    "phase": "P3",
+    "wbs": "W13",
+    "requirements": [
+      "F09",
+      "F31",
+      "F43"
+    ],
+    "acceptance": "Применить часть предложения, сохранить ручное изменение и связь с целью",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF013",
+    "title": "Разговор с ролью без потери общего контекста",
+    "phase": "P3",
+    "wbs": "W12",
+    "requirements": [
+      "F05",
+      "F07",
+      "F10",
+      "F27"
+    ],
+    "acceptance": "Смена исполнителя сохраняет цель и незакрытые вопросы, не только последний summary",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF014",
+    "title": "Очередь решений вместо ленты уведомлений",
+    "phase": "P3",
+    "wbs": "W14",
+    "requirements": [
+      "F36",
+      "F37",
+      "F46"
+    ],
+    "acceptance": "Пять одинаковых сбоев дают одну обновляемую карточку, а не пять окон",
+    "implementationStatus": "partial-source-and-contract-tests",
+    "sourcePaths": "src/core/outbox.ts; src/ui/command-store.ts; src/ui/app.ts",
+    "scope": "Очередь неизвестных исходов и read-only сверка нативного запуска; contract CLI tested, Windows/IndexedDB не испытаны.",
+    "accepted": false
+  },
+  {
+    "id": "PF015",
+    "title": "Изменение цели во время работы",
+    "phase": "P3",
+    "wbs": "W14",
+    "requirements": [
+      "F08",
+      "F18",
+      "F37",
+      "F44"
+    ],
+    "acceptance": "Новое ограничение применяется к будущим dispatch; прошлые эффекты доступны отдельно",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/runtime.ts; src/core/graph.ts",
+    "scope": "Изменение черновика не меняет запущенную цель; steer не подключён.",
+    "accepted": false
+  },
+  {
+    "id": "PF016",
+    "title": "Ограниченное принятие результата",
+    "phase": "P3",
+    "wbs": "W13",
+    "requirements": [
+      "F15",
+      "F36",
+      "F46"
+    ],
+    "acceptance": "Принять часть; новая задача видит оставшиеся обязательства и прежние основания",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts",
+    "scope": "Локальное принятие отдельно от review, без авторитетной protected-приёмки.",
+    "accepted": false
+  },
+  {
+    "id": "PF017",
+    "title": "Создание узла по месту",
+    "phase": "P4",
+    "wbs": "W15",
+    "requirements": [
+      "F24",
+      "F31",
+      "F43",
+      "C03"
+    ],
+    "acceptance": "Создать цепочку без посещения общего каталога настроек",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts; src/core/graph.ts",
+    "scope": "Создание узла из каталога; drag UX не испытан.",
+    "accepted": false
+  },
+  {
+    "id": "PF018",
+    "title": "Соединение и преобразование данных",
+    "phase": "P4",
+    "wbs": "W16",
+    "requirements": [
+      "F25",
+      "F32",
+      "F43",
+      "C03"
+    ],
+    "acceptance": "Картинку нельзя незаметно заменить текстовым описанием",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/graph.ts; src/core/runtime.ts",
+    "scope": "Типы text/files, явный text.to_file, проверка несовместимых связей.",
+    "accepted": false
+  },
+  {
+    "id": "PF019",
+    "title": "Выделение, перемещение и выравнивание",
+    "phase": "P4",
+    "wbs": "W15",
+    "requirements": [
+      "F43",
+      "C02",
+      "C09"
+    ],
+    "acceptance": "Переставить 100 узлов и отменить одним действием без изменений semantic hash",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts",
+    "scope": "Одиночное выделение/перемещение; массовое выравнивание не реализовано.",
+    "accepted": false
+  },
+  {
+    "id": "PF020",
+    "title": "Undo/redo и автосохранение",
+    "phase": "P4",
+    "wbs": "W15",
+    "requirements": [
+      "F21",
+      "F37",
+      "F43"
+    ],
+    "acceptance": "После перезапуска черновик восстановлен; undo геометрии не повторяет действие",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/graph.ts; src/ui/store.ts",
+    "scope": "Undo/CAS тестируются; реальный IndexedDB ещё нет.",
+    "accepted": false
+  },
+  {
+    "id": "PF021",
+    "title": "Группы, заметки и вложенные подграфы",
+    "phase": "P4",
+    "wbs": "W17",
+    "requirements": [
+      "F31",
+      "F43",
+      "C03"
+    ],
+    "acceptance": "Свернуть команду агентов в блок и раскрыть без изменения выполняемой версии",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/core/model.ts; src/ui/app.ts",
+    "scope": "Есть неисполняемая заметка; групп/вложенных подграфов нет.",
+    "accepted": false
+  },
+  {
+    "id": "PF022",
+    "title": "Связи между листами",
+    "phase": "P4",
+    "wbs": "W17",
+    "requirements": [
+      "F32",
+      "F43",
+      "C01",
+      "C03"
+    ],
+    "acceptance": "Переместить проверку на второй лист и сохранить тот же поток",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/graph.ts; src/ui/app.ts",
+    "scope": "Ссылки с разных листов, переход к связанному узлу; не проверенный UX.",
+    "accepted": false
+  },
+  {
+    "id": "PF023",
+    "title": "Копия, ссылка и повторное использование",
+    "phase": "P4",
+    "wbs": "W17",
+    "requirements": [
+      "F31",
+      "F43",
+      "C02",
+      "C10"
+    ],
+    "acceptance": "Два вида дают один run; две копии дают два самостоятельных допущенных run",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/graph.ts",
+    "scope": "Копия вида не создаёт вторую операцию; полный reuse library открыт.",
+    "accepted": false
+  },
+  {
+    "id": "PF024",
+    "title": "Масштаб, поиск на листе и focus mode",
+    "phase": "P4",
+    "wbs": "W15",
+    "requirements": [
+      "F36",
+      "F43",
+      "C09"
+    ],
+    "acceptance": "Найти зависший узел на 500-node схеме и вернуться к результату",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts",
+    "scope": "Панорамирование/масштаб/fit; нет semantic zoom и virtualized focus.",
+    "accepted": false
+  },
+  {
+    "id": "PF025",
+    "title": "Подготовка запуска без кнопки Compile",
+    "phase": "P4",
+    "wbs": "W16",
+    "requirements": [
+      "F09",
+      "F24",
+      "F38",
+      "F43"
+    ],
+    "acceptance": "Ошибка ведёт к нужному порту; компиляция не отправила внешних данных",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/graph.ts",
+    "scope": "Preflight чистый, ошибки типа/критериев/графа до исполнения.",
+    "accepted": false
+  },
+  {
+    "id": "PF026",
+    "title": "Черновик отдельно от работающей версии",
+    "phase": "P4",
+    "wbs": "W16",
+    "requirements": [
+      "F18",
+      "F43",
+      "F44",
+      "C02"
+    ],
+    "acceptance": "Изменить read policy в v8, получить разные выходы без подмены v7",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/runtime.ts",
+    "scope": "Запуск замораживает документ, цель и исходники.",
+    "accepted": false
+  },
+  {
+    "id": "PF027",
+    "title": "Запуск выделенного фрагмента",
+    "phase": "P4",
+    "wbs": "W16",
+    "requirements": [
+      "F32",
+      "F38",
+      "F43"
+    ],
+    "acceptance": "Часть графа запускается только с указанными версиями; скрытых публикаций нет",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF028",
+    "title": "Условия, параллельные ветви и сборка",
+    "phase": "P4",
+    "wbs": "W16",
+    "requirements": [
+      "F14",
+      "F17",
+      "F31",
+      "F34"
+    ],
+    "acceptance": "Два участника реально достигают барьера; результат содержит обе ветви",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/runtime.ts",
+    "scope": "Ограниченная конкурентность async built-ins и merge; не Windows-процессы, условий нет.",
+    "accepted": false
+  },
+  {
+    "id": "PF029",
+    "title": "Повторы и ограниченные циклы",
+    "phase": "P2",
+    "wbs": "W07",
+    "requirements": [
+      "F14",
+      "F19",
+      "F22",
+      "F39"
+    ],
+    "acceptance": "После трёх циклов без новых свидетельств четвёртый расход блокируется",
+    "implementationStatus": "logic-only",
+    "sourcePaths": "src/core/control.ts",
+    "scope": "Модульный предел без прогресса; циклы графа пока отклоняются.",
+    "accepted": false
+  },
+  {
+    "id": "PF030",
+    "title": "Расписание и событийные триггеры",
+    "phase": "P2",
+    "wbs": "W07",
+    "requirements": [
+      "F13",
+      "F19",
+      "F22",
+      "C04"
+    ],
+    "acceptance": "Повтор сигнала и restart создают одну логическую работу; no-event не вызывает модель",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF031",
+    "title": "Обработка ошибок как часть схемы",
+    "phase": "P2",
+    "wbs": "W08",
+    "requirements": [
+      "F20",
+      "F21",
+      "F31",
+      "F46"
+    ],
+    "acceptance": "Оборвать ACK; error branch не отправляет дубль",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF032",
+    "title": "Шаблоны задач и проверка переносимости",
+    "phase": "P4",
+    "wbs": "W17",
+    "requirements": [
+      "F24",
+      "F31",
+      "F43",
+      "C10"
+    ],
+    "acceptance": "Создать незапрограммированную заранее цепочку из тех же примитивов",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/graph.ts",
+    "scope": "Четыре стартовых шаблона; нет переносимой библиотеки workflow.",
+    "accepted": false
+  },
+  {
+    "id": "PF033",
+    "title": "Назначение локального или внешнего исполнителя",
+    "phase": "P3",
+    "wbs": "W12",
+    "requirements": [
+      "F10",
+      "F24",
+      "F27",
+      "C04"
+    ],
+    "acceptance": "Один профиль роли работает через два разрешённых адаптера с явными отличиями",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF034",
+    "title": "Подключение и живая сессия Codex",
+    "phase": "P3",
+    "wbs": "W11",
+    "requirements": [
+      "F10",
+      "F27",
+      "F30"
+    ],
+    "acceptance": "Start/resume/steer/interrupt воспроизведены на реальной разрешённой сессии",
+    "implementationStatus": "protocol-only",
+    "sourcePaths": "src/core/codex.ts",
+    "scope": "Формат initialize/thread/steer/interrupt; транспорта и живой сессии нет.",
+    "accepted": false
+  },
+  {
+    "id": "PF035",
+    "title": "Коррекция активной работы",
+    "phase": "P3",
+    "wbs": "W14",
+    "requirements": [
+      "F12",
+      "F37"
+    ],
+    "acceptance": "Исполнитель меняет следующий шаг; журнал показывает применённую редакцию",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF036",
+    "title": "Событийный надзор",
+    "phase": "P3",
+    "wbs": "W12",
+    "requirements": [
+      "F12",
+      "F13",
+      "F23"
+    ],
+    "acceptance": "При ожидании вызовов модели ноль; падение worker фиксируется без модели",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF037",
+    "title": "Проверка полноты до реализации",
+    "phase": "P3",
+    "wbs": "W13",
+    "requirements": [
+      "F08",
+      "F09",
+      "F15"
+    ],
+    "acceptance": "Удалённая политика чтения отклоняется ещё до запуска",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF038",
+    "title": "Делегирование без неучтённых агентов",
+    "phase": "P3",
+    "wbs": "W12",
+    "requirements": [
+      "F11",
+      "F14",
+      "F17",
+      "F19",
+      "F39"
+    ],
+    "acceptance": "Последний слот отдан ребёнку; расход дерева остаётся в лимите",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF039",
+    "title": "Передача задачи и память с происхождением",
+    "phase": "P3",
+    "wbs": "W12",
+    "requirements": [
+      "F05",
+      "F07",
+      "F27",
+      "F45"
+    ],
+    "acceptance": "Новый агент не повторяет неизвестную отправку и видит исходное ограничение",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF040",
+    "title": "Предел автономности по действию",
+    "phase": "P3",
+    "wbs": "W13",
+    "requirements": [
+      "F12",
+      "F15",
+      "F22",
+      "F39",
+      "F45"
+    ],
+    "acceptance": "Два согласных агента не могут опубликовать запрещённый или непроверенный результат",
+    "implementationStatus": "logic-only",
+    "sourcePaths": "src/core/control.ts",
+    "scope": "Budget/progress/retry проходят unit tests, не внедрены в supervisor.",
+    "accepted": false
+  },
+  {
+    "id": "PF041",
+    "title": "Результаты первого класса",
+    "phase": "P4",
+    "wbs": "W18",
+    "requirements": [
+      "F15",
+      "F36",
+      "F38",
+      "C08"
+    ],
+    "acceptance": "Реальный артефакт открывается; заглушка backend не получает «готово»",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/runtime.ts; src/ui/app.ts",
+    "scope": "Реальные текстовые файлы/хэши/предпросмотр; медиа нет.",
+    "accepted": false
+  },
+  {
+    "id": "PF042",
+    "title": "Содержательная разница",
+    "phase": "P2",
+    "wbs": "W08",
+    "requirements": [
+      "F06",
+      "F36"
+    ],
+    "acceptance": "Добавления, удаления и переименования воспроизводятся по манифесту",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/runtime.ts",
+    "scope": "Файловый diff от сохранённых входов; не семантическое слияние.",
+    "accepted": false
+  },
+  {
+    "id": "PF043",
+    "title": "Защищённая независимая проверка",
+    "phase": "P2",
+    "wbs": "W08",
+    "requirements": [
+      "F15",
+      "F16",
+      "F44"
+    ],
+    "acceptance": "Подмена assert, DLL или expected output не обходит проверку",
+    "implementationStatus": "partial-source-and-contract-tests",
+    "sourcePaths": "src/core/review.ts; native/crates/core/src/review.rs",
+    "scope": "Повторная проверка всех артефактов и критериев, exact-result receipt. Независимая OS-среда отсутствует.",
+    "accepted": false
+  },
+  {
+    "id": "PF044",
+    "title": "Происхождение и доказательства по раскрытию",
+    "phase": "P4",
+    "wbs": "W18",
+    "requirements": [
+      "F07",
+      "F15",
+      "F36",
+      "F44"
+    ],
+    "acceptance": "Старый pass не применяется после подмены адаптера с тем же именем",
+    "implementationStatus": "partial-source-and-contract-tests",
+    "sourcePaths": "src/core/review.ts; native/crates/core/src/review.rs",
+    "scope": "Binding к run/goal/artifacts, stale decision rejected; TypeScript tests, Rust source only.",
+    "accepted": false
+  },
+  {
+    "id": "PF045",
+    "title": "Принять и опубликовать",
+    "phase": "P2",
+    "wbs": "W08",
+    "requirements": [
+      "F06",
+      "F15",
+      "F18",
+      "F37"
+    ],
+    "acceptance": "Реальное содержимое целевой версии совпадает с принятым хэшем",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "tools/local-run.mjs; src/ui/app.ts",
+    "scope": "Принятие и отдельный экспорт; нет публикации в исходную папку.",
+    "accepted": false
+  },
+  {
+    "id": "PF046",
+    "title": "Конфликт с ручной правкой",
+    "phase": "P2",
+    "wbs": "W08",
+    "requirements": [
+      "F06",
+      "F18",
+      "F21",
+      "F46"
+    ],
+    "acceptance": "Сбой между двумя файлами восстанавливается без уничтожения внешней правки",
+    "implementationStatus": "logic-only",
+    "sourcePaths": "src/core/runtime.ts",
+    "scope": "Выявление конфликта проверено; UI/публикатор слияния не реализованы.",
+    "accepted": false
+  },
+  {
+    "id": "PF047",
+    "title": "Сравнение попыток и воспроизведение истории",
+    "phase": "P4",
+    "wbs": "W18",
+    "requirements": [
+      "F21",
+      "F36",
+      "F41",
+      "F43"
+    ],
+    "acceptance": "Time travel имеет ноль эффектов; повтор вычисления отмечен новой попыткой",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts",
+    "scope": "История выбранного запуска; compare/replay полного профиля отсутствуют.",
+    "accepted": false
+  },
+  {
+    "id": "PF048",
+    "title": "Обратная связь в конкретной области",
+    "phase": "P3",
+    "wbs": "W14",
+    "requirements": [
+      "F08",
+      "F12",
+      "F36",
+      "F37"
+    ],
+    "acceptance": "Замечание направляет правку нужного артефакта и сохраняет исходную версию",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF049",
+    "title": "Фоновый хост отдельно от окна",
+    "phase": "P2",
+    "wbs": "W10",
+    "requirements": [
+      "F19",
+      "F21",
+      "F37",
+      "C05"
+    ],
+    "acceptance": "Закрыть окно, получить результат, восстановить проекцию без второго запуска",
+    "implementationStatus": "native-unbuilt",
+    "sourcePaths": "native/crates/host; native/crates/desktop",
+    "scope": "Независимый host source; Windows фоновая работа не испытана.",
+    "accepted": false
+  },
+  {
+    "id": "PF050",
+    "title": "Сон, перезагрузка и потеря сети",
+    "phase": "P2",
+    "wbs": "W10",
+    "requirements": [
+      "F19",
+      "F20",
+      "F21",
+      "F30",
+      "C05"
+    ],
+    "acceptance": "Проснуться после пропущенных сроков и получить один допустимый wake",
+    "implementationStatus": "partial-source-and-contract-tests",
+    "sourcePaths": "src/core/outbox.ts; native/crates/core/src/store.rs",
+    "scope": "Сверка после потери ответа; cancellation survives SQL reopen. Полный Windows/sleep/logoff lifecycle не испытан.",
+    "accepted": false
+  },
+  {
+    "id": "PF051",
+    "title": "Пауза и остановка с честной семантикой",
+    "phase": "P2",
+    "wbs": "W07",
+    "requirements": [
+      "F20",
+      "F23",
+      "F37"
+    ],
+    "acceptance": "Измерить приём команды, завершение процесса и освобождение отдельно",
+    "implementationStatus": "partial-source-and-contract-tests",
+    "sourcePaths": "native/crates/core/src/store.rs; native/crates/core/src/schema/v2.sql",
+    "scope": "Durable cancel до сигнала; fence против late-success. SQL tested; реальные Windows процессы не испытаны.",
+    "accepted": false
+  },
+  {
+    "id": "PF052",
+    "title": "Ресурсные пресеты",
+    "phase": "P6",
+    "wbs": "W26",
+    "requirements": [
+      "F17",
+      "F23",
+      "C06"
+    ],
+    "acceptance": "Изменение профиля меняет реальную выдачу, а не только подпись",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts",
+    "scope": "Один/два async built-in шага; не CPU/RAM/GPU пресет ОС.",
+    "accepted": false
+  },
+  {
+    "id": "PF053",
+    "title": "Справедливая очередь",
+    "phase": "P2",
+    "wbs": "W07",
+    "requirements": [
+      "F17",
+      "F19",
+      "F23"
+    ],
+    "acceptance": "B завершает полезную работу при заблокированном A с причинным барьером",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF054",
+    "title": "CPU, память, диск и каналы",
+    "phase": "P1",
+    "wbs": "W04",
+    "requirements": [
+      "F16",
+      "F17",
+      "F23",
+      "C06"
+    ],
+    "acceptance": "Превысить каждый лимит и сохранить управление соседней средой",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF055",
+    "title": "GPU, модели и карантин",
+    "phase": "P6",
+    "wbs": "W24",
+    "requirements": [
+      "F17",
+      "F20",
+      "F26",
+      "C06"
+    ],
+    "acceptance": "Удержанная аренда остаётся в карантине до наблюдаемого release",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF056",
+    "title": "Расход и нулевой дополнительный платёж",
+    "phase": "P5",
+    "wbs": "W20",
+    "requirements": [
+      "F39",
+      "F41"
+    ],
+    "acceptance": "Две ветви не тратят последний общий остаток дважды; платный fallback закрыт",
+    "implementationStatus": "logic-only",
+    "sourcePaths": "src/core/control.ts",
+    "scope": "Резервы/unknown-price logic проверены; реальных финансовых маршрутов нет.",
+    "accepted": false
+  },
+  {
+    "id": "PF057",
+    "title": "Режимы файла и источника",
+    "phase": "P1",
+    "wbs": "W05",
+    "requirements": [
+      "F02",
+      "F04",
+      "F16"
+    ],
+    "acceptance": "Две среды читают свою базу несмотря на изменение исходника",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "tools/local-run.mjs; src/core/model.ts",
+    "scope": "UTF-8 копии с лимитом и проверкой путей; live-source/snapshot режимы не готовы.",
+    "accepted": false
+  },
+  {
+    "id": "PF058",
+    "title": "Поиск и чтение больших материалов",
+    "phase": "P5",
+    "wbs": "W21",
+    "requirements": [
+      "F03",
+      "F04"
+    ],
+    "acceptance": "Наблюдатель измеряет реально выданные байты и память",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF059",
+    "title": "Индекс, embeddings и устаревание",
+    "phase": "P5",
+    "wbs": "W21",
+    "requirements": [
+      "F03",
+      "F04",
+      "F07",
+      "F45"
+    ],
+    "acceptance": "После rename/delete/revoke поиск не выдаёт запрещённый материал",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF060",
+    "title": "OCR и структурированное извлечение",
+    "phase": "P5",
+    "wbs": "W21",
+    "requirements": [
+      "F02",
+      "F24",
+      "F25",
+      "F31"
+    ],
+    "acceptance": "На контрольной странице проверены текст, координаты и хэш источника",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF061",
+    "title": "Каталог реальных возможностей",
+    "phase": "P5",
+    "wbs": "W19",
+    "requirements": [
+      "F24",
+      "F25",
+      "F38"
+    ],
+    "acceptance": "Неработающий manifest проходит discovery, но не operation verification",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/core/model.ts; native/crates/host/src/lib.rs",
+    "scope": "Фиксированный каталог built-ins и явная недоступность; probe/lifecycle открыт.",
+    "accepted": false
+  },
+  {
+    "id": "PF062",
+    "title": "Аккаунты и секреты",
+    "phase": "P5",
+    "wbs": "W19",
+    "requirements": [
+      "F29",
+      "F30",
+      "F40",
+      "F45"
+    ],
+    "acceptance": "Export/лог/preview не содержат ключ; revoke прекращает новые выдачи",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF063",
+    "title": "Маршруты, fallback и независимые панели",
+    "phase": "P5",
+    "wbs": "W20",
+    "requirements": [
+      "F24",
+      "F25",
+      "F31",
+      "F39"
+    ],
+    "acceptance": "Проверены реальные адресаты, число вызовов и сохранение критериев",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF064",
+    "title": "Существующие внешние беседы",
+    "phase": "P7",
+    "wbs": "W27",
+    "requirements": [
+      "F28",
+      "F29",
+      "F30"
+    ],
+    "acceptance": "T17/T18 отдельно на реальном чате каждого сервиса; без Computer Use",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF065",
+    "title": "Текстовые модели: локально и удалённо",
+    "phase": "P6",
+    "wbs": "W24",
+    "requirements": [
+      "F24",
+      "F25",
+      "F27"
+    ],
+    "acceptance": "Реальные токены и конечный статус связаны с моделью и попыткой",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF066",
+    "title": "Зрительные модели",
+    "phase": "P6",
+    "wbs": "W24",
+    "requirements": [
+      "F25",
+      "F26"
+    ],
+    "acceptance": "Различающая пара изображений даёт проверяемо разные ответы",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF067",
+    "title": "Распознавание речи",
+    "phase": "P6",
+    "wbs": "W25",
+    "requirements": [
+      "F25",
+      "F35",
+      "F42"
+    ],
+    "acceptance": "Контрольные фразы, времена и отсутствие запрещённого helper runtime",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF068",
+    "title": "Синтез и перебивание речи",
+    "phase": "P6",
+    "wbs": "W25",
+    "requirements": [
+      "F25",
+      "F34",
+      "F35"
+    ],
+    "acceptance": "После interrupt нет старого звука; содержание проверено независимым эталоном",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF069",
+    "title": "Изображения, видео и длительные jobs",
+    "phase": "P6",
+    "wbs": "W25",
+    "requirements": [
+      "F24",
+      "F25",
+      "F30",
+      "F31"
+    ],
+    "acceptance": "Обрыв после принятия не создаёт дубль; фактический медиафайл доступен",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF070",
+    "title": "Правила многовходового чтения",
+    "phase": "P6",
+    "wbs": "W23",
+    "requirements": [
+      "F32",
+      "F34",
+      "F35"
+    ],
+    "acceptance": "en/a1/a2/ru/a3 и поздний ru дают точно объявленные пары",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/runtime.ts; src/core/control.ts",
+    "scope": "all-once в реальном DAG; arrival/event-time только конечные тесты.",
+    "accepted": false
+  },
+  {
+    "id": "PF071",
+    "title": "Ветвление, перегрузка и независимые курсоры",
+    "phase": "P6",
+    "wbs": "W23",
+    "requirements": [
+      "F23",
+      "F33",
+      "F34"
+    ],
+    "acceptance": "Насыщение медленной ветви не задерживает stop/EOF и быструю ветвь",
+    "implementationStatus": "logic-only",
+    "sourcePaths": "src/core/control.ts",
+    "scope": "BoundedQueue и учёт потерь; реального streaming транспорта нет.",
+    "accepted": false
+  },
+  {
+    "id": "PF072",
+    "title": "Пакеты, качество и сравнение конфигураций",
+    "phase": "P6",
+    "wbs": "W25",
+    "requirements": [
+      "F17",
+      "F22",
+      "F25",
+      "F39",
+      "F44"
+    ],
+    "acceptance": "Повторить только незакрытые элементы; качество проверено на удержанной выборке",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF073",
+    "title": "Адресные realtime-обновления",
+    "phase": "P4",
+    "wbs": "W18",
+    "requirements": [
+      "F36",
+      "F41",
+      "C08",
+      "C09"
+    ],
+    "acceptance": "Показ устойчивого события p95 ≤250 мс в проектном профиле; никаких фиктивных live dots",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/ui/worker.ts; src/ui/app.ts",
+    "scope": "Реальные события worker проверены в VM; GUI pipeline не испытан.",
+    "accepted": false
+  },
+  {
+    "id": "PF074",
+    "title": "Понятные состояния вместо системных enum",
+    "phase": "P2",
+    "wbs": "W09",
+    "requirements": [
+      "F15",
+      "F20",
+      "F36"
+    ],
+    "acceptance": "Пользователь различает завершение агента, проверку и публикацию",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts",
+    "scope": "Разделены running/review/accepted/error; полная матрица статусов открыта.",
+    "accepted": false
+  },
+  {
+    "id": "PF075",
+    "title": "Причина ожидания и путь исправления",
+    "phase": "P2",
+    "wbs": "W09",
+    "requirements": [
+      "F30",
+      "F38",
+      "F46"
+    ],
+    "acceptance": "Из отказа вернуться к той же цели за один корректирующий маршрут",
+    "implementationStatus": "partial-source-and-contract-tests",
+    "sourcePaths": "src/core/outbox.ts; src/ui/app.ts",
+    "scope": "Unknown не создаёт автоматически новую работу; lookup/same-ID delivery. Только builtin-контракт, не внешние эффекты.",
+    "accepted": false
+  },
+  {
+    "id": "PF076",
+    "title": "Временная шкала и зависимости",
+    "phase": "P4",
+    "wbs": "W18",
+    "requirements": [
+      "F17",
+      "F36",
+      "F41"
+    ],
+    "acceptance": "Видно, какой ресурс задержал работу и какая параллельная ветвь реально продвинулась",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts",
+    "scope": "Лента событий, не полноценная временная диаграмма.",
+    "accepted": false
+  },
+  {
+    "id": "PF077",
+    "title": "Свежесть, пробелы и наблюдаемость",
+    "phase": "P4",
+    "wbs": "W18",
+    "requirements": [
+      "F15",
+      "F27",
+      "F41",
+      "F45"
+    ],
+    "acceptance": "После разрыва видна последняя подтверждённая точка и незакрытая операция",
+    "implementationStatus": "native-unbuilt",
+    "sourcePaths": "native/crates/core/src/store.rs",
+    "scope": "Упорядоченные события/хранилище написаны; cursor/gap transport ещё открыт.",
+    "accepted": false
+  },
+  {
+    "id": "PF078",
+    "title": "Уведомления без спама",
+    "phase": "P3",
+    "wbs": "W14",
+    "requirements": [
+      "F36",
+      "F40",
+      "F46",
+      "C05"
+    ],
+    "acceptance": "100 tool events не дают 100 toast; важная unknown-операция остаётся в центре решений",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF079",
+    "title": "Адаптивный рабочий стол",
+    "phase": "P8",
+    "wbs": "W29",
+    "requirements": [
+      "F36",
+      "F43",
+      "C09"
+    ],
+    "acceptance": "Полный путь при малой ширине без горизонтального скролла всей оболочки",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "public/style.css",
+    "scope": "Адаптивные правила написаны, размеры/Windows scaling вручную не проверены.",
+    "accepted": false
+  },
+  {
+    "id": "PF080",
+    "title": "Клавиатура, контраст и снижение движения",
+    "phase": "P8",
+    "wbs": "W29",
+    "requirements": [
+      "F36",
+      "F37",
+      "C09"
+    ],
+    "acceptance": "Создать, соединить, запустить, остановить и принять без мыши",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "public/style.css; src/ui/app.ts",
+    "scope": "Клавиши/контрастная тема/reduced-motion/альтернатива drag; accessibility audit открыт.",
+    "accepted": false
+  },
+  {
+    "id": "PF081",
+    "title": "Политика доступа по контексту",
+    "phase": "P1",
+    "wbs": "W04",
+    "requirements": [
+      "F11",
+      "F16",
+      "F45"
+    ],
+    "acceptance": "Инъекция в исходнике не раскрывает маркер внешнему получателю",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF082",
+    "title": "Изолированная среда и контролируемые инструменты",
+    "phase": "P1",
+    "wbs": "W04",
+    "requirements": [
+      "F16",
+      "F23",
+      "C07"
+    ],
+    "acceptance": "Проверить соседние файлы, pipes, handles, child and network escape с внешним наблюдателем",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF083",
+    "title": "Ограничения производных данных",
+    "phase": "P5",
+    "wbs": "W21",
+    "requirements": [
+      "F07",
+      "F11",
+      "F45"
+    ],
+    "acceptance": "Тестировать пересказ, Base64, ссылку и сообщение ошибки; разрешённый фрагмент проходит",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF084",
+    "title": "Установка и отзыв расширения",
+    "phase": "P5",
+    "wbs": "W22",
+    "requirements": [
+      "F24",
+      "F31",
+      "F42"
+    ],
+    "acceptance": "Неработающее расширение не получает verified; запрет новой версии не ломает старую историю",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF085",
+    "title": "SDK операций без вшитых бизнес-сценариев",
+    "phase": "P5",
+    "wbs": "W22",
+    "requirements": [
+      "F24",
+      "F31",
+      "F43"
+    ],
+    "acceptance": "Одна новая операция участвует в двух разных графах без нового типа всей задачи",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/model.ts; src/core/runtime.ts",
+    "scope": "Композиция встроенных операций; SDK/lifecycle расширений не готов.",
+    "accepted": false
+  },
+  {
+    "id": "PF086",
+    "title": "Секреты, дампы и диагностика",
+    "phase": "P5",
+    "wbs": "W19",
+    "requirements": [
+      "F40",
+      "F41",
+      "F45"
+    ],
+    "acceptance": "Диагностический архив и crash dump проверены на тестовые secrets",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF087",
+    "title": "Независимое тестирование границ",
+    "phase": "P8",
+    "wbs": "W30",
+    "requirements": [
+      "F15",
+      "F16",
+      "F38",
+      "F44"
+    ],
+    "acceptance": "Разрешённая операция проходит, запрещённая наблюдаемо не происходит",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF088",
+    "title": "Политика локальности и отключённой сети",
+    "phase": "P0",
+    "wbs": "W02",
+    "requirements": [
+      "F13",
+      "F40",
+      "F42",
+      "C07"
+    ],
+    "acceptance": "G1/G2 проходят с сетью и модельным сервисом отключёнными",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "dist/index.html; tools/local-run.mjs",
+    "scope": "Локальные операции без провайдеров; no-network worker bundle и CLI.",
+    "accepted": false
+  },
+  {
+    "id": "PF089",
+    "title": "Резервная копия и восстановление",
+    "phase": "P2",
+    "wbs": "W10",
+    "requirements": [
+      "F21",
+      "F40",
+      "F42"
+    ],
+    "acceptance": "Restore возвращает цели, права, результаты и незакрытые эффекты",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts",
+    "scope": "Ручной экспорт проекта, не полная резервная копия хоста.",
+    "accepted": false
+  },
+  {
+    "id": "PF090",
+    "title": "Установка и обновления",
+    "phase": "P8",
+    "wbs": "W28",
+    "requirements": [
+      "F21",
+      "F42",
+      "C05"
+    ],
+    "acceptance": "Обновить во время ожидающего run и восстановить корректную версию данных",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF091",
+    "title": "Миграции и откат",
+    "phase": "P8",
+    "wbs": "W28",
+    "requirements": [
+      "F21",
+      "F40",
+      "F42"
+    ],
+    "acceptance": "Оборвать до/после переключения и получить одну согласованную активную версию",
+    "implementationStatus": "partial-source-and-contract-tests",
+    "sourcePaths": "native/crates/core/src/schema; native/crates/core/src/store.rs",
+    "scope": "Транзакционная миграция v1/v2 отдельно испытана на SQL; native backup/downgrade/WAL не приняты.",
+    "accepted": false
+  },
+  {
+    "id": "PF092",
+    "title": "История и контроль объёма",
+    "phase": "P2",
+    "wbs": "W10",
+    "requirements": [
+      "F23",
+      "F40",
+      "F41"
+    ],
+    "acceptance": "Заполненный диск не теряет контрольную запись и не повреждает соседние run",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "src/core/model.ts; src/core/control.ts",
+    "scope": "Явные лимиты данных и истории drop; native disk cleanup не реализован.",
+    "accepted": false
+  },
+  {
+    "id": "PF093",
+    "title": "Проверяемая сборка и поддерживаемые профили",
+    "phase": "P8",
+    "wbs": "W28",
+    "requirements": [
+      "F24",
+      "F42"
+    ],
+    "acceptance": "Чистая Windows устанавливается без запрещённой обязательной зависимости",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "tools/bundle.mjs; scripts/Build-Windows.ps1",
+    "scope": "TS сборка повторена; native lock/build/SBOM/signing отсутствуют.",
+    "accepted": false
+  },
+  {
+    "id": "PF094",
+    "title": "Юзабилити и встроенная помощь",
+    "phase": "P8",
+    "wbs": "W31",
+    "requirements": [
+      "F36",
+      "F38",
+      "F46",
+      "C09"
+    ],
+    "acceptance": "Новичок открывает проект, получает результат и решает типовой сбой без ведущего",
+    "implementationStatus": "partial-source",
+    "sourcePaths": "src/ui/app.ts",
+    "scope": "Встроенная справка; пользовательских исследований не было.",
+    "accepted": false
+  },
+  {
+    "id": "PF095",
+    "title": "Производительность и деградация визуала",
+    "phase": "P8",
+    "wbs": "W29",
+    "requirements": [
+      "F17",
+      "F23",
+      "F36",
+      "C09"
+    ],
+    "acceptance": "500 узлов/1000 связей: frame budget; нагрузка игры тестируется отдельно",
+    "implementationStatus": "open",
+    "sourcePaths": "",
+    "scope": "Исходное обязательство сохранено. Реализация и приёмка не закрыты.",
+    "accepted": false
+  },
+  {
+    "id": "PF096",
+    "title": "Качество выпуска и эксплуатационный контроль",
+    "phase": "P8",
+    "wbs": "W30",
+    "requirements": [
+      "F38",
+      "F41",
+      "F42",
+      "F44",
+      "F46"
+    ],
+    "acceptance": "Полный G3 только при доказанном F01–F46/C01–C10, включая каждый внешний маршрут",
+    "implementationStatus": "partial-tested",
+    "sourcePaths": "tests/; verification/",
+    "scope": "86 CLI checks; не полная Windows/UX/нагрузочная приёмка.",
+    "accepted": false
+  }
+]

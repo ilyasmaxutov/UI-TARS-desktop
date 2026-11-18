@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: host envelope keeps event identity and explicitly receipt time
+ok 1 - host envelope keeps event identity and explicitly receipt time
+  ---
+  duration_ms: 0.949092
+  type: 'test'
+  ...
+# Subtest: missing sequence is not silently fabricated
+ok 2 - missing sequence is not silently fabricated
+  ---
+  duration_ms: 0.223998
+  type: 'test'
+  ...
+# Subtest: timestamp difference is not TTFT
+ok 3 - timestamp difference is not TTFT
+  ---
+  duration_ms: 1.181692
+  type: 'test'
+  ...
+# Subtest: raw delta replay counted only once
+ok 4 - raw delta replay counted only once
+  ---
+  duration_ms: 0.292772
+  type: 'test'
+  ...
+# Subtest: cumulative usage delta does not double add cached/reasoning
+ok 5 - cumulative usage delta does not double add cached/reasoning
+  ---
+  duration_ms: 0.438251
+  type: 'test'
+  ...
+# Subtest: gap and synthetic peer remain visible
+ok 6 - gap and synthetic peer remain visible
+  ---
+  duration_ms: 0.385832
+  type: 'test'
+  ...
+# Subtest: prompt/tool contents absent from telemetry export
+ok 7 - prompt/tool contents absent from telemetry export
+  ---
+  duration_ms: 0.410319
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 53.465298

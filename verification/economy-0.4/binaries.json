@@ -1,0 +1,14 @@
+{
+  "studio-economy.exe": {
+    "bytes": 6666752,
+    "sha256": "5781d7e3ba48640cc583ff80d4e547909122432229c8f1dc1dd8dca231fed271",
+    "executed": false,
+    "signed": false
+  },
+  "studio-economy-linux-amd64": {
+    "bytes": 6426776,
+    "sha256": "96614ea9e33733936e1792cc46c9b62c391162f99af041e2302c9872e002b81a",
+    "executed": true,
+    "signed": false
+  }
+}

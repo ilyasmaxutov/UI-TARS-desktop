@@ -1,0 +1,142 @@
+{
+  "format": "codex-observer/1",
+  "capturedAt": "2026-11-09T10:00:09Z",
+  "notices": [
+    "Synthetic fixture. Not actual user activity."
+  ],
+  "events": [
+    {
+      "schema": "codex-observer-event/1",
+      "source": "synthetic",
+      "seq": 0,
+      "timestamp": "2026-11-09T10:00:00.000Z",
+      "kind": "session",
+      "sessionId": "synthetic-session",
+      "turnId": null,
+      "callId": null,
+      "tool": null,
+      "forkedFrom": null,
+      "version": "fixture-only",
+      "project": null
+    },
+    {
+      "schema": "codex-observer-event/1",
+      "source": "synthetic",
+      "seq": 1,
+      "timestamp": "2026-11-09T10:00:00.000Z",
+      "kind": "context",
+      "sessionId": null,
+      "turnId": "t1",
+      "callId": null,
+      "tool": null,
+      "model": "fixture-model"
+    },
+    {
+      "schema": "codex-observer-event/1",
+      "source": "synthetic",
+      "seq": 2,
+      "timestamp": "2026-11-09T10:00:00.000Z",
+      "kind": "turn-start",
+      "sessionId": null,
+      "turnId": "t1",
+      "callId": null,
+      "tool": null
+    },
+    {
+      "schema": "codex-observer-event/1",
+      "source": "synthetic",
+      "seq": 3,
+      "timestamp": "2026-11-09T10:00:01.200Z",
+      "kind": "tool-start",
+      "sessionId": null,
+      "turnId": "t1",
+      "callId": "c1",
+      "tool": "command"
+    },
+    {
+      "schema": "codex-observer-event/1",
+      "source": "synthetic",
+      "seq": 4,
+      "timestamp": "2026-11-09T10:00:03.600Z",
+      "kind": "tool-end",
+      "sessionId": null,
+      "turnId": "t1",
+      "callId": "c1",
+      "tool": null,
+      "exitCode": 0,
+      "success": null,
+      "durationMs": 2400
+    },
+    {
+      "schema": "codex-observer-event/1",
+      "source": "synthetic",
+      "seq": 5,
+      "timestamp": "2026-11-09T10:00:07.000Z",
+      "kind": "agent-message",
+      "sessionId": null,
+      "turnId": "t1",
+      "callId": null,
+      "tool": null
+    },
+    {
+      "schema": "codex-observer-event/1",
+      "source": "synthetic",
+      "seq": 6,
+      "timestamp": "2026-11-09T10:00:07.300Z",
+      "kind": "usage-record",
+      "sessionId": "synthetic-session",
+      "turnId": "t1",
+      "callId": null,
+      "tool": null,
+      "responseId": "r1",
+      "usage": {
+        "input": 8000,
+        "cached": 5000,
+        "output": 800,
+        "reasoning": 300,
+        "total": 8800
+      },
+      "threadUsage": null
+    },
+    {
+      "schema": "codex-observer-event/1",
+      "source": "synthetic",
+      "seq": 7,
+      "timestamp": "2026-11-09T10:00:07.400Z",
+      "kind": "usage-total",
+      "sessionId": null,
+      "turnId": null,
+      "callId": null,
+      "tool": null,
+      "usage": {
+        "input": 8000,
+        "cached": 5000,
+        "output": 800,
+        "reasoning": 300,
+        "total": 8800
+      },
+      "last": null,
+      "contextWindow": null,
+      "rateLimits": {
+        "primary": 30,
+        "secondary": 45
+      }
+    },
+    {
+      "schema": "codex-observer-event/1",
+      "source": "synthetic",
+      "seq": 8,
+      "timestamp": "2026-11-09T10:00:08.000Z",
+      "kind": "turn-end",
+      "sessionId": null,
+      "turnId": "t1",
+      "callId": null,
+      "tool": null,
+      "status": "completed",
+      "reportedDurationMs": 8000,
+      "reportedTtftMs": 400,
+      "startedAt": null,
+      "completedAt": null
+    }
+  ]
+}

@@ -1,0 +1,986 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data: blob:; connect-src ipc: http://ipc.localhost; base-uri 'none'; form-action 'none'"><title>Слой · помощник</title><style>:root{--bg:#111315;--sidebar:#16181a;--surface:#1c1e21;--raised:#23262a;--line:#313438;--text:#ebeeef;--muted:#a4aaad;--dim:#777f83;--accent:#b7e9cb;--tint:#23342c;--violet:#c4b6f3;--amber:#e8be83;--danger:#f0a4a0;--radius:15px;--shadow:0 20px 70px #0006;color-scheme:dark}
+:root.light{--bg:#f4f5f4;--sidebar:#e9edea;--surface:#fff;--raised:#eef1ef;--line:#d7ded9;--text:#1c2820;--muted:#53615a;--dim:#6c7971;--accent:#2b6347;--tint:#e2f2e7;--violet:#685291;--amber:#885e20;--danger:#aa4037;--shadow:0 20px 70px #23342515;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;font:14px/1.55 'Segoe UI Variable','Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text)}button,input,textarea,select{font:inherit}button{cursor:pointer}button,input,textarea,select{color:inherit}button{border:0;background:transparent}button:disabled{cursor:not-allowed;opacity:.46}button:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:3px}a{color:var(--accent)}.skip{position:fixed;left:20px;top:-80px;background:var(--surface);padding:10px;z-index:100}.skip:focus{top:10px}svg.icon{width:18px;height:18px;stroke:currentColor;stroke-width:1.65;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}.shell{display:grid;grid-template-columns:224px minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;padding:24px 15px 16px;border-right:1px solid var(--line);background:var(--sidebar);display:flex;flex-direction:column;gap:20px}.brand{display:flex;align-items:center;gap:11px;padding:0 9px;font-size:18px;font-weight:650;letter-spacing:-.03em}.brandmark{width:31px;height:31px;border-radius:10px;background:var(--accent);display:grid;place-items:center;color:var(--bg);font-size:22px}.brand small{display:block;color:var(--muted);font-size:11px;font-weight:400;letter-spacing:0}.new-task{display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--raised)}.nav{display:grid;gap:4px}.nav button{padding:10px 12px;border-radius:9px;text-align:left;display:flex;align-items:center;gap:11px;color:var(--muted)}.nav button:hover,.nav button.active{background:var(--raised);color:var(--text)}.nav button.active svg{color:var(--accent)}.nav .count{font-size:11px;margin-left:auto;padding:1px 6px;border-radius:4px;background:var(--bg);color:var(--muted)}.section-label{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--dim);padding:0 12px;margin-bottom:8px;font-weight:600}.project-item{display:flex;gap:9px;align-items:center;padding:8px 12px;border-radius:8px;color:var(--muted);width:100%;text-align:left}.project-item.selected{color:var(--text);background:color-mix(in srgb,var(--surface) 70%,transparent)}.project-dot{width:8px;height:8px;border-radius:3px;background:var(--violet)}.sidebar-bottom{margin-top:auto;display:grid;gap:8px}.connection-mini{padding:12px;border:1px solid var(--line);border-radius:11px;background:var(--surface);font-size:12px}.connection-mini b{display:flex;align-items:center;gap:7px;font-weight:500}.connection-mini span{font-size:11px;color:var(--muted);display:block;margin-top:5px}.dot{width:6px;height:6px;border-radius:50%;background:var(--dim);display:inline-block}.dot.green{background:var(--accent)}.topbar{height:68px;border-bottom:1px solid var(--line);padding:0 30px;display:flex;align-items:center;gap:14px;position:sticky;top:0;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(16px);z-index:10}.crumb{color:var(--muted);font-size:13px;display:flex;align-items:center;gap:9px}.crumb strong{color:var(--text);font-weight:500}.top-actions{margin-left:auto;display:flex;gap:8px;align-items:center}.badge{display:inline-flex;gap:6px;align-items:center;font-size:11px;padding:4px 9px;border-radius:7px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}.badge.mint{background:var(--tint);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 20%,transparent)}.badge.amber{color:var(--amber);background:color-mix(in srgb,var(--amber) 8%,transparent)}.badge.violet{color:var(--violet)}.iconbtn{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;color:var(--muted)}.iconbtn:hover{background:var(--raised);color:var(--text)}main{padding:30px 34px 125px;max-width:1570px;margin:0 auto}.head{display:flex;align-items:flex-start;gap:20px;margin-bottom:27px}.head h1{font-size:28px;line-height:1.22;letter-spacing:-.04em;margin:7px 0 9px;font-weight:600}.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--accent);font-weight:550}.subtitle{color:var(--muted);font-size:13px;margin:0;max-width:760px}.head-actions{margin-left:auto;display:flex;gap:8px;align-items:center;padding-top:12px}.button{padding:9px 13px;display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:9px;border:1px solid var(--line);font-size:12px;font-weight:500;min-height:36px;background:var(--surface);text-decoration:none}.button:hover:not(:disabled){background:var(--raised);border-color:var(--dim)}.button.primary{color:var(--bg);background:var(--accent);border-color:var(--accent)}.button.primary:hover:not(:disabled){filter:brightness(1.08);background:var(--accent)}.button.small{padding:5px 10px;min-height:28px;font-size:11px}.button.danger{color:var(--danger)}.button.ghost{background:transparent;border-color:transparent}.split{display:grid;grid-template-columns:minmax(0,1fr) 294px;gap:20px}.panel{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);padding:20px}.panel h2,.panel h3{margin:0 0 12px;font-size:14px;font-weight:550;letter-spacing:-.01em}.panel p{margin:8px 0;color:var(--muted);font-size:12px}.stack{display:grid;gap:16px;align-content:start}.request{font-size:16px;line-height:1.7;margin:13px 0 17px;max-width:800px;white-space:pre-wrap}.chips{display:flex;gap:7px;flex-wrap:wrap}.chip{border:1px solid var(--line);border-radius:6px;padding:4px 8px;font-size:11px;color:var(--muted);display:inline-flex;gap:5px;align-items:center}.chip svg{width:13px;height:13px}.avatar{display:grid;place-items:center;border-radius:10px;width:35px;height:35px;background:var(--tint);color:var(--accent);font-size:13px;font-weight:600}.person{display:flex;align-items:center;gap:10px}.person small{display:block;color:var(--muted);font-size:11px}.person strong{font-weight:550;font-size:12px}.status-card{border-color:color-mix(in srgb,var(--accent) 27%,var(--line));background:linear-gradient(120deg,color-mix(in srgb,var(--tint) 60%,var(--surface)),var(--surface));padding:22px}.status-title{font-size:17px;font-weight:550;margin:17px 0 7px;letter-spacing:-.02em}.status-card p{font-size:13px;max-width:700px}.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.row.between{justify-content:space-between}.muted{color:var(--muted)}.smalltext{font-size:12px}.tiny{font-size:11px}.checklist{list-style:none;padding:0;margin:0;display:grid;gap:14px}.checklist li{display:flex;gap:9px;font-size:12px;align-items:flex-start}.checklist .check{font-size:14px;line-height:19px;color:var(--accent)}.checklist .pending{color:var(--amber)}.rule{font-size:12px;line-height:1.6;color:var(--muted);border-top:1px solid var(--line);padding-top:13px;margin-top:15px}.timeline{display:grid;gap:0;margin-top:8px}.event{display:grid;grid-template-columns:28px 1fr auto;gap:10px;position:relative;padding:13px 0}.event:not(:last-child):after{content:'';position:absolute;left:12px;top:40px;bottom:-9px;width:1px;background:var(--line)}.event-mark{width:25px;height:25px;background:var(--raised);border:1px solid var(--line);border-radius:8px;display:grid;place-items:center;font-size:11px;color:var(--muted)}.event .title{font-size:12px;color:var(--text)}.event .desc{font-size:11px;color:var(--muted);margin-top:4px}.event time{font-size:10px;color:var(--dim);padding-top:3px}.composer{position:fixed;bottom:22px;left:calc(224px + (100vw - 224px - min(100vw - 292px,960px))/2);width:min(calc(100vw - 292px),960px);border:1px solid color-mix(in srgb,var(--accent) 25%,var(--line));background:color-mix(in srgb,var(--surface) 97%,transparent);box-shadow:var(--shadow);border-radius:16px;padding:11px 13px 11px 17px;z-index:12}.composer-top{font-size:10px;display:flex;gap:8px;color:var(--muted);align-items:center}.composer-top b{font-weight:500;color:var(--accent)}.composer-main{display:flex;gap:10px;align-items:flex-end;margin-top:5px}.composer textarea{resize:none;min-height:38px;max-height:100px;width:100%;background:none;border:0;outline:none;color:var(--text);font-size:13px;padding:7px 0}.composer .send{width:34px;height:34px;min-width:34px;border-radius:10px;background:var(--accent);color:var(--bg);display:grid;place-items:center}.notice{padding:13px 15px;border:1px solid var(--line);border-radius:10px;color:var(--muted);background:var(--surface);font-size:12px;margin-bottom:18px}.notice.amber{border-color:color-mix(in srgb,var(--amber) 30%,var(--line));color:var(--amber);background:color-mix(in srgb,var(--amber) 5%,var(--surface))}.notice b{font-weight:600}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.editor-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:12px}.editor{display:block;resize:vertical;width:100%;min-height:420px;border:1px solid var(--line);border-radius:10px;padding:17px;background:var(--bg);font:12px/1.8 'Cascadia Code',Consolas,monospace;tab-size:2}.editor.original{font:15px/1.8 'Segoe UI',sans-serif;min-height:200px}.toolbar{display:flex;gap:9px;margin-top:14px;align-items:center;flex-wrap:wrap}.metric-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}.metric{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:18px}.metric b{display:block;font-size:26px;font-weight:550;letter-spacing:-.04em;margin:8px 0}.metric label,.metric small{font-size:11px;color:var(--muted)}.metric small{display:block}.empty{text-align:center;padding:55px 30px;border:1px dashed var(--line);border-radius:16px;background:var(--surface)}.empty .large-icon{display:inline-grid;place-items:center;width:54px;height:54px;border-radius:17px;background:var(--raised);color:var(--accent);margin-bottom:14px}.empty h2{font-size:20px;letter-spacing:-.03em;font-weight:550;margin:0 0 10px}.empty p{max-width:540px;margin:0 auto 22px;color:var(--muted);font-size:13px}.empty .toolbar{justify-content:center}.table-scroll{overflow:auto}table{border-collapse:collapse;width:100%;text-align:left;font-size:12px}th{font-weight:500;color:var(--muted);font-size:10px;letter-spacing:.04em;text-transform:uppercase}th,td{padding:12px 13px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}.mono{font:11px/1.6 'Cascadia Code',Consolas,monospace}.mini-bar{height:9px;border-radius:5px;background:var(--raised);overflow:hidden;display:flex;margin-top:9px}.mini-bar span{height:100%;background:var(--accent)}.mini-bar span.rest{background:var(--line)}.file-layout{display:grid;grid-template-columns:206px minmax(0,1fr);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)}.file-list{background:var(--sidebar);padding:15px;border-right:1px solid var(--line)}.file-item{display:flex;align-items:center;gap:8px;padding:10px 8px;border-radius:7px;font-size:11px;cursor:pointer}.file-item.active{background:var(--raised)}.diff-head{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:12px}.diff{margin:0;padding:15px 0;overflow:auto;font:12px/1.8 'Cascadia Code',Consolas,monospace}.line{display:block;white-space:pre;padding:1px 20px}.line.add{background:color-mix(in srgb,var(--accent) 9%,transparent);color:var(--accent)}.line.del{background:color-mix(in srgb,var(--danger) 8%,transparent);color:var(--danger)}.line .ln{display:inline-block;width:30px;color:var(--dim);user-select:none}.result-bottom{padding:18px;border-top:1px solid var(--line)}.result-bottom .toolbar{justify-content:space-between}.capabilities{display:grid;gap:0;margin-top:15px}.capability{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:12px}.capability:last-child{border-bottom:0}.capability span:last-child{color:var(--dim)}.canvas-wrap{position:relative;height:520px;border:1px solid var(--line);border-radius:var(--radius);overflow:auto;background-color:var(--bg);background-image:radial-gradient(var(--line) .7px,transparent .7px);background-size:20px 20px}.canvas{width:1000px;height:520px;position:relative}.canvas svg.links{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.links path{fill:none;stroke:var(--line);stroke-width:2}.links path.active{stroke:color-mix(in srgb,var(--accent) 65%,var(--line))}.node{position:absolute;width:206px;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 23px #0002;cursor:grab;user-select:none;touch-action:none;text-align:left}.node.selected{border-color:var(--accent)}.node .node-type{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}.node h3{font-size:13px;font-weight:550;margin:8px 0}.node p{font-size:11px;color:var(--muted);margin:0}.port{position:absolute;top:50%;width:8px;height:8px;border:2px solid var(--dim);border-radius:50%;background:var(--bg)}.port.in{left:-5px}.port.out{right:-5px}.tabs{display:flex;gap:5px;margin-bottom:15px;border-bottom:1px solid var(--line)}.tab{font-size:12px;padding:10px 14px;border-bottom:2px solid transparent;color:var(--muted)}.tab.active{color:var(--text);border-color:var(--accent)}.role-settings{display:grid;gap:16px}.field{display:grid;gap:6px;font-size:11px;color:var(--muted)}.field input,.field textarea,.field select,select{background:var(--bg);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:12px}.field textarea{min-height:90px;resize:vertical}.dialog-shade{position:fixed;inset:0;background:#0009;backdrop-filter:blur(7px);z-index:30;display:flex;align-items:center;justify-content:center;padding:25px}.dialog{width:min(880px,100%);max-height:calc(100vh - 50px);overflow:auto;border:1px solid var(--line);border-radius:20px;background:var(--surface);box-shadow:var(--shadow);padding:26px}.dialog.narrow{max-width:580px}.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:15px}.dialog-head h2{font-size:21px;letter-spacing:-.025em;font-weight:550;margin:0}.dialog>p{color:var(--muted);font-size:12px;margin:10px 0 22px}.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.scenario-card{padding:15px;border:1px solid var(--line);border-radius:11px;text-align:left;background:var(--bg)}.scenario-card:hover{border-color:var(--accent)}.scenario-card strong{display:block;font-size:13px;font-weight:550;margin:7px 0}.scenario-card p{font-size:11px;color:var(--muted);margin:0}.scenario-card .num{color:var(--accent);font-size:10px;letter-spacing:.1em}.merge-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}.merge-grid section{border:1px solid var(--line);border-radius:10px;padding:13px;min-width:0}.merge-grid h3{font-size:11px;margin:0 0 14px;color:var(--muted)}.merge-grid pre{white-space:pre-wrap;font-size:11px;color:var(--text)}#toast{position:fixed;bottom:112px;left:50%;transform:translateX(-50%);max-width:min(660px,90vw);padding:13px 18px;background:var(--raised);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);font-size:12px;z-index:60;display:none}#toast.show{display:block}.session-select{max-width:100%;width:100%;font:11px 'Cascadia Code',Consolas,monospace;margin-bottom:12px}.privacy{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:11px;padding:14px 0}.privacy svg{color:var(--accent);margin-top:2px}.subtle-divider{height:1px;background:var(--line);margin:18px 0}.landing-note{font-size:11px;color:var(--muted);margin-top:12px}.progress-steps{display:flex;gap:6px;margin-top:20px}.progress-steps>div{height:3px;background:var(--line);flex:1;border-radius:3px}.progress-steps>div.done{background:var(--accent)}.no-bottom{padding-bottom:45px}#import-log{display:none}.timeline-row{display:grid;grid-template-columns:80px 1fr 100px;gap:13px;padding:12px 0;border-bottom:1px solid var(--line);font-size:11px}.timeline-row:last-child{border:0}.timeline-row .kind{color:var(--text)}.toggle-label{display:flex;gap:10px;align-items:center;font-size:12px;color:var(--muted)}.toggle-label input{accent-color:var(--accent)}.right{margin-left:auto}.warning-inline{font-size:11px;color:var(--amber);margin:12px 0}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+@media(min-width:1700px){main{padding-top:40px}.head h1{font-size:32px}.split{grid-template-columns:minmax(0,1fr) 330px}}
+@media(max-width:1150px){.sidebar{padding:20px 10px}.shell{grid-template-columns:190px 1fr}.composer{left:214px;width:calc(100vw - 238px)}.split{grid-template-columns:minmax(0,1fr)}.split>.stack:last-child{grid-template-columns:1fr 1fr}.metric-grid{grid-template-columns:1fr 1fr}.head h1{font-size:25px}.topbar{padding:0 24px}main{padding:25px 24px 130px}}
+@media(max-width:760px){.shell{display:block}.sidebar{position:relative;height:auto;display:block;padding:14px 15px;border:0;border-bottom:1px solid var(--line)}.brand{padding:0;margin:0 0 13px}.brand small,.new-task,.sidebar-projects,.sidebar-bottom{display:none}.nav{display:flex;overflow:auto;gap:4px}.nav button{padding:8px;flex-shrink:0;font-size:11px}.nav .count{display:none}.nav svg.icon{width:15px;height:15px}.topbar{position:relative;height:auto;min-height:57px;padding:11px 16px;flex-wrap:wrap;gap:8px}.crumb{font-size:11px}.top-actions{gap:5px}.top-actions .badge{font-size:9px}.top-actions .button{font-size:10px;padding:6px 8px;min-height:28px}.top-actions .iconbtn{display:none}main{padding:22px 16px 145px}.head{display:block;margin-bottom:20px}.head h1{font-size:24px}.head-actions{padding-top:15px}.composer{left:12px;bottom:12px;width:calc(100vw - 24px)}.composer textarea{font-size:12px}.split>.stack:last-child{grid-template-columns:1fr}.two{grid-template-columns:1fr}.editor{min-height:310px}.metric-grid{gap:8px}.metric{padding:13px}.metric b{font-size:22px}.file-layout{grid-template-columns:1fr}.file-list{border-right:0;border-bottom:1px solid var(--line);display:flex;overflow:auto;gap:8px;padding:9px}.file-list .section-label{display:none}.file-item{flex-shrink:0}.scenario-grid,.merge-grid{grid-template-columns:1fr}.dialog-shade{padding:12px}.dialog{padding:20px;border-radius:15px}.panel{padding:17px}.request{font-size:14px}.status-title{font-size:16px}.timeline-row{grid-template-columns:67px 1fr}.timeline-row>:last-child{grid-column:2}.tab{padding:9px 10px}.no-bottom{padding-bottom:45px}.canvas-wrap{height:450px}.badge{white-space:normal}}
+@media(prefers-reduced-motion:no-preference){.panel,.notice{animation:appear .18s ease-out}@keyframes appear{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}}
+@media print{.sidebar,.topbar,.composer,.head-actions{display:none}.shell{display:block}main{padding:0}.panel{break-inside:avoid}body{color:#111;background:#fff}.split{display:block}.notice{color:#333}.dialog-shade{display:none}}
+
+.live-shell{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100vh}.live-nav{padding:28px 16px;background:var(--sidebar);border-right:1px solid var(--line);display:flex;flex-direction:column;gap:20px}.live-nav a{text-decoration:none}.live-projects{display:grid;gap:7px;flex:1;align-content:start}.nav-task{text-align:left;padding:12px;border-radius:10px}.nav-task.active,.live-tabs .active{background:var(--tint);color:var(--accent)}.live-main{padding:30px 42px;max-width:1650px;min-width:0}.live-top{display:flex;justify-content:space-between;align-items:center}.live-top h1{font-size:28px;letter-spacing:-.025em;margin:8px 0 20px}.live-tabs{display:flex;gap:10px;margin-bottom:24px;border-bottom:1px solid var(--line);padding-bottom:10px}.live-tabs button{padding:9px 14px;border-radius:8px}.live-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px}.live-main .panel{margin-bottom:18px}.live-main label{display:block;margin:16px 0 10px}.live-main input:not([type=checkbox]),.live-main textarea{display:block;width:100%;border:1px solid var(--line);background:var(--bg);padding:12px;border-radius:9px;margin-top:8px;resize:vertical}.preserve,pre{white-space:pre-wrap;overflow-wrap:anywhere}.path{overflow-wrap:anywhere}.live-answer{border-top:1px solid var(--line);padding:18px 0}.live-answer small{color:var(--muted)}.live-answer pre{font-family:inherit}.live-consent{display:flex!important;gap:12px;align-items:flex-start;max-width:780px}.live-consent input{margin-top:5px}.live-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:24px 0}.live-metrics div{padding:16px;border:1px solid var(--line);border-radius:10px}.live-metrics strong{display:block;font-size:25px}.live-metrics span{color:var(--muted);font-size:12px}.live-table{overflow:auto}table{width:100%;border-collapse:collapse}td,th{padding:10px;text-align:left;border-bottom:1px solid var(--line);max-width:400px;overflow-wrap:anywhere}.live-main small{display:block}.event{display:block!important}.muted{color:var(--muted)}
+.research-hypotheses{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}.research-hypotheses article,.research-probe{border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}.research-meta{color:var(--muted);font-size:12px}.research-probe details{margin:12px 0}.research-probe summary{cursor:pointer}.research-probe pre{padding:12px;border-radius:8px;background:var(--bg);max-height:260px;overflow:auto;font-size:13px}.research-hypotheses h3,.research-probe h3{margin:8px 0}
+@media(max-width:1100px){.live-grid{grid-template-columns:1fr}.live-grid>aside{display:grid;grid-template-columns:1fr 1fr}.live-main{padding:24px}}
+@media(max-width:700px){.live-shell{grid-template-columns:1fr}.live-nav{position:static;gap:12px}.live-projects{display:none}.live-tabs{overflow:auto}.live-grid>aside{display:block}.live-metrics{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style></head><body><a href="#main" class="skip">К рабочей области</a><div id="app"></div><input id="import-log" type="file" accept=".jsonl,.ndjson,.json" hidden><input id="import-research" type="file" accept=".json" hidden><script>/* Read-only Codex rollout analysis. Contents/arguments are not included in reports. */
+(function(root){
+'use strict';
+const num=x=>(typeof x==='number'||(typeof x==='string'&&x.trim()!==''))&&Number.isFinite(Number(x))&&Number(x)>=0&&Number(x)<=Number.MAX_SAFE_INTEGER?Number(x):null;
+const pick=(o,a,b)=>o?.[a]??o?.[b];
+const txt=x=>typeof x==='string'?x.slice(0,300):null;
+const time=x=>typeof x==='string'&&Number.isFinite(Date.parse(x))?Date.parse(x):null;
+const keys=['input','cached','output','reasoning','total'];
+function usage(u){if(!u||typeof u!=='object')return null;
+ const r={input:num(pick(u,'input_tokens','inputTokens')),cached:num(pick(u,'cached_input_tokens','cachedInputTokens')),output:num(pick(u,'output_tokens','outputTokens')),reasoning:num(pick(u,'reasoning_output_tokens','reasoningOutputTokens')),total:num(pick(u,'total_tokens','totalTokens'))};
+ return keys.some(k=>r[k]!==null)?r:null;
+}
+function normalize(raw, source='import', index=0){
+ if(!raw||typeof raw!=='object')return null;
+ if(raw.kind&&raw.schema==='codex-observer-event/1'){
+ const e={schema:raw.schema,source:txt(raw.source)||source,seq:num(raw.seq)??index,kind:txt(raw.kind)||'other'};
+ for(const k of ['timestamp','sessionId','turnId','callId','tool','responseId','forkedFrom','version','project','model','status','eventType','eventId'])e[k]=txt(raw[k]);
+ for(const k of ['durationMs','reportedDurationMs','reportedTtftMs','startedAt','completedAt','contextWindow'])e[k]=num(raw[k]);
+ for(const k of ['usage','last','threadUsage'])if(raw[k]){e[k]={};for(const uk of keys)e[k][uk]=num(raw[k][uk]);}
+ if(raw.rateLimits)e.rateLimits={primary:num(raw.rateLimits.primary),secondary:num(raw.rateLimits.secondary)};
+ return e;
+ }
+ const p=raw.payload||{}, item=raw.params?.item||{};
+ const e={schema:'codex-observer-event/1',source,seq:index,timestamp:txt(raw.timestamp),kind:'unknown',sessionId:null,turnId:txt(p.turn_id),callId:txt(p.call_id),tool:null};
+ if(raw.method){
+ const p2=raw.params||{};e.sessionId=txt(p2.threadId);e.turnId=txt(p2.turnId||p2.turn?.id);
+ if(raw.method==='turn/started')e.kind='turn-start';
+ else if(raw.method==='turn/completed'){e.kind='turn-end';e.status=txt(p2.turn?.status);e.reportedDurationMs=num(p2.turn?.durationMs);e.reportedTtftMs=num(p2.turn?.timeToFirstTokenMs);}
+ else if(raw.method==='thread/tokenUsage/updated'){e.kind='usage-total';e.usage=usage(p2.tokenUsage?.total);e.last=usage(p2.tokenUsage?.last);}
+ else if(raw.method==='item/agentMessage/delta')e.kind='output-delta';
+ else if(['item/started','item/completed'].includes(raw.method)&&['commandExecution','mcpToolCall','dynamicToolCall'].includes(item.type)){e.kind=raw.method==='item/started'?'tool-start':'tool-end';e.callId=txt(item.id);e.tool=txt(item.tool||item.type);e.durationMs=num(item.durationMs);e.exitCode=item.exitCode??null;}
+ else e.kind='other';return e;
+ }
+ if(raw.type==='session_meta'){e.kind='session';e.sessionId=txt(p.id);e.forkedFrom=txt(p.forked_from_id);e.version=txt(p.cli_version);e.project=txt(p.project_hash);}
+ else if(raw.type==='turn_context'){e.kind='context';e.model=txt(p.model);}
+ else if(raw.type==='token_usage_record'){e.kind='usage-record';e.sessionId=txt(p.thread_id);e.turnId=txt(p.turn_id);e.responseId=txt(p.response_id);e.usage=usage(p.usage);e.threadUsage=usage(p.thread_token_usage);}
+ else if(raw.type==='event_msg'){
+ switch(p.type){
+ case 'task_started':case 'turn_started':e.kind='turn-start';break;
+ case 'task_complete':case 'turn_complete':e.kind='turn-end';e.status=p.error?'failed':'completed';e.reportedDurationMs=num(p.duration_ms);e.reportedTtftMs=num(p.time_to_first_token_ms);e.startedAt=num(p.started_at);e.completedAt=num(p.completed_at);break;
+ case 'turn_aborted':e.kind='turn-end';e.status='interrupted';break;
+ case 'token_count':e.kind='usage-total';e.usage=usage(p.info?.total_token_usage);e.last=usage(p.info?.last_token_usage);e.contextWindow=num(p.info?.model_context_window);
+ if(p.rate_limits)e.rateLimits={primary:num(p.rate_limits.primary?.used_percent),secondary:num(p.rate_limits.secondary?.used_percent)};break;
+ case 'token_usage_record':e.kind='usage-record';e.responseId=txt(p.response_id);e.usage=usage(p.usage);break;
+ case 'exec_command_begin':case 'mcp_tool_call_begin':case 'patch_apply_begin':e.kind='tool-start';e.tool=p.type==='exec_command_begin'?'command':p.type==='patch_apply_begin'?'apply_patch':txt(p.invocation?.tool)||'mcp';break;
+ case 'exec_command_end':case 'mcp_tool_call_end':case 'patch_apply_end':e.kind='tool-end';e.exitCode=p.exit_code??null;e.success=p.success??null;e.durationMs=num(p.duration_ms)??(p.duration&&num(p.duration.secs)!==null?Number(p.duration.secs)*1000+Number(p.duration.nanos||0)/1e6:null);break;
+ case 'agent_message':e.kind='agent-message';break;
+ case 'agent_message_delta':e.kind='output-delta';break;
+ case 'stream_error':case 'error':e.kind='error';break;
+ case 'context_compacted':e.kind='compaction';break;
+ case 'thread_settings_applied':e.kind='context';e.model=txt(p.thread_settings?.model);e.sessionId=txt(p.thread_id);break;
+ default:e.kind='other';e.eventType=txt(p.type);}
+ }else if(raw.type==='response_item'){
+ if(['function_call','custom_tool_call'].includes(p.type)){e.kind='tool-start';e.tool=txt(p.name)||p.type;}
+ else if(['function_call_output','custom_tool_call_output'].includes(p.type))e.kind='tool-end';
+ else if(p.type==='message'&&p.role==='assistant')e.kind='agent-message';else e.kind='other';
+ }else{e.kind='other';e.eventType=txt(raw.type);}
+ return e;
+}
+function parseText(text,source='import'){
+ const trimmed=text.trim();if(!trimmed)return {events:[],warnings:['Пустой файл'],capture:null};
+ if(trimmed.startsWith('{')){try{const obj=JSON.parse(trimmed);if(obj.format==='codex-observer/1'){return {events:(obj.events||[]).map((x,i)=>normalize(x,x.source||source,i)),warnings:obj.notices||[],capture:obj};}}catch{}}
+ const lines=text.split(/\r?\n/),events=[],warnings=[];
+ for(let i=0;i<lines.length;i++){if(!lines[i].trim())continue;if(lines[i].length>2*1024*1024){warnings.push('Строка '+(i+1)+': превышен предел 2 МиБ');continue;}
+ try{const e=normalize(JSON.parse(lines[i]),source,i);if(e)events.push(e);}catch{warnings.push('Строка '+(i+1)+': '+(i===lines.length-1?'неполный хвост JSONL':'невалидный JSON'));}}
+ return {events,warnings,capture:null};
+}
+function sumUsage(list){const out={};for(const k of keys){const values=list.map(u=>u?.[k]).filter(x=>x!==null&&x!==undefined);out[k]=values.length?values.reduce((a,b)=>a+b,0):null;}return out;}
+function unionMs(intervals,start,end){const arr=intervals.map(([a,b])=>[Math.max(a,start),Math.min(b,end)]).filter(([a,b])=>b>=a).sort((a,b)=>a[0]-b[0]);let result=0,lo=null,hi=null;for(const[a,b]of arr){if(lo===null){lo=a;hi=b;}else if(a<=hi)hi=Math.max(hi,b);else{result+=hi-lo;lo=a;hi=b;}}return result+(lo===null?0:hi-lo);}
+function analyze(events,inputWarnings=[]){
+ const warnings=[...inputWarnings],sessions=new Map(),sources=new Map(),seen=new Set();
+ let malformed=0,duplicates=0;
+ // Establish identity before processing even when metadata is later in an imported batch.
+ for(const e of events)if(e?.kind==='session'&&e.sessionId)sources.set(e.source,e.sessionId);
+ function sess(e){const id=e.sessionId||sources.get(e.source)||('source:'+e.source);if(!sessions.has(id))sessions.set(id,{id,model:null,version:null,forkedFrom:null,events:[],turns:new Map(),records:new Map(),totals:[],project:null,unknown:0});return sessions.get(id);}
+ for(const e of events){if(!e||!e.kind){malformed++;continue;}const s=sess(e);
+ const k=e.eventId||JSON.stringify([s.id,e.timestamp,e.kind,e.callId,e.turnId,e.responseId,e.usage,e.model,e.status,e.rateLimits]);
+ if(seen.has(k)){duplicates++;continue;}seen.add(k);s.events.push(e);
+ if(e.kind==='session'){s.forkedFrom=e.forkedFrom||null;s.version=e.version||null;s.project=e.project||null;}
+ if(e.kind==='context'&&e.model)s.model=e.model;
+ if(e.kind==='other')s.unknown++;
+ }
+ const results=[];
+ for(const s of sessions.values()){
+ s.events.sort((a,b)=>((time(a.timestamp)??Number.MAX_SAFE_INTEGER)-(time(b.timestamp)??Number.MAX_SAFE_INTEGER))||((a.seq||0)-(b.seq||0)));
+ let active=null,counterPrev=null,legacyDelta=[],resets=0,baseline=null;const tools=new Map(),intervals=[];
+ function getTurn(id){const key=id||active||'unattributed';if(!s.turns.has(key))s.turns.set(key,{id:key,start:null,end:null,status:'unknown',tools:0,firstOutput:null,reportedDurationMs:null,reportedTtftMs:null,records:[],delta:[],errors:0});return s.turns.get(key);}
+ for(const e of s.events){const ts=time(e.timestamp);const t=getTurn(e.turnId);
+ if(e.kind==='turn-start'){active=e.turnId||'turn-'+e.seq;const nt=getTurn(active);if(nt.start===null)nt.start=ts;nt.status='running';}
+ if(e.kind==='turn-end'){const et=getTurn(e.turnId);et.end=ts;et.status=e.status||'completed';et.reportedDurationMs=e.reportedDurationMs??null;et.reportedTtftMs=e.reportedTtftMs??null;if(et.start===null&&e.startedAt!==null&&e.startedAt!==undefined)et.start=e.startedAt*1000;if(et.end===null&&e.completedAt!==null&&e.completedAt!==undefined)et.end=e.completedAt*1000;if(!e.turnId||e.turnId===active)active=null;}
+ if(e.kind==='agent-message'||e.kind==='output-delta'){if(t.firstOutput===null&&ts!==null){t.firstOutput=ts;t.firstOutputIsDelta=e.kind==='output-delta';}}
+ if(e.kind==='error')t.errors++;
+ if(e.kind==='usage-record'&&e.responseId&&e.usage){if(!s.records.has(e.responseId)){s.records.set(e.responseId,e.usage);t.records.push(e.usage);}}
+ if(e.kind==='usage-total'&&e.usage){const u=e.usage;s.totals.push({timestamp:e.timestamp,usage:u});if(counterPrev===null){baseline=u;counterPrev=u;}
+ else if(u.total!==null&&counterPrev.total!==null){if(u.total<counterPrev.total){resets++;counterPrev=u;}
+ else if(u.total>counterPrev.total){const d={};for(const key of keys)d[key]=(u[key]!==null&&counterPrev[key]!==null&&u[key]>=counterPrev[key])?u[key]-counterPrev[key]:null;legacyDelta.push(d);t.delta.push(d);counterPrev=u;}}}
+ if(e.kind==='tool-start'&&e.callId){const id=(e.turnId||active||'')+'|'+e.callId;if(!tools.has(id)){tools.set(id,{callId:e.callId,turn:t.id,start:ts,end:null,name:e.tool||'tool',durationMs:null});t.tools++;}}
+ if(e.kind==='tool-end'&&e.callId){let tool=[...tools.values()].reverse().find(x=>x.callId===e.callId&&x.end===null&&(x.turn===t.id||!e.turnId));if(!tool){tool={callId:e.callId,turn:t.id,start:null,end:null,name:'tool',durationMs:null};tools.set('end:'+e.callId,tool);t.tools++;}tool.end=ts;tool.durationMs=e.durationMs??null;if(tool.start===null&&ts!==null&&e.durationMs!==null&&e.durationMs!==undefined)tool.start=ts-e.durationMs;
+ if(tool.start!==null&&ts!==null&&ts>=tool.start)intervals.push({turn:tool.turn,range:[tool.start,ts]});}
+ }
+ const turns=[...s.turns.values()].filter(t=>t.id!=='unattributed'||t.records.length||t.delta.length||t.tools||t.start!==null).map(t=>{
+ const wallMs=t.start!==null&&t.end!==null&&t.end>=t.start?t.end-t.start:null;
+ const toolMs=wallMs!==null?unionMs(intervals.filter(x=>x.turn===t.id).map(x=>x.range),t.start,t.end):null;
+ const u=t.records.length?sumUsage(t.records):sumUsage(t.delta);
+ return {...t,usage:u,usageBasis:t.records.length?'response-records':'cumulative-deltas-partial',wallMs,toolMs,unclassifiedMs:wallMs!==null?wallMs-toolMs:null,
+ firstOutputMs:t.start!==null&&t.firstOutput!==null&&t.firstOutput>=t.start?t.firstOutput-t.start:null,
+ effectiveOutputTokensPerSecond:wallMs>0&&u.output!==null?u.output/(wallMs/1000):null};});
+ if(resets)warnings.push('Сессия '+s.id+': '+resets+' сброс(а) счётчика. Переход через сброс не суммируется.');
+ if(s.forkedFrom)warnings.push('Сессия '+s.id+': ветка; накопительные счётчики могут включать наследованную историю.');
+ results.push({id:s.id,project:s.project,model:s.model,version:s.version,forkedFrom:s.forkedFrom,events:s.events,turns,tools:[...tools.values()],responseCount:s.records.size||null,
+ observedUsage:s.records.size?sumUsage([...s.records.values()]):sumUsage(legacyDelta),usageBasis:s.records.size?'response-records':'cumulative-deltas-partial',
+ cumulative:s.totals.length?s.totals[s.totals.length-1].usage:null,baseline,resets,unknown:s.unknown,rateLimits:s.events.filter(e=>e.rateLimits).map(e=>({timestamp:e.timestamp,...e.rateLimits}))});
+ }
+ return {schema:'codex-observer-analysis/1',sessions:results,warnings,duplicates,malformed,
+ coverage:'Только переданные события. Нет доступа к скрытым серверным очередям, TLS, всем операциям ОС или расходу подписки. Накопительные счётчики не суммируются между сессиями; первая legacy-точка — база, не расход выборки.',
+ totals:sumUsage(results.map(x=>x.observedUsage)),eventCount:results.reduce((a,s)=>a+s.events.length,0)};
+}
+const api={normalize,parseText,analyze,usage,unionMs,sumUsage};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.CodexTelemetry=api;
+})(globalThis);
+</script><script>/* Adapter only. Existing CodexTelemetry owns accounting; no model/network calls here. */
+(function(root){
+'use strict';
+const T=typeof module!=='undefined'&&module.exports?require('./telemetry.js'):root.CodexTelemetry;
+function normalizeEnvelope(envelope){
+ if(!envelope||!Number.isSafeInteger(envelope.sequence)||envelope.sequence<1||typeof envelope.sessionId!=='string'||!envelope.frame)return null;
+ const e=T.normalize({...envelope.frame,timestamp:envelope.at},'host:'+envelope.sessionId,envelope.sequence);
+ if(!e)return null;e.eventId=envelope.sessionId+':'+envelope.sequence;
+ e.sessionId=e.sessionId||envelope.frame.params?.thread?.id||envelope.sessionId;
+ // Source time is explicitly host receipt time; it cannot prove remote processing or TTFT.
+ e.clockSource='host-receipt';e.provenance=envelope.origin;e.truncated=Boolean(envelope.truncated);
+ return e;
+}
+function analyzeEnvelopes(envelopes,gap=false){
+ const warnings=['Временная шкала: время получения хостом, если Codex не сообщил собственную длительность.'];
+ if(gap)warnings.push('Есть пробел истории. Сумма относится только к наблюдённой выборке.');
+ if(envelopes.some(e=>e.truncated))warnings.push('Часть кадров превышает предел хранения; отсутствующие данные не восстановлены.');
+ if(envelopes.some(e=>e.origin==='synthetic-peer'))warnings.push('В выборке есть синтетический протокольный стенд — это не вызов модели.');
+ return T.analyze(envelopes.map(normalizeEnvelope).filter(Boolean),warnings);
+}
+const api={normalizeEnvelope,analyzeEnvelopes};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.DeskLiveEvents=api;
+})(globalThis);
+</script><script>(()=>{'use strict';const __modules=Object.create(null);
+__modules["core/model.js"] = (() => {
+const CATALOG = [
+    { kind: 'source.files', label: 'Файлы проекта', description: 'Зафиксированная копия выбранных текстовых файлов', input: null, output: 'files', available: true, category: 'Источники' },
+    { kind: 'source.text', label: 'Текст', description: 'Текстовый источник без вызова модели', input: null, output: 'text', available: true, category: 'Источники' },
+    { kind: 'files.filter', label: 'Выбрать файлы', description: 'Фильтр по расширению или части пути', input: 'files', output: 'files', available: true, category: 'Обработка' },
+    { kind: 'files.normalize', label: 'Нормализовать текст', description: 'LF, удалить пробелы в конце строк, завершающий перевод строки', input: 'files', output: 'files', available: true, category: 'Обработка' },
+    { kind: 'files.replace', label: 'Заменить в файлах', description: 'Буквальная замена; без регулярных выражений и выполнения кода', input: 'files', output: 'files', available: true, category: 'Обработка' },
+    { kind: 'files.report', label: 'Отчёт по файлам', description: 'Настоящие пути, размеры, строки и SHA-256 каждого файла', input: 'files', output: 'text', available: true, category: 'Обработка' },
+    { kind: 'text.replace', label: 'Заменить в тексте', description: 'Заменить точное вхождение', input: 'text', output: 'text', available: true, category: 'Обработка' },
+    { kind: 'text.stats', label: 'Статистика текста', description: 'Посчитать строки, символы, слова и байты', input: 'text', output: 'text', available: true, category: 'Обработка' },
+    { kind: 'text.to_file', label: 'Сохранить как файл', description: 'Создать файл результата в рабочем снимке', input: 'text', output: 'files', available: true, category: 'Результаты' },
+    { kind: 'files.merge', label: 'Объединить наборы', description: 'Все входы один раз; конфликт содержимого останавливает узел', input: 'files', output: 'files', available: true, category: 'Конструкция' },
+    { kind: 'verify.files', label: 'Проверить обязательства', description: 'Проверка по зафиксированной редакции цели', input: 'files', output: 'files', available: true, category: 'Проверка' },
+    { kind: 'result.files', label: 'Предъявить результат', description: 'Запечатать манифест и показать реальные изменения', input: 'files', output: 'files', available: true, category: 'Результаты' },
+    { kind: 'agent.codex', label: 'Роль · Codex', description: 'Заблокирован до приёмки Windows-изоляции и реального адаптера', input: 'files', output: 'files', available: false, category: 'Агенты' },
+    { kind: 'note', label: 'Заметка', description: 'Аннотация; не является операцией исполнения', input: null, output: null, available: true, category: 'Конструкция' }
+];
+const LIMITS = Object.freeze({ nodes: 500, edges: 1000, files: 256, fileBytes: 1048576, totalBytes: 8388608, runs: 30, events: 4096, workspaces: 32, sheets: 64 });
+function id(prefix = 'id') { return `${prefix}_${crypto.randomUUID()}`; }
+function clone(value) { return structuredClone(value); }
+function bytes(text) { return new TextEncoder().encode(text).length; }
+function definition(kind) { return CATALOG.find(c => c.kind === kind); }
+function normalizeText(text) { return text.replace(/\r\n?/g, '\n').split('\n').map(l => l.replace(/[\t ]+$/g, '')).join('\n').replace(/\n*$/, '\n'); }
+class DomainError extends Error {
+    code;
+    constructor(code, message) {
+        super(message);
+        this.code = code;
+        this.name = 'DomainError';
+    }
+}
+function assert(condition, code, message) {
+    if (!condition)
+        throw new DomainError(code, message);
+}
+function safePath(path) {
+    assert(typeof path === 'string' && path.length > 0 && path.length <= 240, 'PATH', 'Путь должен содержать от 1 до 240 символов');
+    assert(!/[\\:\u0000-\u001f]/u.test(path) && !path.startsWith('/'), 'PATH', 'Абсолютный, служебный или Windows-путь недопустим');
+    for (const part of path.split('/')) {
+        assert(part && part !== '.' && part !== '..' && !/[. ]$/.test(part), 'PATH', 'Недопустимый сегмент пути');
+        assert(!/^(con|prn|aux|nul|com[1-9]|lpt[1-9])(?:\.|$)/i.test(part) && !/[<>"|?*]/.test(part), 'PATH', 'Зарезервированное имя Windows');
+    }
+    return path;
+}
+function validateFiles(files) {
+    assert(files.length <= LIMITS.files, 'LIMIT', 'Слишком много файлов');
+    const names = new Set();
+    let size = 0;
+    for (const f of files) {
+        safePath(f.path);
+        const key = f.path.toLocaleLowerCase('en-US');
+        assert(!names.has(key), 'PATH_COLLISION', `Повтор пути: ${f.path}`);
+        names.add(key);
+        assert(typeof f.content === 'string' && !f.content.includes('\0'), 'FORMAT', `Только текст UTF-8: ${f.path}`);
+        const n = bytes(f.content);
+        assert(n <= LIMITS.fileBytes, 'LIMIT', `Файл превышает 1 МиБ: ${f.path}`);
+        size += n;
+    }
+    assert(size <= LIMITS.totalBytes, 'LIMIT', 'Набор превышает 8 МиБ');
+}
+async function sha256(text) {
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+    return [...new Uint8Array(digest)].map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function canonical(value) {
+    if (value === null || typeof value !== 'object')
+        return JSON.stringify(value);
+    if (Array.isArray(value))
+        return `[${value.map(canonical).join(',')}]`;
+    return `{${Object.entries(value).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0).map(([k, v]) => `${JSON.stringify(k)}:${canonical(v)}`).join(',')}}`;
+}
+
+return {CATALOG,LIMITS,id,clone,bytes,definition,normalizeText,DomainError,assert,safePath,validateFiles,sha256,canonical};
+})();
+__modules["core/control.js"] = (() => {
+const { assert, canonical, clone } = __modules["core/model.js"];
+class Budget {
+    limit;
+    reservations = new Map();
+    constructor(limit, initial = []) {
+        this.limit = limit;
+        assert(Number.isSafeInteger(limit) && limit >= 0, 'BUDGET', 'Неверный лимит');
+        assert(initial.length <= 10000, 'BUDGET', 'Слишком много резервов');
+        for (const r of initial) {
+            assert(typeof r.id === 'string' && !this.reservations.has(r.id) && Number.isSafeInteger(r.upper) && r.upper >= 0 && (r.confirmed === null || Number.isSafeInteger(r.confirmed) && r.confirmed >= 0 && r.confirmed <= r.upper), 'BUDGET', 'Повреждён резерв');
+            this.reservations.set(r.id, clone(r));
+        }
+        assert(this.available >= 0, 'BUDGET', 'Резервы превышают бюджет');
+    }
+    get available() { return this.limit - [...this.reservations.values()].reduce((sum, r) => sum + (r.confirmed ?? r.upper), 0); }
+    reserve(id, upper) {
+        const old = this.reservations.get(id);
+        if (old) {
+            assert(old.upper === upper, 'ID_CONFLICT', 'Повторный ID изменил условия');
+            return clone(old);
+        }
+        assert(this.reservations.size < 10000, 'BUDGET', 'Нужен архив резервов');
+        assert(upper !== null && Number.isSafeInteger(upper) && upper >= 0, 'UNKNOWN_PRICE', 'Нет доказанной верхней цены');
+        assert(upper <= this.available, 'BUDGET', 'Недостаточно бюджета');
+        const r = { id, upper, estimate: null, confirmed: null };
+        this.reservations.set(id, r);
+        return clone(r);
+    }
+    estimate(id, value) { const r = this.reservations.get(id); assert(r, 'RESERVATION', 'Резерв не найден'); assert(Number.isSafeInteger(value) && value >= 0, 'BUDGET', 'Некорректная оценка'); r.estimate = value; }
+    settle(id, confirmed) {
+        const r = this.reservations.get(id);
+        assert(r, 'RESERVATION', 'Резерв не найден');
+        assert(Number.isSafeInteger(confirmed) && confirmed >= 0 && confirmed <= r.upper, 'PRICE_BREACH', 'Подтверждение вышло за верхнюю цену');
+        if (r.confirmed !== null)
+            assert(r.confirmed === confirmed, 'SETTLEMENT', 'Повторная сверка отличается');
+        r.confirmed = confirmed;
+    }
+    snapshot() { return clone([...this.reservations.values()]); }
+}
+function mayRetry(effect, currentGeneration, receiverGuaranteesKey) {
+    if (effect.generation !== currentGeneration)
+        return false;
+    return effect.state === 'prepared' || effect.state === 'absent' || ((effect.state === 'unknown' || effect.state === 'dispatched') && effect.idempotencyKey !== null && receiverGuaranteesKey);
+}
+function recordCycle(state, evidence, closed) {
+    assert(state.noProgress < state.maxNoProgress, 'NO_PROGRESS', 'Исчерпан предел циклов без новых свидетельств');
+    const fresh = evidence.some(e => !state.evidence.includes(e)) || closed.some(c => !state.closed.includes(c));
+    return { maxNoProgress: state.maxNoProgress, noProgress: fresh ? 0 : state.noProgress + 1, evidence: [...new Set([...state.evidence, ...evidence])], closed: [...new Set([...state.closed, ...closed])] };
+}
+function revoke(lease) { return { ...lease, state: lease.state === 'released' ? 'released' : 'revoked' }; }
+function release(lease, observedOwnerGeneration, observedReleased) {
+    if (lease.state === 'released')
+        return lease;
+    return { ...lease, state: observedOwnerGeneration === lease.generation && observedReleased ? 'released' : 'quarantine' };
+}
+class CommandLedger {
+    records;
+    pending = new Map();
+    constructor(records = {}) { this.records = new Map(Object.entries(records)); }
+    async apply(commandId, payload, fn) {
+        const fingerprint = canonical(payload), existing = this.records.get(commandId), running = this.pending.get(commandId);
+        if (existing) {
+            assert(existing.fingerprint === fingerprint, 'ID_CONFLICT', 'Один ID использован для разных команд');
+            return clone(existing.result);
+        }
+        if (running) {
+            assert(running.fingerprint === fingerprint, 'ID_CONFLICT', 'Один ID использован для разных команд');
+            return clone(await running.promise);
+        }
+        const promise = Promise.resolve().then(fn);
+        this.pending.set(commandId, { fingerprint, promise });
+        try {
+            const result = await promise;
+            this.records.set(commandId, { fingerprint, result: clone(result) });
+            return result;
+        }
+        finally {
+            this.pending.delete(commandId);
+        }
+    }
+    snapshot() { return Object.fromEntries(this.records); }
+}
+class BoundedQueue {
+    maxItems;
+    maxBytes;
+    policy;
+    items = [];
+    used = 0;
+    next = 1;
+    dropped = [];
+    droppedOmitted = 0;
+    constructor(maxItems, maxBytes, policy) {
+        this.maxItems = maxItems;
+        this.maxBytes = maxBytes;
+        this.policy = policy;
+        assert(Number.isSafeInteger(maxItems) && maxItems > 0 && Number.isSafeInteger(maxBytes) && maxBytes > 0, 'QUEUE_LIMIT', 'Неверный предел очереди');
+    }
+    push(value, size) {
+        assert(size >= 0 && Number.isSafeInteger(size) && size <= this.maxBytes, 'FRAME_LIMIT', 'Кадр не помещается');
+        const seq = this.next++;
+        if (this.policy === 'latest')
+            while (this.items.length && (this.items.length >= this.maxItems || this.used + size > this.maxBytes)) {
+                const old = this.items.shift();
+                this.used -= old.bytes;
+                this.dropped.push(old.sequence);
+                if (this.dropped.length > 1024) {
+                    this.dropped.shift();
+                    this.droppedOmitted++;
+                }
+            }
+        assert(this.items.length < this.maxItems && this.used + size <= this.maxBytes, 'BACKPRESSURE', 'Очередь заполнена');
+        this.items.push({ value, bytes: size, sequence: seq });
+        this.used += size;
+        return seq;
+    }
+    pop() {
+        const item = this.items.shift();
+        if (!item)
+            return null;
+        this.used -= item.bytes;
+        return { value: item.value, sequence: item.sequence };
+    }
+    get byteLength() { return this.used; }
+    get length() { return this.items.length; }
+}
+function arrivalSample(events) {
+    let latest;
+    const out = [];
+    for (const e of events) {
+        if (e.type === 'value')
+            latest = e.sample.value;
+        else if (latest !== undefined)
+            out.push([e.sample.value, latest]);
+    }
+    return out;
+}
+/** Finite event-time batch with explicit watermarks, not a claimed live audio engine. */
+function eventTimeSample(triggers, values, watermarks) {
+    const bound = Math.min(...watermarks);
+    const sorted = [...values].sort((a, b) => a.at - b.at || a.sequence - b.sequence);
+    const out = [];
+    for (const a of [...triggers].sort((a, b) => a.at - b.at || a.sequence - b.sequence)) {
+        if (a.at >= bound)
+            continue;
+        const b = sorted.filter(v => v.at <= a.at).at(-1);
+        if (b)
+            out.push([a.value, b.value]);
+    }
+    return out;
+}
+
+return {Budget,mayRetry,recordCycle,revoke,release,CommandLedger,BoundedQueue,arrivalSample,eventTimeSample};
+})();
+__modules["assistant/research.js"] = (() => {
+/** Research contracts and deterministic policy. No LLM, scheduler, or new store.
+ * Findings are authored interpretations; reports are scoped observations.
+ * Mirrored by native/tools/economy/research.go; shared fixtures test the boundary.
+ */
+const { assert, canonical, clone } = __modules["core/model.js"];
+const { recordCycle } = __modules["core/control.js"];
+const utf8 = (s) => new TextEncoder().encode(s).byteLength;
+const idOK = (s) => typeof s === 'string' && /^[A-Za-z0-9_-]{1,96}$/.test(s);
+const hashOK = (s) => typeof s === 'string' && /^[a-f0-9]{64}$/.test(s);
+const text = (s, n) => typeof s === 'string' && s.trim() !== '' && utf8(s) <= n && !s.includes('\0');
+const int = (n, min, max) => typeof n === 'number' && Number.isSafeInteger(n) && n >= min && n <= max;
+const coverage = (v) => v === 'complete' || v === 'partial' || v === 'unknown';
+const secret = (p) => /^\.env(?:\.|$)|^(?:auth\.json|id_rsa|id_ed25519)$|\.(?:key|pfx|p12)$/i.test(p);
+function safeResearchPath(p) {
+    return typeof p === 'string' && utf8(p) <= 1024 && (p === '.' || p !== '' && !/[\\:\x00\r\n]/.test(p) && !p.startsWith('/') && p.split('/').every(c => c !== '' && c !== '.' && c !== '..' && !secret(c)));
+}
+const under = (p, roots) => safeResearchPath(p) && roots.some(r => r === '.' || r === p || p.startsWith(r + '/'));
+function strings(v, max, size) { return Array.isArray(v) && v.length <= max && v.every(x => text(x, size)); }
+function validateResearchRequest(r, task) {
+    assert(r && typeof r === 'object' && utf8(JSON.stringify(r)) <= 256 * 1024, 'RESEARCH_SIZE', 'Предел плана — 256 КиБ');
+    const p = r.plan;
+    assert(p && p.schema === 1 && idOK(r.sweepId) && r.sweepId.length <= 80 && idOK(p.investigationId) && idOK(p.taskId), 'RESEARCH_ID', 'Неверная идентичность');
+    assert(int(p.goalRevision, 1, Number.MAX_SAFE_INTEGER) && int(p.planVersion, 1, Number.MAX_SAFE_INTEGER), 'RESEARCH_VERSION', 'Неверная редакция');
+    assert(text(p.originalGoal, 65536) && text(p.question, 2048), 'RESEARCH_GOAL', 'Нужны исходная цель и вопрос');
+    if (task)
+        assert(p.taskId === task.id && p.goalRevision === task.goalRevision && p.originalGoal === task.original, 'GOAL_CONFLICT', 'План не соответствует текущей исходной цели');
+    assert(Array.isArray(p.scope) && p.scope.length > 0 && p.scope.length <= 16 && p.scope.every(safeResearchPath), 'RESEARCH_SCOPE', 'Неверная область');
+    const permission = r.permissionScope;
+    assert(permission && permission.effect === 'read-only' && typeof permission.allowGit === 'boolean' && Array.isArray(permission.paths) && permission.paths.length > 0 && permission.paths.length <= 16 && permission.paths.every(s => under(s, p.scope)), 'RESEARCH_SCOPE', 'Пакет может только сужать область чтения');
+    assert(r.sourceSnapshot && hashOK(r.sourceSnapshot.rootHash) && Array.isArray(r.sourceSnapshot.pins) && r.sourceSnapshot.pins.length <= 32, 'RESEARCH_SOURCE', 'Нужна привязка к источнику');
+    const pins = new Set();
+    for (const pin of r.sourceSnapshot.pins) {
+        assert(under(pin.path, permission.paths) && hashOK(pin.sha256) && !pins.has(pin.path), 'RESEARCH_SOURCE', 'Неверная или повторная фиксация источника');
+        pins.add(pin.path);
+    }
+    assert(strings(p.stopRules, 8, 1024) && p.stopRules.length > 0, 'RESEARCH_STOP', 'Нужны условия остановки');
+    const b = p.budget;
+    assert(b && int(b.maxSweeps, 1, 32) && int(b.maxNoProgress, 1, 5) && int(b.wallSeconds, 1, 300) && int(b.outputUtf8Bytes, 2048, 24576), 'RESEARCH_BUDGET', 'Нужны конечные пределы');
+    assert(r.limits && int(r.limits.outputUtf8Bytes, 2048, b.outputUtf8Bytes) && int(r.limits.wallSeconds, 1, b.wallSeconds), 'RESEARCH_LIMITS', 'Нельзя расширять пределы плана');
+    assert(Array.isArray(p.hypotheses) && p.hypotheses.length >= 2 && p.hypotheses.length <= 5, 'RESEARCH_HYPOTHESES', 'Для диагностики нужны альтернативы; простое чтение — через local_batch');
+    const hs = new Set();
+    for (const h of p.hypotheses) {
+        assert(idOK(h.id) && !hs.has(h.id) && text(h.claim, 2048) && strings(h.predicts, 8, 1024) && h.predicts.length > 0 && ['open', 'supported', 'weakened', 'refuted', 'unresolved'].includes(h.state), 'RESEARCH_HYPOTHESIS', 'Неверная гипотеза');
+        assert(h.counterEvidence === undefined || Array.isArray(h.counterEvidence) && h.counterEvidence.length <= 32 && h.counterEvidence.every(idOK), 'RESEARCH_HYPOTHESIS', 'Неверные ссылки на контрдоказательства');
+        hs.add(h.id);
+    }
+    assert(Array.isArray(p.probes) && p.probes.length > 0 && p.probes.length <= 12, 'RESEARCH_PROBES', 'Нужно от 1 до 12 проверок');
+    const probes = new Set(), ops = new Map();
+    for (const probe of p.probes) {
+        assert(idOK(probe.id) && !probes.has(probe.id) && text(probe.question, 1024) && text(probe.expectedInformation, 1024) && text(probe.acceptance, 2048) && int(probe.priority, 0, 100), 'RESEARCH_PROBE', 'Неверная проверка');
+        probes.add(probe.id);
+        assert(probe.effect === 'read-only', 'RESEARCH_EFFECT', 'Мутации не входят в диагностический пакет');
+        assert(Array.isArray(probe.discriminates) && probe.discriminates.length > 0 && probe.discriminates.length <= 5 && new Set(probe.discriminates).size === probe.discriminates.length && probe.discriminates.every(h => hs.has(h)), 'RESEARCH_DISCRIMINATION', 'Проверка должна различать известные гипотезы');
+        assert(Array.isArray(probe.operations) && probe.operations.length > 0, 'RESEARCH_OPERATIONS', 'Пустая проверка');
+        for (const op of probe.operations) {
+            assert(idOK(op.id) && !ops.has(op.id), 'RESEARCH_OPERATION', 'Повтор или неверный ID операции');
+            assert(['files', 'search', 'read', 'read_bytes', 'read_matches', 'metadata', 'hash', 'inspect', 'git_status', 'git_diff'].includes(op.op), 'RESEARCH_EFFECT', 'Только известные операции чтения, без check');
+            if (['files', 'search'].includes(op.op))
+                assert(Array.isArray(op.paths) && op.paths.length > 0 && op.paths.every(s => under(s, permission.paths)), 'RESEARCH_SCOPE', 'Поиск требует явную область');
+            if (['read', 'read_bytes', 'metadata', 'hash'].includes(op.op))
+                assert(typeof op.path === 'string' && under(op.path, permission.paths), 'RESEARCH_SCOPE', 'Чтение вне области');
+            if (op.op === 'inspect')
+                assert(idOK(op.artifact), 'RESEARCH_ARTIFACT', 'Нужен адрес сохранённого материала');
+            if (op.op.startsWith('git_'))
+                assert(permission.allowGit && under('.', permission.paths), 'RESEARCH_GIT', 'Git требует явного разрешения и области всего проекта');
+            assert(op.dependsOn === undefined || Array.isArray(op.dependsOn) && op.dependsOn.every(idOK), 'RESEARCH_DEPENDENCY', 'Неверные зависимости');
+            ops.set(op.id, op);
+        }
+    }
+    assert(ops.size <= 32, 'RESEARCH_OPERATIONS', 'Не более 32 операций');
+    assert(r.limits.outputUtf8Bytes >= 1500 + p.probes.length * 220 + ops.size * 620, 'RESEARCH_OUTPUT_LIMIT', 'Предел не вмещает ссылки на свидетельства; чтение не начинается');
+    const visiting = new Set(), done = new Set();
+    const visit = (id) => { assert(!visiting.has(id), 'RESEARCH_CYCLE', 'Цикл зависимостей'); if (done.has(id))
+        return; const op = ops.get(id); assert(op, 'RESEARCH_DEPENDENCY', 'Отсутствующая зависимость'); visiting.add(id); if (op.op === 'read_matches')
+        assert(op.from && ops.get(op.from)?.op === 'search', 'RESEARCH_DEPENDENCY', 'read_matches требует search'); for (const d of [...(op.dependsOn ?? []), ...(op.from ? [op.from] : [])])
+        visit(d); visiting.delete(id); done.add(id); };
+    for (const id of ops.keys())
+        visit(id);
+}
+/** An explicit intent classification, not a semantic NLP diagnosis. */
+function researchRoute(kind) {
+    return kind === 'read-range' || kind === 'known-search' ? 'direct' : 'investigation';
+}
+function validateSweepReport(r, p) {
+    assert(r && r.schema === 1 && r.taskId === p.taskId && r.investigationId === p.investigationId && r.planVersion === p.planVersion && r.goalRevision === p.goalRevision, 'RESEARCH_REPORT', 'Результат относится к другой работе или версии');
+    assert(idOK(r.sweepId) && idOK(r.reportArtifact) && hashOK(r.reportSha256) && hashOK(r.sourceHash) && coverage(r.sourceCoverage), 'RESEARCH_REPORT', 'Неверные ссылки/покрытие');
+    assert(r.localModelCalls === 0 && (r.observedTokens === null || int(r.observedTokens, 0, Number.MAX_SAFE_INTEGER)) && int(r.durationMs, 0, Number.MAX_SAFE_INTEGER), 'RESEARCH_METRIC', 'Неизвестные токены не должны выдаваться за измеренный ноль');
+    assert(Array.isArray(r.evidenceRefs) && r.evidenceRefs.length <= 32 && Array.isArray(r.probes) && r.probes.length === p.probes.length, 'RESEARCH_REPORT', 'Неверное число проверок/свидетельств');
+    assert(strings(r.gaps, 4096, 4096) && strings(r.unknownEffects, 32, 4096) && strings(r.nextSuggestedQuestions, 32, 4096) && Array.isArray(r.untestedHypotheses), 'RESEARCH_REPORT', 'Неверные пробелы/следующий шаг');
+    const ids = new Set(), opids = new Set(), probeids = new Set();
+    for (const ev of r.evidenceRefs) {
+        const probe = p.probes.find(q => q.id === ev.probeId);
+        assert(probe && probe.operations.some(op => op.id === ev.operationId), 'RESEARCH_EVIDENCE', 'Свидетельство не связано с операцией');
+        assert(idOK(ev.id) && !ids.has(ev.id) && !opids.has(ev.operationId) && idOK(ev.locator) && hashOK(ev.sha256) && hashOK(ev.noveltyKey) && ev.sourceHash === r.sourceHash && coverage(ev.coverage), 'RESEARCH_EVIDENCE', 'Повтор или неверное свидетельство');
+        ids.add(ev.id);
+        opids.add(ev.operationId);
+    }
+    for (const probe of r.probes) {
+        const original = p.probes.find(q => q.id === probe.probeId);
+        assert(original && !probeids.has(probe.probeId) && coverage(probe.coverage) && ['observed', 'blocked'].includes(probe.state) && Array.isArray(probe.evidenceIds) && probe.evidenceIds.length === original.operations.length, 'RESEARCH_REPORT', 'Неполная проверка');
+        probeids.add(probe.probeId);
+        assert(probe.evidenceIds.every(id => r.evidenceRefs.some(e => e.id === id && e.probeId === probe.probeId)) && new Set(probe.evidenceIds).size === probe.evidenceIds.length, 'RESEARCH_EVIDENCE', 'Чужая ссылка');
+    }
+    assert(opids.size === p.probes.reduce((n, q) => n + q.operations.length, 0), 'RESEARCH_EVIDENCE', 'Пропущена операция');
+}
+function startResearch(plan) { return { schema: 1, sequence: 1, plan: clone(plan), reports: [], findings: [], nextAction: 'collect_read_only_evidence', status: 'planning' }; }
+function canSweep(checkpoint, progress) {
+    return checkpoint.status !== 'blocked' && checkpoint.reports.length < checkpoint.plan.budget.maxSweeps && progress.noProgress < Math.min(progress.maxNoProgress, checkpoint.plan.budget.maxNoProgress);
+}
+/** Shared task progress is supplied by TaskStore; creating a new session or
+ * investigation does not reset it. Observed positive bytes may be useful even with partial coverage; negative evidence requires complete coverage.
+ * The caller must authenticate report provenance; importing JSON is not proof.
+ */
+function applySweep(checkpoint, progress, report) {
+    validateSweepReport(report, checkpoint.plan);
+    const previous = checkpoint.reports.find(r => r.sweepId === report.sweepId);
+    if (previous) {
+        assert(previous.reportSha256 === report.reportSha256, 'SWEEP_ID_CONFLICT', 'Результат с тем же ID изменился');
+        return { checkpoint: clone(checkpoint), progress: clone(progress) };
+    }
+    assert(canSweep(checkpoint, progress), 'RESEARCH_STOP', 'Лимит исчерпан; смена сессии его не сбрасывает');
+    const fresh = report.evidenceRefs.filter(e => (e.coverage === 'complete' || e.coverage === 'partial' && !e.negative) && report.sourceCoverage !== 'unknown').map(e => e.noveltyKey);
+    const nextProgress = recordCycle(progress, fresh, []);
+    const next = clone(checkpoint);
+    next.sequence++;
+    next.reports.push(clone(report));
+    next.nextAction = report.nextAction;
+    next.status = 'evaluating';
+    if (nextProgress.noProgress >= Math.min(nextProgress.maxNoProgress, next.plan.budget.maxNoProgress) || next.reports.length >= next.plan.budget.maxSweeps) {
+        next.status = 'blocked';
+        next.nextAction = 'Change the diagnostic approach or request an explicit owner decision; no automatic model continuation.';
+    }
+    return { checkpoint: next, progress: nextProgress };
+}
+function addFinding(checkpoint, f) {
+    assert(idOK(f.id) && text(f.assertion, 4096) && text(f.scope, 2048) && ['user', 'agent'].includes(f.author) && ['observed', 'inferred', 'hypothesis'].includes(f.kind), 'RESEARCH_FINDING', 'Неверный вывод');
+    assert(Array.isArray(f.evidenceIds) && Array.isArray(f.counterEvidenceIds) && strings(f.limitations, 16, 2048), 'RESEARCH_FINDING', 'Неверные основания');
+    const all = new Map(checkpoint.reports.flatMap(r => r.evidenceRefs.map(e => [e.id, e])));
+    assert([...f.evidenceIds, ...f.counterEvidenceIds].every(id => all.has(id)), 'RESEARCH_FINDING', 'Вывод ссылается на отсутствующее свидетельство');
+    assert(f.kind === 'hypothesis' || f.evidenceIds.length > 0, 'RESEARCH_FINDING', 'Наблюдение и вывод требуют основания');
+    const partial = f.evidenceIds.some(id => all.get(id)?.coverage !== 'complete');
+    assert(!partial || f.limitations.length > 0 && text(f.nextCheck, 2048), 'RESEARCH_COVERAGE', 'Неполные данные требуют оговорки и следующей проверки');
+    const old = checkpoint.findings.find(x => x.id === f.id);
+    if (old) {
+        assert(canonical(old) === canonical(f), 'FINDING_IMMUTABLE', 'Для исправленного вывода создайте новую версию/ID');
+        return clone(checkpoint);
+    }
+    assert(checkpoint.findings.length < 64, 'RESEARCH_LIMIT', 'Нужен ограниченный итог');
+    const c = clone(checkpoint);
+    c.sequence++;
+    c.findings.push(clone(f));
+    return c;
+}
+function researchFreshness(c, t) {
+    return c.plan.taskId === t.id && c.plan.goalRevision === t.goalRevision && c.plan.originalGoal === t.original ? 'current' : 'stale-goal';
+}
+function continuationCard(c, maxBytes = 12000) {
+    const body = JSON.stringify({ taskId: c.plan.taskId, goalRevision: c.plan.goalRevision, originalGoal: c.plan.originalGoal, planVersion: c.plan.planVersion, question: c.plan.question, hypotheses: c.plan.hypotheses, stopRules: c.plan.stopRules, reports: c.reports.map(r => ({ sweepId: r.sweepId, artifact: r.reportArtifact, sha256: r.reportSha256, gaps: r.gaps, unknownEffects: r.unknownEffects })), findings: c.findings, nextAction: c.nextAction });
+    assert(utf8(body) <= maxBytes, 'CONTEXT_LIMIT', 'Обязательный пакет продолжения не помещается; цель не обрезана');
+    return body;
+}
+
+return {safeResearchPath,validateResearchRequest,researchRoute,validateSweepReport,startResearch,canSweep,applySweep,addFinding,researchFreshness,continuationCard};
+})();
+__modules["assistant/research-view.js"] = (() => {
+/** Pure view over persisted observations. No model calls, file fetching or inferred success. */
+const { assert } = __modules["core/model.js"];
+const { validateResearchRequest } = __modules["assistant/research.js"];
+const esc = (v) => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const list = (items) => items.map(x => `<li>${esc(x)}</li>`).join('');
+const label = (s) => ({ planning: 'Подготовка проверок', probing: 'Сбор свидетельств', evaluating: 'Оценка наблюдений', blocked: 'Нужно решение', review: 'Результат для оценки', open: 'Открыта', supported: 'Есть основания', weakened: 'Ослаблена', refuted: 'Опровергнута в указанной области', unresolved: 'Не разрешена', observed: 'Наблюдение', inferred: 'Вывод', hypothesis: 'Гипотеза', user: 'Владелец', agent: 'Исполнитель', evaluate_once: 'Сопоставить наблюдения с предсказаниями гипотез; выбрать исправление или одну различающую проверку.', collect_read_only_evidence: 'Собрать запланированные наблюдения без изменения проекта.', reconcile_sources: 'Сверить изменившиеся источники перед следующим выводом.', review_incomplete_probes: 'Разобрать неполные проверки; не повторять внешние действия.' }[String(s)] || String(s ?? ''));
+const cov = (s) => ({ complete: 'Полное в указанной области', partial: 'Частичное', unknown: 'Не установлено' }[s] || 'Не установлено');
+function decodeResearchCheckpoint(text) {
+    assert(new TextEncoder().encode(text).length <= 524288, 'RESEARCH_SIZE', 'Предел контрольной точки — 512 КиБ');
+    const c = JSON.parse(text);
+    assert(c?.schema === 1 && Number.isSafeInteger(c.sequence) && c.sequence > 0 && c.plan, 'RESEARCH_SCHEMA', 'Неверная контрольная точка');
+    validateResearchRequest({ sweepId: 'import', plan: c.plan, sourceSnapshot: { rootHash: '0'.repeat(64), pins: [] }, limits: { outputUtf8Bytes: c.plan.budget.outputUtf8Bytes, wallSeconds: c.plan.budget.wallSeconds }, permissionScope: { paths: c.plan.scope, effect: 'read-only', allowGit: true } });
+    assert(Array.isArray(c.reports) && c.reports.length <= 32 && Array.isArray(c.findings) && c.findings.length <= 64 && typeof c.nextAction === 'string', 'RESEARCH_SCHEMA', 'Неверные отчёты');
+    for (const r of c.reports) {
+        assert(r?.taskId === c.plan.taskId && r.investigationId === c.plan.investigationId && typeof r.sweepId === 'string' && Array.isArray(r.probes) && r.probes.length <= 12 && Array.isArray(r.evidenceRefs) && r.evidenceRefs.length <= 32 && Array.isArray(r.gaps) && Array.isArray(r.unknownEffects) && Array.isArray(r.excerpts), 'RESEARCH_SCHEMA', 'Чужой или повреждённый отчёт');
+        for (const p of r.probes)
+            assert(p && Array.isArray(p.evidenceIds), 'RESEARCH_SCHEMA', 'Неверные проверки');
+    }
+    for (const f of c.findings)
+        assert(f && Array.isArray(f.evidenceIds) && Array.isArray(f.counterEvidenceIds) && Array.isArray(f.limitations), 'RESEARCH_SCHEMA', 'Неверные выводы');
+    return c;
+}
+function renderResearchTrace(c, origin, goalRevision) {
+    if (!c)
+        return '<section class="panel"><h2>Исследование</h2><p>Пока нет сохранённого диагностического плана. Простое чтение не требует гипотез. Для неизвестной причины исполнитель формирует различающие проверки и собирает их через diagnostic_sweep.</p><p class="muted">Этот экран ничего не запускает и не придумывает наблюдения.</p></section>';
+    const p = c.plan;
+    const stale = goalRevision !== undefined && p.goalRevision !== goalRevision;
+    return `<section class="panel"><div class="row between"><div><div class="eyebrow">Цель v${p.goalRevision} · план v${p.planVersion} · точка ${c.sequence}</div><h2>${esc(p.question)}</h2></div><span class="badge">${esc(label(c.status))}</span></div>
+ ${origin === 'import' ? '<p class="notice amber">Локально импортированный отчёт. Подлинность JSON и исходных файлов не удостоверена. Импорт не создаёт задачу и не отправляет запрос модели.</p>' : '<p class="muted">Контрольная точка TaskStore; исходные материалы находятся в локальном хранилище. Это наблюдения инструментов, не скрытые рассуждения модели.</p>'}
+ ${stale ? '<p class="notice amber">Цель уже изменена. Эти свидетельства остаются у прежней редакции; новое выполнение не разрешено этим планом.</p>' : ''}
+ <details><summary>Исходная цель и условия остановки</summary><p class="preserve">${esc(p.originalGoal)}</p><ul>${list(p.stopRules)}</ul><p>Предел: ${p.budget.maxSweeps} пакетов; без новых наблюдений: ${p.budget.maxNoProgress}; выход: ${p.budget.outputUtf8Bytes.toLocaleString('ru')} байт. Наблюдение токенов модели отдельно.</p></details></section>
+ <section class="panel"><h2>Альтернативные объяснения</h2><div class="research-hypotheses">${p.hypotheses.map(h => `<article><span class="badge">${esc(label(h.state))}</span><h3>${esc(h.claim)}</h3><small>${esc(h.id)} · ожидаемое различие</small><ul>${list(h.predicts)}</ul></article>`).join('')}</div><p class="muted">Статус гипотезы — записанная оценка автора плана, а не автоматически установленная причина.</p></section>
+ ${c.reports.map(r => `<section class="panel"><div class="row between"><h2>Пакет ${esc(r.sweepId)}</h2><span class="badge">${cov(r.sourceCoverage)}</span></div><p>${esc(r.summary)}</p><div class="research-meta">${Number(r.durationMs).toLocaleString('ru')} мс · ${Number(r.utf8Bytes).toLocaleString('ru')} байт ответа · вызовов модели локальным инструментом: ${esc(r.localModelCalls)} · токены модели: ${r.observedTokens == null ? 'не наблюдались' : esc(r.observedTokens)}</div>
+ ${r.probes.map(o => { const original = p.probes.find(x => x.id === o.probeId); return `<article class="research-probe"><h3>${esc(o.question || original?.question || o.probeId)}</h3><p>${esc(o.summary)}</p><small>${cov(o.coverage)} · ${esc(label(o.state))} · различает: ${esc(original?.discriminates.join(', ') || 'прежняя версия плана')}</small>${o.evidenceIds.map(id => { const e = r.evidenceRefs.find(x => x.id === id); const quote = r.excerpts.find(x => x.evidenceId === id); return e ? `<details><summary>Свидетельство ${esc(id)}${e.negative ? ' · результат поиска пуст' : ''}</summary>${quote ? `<pre>${esc(quote.text)}</pre>` : '<p>Полный результат доступен локальному inspect по ID артефакта.</p>'}<p class="path"><b>Артефакт:</b> ${esc(e.locator)}<br><b>SHA-256:</b> ${esc(e.sha256)}<br>${cov(e.coverage)} · ${esc(e.observedAt)}</p></details>` : ''; }).join('')}</article>`; }).join('')}
+ ${r.gaps.length || r.unknownEffects.length ? `<div class="notice amber"><b>Пробелы и неопределённость</b><ul>${list([...r.gaps, ...r.unknownEffects])}</ul></div>` : ''}
+ <details><summary>Происхождение отчёта</summary><p class="path">${esc(r.reportArtifact)}<br>${esc(r.reportSha256)}<br>Источник: ${esc(r.sourceHash)}</p></details></section>`).join('')}
+ <section class="panel"><h2>Выводы и контрдоказательства</h2>${c.findings.length ? c.findings.map(f => `<article class="research-probe"><span class="badge">${esc(label(f.kind))} · ${esc(label(f.author))}</span><p>${esc(f.assertion)}</p><small>Область: ${esc(f.scope)}</small><p class="muted">Основания: ${esc(f.evidenceIds.join(', '))}<br>Контрдоказательства: ${esc(f.counterEvidenceIds.join(', ') || 'не указаны')}</p><ul>${list(f.limitations)}</ul>${f.nextCheck ? `<p><b>Различающая проверка:</b> ${esc(f.nextCheck)}</p>` : ''}</article>`).join('') : '<p>Смысловой вывод ещё не записан. Успешное чтение или код 0 не устанавливает первопричину.</p>'}<h3>Следующее действие</h3><p class="preserve">${esc(label(c.nextAction))}</p></section>`;
+}
+
+return {decodeResearchCheckpoint,renderResearchTrace};
+})();
+__modules["assistant/service.js"] = (() => {
+/** Fixed allowlist mirror of desktop IPC. The renderer never starts a process or chooses a shell command. */
+const { assert } = __modules["core/model.js"];
+const operations = new Set(['research_checkpoint', 'research_sweep', 'research_reconcile', 'tasks_list', 'task_create', 'task_read', 'task_revise', 'task_sessions', 'codex_configure', 'codex_open', 'codex_submit', 'codex_steer', 'codex_interrupt', 'codex_reconcile', 'codex_disconnect', 'codex_session', 'codex_commands', 'codex_command', 'codex_events', 'codex_abandon_prepared']);
+class HostExecutionService {
+    invoke;
+    constructor(invoke) {
+        this.invoke = invoke;
+    }
+    async call(operation, params = {}) {
+        assert(operations.has(operation), 'METHOD', 'Недопустимая операция');
+        return await this.invoke('assistant_rpc', { operation, params });
+    }
+    async capabilities() { return await this.invoke('capabilities'); }
+    async chooseWorkspace() { return this.invoke('choose_workspace'); }
+    async chooseCodex() { return await this.invoke('choose_codex'); }
+}
+
+return {HostExecutionService};
+})();
+__modules["assistant/view-model.js"] = (() => {
+/** Rendering policy only. The host repeats all preconditions against its durable state. */
+function actionAvailability(session, commands, goalRevision) {
+    const uncertain = commands.some(c => ['prepared', 'in_flight', 'unverified_outcome', 'unknown_needs_user_decision'].includes(c.state)
+        && ['turn/start', 'turn/steer', 'thread/start'].includes(c.method));
+    return {
+        submit: session?.status === 'idle' && !uncertain && goalRevision > 0,
+        steer: session?.status === 'running' && !!session.lastKnownTurnId && !uncertain,
+        interrupt: session?.status === 'running' && !!session.lastKnownTurnId,
+        reconcile: !!session?.externalThreadId,
+        uncertain,
+        acceptResult: false, // No trusted live snapshot/verifier in this increment.
+    };
+}
+function mergeEvents(previous, incoming, sessionId) {
+    const byId = new Map(previous.filter(e => e.sessionId === sessionId).map(e => [e.sequence, e]));
+    for (const e of incoming)
+        if (e.sessionId === sessionId && !byId.has(e.sequence))
+            byId.set(e.sequence, e);
+    return [...byId.values()].sort((a, b) => a.sequence - b.sequence).slice(-8192);
+}
+function modelClaims(events) {
+    const items = new Map();
+    for (const e of events) {
+        const p = e.frame.params;
+        if (!p)
+            continue;
+        if (e.frame.method === 'item/agentMessage/delta' && typeof p.itemId === 'string' && typeof p.delta === 'string') {
+            const old = items.get(p.itemId) ?? { itemId: p.itemId, text: '', turnId: typeof p.turnId === 'string' ? p.turnId : null };
+            old.text = (old.text + p.delta).slice(-200000);
+            items.set(p.itemId, old);
+        }
+        const item = p.item;
+        if (e.frame.method === 'item/completed' && item?.type === 'agentMessage' && typeof item.id === 'string' && typeof item.text === 'string')
+            items.set(item.id, { itemId: item.id, text: item.text.slice(0, 200000), turnId: typeof p.turnId === 'string' ? p.turnId : null });
+    }
+    return [...items.values()];
+}
+
+return {actionAvailability,mergeEvents,modelClaims};
+})();
+__modules["assistant/app.js"] = (() => {
+const { decodeResearchCheckpoint, renderResearchTrace } = __modules["assistant/research-view.js"];
+const { id } = __modules["core/model.js"];
+const { HostExecutionService } = __modules["assistant/service.js"];
+const { actionAvailability, mergeEvents, modelClaims } = __modules["assistant/view-model.js"];
+const $ = (s) => document.getElementById(s);
+const esc = (x) => String(x ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const service = window.__TAURI__?.core?.invoke ? new HostExecutionService(window.__TAURI__.core.invoke) : null;
+let tasks = [], task = null, session = null, commands = [], events = [];
+let cursor = 0, gap = false, busy = false, polling = false, screen = 'work', binding = null, configured = false, notice = '';
+let research = null, researchOrigin = 'host';
+let imported = null;
+let selectionGeneration = 0, operationCount = 0;
+const storeKey = 'platform-studio-assistant-v03';
+let local = { selectedTask: null, selectedSession: null, drafts: {}, pending: null, codexPath: '' };
+try {
+    const saved = JSON.parse(localStorage.getItem(storeKey) || 'null');
+    if (saved?.drafts && typeof saved.drafts === 'object')
+        local = { ...local, ...saved };
+}
+catch {
+    notice = 'Черновик не прочитан; исходные данные не перезаписаны.';
+}
+function save() { try {
+    localStorage.setItem(storeKey, JSON.stringify(local));
+}
+catch {
+    throw Error('Не удалось сохранить локальное намерение. Отправка остановлена.');
+} }
+function draftKey() { return task ? task.id + ':' + task.goalRevision : 'new'; }
+function button(action, label, enabled = true, primary = false) { return `<button class="button ${primary ? 'primary' : ''}" data-action="${action}" ${enabled && (!busy || action === 'interrupt') ? '' : 'disabled'}>${label}</button>`; }
+function message(text) { notice = text; render(); }
+async function call(op, p = {}) { if (!service)
+    throw Error('Нужна нативная сборка Studio. Браузерная страница не исполняет Codex.'); return service.call(op, p); }
+function render() {
+    const allowed = actionAvailability(session, commands, task?.goalRevision ?? 0);
+    if (local.pending) {
+        allowed.submit = false;
+        allowed.steer = false;
+    }
+    const status = session?.status ?? 'не подключено';
+    $('app').innerHTML = `<div class="live-shell"><aside class="live-nav"><a class="brand" href="index.html">Слой <small>Platform Studio</small></a><div class="eyebrow">Помощник · Direct</div>
+ <button class="button" data-action="new">＋ Новая задача</button><div class="live-projects">${tasks.map(t => `<button class="nav-task ${task?.id === t.id ? 'active' : ''}" data-task="${esc(t.id)}">${esc(t.title)}</button>`).join('') || '<p class="muted">Задачи появятся после подключения к хосту.</p>'}</div>
+ <a href="index.html">Канвас и встроенные операции ↗</a><a href="assistant-scenarios.html">Отдельный сценарный стенд ↗</a><p class="muted">Ни одно состояние здесь не получено из макета.</p></aside>
+ <main id="main" class="live-main"><header class="live-top"><div><div class="eyebrow">${esc(task?.title || 'Рабочее пространство')}</div><h1>${screen === 'research' ? 'Ход исследования' : screen === 'observe' ? 'Наблюдение' : screen === 'history' ? 'Доставка и события' : screen === 'connections' ? 'Подключение' : 'Задача и сессия'}</h1></div><div class="badge">${esc(status)}</div></header>
+ <nav class="live-tabs" aria-label="Представление работы">${[['work', 'Работа'], ['research', 'Исследование'], ['observe', 'Наблюдение'], ['history', 'История'], ['connections', 'Подключение']].map(([key, label]) => `<button data-screen="${key}" class="${screen === key ? 'active' : ''}">${label}</button>`).join('')}</nav>
+ ${!service ? '<div class="notice amber"><b>Открыта автономная страница, без нативного хоста.</b><p>Импорт журналов доступен. Сессии и команды не имитируются.</p></div>' : ''}
+ ${notice ? `<div role="status" class="notice">${esc(notice)}</div>` : ''}
+ ${screen === 'research' ? researchPanel() : screen === 'work' ? work(allowed) : screen === 'observe' ? observe() : screen === 'history' ? history() : connections()}
+ </main></div>`;
+}
+function work(a) {
+    if (!task)
+        return `<section class="panel"><h2>Начать с реального проекта</h2><p>Каталог подключается ссылкой: репозиторий и двоичные файлы не загружаются в JSON.</p><label>Название<input id="task-title" value="${esc(local.drafts['new-title'] || '')}" placeholder="Что нужно сделать"></label><label>Исходная цель<textarea id="goal" rows="5">${esc(local.drafts['new-goal'] || '')}</textarea></label>
+ <div class="toolbar">${button('folder', 'Выбрать папку', !!service)}<span class="muted">${esc(binding?.kind === 'mounted' ? binding.rootPath : 'Папка не выбрана')}</span></div>${button('create', 'Создать задачу', !!binding && !!service, true)}<p class="muted">Первый профиль — чтение через Codex. Сильная изоляция площадки и изменение оригинала не заявлены.</p></section>`;
+    return `<div class="live-grid"><section class="stack"><article class="panel"><div class="row between"><h2>Исходная цель · v${task.goalRevision}</h2><span class="badge">${esc(task.binding.kind)}</span></div><p class="preserve">${esc(task.original)}</p><p class="muted path">${esc(task.binding.kind === 'mounted' ? task.binding.rootPath : 'Текстовый снимок')}</p></article>
+ <article class="panel"><h2>Поручение исполнителю</h2><p class="muted">Ввод отправляется как написан. Автоматический перевод и руководитель ещё не подключены.</p><textarea id="draft" rows="7" placeholder="Поручение или уточнение…">${esc(local.drafts[draftKey()] ?? task.original)}</textarea>
+ <div class="toolbar">${button('send', 'Отправить новый ход', a.submit, true)}${button('steer', 'Уточнить текущий', a.steer)}${button('interrupt', 'Остановить', a.interrupt)}</div>
+ <p class="muted">Адресат: ${esc(session?.externalThreadId || 'не выбран')} · ${esc(session?.lastKnownTurnId || 'без активного хода')}. Служебная метка команды добавляется явно; она не является гарантией провайдерской дедупликации.</p>
+ ${a.uncertain ? '<div class="notice amber">Предыдущая отправка ещё не разрешена. Новое поручение заблокировано; доступна сверка.</div>' : ''}
+ ${local.pending ? '<div class="notice amber">Есть локально сохранённая команда. Новая отправка не выполняется.<button class="button" data-action="recover-local">Прочитать состояние команды</button><button class="button" data-action="abandon-prepared">Снять только неотправленную команду</button></div>' : ''}</article>
+ <article class="panel"><h2>Ответы исполнителя</h2><p class="muted">Заявления модели. Приёмка и проверка файлов в этом профиле пока недоступны.</p>${modelClaims(events).map(c => `<div class="live-answer"><small>${esc(c.turnId)}</small><pre>${esc(c.text)}</pre></div>`).join('') || '<p class="muted">Подтверждённых сообщений пока нет.</p>'}</article></section>
+ <aside class="stack"><section class="panel"><h2>Сессия</h2><label>Существующий thread ID <small>необязательно</small><input id="thread-id" placeholder="Пусто — создать новый"></label><div class="toolbar">${button('connect', 'Подключить / продолжить', !!service && configured && !local.pending && (!session || ['disconnected', 'state_unknown'].includes(session.status)))}${button('reconcile', 'Сверить', a.reconcile)}${button('disconnect', 'Отключить процесс', !!session)}</div><p class="muted">Закрытие окна не посылает отмену. После смерти хоста сессия сверяется, но ход не отправляется заново.</p></section>
+ <section class="panel"><h2>Ограничения</h2><p>Codex Direct · read-only<br>Без автоматического расширения прав<br>Гарантии изолированной площадки: не приняты</p><p class="muted">Путь — рабочий каталог, а не граница безопасности. Пользовательские настройки Codex могут подключать hooks/MCP; их профиль нужно проверить перед работой.</p></section></aside></div>`;
+}
+function metrics() { return imported || window.DeskLiveEvents.analyzeEnvelopes(events, gap); }
+function observe() { const m = metrics(), u = m.totals || {}; return `<section class="panel"><div class="row between"><h2>${imported ? 'Выбранный журнал' : 'Наблюдаемые события сессии'}</h2>${button('import', 'Импорт JSONL', true)}${button('live', 'Вернуться к потоку', !!imported)}</div><div class="live-metrics">${[['input', 'Вход'], ['cached', 'Кеш внутри входа'], ['output', 'Выход'], ['reasoning', 'Reasoning внутри выхода']].map(([key, name]) => `<div><strong>${u[key] === null || u[key] === undefined ? '—' : Number(u[key]).toLocaleString('ru-RU')}</strong><span>${name}</span></div>`).join('')}</div><p>${esc(m.coverage)}</p>${(m.warnings || []).map((x) => `<p class="muted">${esc(x)}</p>`).join('')}<div class="live-table"><table><thead><tr><th>Ход</th><th>Состояние</th><th>Время хода*</th><th>Инструменты*</th><th>Явный TTFT</th></tr></thead><tbody>${(m.sessions || []).flatMap((s) => s.turns).map((t) => `<tr><td>${esc(t.id)}</td><td>${esc(t.status)}</td><td>${esc(t.wallMs ?? '—')}</td><td>${esc(t.toolMs ?? '—')}</td><td>${esc(t.reportedTtftMs ?? '—')}</td></tr>`).join('')}</tbody></table></div><p class="muted">* мс; без собственного времени Codex это интервалы получения хостом. Повторы HTTP и очередь сервера неизвестны без отдельного источника. Токены не переводятся в цену подписки.</p></section>`; }
+function history() { return `<section class="panel"><h2>Команды</h2><p>Принятие команды, выполнение хода и принятие результата — разные состояния. Здесь нет кнопки повтора неизвестного эффекта.</p><div class="live-table"><table><thead><tr><th>ID</th><th>Операция</th><th>Доставка</th><th>Основание</th></tr></thead><tbody>${commands.map(c => `<tr><td>${esc(c.id)}</td><td>${esc(c.method)}</td><td>${esc(c.state)}</td><td>${esc(c.reason || c.remoteId || '—')}</td></tr>`).join('')}</tbody></table></div></section><section class="panel"><h2>Последние наблюдения</h2>${gap ? '<p class="notice amber">Есть пробел истории; сохранённые дельты не выданы за полный журнал.</p>' : ''}<div class="timeline">${events.slice(-60).reverse().map(e => `<div class="event"><div><strong>${esc(e.frame.method || 'Ответ')}</strong><small>${esc(e.at)} · ${esc(e.origin)} · ${e.sequence}</small></div></div>`).join('')}</div></section>`; }
+function connections() { return `<section class="panel"><h2>Codex Direct</h2><p>Используется установленный нативный Codex, без shell-обёртки и без скачивания. Открытие этой страницы не запускает его.</p><label>Исполняемый файл<input id="codex-path" value="${esc(local.codexPath)}" placeholder="C:\\…\\codex.exe"></label>${button('choose-exe', 'Выбрать codex.exe', !!service)}<label class="live-consent"><input type="checkbox" id="consent"> Разрешаю этот Direct-профиль: ограничения и права предоставляет настроенный Codex, не полная площадка Studio. Настройки hooks/MCP требуют собственной проверки.</label>${button('configure', 'Применить настройку', !!service, true)}<p class="muted">Изменение настроек Codex, авторизация, платные вызовы и запуск приложений автоматически не выполняются. Подключение треда — отдельное действие.</p><p>${configured ? 'Настройка принята хостом.' : 'Хост ещё не принял настройку.'}</p></section>`; }
+function researchPanel() { return `<div class="toolbar">${button('research-refresh', 'Обновить из TaskStore', !!service && !!task)}${button('research-import', 'Открыть контрольную точку', true)}</div>` + renderResearchTrace(research, researchOrigin, researchOrigin === 'host' ? task?.goalRevision : undefined); }
+async function loadResearch() { if (!service || !task)
+    return; const selected = task.id; const cp = await call('research_checkpoint', { taskId: selected }); if (task?.id !== selected)
+    return; research = cp ? decodeResearchCheckpoint(JSON.stringify(cp)) : null; researchOrigin = 'host'; }
+async function refresh() {
+    if (!service || !session || polling)
+        return;
+    polling = true;
+    const selected = session.id;
+    try {
+        const page = await call('codex_events', { sessionId: selected, afterSequence: cursor });
+        if (session?.id !== selected)
+            return;
+        events = mergeEvents(events, page.events, selected);
+        cursor = page.nextSequence;
+        gap = gap || page.gap;
+        const freshSession = await call('codex_session', { sessionId: selected });
+        const freshCommands = await call('codex_commands', { sessionId: selected });
+        if (session?.id !== selected)
+            return;
+        session = freshSession;
+        commands = freshCommands;
+        if (local.pending) {
+            const cid = local.pending.commandId;
+            const known = commands.find(c => c.id === cid);
+            if (known && ['confirmed', 'rejected'].includes(known.state)) {
+                local.pending = null;
+                save();
+            }
+        }
+        // Streaming must not steal focus or destroy an in-progress textarea selection.
+        if (screen === 'research' && researchOrigin === 'host')
+            await loadResearch();
+        if (!['TEXTAREA', 'INPUT'].includes(document.activeElement?.tagName || '') && !busy)
+            render();
+    }
+    catch (e) {
+        notice = 'Нет свежего состояния хоста: ' + String(e);
+        if (!['TEXTAREA', 'INPUT'].includes(document.activeElement?.tagName || ''))
+            render();
+    }
+    finally {
+        polling = false;
+    }
+}
+async function selectTask(t) { const selected = ++selectionGeneration; research = null; researchOrigin = 'host'; task = t; session = null; events = []; commands = []; cursor = 0; gap = false; local.selectedTask = t.id; save(); const list = await call('task_sessions', { taskId: t.id }); if (selected !== selectionGeneration)
+    return; session = list.find(s => s.id === local.selectedSession) || list.at(-1) || null; screen = 'work'; render(); await refresh(); }
+async function perform(action) {
+    if (action === 'new') {
+        selectionGeneration++;
+        task = null;
+        session = null;
+        research = null;
+        researchOrigin = 'host';
+        screen = 'work';
+        render();
+        return;
+    }
+    if (action === 'research-import') {
+        $('import-research').click();
+        return;
+    }
+    if (action === 'import') {
+        $('import-log').click();
+        return;
+    }
+    if (action === 'live') {
+        imported = null;
+        render();
+        return;
+    }
+    const consentBefore = document.querySelector('#consent')?.checked === true;
+    const threadBefore = document.querySelector('#thread-id')?.value.trim() || null;
+    operationCount++;
+    busy = true;
+    render();
+    try {
+        if (action === 'research-refresh') {
+            await loadResearch();
+        }
+        if (action === 'abandon-prepared' && local.pending) {
+            await call('codex_abandon_prepared', { commandId: local.pending.commandId });
+            local.pending = null;
+            save();
+            notice = 'Неотправленная команда закрыта. Её запоздалое поступление в хост не вызовет отправку.';
+        }
+        if (action === 'recover-local' && local.pending) {
+            const receipt = await call('codex_command', { commandId: local.pending.commandId });
+            commands = [receipt, ...commands.filter(c => c.id !== receipt.id)];
+            if (['confirmed', 'rejected'].includes(receipt.state)) {
+                local.pending = null;
+                save();
+            }
+            notice = 'Прочитана прежняя команда. Новых запросов к модели нет.';
+        }
+        if (action === 'folder')
+            binding = await service.chooseWorkspace();
+        if (action === 'choose-exe') {
+            const path = await service.chooseCodex();
+            if (path)
+                local.codexPath = path;
+            save();
+        }
+        if (action === 'configure') {
+            if (!consentBefore)
+                throw Error('Отметьте согласие с границами профиля.');
+            await call('codex_configure', { executable: local.codexPath, acknowledgeDirectProfile: true });
+            configured = true;
+            notice = 'Настройка принята. Теперь можно подключить задачу.';
+        }
+        if (action === 'create') {
+            const title = local.drafts['new-title']?.trim() || 'Новая задача', original = local.drafts['new-goal']?.trim();
+            if (!original || !binding)
+                throw Error('Нужны цель и папка.');
+            const created = await call('task_create', { task: { id: id('task'), projectId: id('project'), title, original, binding } });
+            tasks = [created, ...tasks];
+            await selectTask(created);
+        }
+        if (action === 'connect' && task) {
+            const external = threadBefore;
+            const sid = session?.id || id('session'), commandId = id('command');
+            local.pending = { operation: 'codex_open', commandId, sessionId: sid, taskId: task.id };
+            local.selectedSession = sid;
+            save();
+            const result = await call('codex_open', { taskId: task.id, sessionId: sid, commandId, externalThreadId: external });
+            session = result.session;
+            commands = [result.command];
+            notice = 'Локальная команда сохранена. Итог доставки показан в истории.';
+            if (result.command.state === 'confirmed') {
+                local.pending = null;
+                save();
+                const checked = await call('codex_reconcile', { sessionId: sid });
+                session = checked.session;
+                commands = checked.commands;
+                notice = checked.notice;
+            }
+        }
+        if (['send', 'steer'].includes(action) && task && session) {
+            const text = local.drafts[draftKey()] ?? task.original;
+            if (!text.trim())
+                throw Error('Поручение пустое.');
+            const commandId = id('command');
+            const operation = action === 'steer' ? 'codex_steer' : 'codex_submit';
+            const payload = { sessionId: session.id, commandId, goalRevision: task.goalRevision, text, expectedTurnId: session.lastKnownTurnId };
+            local.pending = { operation, ...payload };
+            save();
+            const receipt = await call(operation, payload);
+            commands = [receipt, ...commands.filter(c => c.id !== receipt.id)];
+            if (receipt.state === 'confirmed') {
+                local.pending = null;
+                local.drafts[draftKey()] = '';
+                save();
+            }
+            notice = receipt.state === 'confirmed' ? 'Доставка подтверждена. Это ещё не проверенный результат.' : 'Исход показан в истории. Автоповтора нет.';
+        }
+        if (action === 'interrupt' && session) {
+            const commandId = id('command');
+            const receipt = await call('codex_interrupt', { sessionId: session.id, commandId, expectedTurnId: session.lastKnownTurnId });
+            commands = [receipt, ...commands];
+            notice = 'Остановка запрошена. Дождитесь наблюдаемого завершения хода.';
+        }
+        if (action === 'reconcile' && session) {
+            const r = await call('codex_reconcile', { sessionId: session.id });
+            session = r.session;
+            commands = r.commands;
+            notice = r.notice;
+        }
+        if (action === 'disconnect' && session) {
+            session = await call('codex_disconnect', { sessionId: session.id });
+            notice = 'Процесс отключён. Неизвестные внешние эффекты сохранены для сверки.';
+        }
+    }
+    catch (e) {
+        notice = String(e);
+    }
+    finally {
+        if (task && !session && service) {
+            const selected = task.id;
+            try {
+                const known = await call('task_sessions', { taskId: selected });
+                if (task?.id === selected)
+                    session = known.find(s => s.id === local.selectedSession) || null;
+            }
+            catch { /* The original failure stays visible. */ }
+        }
+        operationCount--;
+        busy = operationCount > 0;
+        render();
+        await refresh();
+    }
+}
+document.addEventListener('click', e => { const target = e.target; const nav = target.closest('[data-screen]'); if (nav && !busy) {
+    screen = nav.dataset.screen;
+    render();
+    if (screen === 'research' && researchOrigin === 'host')
+        void loadResearch().then(() => { if (screen === 'research')
+            render(); }).catch(e => message(String(e)));
+    return;
+} const selected = target.closest('[data-task]'); if (selected && !busy) {
+    const t = tasks.find(t => t.id === selected.dataset.task);
+    if (t)
+        void selectTask(t).catch(e => message(String(e)));
+    return;
+} const b = target.closest('[data-action]'); if (b && !b.disabled)
+    void perform(b.dataset.action); });
+document.addEventListener('input', e => { const t = e.target; if (t.id === 'draft')
+    local.drafts[draftKey()] = t.value;
+else if (t.id === 'goal')
+    local.drafts['new-goal'] = t.value;
+else if (t.id === 'task-title')
+    local.drafts['new-title'] = t.value;
+else if (t.id === 'codex-path')
+    local.codexPath = t.value;
+else
+    return; try {
+    save();
+}
+catch (e) {
+    notice = String(e);
+} });
+$('import-log').addEventListener('change', async (e) => { const input = e.target; const f = input.files?.[0]; if (!f)
+    return; try {
+    if (f.size > 64 * 1024 * 1024)
+        throw Error('Предел файла — 64 МиБ');
+    const p = window.CodexTelemetry.parseText(await f.text(), 'selected-file');
+    imported = window.CodexTelemetry.analyze(p.events, p.warnings);
+    screen = 'observe';
+    render();
+}
+catch (e) {
+    message(String(e));
+} input.value = ''; });
+$('import-research').addEventListener('change', async (e) => { const input = e.target; const f = input.files?.[0]; if (!f)
+    return; try {
+    if (f.size > 524288)
+        throw Error('Предел — 512 КиБ');
+    research = decodeResearchCheckpoint(await f.text());
+    researchOrigin = 'import';
+    screen = 'research';
+    render();
+}
+catch (e) {
+    message(String(e));
+} input.value = ''; });
+async function boot() { render(); if (!service)
+    return; try {
+    const c = await service.capabilities();
+    if (!c.codexDirect)
+        throw Error('Хост 0.2 не поддерживает профиль. Требуется новая нативная сборка.');
+    tasks = await call('tasks_list');
+    const selected = tasks.find(t => t.id === local.selectedTask) || tasks[0];
+    if (selected)
+        await selectTask(selected);
+    else
+        render();
+}
+catch (e) {
+    message(String(e));
+} }
+void boot();
+setInterval(() => void refresh(), 750);
+
+return {};
+})();
+})();</script></body></html>

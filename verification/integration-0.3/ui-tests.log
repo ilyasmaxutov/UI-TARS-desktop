@@ -1,0 +1,64 @@
+TAP version 13
+# Subtest: standalone live screen explicitly lacks a host and has no scenario reducer
+ok 1 - standalone live screen explicitly lacks a host and has no scenario reducer
+  ---
+  duration_ms: 7.189878
+  type: 'test'
+  ...
+# Subtest: boot is read-only: no provider process or model request
+ok 2 - boot is read-only: no provider process or model request
+  ---
+  duration_ms: 2.100439
+  type: 'test'
+  ...
+# Subtest: prompt draft survives screen navigation and is escaped
+ok 3 - prompt draft survives screen navigation and is escaped
+  ---
+  duration_ms: 3.2078
+  type: 'test'
+  ...
+# Subtest: consent is read before rendering busy state removes the checkbox
+ok 4 - consent is read before rendering busy state removes the checkbox
+  ---
+  duration_ms: 2.456256
+  type: 'test'
+  ...
+# Subtest: configuration without consent never reaches the host
+ok 5 - configuration without consent never reaches the host
+  ---
+  duration_ms: 1.775579
+  type: 'test'
+  ...
+# Subtest: submitting writes a local command before calling the transport
+ok 6 - submitting writes a local command before calling the transport
+  ---
+  duration_ms: 2.1873
+  type: 'test'
+  ...
+# Subtest: lost host response keeps exact pending command; it is not resent by polling
+ok 7 - lost host response keeps exact pending command; it is not resent by polling
+  ---
+  duration_ms: 2.985204
+  type: 'test'
+  ...
+# Subtest: polling does not replace a focused editor
+ok 8 - polling does not replace a focused editor
+  ---
+  duration_ms: 1.805304
+  type: 'test'
+  ...
+# Subtest: observe and history are real projections and do not contain demo measurements
+ok 9 - observe and history are real projections and do not contain demo measurements
+  ---
+  duration_ms: 2.797261
+  type: 'test'
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 80.18324

@@ -1,0 +1,473 @@
+{"Time":"2026-11-17T21:44:06.600077832Z","Action":"start","Package":"platformstudio.local/economy"}
+{"Time":"2026-11-17T21:44:06.608721557Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestLocalTwentyReads"}
+{"Time":"2026-11-17T21:44:06.608745022Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestLocalTwentyReads","Output":"=== RUN   TestLocalTwentyReads\n"}
+{"Time":"2026-11-17T21:44:07.104742079Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestLocalTwentyReads","Output":"    economy_test.go:61: 20 actual reads; 24432 response bytes; 0 local model calls\n"}
+{"Time":"2026-11-17T21:44:07.104801489Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestLocalTwentyReads","Output":"--- PASS: TestLocalTwentyReads (0.50s)\n"}
+{"Time":"2026-11-17T21:44:07.104810142Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestLocalTwentyReads","Elapsed":0.5}
+{"Time":"2026-11-17T21:44:07.104821219Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestReplaySnapshotDoesNotRepeat"}
+{"Time":"2026-11-17T21:44:07.104823422Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestReplaySnapshotDoesNotRepeat","Output":"=== RUN   TestReplaySnapshotDoesNotRepeat\n"}
+{"Time":"2026-11-17T21:44:07.116986397Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestReplaySnapshotDoesNotRepeat","Output":"--- PASS: TestReplaySnapshotDoesNotRepeat (0.01s)\n"}
+{"Time":"2026-11-17T21:44:07.117041801Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestReplaySnapshotDoesNotRepeat","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:07.117068081Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestDuplicateReadSameWave"}
+{"Time":"2026-11-17T21:44:07.117070705Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestDuplicateReadSameWave","Output":"=== RUN   TestDuplicateReadSameWave\n"}
+{"Time":"2026-11-17T21:44:07.124436658Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestDuplicateReadSameWave","Output":"--- PASS: TestDuplicateReadSameWave (0.01s)\n"}
+{"Time":"2026-11-17T21:44:07.12448437Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestDuplicateReadSameWave","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:07.124508647Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSameIDChangedIntentRejected"}
+{"Time":"2026-11-17T21:44:07.124511281Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSameIDChangedIntentRejected","Output":"=== RUN   TestSameIDChangedIntentRejected\n"}
+{"Time":"2026-11-17T21:44:07.131002353Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSameIDChangedIntentRejected","Output":"--- PASS: TestSameIDChangedIntentRejected (0.01s)\n"}
+{"Time":"2026-11-17T21:44:07.131061532Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSameIDChangedIntentRejected","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:07.131083375Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestDependenciesAndFailureIsolation"}
+{"Time":"2026-11-17T21:44:07.131088112Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestDependenciesAndFailureIsolation","Output":"=== RUN   TestDependenciesAndFailureIsolation\n"}
+{"Time":"2026-11-17T21:44:07.144455669Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestDependenciesAndFailureIsolation","Output":"--- PASS: TestDependenciesAndFailureIsolation (0.01s)\n"}
+{"Time":"2026-11-17T21:44:07.144511713Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestDependenciesAndFailureIsolation","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:07.144541218Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestCycleDeniedBeforeEffects"}
+{"Time":"2026-11-17T21:44:07.144544343Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCycleDeniedBeforeEffects","Output":"=== RUN   TestCycleDeniedBeforeEffects\n"}
+{"Time":"2026-11-17T21:44:07.145261266Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCycleDeniedBeforeEffects","Output":"--- PASS: TestCycleDeniedBeforeEffects (0.00s)\n"}
+{"Time":"2026-11-17T21:44:07.145312303Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestCycleDeniedBeforeEffects","Elapsed":0}
+{"Time":"2026-11-17T21:44:07.145334878Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestUnapprovedCheckNoProcess"}
+{"Time":"2026-11-17T21:44:07.145337592Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestUnapprovedCheckNoProcess","Output":"=== RUN   TestUnapprovedCheckNoProcess\n"}
+{"Time":"2026-11-17T21:44:07.149490629Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestUnapprovedCheckNoProcess","Output":"--- PASS: TestUnapprovedCheckNoProcess (0.00s)\n"}
+{"Time":"2026-11-17T21:44:07.14953761Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestUnapprovedCheckNoProcess","Elapsed":0}
+{"Time":"2026-11-17T21:44:07.149561256Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestRecoveredRunningCheckNeverReexecutes"}
+{"Time":"2026-11-17T21:44:07.14956401Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestRecoveredRunningCheckNeverReexecutes","Output":"=== RUN   TestRecoveredRunningCheckNeverReexecutes\n"}
+{"Time":"2026-11-17T21:44:07.15275934Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestRecoveredRunningCheckNeverReexecutes","Output":"--- PASS: TestRecoveredRunningCheckNeverReexecutes (0.00s)\n"}
+{"Time":"2026-11-17T21:44:07.152805389Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestRecoveredRunningCheckNeverReexecutes","Elapsed":0}
+{"Time":"2026-11-17T21:44:07.15283245Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestPathAndSecretGuards"}
+{"Time":"2026-11-17T21:44:07.152835184Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestPathAndSecretGuards","Output":"=== RUN   TestPathAndSecretGuards\n"}
+{"Time":"2026-11-17T21:44:07.166357865Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestPathAndSecretGuards","Output":"--- PASS: TestPathAndSecretGuards (0.01s)\n"}
+{"Time":"2026-11-17T21:44:07.166410094Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestPathAndSecretGuards","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:07.166435482Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSymlinkDenied"}
+{"Time":"2026-11-17T21:44:07.166438156Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSymlinkDenied","Output":"=== RUN   TestSymlinkDenied\n"}
+{"Time":"2026-11-17T21:44:07.170493626Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSymlinkDenied","Output":"--- PASS: TestSymlinkDenied (0.00s)\n"}
+{"Time":"2026-11-17T21:44:07.170540557Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSymlinkDenied","Elapsed":0}
+{"Time":"2026-11-17T21:44:07.17056246Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGeneratedExcludedButExplicitlyAvailable"}
+{"Time":"2026-11-17T21:44:07.170565295Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGeneratedExcludedButExplicitlyAvailable","Output":"=== RUN   TestGeneratedExcludedButExplicitlyAvailable\n"}
+{"Time":"2026-11-17T21:44:07.183968795Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGeneratedExcludedButExplicitlyAvailable","Output":"--- PASS: TestGeneratedExcludedButExplicitlyAvailable (0.01s)\n"}
+{"Time":"2026-11-17T21:44:07.184019932Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGeneratedExcludedButExplicitlyAvailable","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:07.18405153Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestRangeIsBoundedAndBinaryExplicit"}
+{"Time":"2026-11-17T21:44:07.184054744Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestRangeIsBoundedAndBinaryExplicit","Output":"=== RUN   TestRangeIsBoundedAndBinaryExplicit\n"}
+{"Time":"2026-11-17T21:44:07.190587529Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestRangeIsBoundedAndBinaryExplicit","Output":"--- PASS: TestRangeIsBoundedAndBinaryExplicit (0.01s)\n"}
+{"Time":"2026-11-17T21:44:07.190606748Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestRangeIsBoundedAndBinaryExplicit","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:07.190611265Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestLongLineIsExplicitlyIncomplete"}
+{"Time":"2026-11-17T21:44:07.190613759Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestLongLineIsExplicitlyIncomplete","Output":"=== RUN   TestLongLineIsExplicitlyIncomplete\n"}
+{"Time":"2026-11-17T21:44:07.191611847Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestLongLineIsExplicitlyIncomplete","Output":"--- PASS: TestLongLineIsExplicitlyIncomplete (0.00s)\n"}
+{"Time":"2026-11-17T21:44:07.191643385Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestLongLineIsExplicitlyIncomplete","Elapsed":0}
+{"Time":"2026-11-17T21:44:07.1916666Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSearchLiteralNotRegex"}
+{"Time":"2026-11-17T21:44:07.191671978Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSearchLiteralNotRegex","Output":"=== RUN   TestSearchLiteralNotRegex\n"}
+{"Time":"2026-11-17T21:44:07.198429172Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSearchLiteralNotRegex","Output":"--- PASS: TestSearchLiteralNotRegex (0.01s)\n"}
+{"Time":"2026-11-17T21:44:07.198512318Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSearchLiteralNotRegex","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:07.198518477Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestContextKeepsGoalAndRules"}
+{"Time":"2026-11-17T21:44:07.198520771Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestContextKeepsGoalAndRules","Output":"=== RUN   TestContextKeepsGoalAndRules\n"}
+{"Time":"2026-11-17T21:44:07.203138651Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestContextKeepsGoalAndRules","Output":"--- PASS: TestContextKeepsGoalAndRules (0.00s)\n"}
+{"Time":"2026-11-17T21:44:07.203153614Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestContextKeepsGoalAndRules","Elapsed":0}
+{"Time":"2026-11-17T21:44:07.203156889Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestContextRejectsCorruptedMaterial"}
+{"Time":"2026-11-17T21:44:07.203159783Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestContextRejectsCorruptedMaterial","Output":"=== RUN   TestContextRejectsCorruptedMaterial\n"}
+{"Time":"2026-11-17T21:44:07.20622071Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestContextRejectsCorruptedMaterial","Output":"--- PASS: TestContextRejectsCorruptedMaterial (0.00s)\n"}
+{"Time":"2026-11-17T21:44:07.206232277Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestContextRejectsCorruptedMaterial","Elapsed":0}
+{"Time":"2026-11-17T21:44:07.206271797Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestStoreLimitBeforeWork"}
+{"Time":"2026-11-17T21:44:07.206275062Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestStoreLimitBeforeWork","Output":"=== RUN   TestStoreLimitBeforeWork\n"}
+{"Time":"2026-11-17T21:44:07.206971495Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestStoreLimitBeforeWork","Output":"--- PASS: TestStoreLimitBeforeWork (0.00s)\n"}
+{"Time":"2026-11-17T21:44:07.206982001Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestStoreLimitBeforeWork","Elapsed":0}
+{"Time":"2026-11-17T21:44:07.206987258Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestOutputBoundPreservesStatusAndRefs"}
+{"Time":"2026-11-17T21:44:07.206989111Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestOutputBoundPreservesStatusAndRefs","Output":"=== RUN   TestOutputBoundPreservesStatusAndRefs\n"}
+{"Time":"2026-11-17T21:44:07.747607476Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestOutputBoundPreservesStatusAndRefs","Output":"--- PASS: TestOutputBoundPreservesStatusAndRefs (0.54s)\n"}
+{"Time":"2026-11-17T21:44:07.747651272Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestOutputBoundPreservesStatusAndRefs","Elapsed":0.54}
+{"Time":"2026-11-17T21:44:07.747659384Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestCaptureHelper"}
+{"Time":"2026-11-17T21:44:07.747661768Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCaptureHelper","Output":"=== RUN   TestCaptureHelper\n"}
+{"Time":"2026-11-17T21:44:07.74774907Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCaptureHelper","Output":"--- PASS: TestCaptureHelper (0.00s)\n"}
+{"Time":"2026-11-17T21:44:07.747752875Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestCaptureHelper","Elapsed":0}
+{"Time":"2026-11-17T21:44:07.747755489Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestRealCaptureExitCodeAndInspect"}
+{"Time":"2026-11-17T21:44:07.747757362Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestRealCaptureExitCodeAndInspect","Output":"=== RUN   TestRealCaptureExitCodeAndInspect\n"}
+{"Time":"2026-11-17T21:44:07.762425264Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestRealCaptureExitCodeAndInspect","Output":"--- PASS: TestRealCaptureExitCodeAndInspect (0.01s)\n"}
+{"Time":"2026-11-17T21:44:07.76244919Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestRealCaptureExitCodeAndInspect","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:07.762454528Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestCaptureQuotaNotFalseSuccess"}
+{"Time":"2026-11-17T21:44:07.762456821Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCaptureQuotaNotFalseSuccess","Output":"=== RUN   TestCaptureQuotaNotFalseSuccess\n"}
+{"Time":"2026-11-17T21:44:07.774479754Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCaptureQuotaNotFalseSuccess","Output":"--- PASS: TestCaptureQuotaNotFalseSuccess (0.01s)\n"}
+{"Time":"2026-11-17T21:44:07.774500726Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestCaptureQuotaNotFalseSuccess","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:07.774507677Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestCaptureSourceUnchanged"}
+{"Time":"2026-11-17T21:44:07.774510351Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCaptureSourceUnchanged","Output":"=== RUN   TestCaptureSourceUnchanged\n"}
+{"Time":"2026-11-17T21:44:08.806749315Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCaptureSourceUnchanged","Output":"--- PASS: TestCaptureSourceUnchanged (1.03s)\n"}
+{"Time":"2026-11-17T21:44:08.806909457Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestCaptureSourceUnchanged","Elapsed":1.03}
+{"Time":"2026-11-17T21:44:08.806916658Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestMCPRealPipes"}
+{"Time":"2026-11-17T21:44:08.806918861Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestMCPRealPipes","Output":"=== RUN   TestMCPRealPipes\n"}
+{"Time":"2026-11-17T21:44:08.816369787Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestMCPRealPipes","Output":"--- PASS: TestMCPRealPipes (0.01s)\n"}
+{"Time":"2026-11-17T21:44:08.816392822Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestMCPRealPipes","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:08.81639799Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGitStatusAndDiffLocal"}
+{"Time":"2026-11-17T21:44:08.816400163Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGitStatusAndDiffLocal","Output":"=== RUN   TestGitStatusAndDiffLocal\n"}
+{"Time":"2026-11-17T21:44:08.835810123Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGitStatusAndDiffLocal","Output":"--- PASS: TestGitStatusAndDiffLocal (0.02s)\n"}
+{"Time":"2026-11-17T21:44:08.835839727Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGitStatusAndDiffLocal","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:08.83584804Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestCancellationBeforeBatch"}
+{"Time":"2026-11-17T21:44:08.835850704Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCancellationBeforeBatch","Output":"=== RUN   TestCancellationBeforeBatch\n"}
+{"Time":"2026-11-17T21:44:08.840785624Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCancellationBeforeBatch","Output":"--- PASS: TestCancellationBeforeBatch (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.840807497Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestCancellationBeforeBatch","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.840812394Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestLockSecondOwnerDenied"}
+{"Time":"2026-11-17T21:44:08.840814908Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestLockSecondOwnerDenied","Output":"=== RUN   TestLockSecondOwnerDenied\n"}
+{"Time":"2026-11-17T21:44:08.841205869Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestLockSecondOwnerDenied","Output":"--- PASS: TestLockSecondOwnerDenied (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.841225518Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestLockSecondOwnerDenied","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.841263927Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestJSONStrictUnknownField"}
+{"Time":"2026-11-17T21:44:08.841266921Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestJSONStrictUnknownField","Output":"=== RUN   TestJSONStrictUnknownField\n"}
+{"Time":"2026-11-17T21:44:08.841375044Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestJSONStrictUnknownField","Output":"--- PASS: TestJSONStrictUnknownField (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.841391319Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestJSONStrictUnknownField","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.841415836Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestPacketOperationLimit"}
+{"Time":"2026-11-17T21:44:08.841417849Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestPacketOperationLimit","Output":"=== RUN   TestPacketOperationLimit\n"}
+{"Time":"2026-11-17T21:44:08.841551251Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestPacketOperationLimit","Output":"--- PASS: TestPacketOperationLimit (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.841576299Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestPacketOperationLimit","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.841596439Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestPrivateStoreOutsideProject"}
+{"Time":"2026-11-17T21:44:08.841598362Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestPrivateStoreOutsideProject","Output":"=== RUN   TestPrivateStoreOutsideProject\n"}
+{"Time":"2026-11-17T21:44:08.841958787Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestPrivateStoreOutsideProject","Output":"--- PASS: TestPrivateStoreOutsideProject (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.841983624Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestPrivateStoreOutsideProject","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.842005888Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestMCPDescriptorsSmall"}
+{"Time":"2026-11-17T21:44:08.842007801Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestMCPDescriptorsSmall","Output":"=== RUN   TestMCPDescriptorsSmall\n"}
+{"Time":"2026-11-17T21:44:08.842642991Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestMCPDescriptorsSmall","Output":"--- PASS: TestMCPDescriptorsSmall (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.842670142Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestMCPDescriptorsSmall","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.84271505Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestNoNetworkPackagesInLocalFiles"}
+{"Time":"2026-11-17T21:44:08.842717133Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestNoNetworkPackagesInLocalFiles","Output":"=== RUN   TestNoNetworkPackagesInLocalFiles\n"}
+{"Time":"2026-11-17T21:44:08.8429265Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestNoNetworkPackagesInLocalFiles","Output":"--- PASS: TestNoNetworkPackagesInLocalFiles (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.842939289Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestNoNetworkPackagesInLocalFiles","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.84296662Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestEnvelopeByteCountExact"}
+{"Time":"2026-11-17T21:44:08.842968483Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestEnvelopeByteCountExact","Output":"=== RUN   TestEnvelopeByteCountExact\n"}
+{"Time":"2026-11-17T21:44:08.843242397Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestEnvelopeByteCountExact","Output":"--- PASS: TestEnvelopeByteCountExact (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.843260454Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestEnvelopeByteCountExact","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.843281086Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestInspectBinaryRangeInLongLog"}
+{"Time":"2026-11-17T21:44:08.843282948Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestInspectBinaryRangeInLongLog","Output":"=== RUN   TestInspectBinaryRangeInLongLog\n"}
+{"Time":"2026-11-17T21:44:08.847072226Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestInspectBinaryRangeInLongLog","Output":"--- PASS: TestInspectBinaryRangeInLongLog (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.847082772Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestInspectBinaryRangeInLongLog","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.847086588Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResolveNpmCodexWithoutExecutingShim"}
+{"Time":"2026-11-17T21:44:08.847088451Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResolveNpmCodexWithoutExecutingShim","Output":"=== RUN   TestResolveNpmCodexWithoutExecutingShim\n"}
+{"Time":"2026-11-17T21:44:08.848041762Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResolveNpmCodexWithoutExecutingShim","Output":"--- PASS: TestResolveNpmCodexWithoutExecutingShim (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.848049353Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResolveNpmCodexWithoutExecutingShim","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.848052338Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestOwnerCheckManifestForwardedWithoutReplacingInstructions"}
+{"Time":"2026-11-17T21:44:08.848054641Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestOwnerCheckManifestForwardedWithoutReplacingInstructions","Output":"=== RUN   TestOwnerCheckManifestForwardedWithoutReplacingInstructions\n"}
+{"Time":"2026-11-17T21:44:08.848191067Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestOwnerCheckManifestForwardedWithoutReplacingInstructions","Output":"--- PASS: TestOwnerCheckManifestForwardedWithoutReplacingInstructions (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.848206951Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestOwnerCheckManifestForwardedWithoutReplacingInstructions","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.848210487Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateRejects300kBeforeNetwork"}
+{"Time":"2026-11-17T21:44:08.84821292Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateRejects300kBeforeNetwork","Output":"=== RUN   TestGateRejects300kBeforeNetwork\n"}
+{"Time":"2026-11-17T21:44:08.859768638Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateRejects300kBeforeNetwork","Output":"--- PASS: TestGateRejects300kBeforeNetwork (0.01s)\n"}
+{"Time":"2026-11-17T21:44:08.85978998Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateRejects300kBeforeNetwork","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:08.859795298Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateCountsToolSchemasAndInstructions"}
+{"Time":"2026-11-17T21:44:08.859797562Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateCountsToolSchemasAndInstructions","Output":"=== RUN   TestGateCountsToolSchemasAndInstructions\n"}
+{"Time":"2026-11-17T21:44:08.870023158Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateCountsToolSchemasAndInstructions","Output":"--- PASS: TestGateCountsToolSchemasAndInstructions (0.01s)\n"}
+{"Time":"2026-11-17T21:44:08.870042387Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateCountsToolSchemasAndInstructions","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:08.870047856Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateRejectsUnknownContext"}
+{"Time":"2026-11-17T21:44:08.870050169Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateRejectsUnknownContext","Output":"=== RUN   TestGateRejectsUnknownContext\n"}
+{"Time":"2026-11-17T21:44:08.870338455Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateRejectsUnknownContext","Output":"--- PASS: TestGateRejectsUnknownContext (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.870342341Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateRejectsUnknownContext","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.870345495Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateRejectsRemoteTools"}
+{"Time":"2026-11-17T21:44:08.870347018Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateRejectsRemoteTools","Output":"=== RUN   TestGateRejectsRemoteTools\n"}
+{"Time":"2026-11-17T21:44:08.870523965Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateRejectsRemoteTools","Output":"--- PASS: TestGateRejectsRemoteTools (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.870527771Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateRejectsRemoteTools","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.870537215Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateFullRequestWithinLimit"}
+{"Time":"2026-11-17T21:44:08.870539138Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateFullRequestWithinLimit","Output":"=== RUN   TestGateFullRequestWithinLimit\n"}
+{"Time":"2026-11-17T21:44:08.870719361Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateFullRequestWithinLimit","Output":"--- PASS: TestGateFullRequestWithinLimit (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.871177904Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateFullRequestWithinLimit","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.871187338Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateNoDoubleSendAfterSuccess"}
+{"Time":"2026-11-17T21:44:08.871189501Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateNoDoubleSendAfterSuccess","Output":"=== RUN   TestGateNoDoubleSendAfterSuccess\n"}
+{"Time":"2026-11-17T21:44:08.879646985Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateNoDoubleSendAfterSuccess","Output":"--- PASS: TestGateNoDoubleSendAfterSuccess (0.01s)\n"}
+{"Time":"2026-11-17T21:44:08.879662579Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateNoDoubleSendAfterSuccess","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:08.879666244Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateDisconnectCannotTriggerRetry"}
+{"Time":"2026-11-17T21:44:08.879668678Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateDisconnectCannotTriggerRetry","Output":"=== RUN   TestGateDisconnectCannotTriggerRetry\n"}
+{"Time":"2026-11-17T21:44:08.889734604Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateDisconnectCannotTriggerRetry","Output":"--- PASS: TestGateDisconnectCannotTriggerRetry (0.01s)\n"}
+{"Time":"2026-11-17T21:44:08.88975216Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateDisconnectCannotTriggerRetry","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:08.889757047Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateBudgetPersistsAcrossRestart"}
+{"Time":"2026-11-17T21:44:08.889760282Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateBudgetPersistsAcrossRestart","Output":"=== RUN   TestGateBudgetPersistsAcrossRestart\n"}
+{"Time":"2026-11-17T21:44:08.898364328Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateBudgetPersistsAcrossRestart","Output":"--- PASS: TestGateBudgetPersistsAcrossRestart (0.01s)\n"}
+{"Time":"2026-11-17T21:44:08.898388384Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateBudgetPersistsAcrossRestart","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:08.898394504Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateVolatileMetadataNotNewRequest"}
+{"Time":"2026-11-17T21:44:08.898397949Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateVolatileMetadataNotNewRequest","Output":"=== RUN   TestGateVolatileMetadataNotNewRequest\n"}
+{"Time":"2026-11-17T21:44:08.898562798Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateVolatileMetadataNotNewRequest","Output":"--- PASS: TestGateVolatileMetadataNotNewRequest (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.898573624Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateVolatileMetadataNotNewRequest","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.898583459Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateCanonicalizesDuplicateJSONFields"}
+{"Time":"2026-11-17T21:44:08.898586264Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateCanonicalizesDuplicateJSONFields","Output":"=== RUN   TestGateCanonicalizesDuplicateJSONFields\n"}
+{"Time":"2026-11-17T21:44:08.898647075Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateCanonicalizesDuplicateJSONFields","Output":"--- PASS: TestGateCanonicalizesDuplicateJSONFields (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.898661748Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateCanonicalizesDuplicateJSONFields","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.898668187Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateUnexpectedEndpointDenied"}
+{"Time":"2026-11-17T21:44:08.898671552Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateUnexpectedEndpointDenied","Output":"=== RUN   TestGateUnexpectedEndpointDenied\n"}
+{"Time":"2026-11-17T21:44:08.90159399Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateUnexpectedEndpointDenied","Output":"--- PASS: TestGateUnexpectedEndpointDenied (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.901614661Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateUnexpectedEndpointDenied","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.901619178Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateRejectsWrongCapabilityAndOrigin"}
+{"Time":"2026-11-17T21:44:08.901621952Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateRejectsWrongCapabilityAndOrigin","Output":"=== RUN   TestGateRejectsWrongCapabilityAndOrigin\n"}
+{"Time":"2026-11-17T21:44:08.905618794Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateRejectsWrongCapabilityAndOrigin","Output":"--- PASS: TestGateRejectsWrongCapabilityAndOrigin (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.905740878Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateRejectsWrongCapabilityAndOrigin","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.905757323Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateGzipBombDenied"}
+{"Time":"2026-11-17T21:44:08.905761369Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateGzipBombDenied","Output":"=== RUN   TestGateGzipBombDenied\n"}
+{"Time":"2026-11-17T21:44:08.951170378Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateGzipBombDenied","Output":"--- PASS: TestGateGzipBombDenied (0.05s)\n"}
+{"Time":"2026-11-17T21:44:08.951203548Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateGzipBombDenied","Elapsed":0.05}
+{"Time":"2026-11-17T21:44:08.951209547Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateZstdNotSilentlyForwarded"}
+{"Time":"2026-11-17T21:44:08.951212011Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateZstdNotSilentlyForwarded","Output":"=== RUN   TestGateZstdNotSilentlyForwarded\n"}
+{"Time":"2026-11-17T21:44:08.955032555Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateZstdNotSilentlyForwarded","Output":"--- PASS: TestGateZstdNotSilentlyForwarded (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.955050823Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateZstdNotSilentlyForwarded","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.955053888Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateAuthNotLoggedAndNoRedirect"}
+{"Time":"2026-11-17T21:44:08.955056191Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateAuthNotLoggedAndNoRedirect","Output":"=== RUN   TestGateAuthNotLoggedAndNoRedirect\n"}
+{"Time":"2026-11-17T21:44:08.96175726Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateAuthNotLoggedAndNoRedirect","Output":"--- PASS: TestGateAuthNotLoggedAndNoRedirect (0.01s)\n"}
+{"Time":"2026-11-17T21:44:08.96177669Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateAuthNotLoggedAndNoRedirect","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:08.961780415Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateConcurrentAdmissionsOneSend"}
+{"Time":"2026-11-17T21:44:08.961803991Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateConcurrentAdmissionsOneSend","Output":"=== RUN   TestGateConcurrentAdmissionsOneSend\n"}
+{"Time":"2026-11-17T21:44:08.969681218Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateConcurrentAdmissionsOneSend","Output":"--- PASS: TestGateConcurrentAdmissionsOneSend (0.01s)\n"}
+{"Time":"2026-11-17T21:44:08.969722059Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateConcurrentAdmissionsOneSend","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:08.969726776Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateNoRetryOn429"}
+{"Time":"2026-11-17T21:44:08.969729671Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateNoRetryOn429","Output":"=== RUN   TestGateNoRetryOn429\n"}
+{"Time":"2026-11-17T21:44:08.977375458Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateNoRetryOn429","Output":"--- PASS: TestGateNoRetryOn429 (0.01s)\n"}
+{"Time":"2026-11-17T21:44:08.977391462Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateNoRetryOn429","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:08.977395548Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateTerminalEventNotArbitraryText"}
+{"Time":"2026-11-17T21:44:08.977398172Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateTerminalEventNotArbitraryText","Output":"=== RUN   TestGateTerminalEventNotArbitraryText\n"}
+{"Time":"2026-11-17T21:44:08.984893677Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateTerminalEventNotArbitraryText","Output":"--- PASS: TestGateTerminalEventNotArbitraryText (0.01s)\n"}
+{"Time":"2026-11-17T21:44:08.984909822Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateTerminalEventNotArbitraryText","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:08.984919206Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateRegistersUsageButOpaqueDefaultStillDenied"}
+{"Time":"2026-11-17T21:44:08.984932176Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateRegistersUsageButOpaqueDefaultStillDenied","Output":"=== RUN   TestGateRegistersUsageButOpaqueDefaultStillDenied\n"}
+{"Time":"2026-11-17T21:44:08.98510036Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateRegistersUsageButOpaqueDefaultStillDenied","Output":"--- PASS: TestGateRegistersUsageButOpaqueDefaultStillDenied (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.985103945Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateRegistersUsageButOpaqueDefaultStillDenied","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.985106329Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateServerUsageOverLocalLimitQuarantines"}
+{"Time":"2026-11-17T21:44:08.985108252Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateServerUsageOverLocalLimitQuarantines","Output":"=== RUN   TestGateServerUsageOverLocalLimitQuarantines\n"}
+{"Time":"2026-11-17T21:44:08.992614212Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateServerUsageOverLocalLimitQuarantines","Output":"--- PASS: TestGateServerUsageOverLocalLimitQuarantines (0.01s)\n"}
+{"Time":"2026-11-17T21:44:08.992629435Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateServerUsageOverLocalLimitQuarantines","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:08.992634162Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateNoResponseBudgetNoDispatch"}
+{"Time":"2026-11-17T21:44:08.992636756Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateNoResponseBudgetNoDispatch","Output":"=== RUN   TestGateNoResponseBudgetNoDispatch\n"}
+{"Time":"2026-11-17T21:44:08.995664623Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateNoResponseBudgetNoDispatch","Output":"--- PASS: TestGateNoResponseBudgetNoDispatch (0.00s)\n"}
+{"Time":"2026-11-17T21:44:08.995675279Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateNoResponseBudgetNoDispatch","Elapsed":0}
+{"Time":"2026-11-17T21:44:08.995678394Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateResponseLimitMakesUnknown"}
+{"Time":"2026-11-17T21:44:08.995680477Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateResponseLimitMakesUnknown","Output":"=== RUN   TestGateResponseLimitMakesUnknown\n"}
+{"Time":"2026-11-17T21:44:09.001831179Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateResponseLimitMakesUnknown","Output":"--- PASS: TestGateResponseLimitMakesUnknown (0.01s)\n"}
+{"Time":"2026-11-17T21:44:09.001844169Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateResponseLimitMakesUnknown","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:09.001848886Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateRestartInFlightBecomesUnknown"}
+{"Time":"2026-11-17T21:44:09.00185152Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateRestartInFlightBecomesUnknown","Output":"=== RUN   TestGateRestartInFlightBecomesUnknown\n"}
+{"Time":"2026-11-17T21:44:09.006603292Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateRestartInFlightBecomesUnknown","Output":"--- PASS: TestGateRestartInFlightBecomesUnknown (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.006614559Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateRestartInFlightBecomesUnknown","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.006618666Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGatePolicyCannotResetExistingTask"}
+{"Time":"2026-11-17T21:44:09.006688952Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGatePolicyCannotResetExistingTask","Output":"=== RUN   TestGatePolicyCannotResetExistingTask\n"}
+{"Time":"2026-11-17T21:44:09.008899373Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGatePolicyCannotResetExistingTask","Output":"--- PASS: TestGatePolicyCannotResetExistingTask (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.008912323Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGatePolicyCannotResetExistingTask","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.008915908Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateUnknownFieldDenied"}
+{"Time":"2026-11-17T21:44:09.008918081Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateUnknownFieldDenied","Output":"=== RUN   TestGateUnknownFieldDenied\n"}
+{"Time":"2026-11-17T21:44:09.009037041Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateUnknownFieldDenied","Output":"--- PASS: TestGateUnknownFieldDenied (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.009040847Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateUnknownFieldDenied","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.009059345Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGatePublicHTTPNotAllowed"}
+{"Time":"2026-11-17T21:44:09.009061288Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGatePublicHTTPNotAllowed","Output":"=== RUN   TestGatePublicHTTPNotAllowed\n"}
+{"Time":"2026-11-17T21:44:09.009771822Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGatePublicHTTPNotAllowed","Output":"--- PASS: TestGatePublicHTTPNotAllowed (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.009788557Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGatePublicHTTPNotAllowed","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.009826254Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGatePartialSSEFrame"}
+{"Time":"2026-11-17T21:44:09.009828708Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGatePartialSSEFrame","Output":"=== RUN   TestGatePartialSSEFrame\n"}
+{"Time":"2026-11-17T21:44:09.009979165Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGatePartialSSEFrame","Output":"--- PASS: TestGatePartialSSEFrame (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.010000297Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGatePartialSSEFrame","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.010020968Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateNegativeUsageNotTrusted"}
+{"Time":"2026-11-17T21:44:09.010022861Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateNegativeUsageNotTrusted","Output":"=== RUN   TestGateNegativeUsageNotTrusted\n"}
+{"Time":"2026-11-17T21:44:09.010145527Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateNegativeUsageNotTrusted","Output":"--- PASS: TestGateNegativeUsageNotTrusted (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.010162563Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateNegativeUsageNotTrusted","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.010197996Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateDoesNotChangePayloadSemantics"}
+{"Time":"2026-11-17T21:44:09.01020038Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateDoesNotChangePayloadSemantics","Output":"=== RUN   TestGateDoesNotChangePayloadSemantics\n"}
+{"Time":"2026-11-17T21:44:09.017180681Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateDoesNotChangePayloadSemantics","Output":"--- PASS: TestGateDoesNotChangePayloadSemantics (0.01s)\n"}
+{"Time":"2026-11-17T21:44:09.017194532Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateDoesNotChangePayloadSemantics","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:09.017204847Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestGateResponseSavedLocally"}
+{"Time":"2026-11-17T21:44:09.017207151Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateResponseSavedLocally","Output":"=== RUN   TestGateResponseSavedLocally\n"}
+{"Time":"2026-11-17T21:44:09.02417639Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestGateResponseSavedLocally","Output":"--- PASS: TestGateResponseSavedLocally (0.01s)\n"}
+{"Time":"2026-11-17T21:44:09.02418995Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestGateResponseSavedLocally","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:09.024194337Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSearchRejectsEmptyQueryEvenForEmptyScope"}
+{"Time":"2026-11-17T21:44:09.02419661Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSearchRejectsEmptyQueryEvenForEmptyScope","Output":"=== RUN   TestSearchRejectsEmptyQueryEvenForEmptyScope\n"}
+{"Time":"2026-11-17T21:44:09.024850068Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSearchRejectsEmptyQueryEvenForEmptyScope","Output":"--- PASS: TestSearchRejectsEmptyQueryEvenForEmptyScope (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.024858291Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSearchRejectsEmptyQueryEvenForEmptyScope","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.024861796Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestRecoveredSearchDependencyChecksContentHash"}
+{"Time":"2026-11-17T21:44:09.024863639Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestRecoveredSearchDependencyChecksContentHash","Output":"=== RUN   TestRecoveredSearchDependencyChecksContentHash\n"}
+{"Time":"2026-11-17T21:44:09.028409529Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestRecoveredSearchDependencyChecksContentHash","Output":"--- PASS: TestRecoveredSearchDependencyChecksContentHash (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.028420064Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestRecoveredSearchDependencyChecksContentHash","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.02842354Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestCoverageUnknownNeverDowngradesToPartial"}
+{"Time":"2026-11-17T21:44:09.028425553Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCoverageUnknownNeverDowngradesToPartial","Output":"=== RUN   TestCoverageUnknownNeverDowngradesToPartial\n"}
+{"Time":"2026-11-17T21:44:09.028598835Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCoverageUnknownNeverDowngradesToPartial","Output":"--- PASS: TestCoverageUnknownNeverDowngradesToPartial (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.028601999Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestCoverageUnknownNeverDowngradesToPartial","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.028617142Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestCompleted04PacketRetainsSnapshotAfterUpgrade"}
+{"Time":"2026-11-17T21:44:09.028619165Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCompleted04PacketRetainsSnapshotAfterUpgrade","Output":"=== RUN   TestCompleted04PacketRetainsSnapshotAfterUpgrade\n"}
+{"Time":"2026-11-17T21:44:09.039605903Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCompleted04PacketRetainsSnapshotAfterUpgrade","Output":"--- PASS: TestCompleted04PacketRetainsSnapshotAfterUpgrade (0.01s)\n"}
+{"Time":"2026-11-17T21:44:09.039620575Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestCompleted04PacketRetainsSnapshotAfterUpgrade","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:09.039627696Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts"}
+{"Time":"2026-11-17T21:44:09.039630159Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts","Output":"=== RUN   TestResearchTenSharedDiagnosticContracts\n"}
+{"Time":"2026-11-17T21:44:09.039977544Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/resume-ack"}
+{"Time":"2026-11-17T21:44:09.03998132Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/resume-ack","Output":"=== RUN   TestResearchTenSharedDiagnosticContracts/resume-ack\n"}
+{"Time":"2026-11-17T21:44:09.059201542Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/resume-ack","Output":"--- PASS: TestResearchTenSharedDiagnosticContracts/resume-ack (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.059220231Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/resume-ack","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.059225709Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/settings-path"}
+{"Time":"2026-11-17T21:44:09.059228143Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/settings-path","Output":"=== RUN   TestResearchTenSharedDiagnosticContracts/settings-path\n"}
+{"Time":"2026-11-17T21:44:09.077680735Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/settings-path","Output":"--- PASS: TestResearchTenSharedDiagnosticContracts/settings-path (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.077728868Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/settings-path","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.077736359Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/build-schema"}
+{"Time":"2026-11-17T21:44:09.077741657Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/build-schema","Output":"=== RUN   TestResearchTenSharedDiagnosticContracts/build-schema\n"}
+{"Time":"2026-11-17T21:44:09.095297984Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/build-schema","Output":"--- PASS: TestResearchTenSharedDiagnosticContracts/build-schema (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.095326828Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/build-schema","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.095336282Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/cache-source"}
+{"Time":"2026-11-17T21:44:09.095340458Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/cache-source","Output":"=== RUN   TestResearchTenSharedDiagnosticContracts/cache-source\n"}
+{"Time":"2026-11-17T21:44:09.113904459Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/cache-source","Output":"--- PASS: TestResearchTenSharedDiagnosticContracts/cache-source (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.113932311Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/cache-source","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.113946713Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/io-latency"}
+{"Time":"2026-11-17T21:44:09.113950709Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/io-latency","Output":"=== RUN   TestResearchTenSharedDiagnosticContracts/io-latency\n"}
+{"Time":"2026-11-17T21:44:09.131135865Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/io-latency","Output":"--- PASS: TestResearchTenSharedDiagnosticContracts/io-latency (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.132616493Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/io-latency","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.132624706Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/binary-input"}
+{"Time":"2026-11-17T21:44:09.132632768Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/binary-input","Output":"=== RUN   TestResearchTenSharedDiagnosticContracts/binary-input\n"}
+{"Time":"2026-11-17T21:44:09.15097935Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/binary-input","Output":"--- PASS: TestResearchTenSharedDiagnosticContracts/binary-input (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.151011519Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/binary-input","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.151028053Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/write-conflict"}
+{"Time":"2026-11-17T21:44:09.151031048Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/write-conflict","Output":"=== RUN   TestResearchTenSharedDiagnosticContracts/write-conflict\n"}
+{"Time":"2026-11-17T21:44:09.169181844Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/write-conflict","Output":"--- PASS: TestResearchTenSharedDiagnosticContracts/write-conflict (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.169206902Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/write-conflict","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.16921248Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/search-coverage"}
+{"Time":"2026-11-17T21:44:09.169215515Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/search-coverage","Output":"=== RUN   TestResearchTenSharedDiagnosticContracts/search-coverage\n"}
+{"Time":"2026-11-17T21:44:09.186610408Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/search-coverage","Output":"--- PASS: TestResearchTenSharedDiagnosticContracts/search-coverage (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.186629617Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/search-coverage","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.186633853Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/implementation-diff"}
+{"Time":"2026-11-17T21:44:09.186636377Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/implementation-diff","Output":"=== RUN   TestResearchTenSharedDiagnosticContracts/implementation-diff\n"}
+{"Time":"2026-11-17T21:44:09.204343533Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/implementation-diff","Output":"--- PASS: TestResearchTenSharedDiagnosticContracts/implementation-diff (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.204365276Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/implementation-diff","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.204370143Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/document-conflict"}
+{"Time":"2026-11-17T21:44:09.204372467Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/document-conflict","Output":"=== RUN   TestResearchTenSharedDiagnosticContracts/document-conflict\n"}
+{"Time":"2026-11-17T21:44:09.22406973Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/document-conflict","Output":"--- PASS: TestResearchTenSharedDiagnosticContracts/document-conflict (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.224098353Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts/document-conflict","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.224151994Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts","Output":"--- PASS: TestResearchTenSharedDiagnosticContracts (0.18s)\n"}
+{"Time":"2026-11-17T21:44:09.2241825Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchTenSharedDiagnosticContracts","Elapsed":0.18}
+{"Time":"2026-11-17T21:44:09.22420854Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepTwoAlternativesRemainInterpretations"}
+{"Time":"2026-11-17T21:44:09.224211564Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepTwoAlternativesRemainInterpretations","Output":"=== RUN   TestSweepTwoAlternativesRemainInterpretations\n"}
+{"Time":"2026-11-17T21:44:09.241173513Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepTwoAlternativesRemainInterpretations","Output":"--- PASS: TestSweepTwoAlternativesRemainInterpretations (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.241195046Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepTwoAlternativesRemainInterpretations","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.241200064Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepReplayReadsSnapshotNotChangedProject"}
+{"Time":"2026-11-17T21:44:09.241202798Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepReplayReadsSnapshotNotChangedProject","Output":"=== RUN   TestSweepReplayReadsSnapshotNotChangedProject\n"}
+{"Time":"2026-11-17T21:44:09.26315204Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepReplayReadsSnapshotNotChangedProject","Output":"--- PASS: TestSweepReplayReadsSnapshotNotChangedProject (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.263171129Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepReplayReadsSnapshotNotChangedProject","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.263177539Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepChangedIDInputRejected"}
+{"Time":"2026-11-17T21:44:09.263180062Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepChangedIDInputRejected","Output":"=== RUN   TestSweepChangedIDInputRejected\n"}
+{"Time":"2026-11-17T21:44:09.281709706Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepChangedIDInputRejected","Output":"--- PASS: TestSweepChangedIDInputRejected (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.281733642Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepChangedIDInputRejected","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.281741053Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepReplayDetectsTamperedReport"}
+{"Time":"2026-11-17T21:44:09.281794624Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepReplayDetectsTamperedReport","Output":"=== RUN   TestSweepReplayDetectsTamperedReport\n"}
+{"Time":"2026-11-17T21:44:09.300739981Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepReplayDetectsTamperedReport","Output":"--- PASS: TestSweepReplayDetectsTamperedReport (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.300763547Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepReplayDetectsTamperedReport","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.30079201Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepRejectsWrongRootBeforeOperations"}
+{"Time":"2026-11-17T21:44:09.300794774Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepRejectsWrongRootBeforeOperations","Output":"=== RUN   TestSweepRejectsWrongRootBeforeOperations\n"}
+{"Time":"2026-11-17T21:44:09.302198857Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepRejectsWrongRootBeforeOperations","Output":"--- PASS: TestSweepRejectsWrongRootBeforeOperations (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.302211896Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepRejectsWrongRootBeforeOperations","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.302219898Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepRejectsStalePinnedSource"}
+{"Time":"2026-11-17T21:44:09.302222432Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepRejectsStalePinnedSource","Output":"=== RUN   TestSweepRejectsStalePinnedSource\n"}
+{"Time":"2026-11-17T21:44:09.304541257Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepRejectsStalePinnedSource","Output":"--- PASS: TestSweepRejectsStalePinnedSource (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.304554227Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepRejectsStalePinnedSource","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.304558103Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepPinnedSameSizeRewriteDetected"}
+{"Time":"2026-11-17T21:44:09.304559986Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepPinnedSameSizeRewriteDetected","Output":"=== RUN   TestSweepPinnedSameSizeRewriteDetected\n"}
+{"Time":"2026-11-17T21:44:09.307106244Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepPinnedSameSizeRewriteDetected","Output":"--- PASS: TestSweepPinnedSameSizeRewriteDetected (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.307122138Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepPinnedSameSizeRewriteDetected","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.307126635Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepMissingSourceIsNotNegativeProof"}
+{"Time":"2026-11-17T21:44:09.307128939Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepMissingSourceIsNotNegativeProof","Output":"=== RUN   TestSweepMissingSourceIsNotNegativeProof\n"}
+{"Time":"2026-11-17T21:44:09.325407798Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepMissingSourceIsNotNegativeProof","Output":"--- PASS: TestSweepMissingSourceIsNotNegativeProof (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.32542898Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepMissingSourceIsNotNegativeProof","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.325433817Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepBoundedSearchNegativeEvidence"}
+{"Time":"2026-11-17T21:44:09.325436351Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepBoundedSearchNegativeEvidence","Output":"=== RUN   TestSweepBoundedSearchNegativeEvidence\n"}
+{"Time":"2026-11-17T21:44:09.342380724Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepBoundedSearchNegativeEvidence","Output":"--- PASS: TestSweepBoundedSearchNegativeEvidence (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.342402767Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepBoundedSearchNegativeEvidence","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.342407564Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepTruncatedNegativeEvidenceStaysPartial"}
+{"Time":"2026-11-17T21:44:09.342410449Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepTruncatedNegativeEvidenceStaysPartial","Output":"=== RUN   TestSweepTruncatedNegativeEvidenceStaysPartial\n"}
+{"Time":"2026-11-17T21:44:09.359963661Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepTruncatedNegativeEvidenceStaysPartial","Output":"--- PASS: TestSweepTruncatedNegativeEvidenceStaysPartial (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.359986375Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepTruncatedNegativeEvidenceStaysPartial","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.359990772Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepDependencySearchThenRead"}
+{"Time":"2026-11-17T21:44:09.359993296Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepDependencySearchThenRead","Output":"=== RUN   TestSweepDependencySearchThenRead\n"}
+{"Time":"2026-11-17T21:44:09.383017748Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepDependencySearchThenRead","Output":"--- PASS: TestSweepDependencySearchThenRead (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.383047513Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepDependencySearchThenRead","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.38305172Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepMutationRejectedRegardlessOfLabel"}
+{"Time":"2026-11-17T21:44:09.383053623Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepMutationRejectedRegardlessOfLabel","Output":"=== RUN   TestSweepMutationRejectedRegardlessOfLabel\n"}
+{"Time":"2026-11-17T21:44:09.384074706Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepMutationRejectedRegardlessOfLabel","Output":"--- PASS: TestSweepMutationRejectedRegardlessOfLabel (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.384099423Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepMutationRejectedRegardlessOfLabel","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.384149149Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepExternalProbeDenied"}
+{"Time":"2026-11-17T21:44:09.384152373Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepExternalProbeDenied","Output":"=== RUN   TestSweepExternalProbeDenied\n"}
+{"Time":"2026-11-17T21:44:09.385319307Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepExternalProbeDenied","Output":"--- PASS: TestSweepExternalProbeDenied (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.385331506Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepExternalProbeDenied","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.385362322Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepProbeScopeCannotExpand"}
+{"Time":"2026-11-17T21:44:09.385365047Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepProbeScopeCannotExpand","Output":"=== RUN   TestSweepProbeScopeCannotExpand\n"}
+{"Time":"2026-11-17T21:44:09.386407132Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepProbeScopeCannotExpand","Output":"--- PASS: TestSweepProbeScopeCannotExpand (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.386416266Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepProbeScopeCannotExpand","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.386449586Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepTraversalDenied"}
+{"Time":"2026-11-17T21:44:09.386451899Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepTraversalDenied","Output":"=== RUN   TestSweepTraversalDenied\n"}
+{"Time":"2026-11-17T21:44:09.387418601Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepTraversalDenied","Output":"--- PASS: TestSweepTraversalDenied (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.387436878Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepTraversalDenied","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.387470279Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepUnscopedGitDenied"}
+{"Time":"2026-11-17T21:44:09.387472322Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepUnscopedGitDenied","Output":"=== RUN   TestSweepUnscopedGitDenied\n"}
+{"Time":"2026-11-17T21:44:09.388406995Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepUnscopedGitDenied","Output":"--- PASS: TestSweepUnscopedGitDenied (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.38841701Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepUnscopedGitDenied","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.38845051Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepCycleFailsPreflight"}
+{"Time":"2026-11-17T21:44:09.388452844Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepCycleFailsPreflight","Output":"=== RUN   TestSweepCycleFailsPreflight\n"}
+{"Time":"2026-11-17T21:44:09.38942943Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepCycleFailsPreflight","Output":"--- PASS: TestSweepCycleFailsPreflight (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.389440257Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepCycleFailsPreflight","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.389472005Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepUnknownHypothesisFails"}
+{"Time":"2026-11-17T21:44:09.389474338Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepUnknownHypothesisFails","Output":"=== RUN   TestSweepUnknownHypothesisFails\n"}
+{"Time":"2026-11-17T21:44:09.39054711Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepUnknownHypothesisFails","Output":"--- PASS: TestSweepUnknownHypothesisFails (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.390559829Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepUnknownHypothesisFails","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.390569193Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepMissingStopFails"}
+{"Time":"2026-11-17T21:44:09.390571466Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepMissingStopFails","Output":"=== RUN   TestSweepMissingStopFails\n"}
+{"Time":"2026-11-17T21:44:09.391508413Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepMissingStopFails","Output":"--- PASS: TestSweepMissingStopFails (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.391536695Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepMissingStopFails","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.391554172Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepCannotRaisePlanLimit"}
+{"Time":"2026-11-17T21:44:09.391556215Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepCannotRaisePlanLimit","Output":"=== RUN   TestSweepCannotRaisePlanLimit\n"}
+{"Time":"2026-11-17T21:44:09.392474733Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepCannotRaisePlanLimit","Output":"--- PASS: TestSweepCannotRaisePlanLimit (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.392481133Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepCannotRaisePlanLimit","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.392506822Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepNoveltyIgnoresIDsAndTimes"}
+{"Time":"2026-11-17T21:44:09.392509125Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepNoveltyIgnoresIDsAndTimes","Output":"=== RUN   TestSweepNoveltyIgnoresIDsAndTimes\n"}
+{"Time":"2026-11-17T21:44:09.424059606Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepNoveltyIgnoresIDsAndTimes","Output":"--- PASS: TestSweepNoveltyIgnoresIDsAndTimes (0.03s)\n"}
+{"Time":"2026-11-17T21:44:09.42408252Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepNoveltyIgnoresIDsAndTimes","Elapsed":0.03}
+{"Time":"2026-11-17T21:44:09.42408888Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepUnknownDoesNotRestartRead"}
+{"Time":"2026-11-17T21:44:09.424091364Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepUnknownDoesNotRestartRead","Output":"=== RUN   TestSweepUnknownDoesNotRestartRead\n"}
+{"Time":"2026-11-17T21:44:09.442106094Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepUnknownDoesNotRestartRead","Output":"--- PASS: TestSweepUnknownDoesNotRestartRead (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.442125514Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepUnknownDoesNotRestartRead","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.442131553Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepRestartBetweenBatchAndReportReusesCompletedBatch"}
+{"Time":"2026-11-17T21:44:09.442134187Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepRestartBetweenBatchAndReportReusesCompletedBatch","Output":"=== RUN   TestSweepRestartBetweenBatchAndReportReusesCompletedBatch\n"}
+{"Time":"2026-11-17T21:44:09.469757441Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepRestartBetweenBatchAndReportReusesCompletedBatch","Output":"--- PASS: TestSweepRestartBetweenBatchAndReportReusesCompletedBatch (0.03s)\n"}
+{"Time":"2026-11-17T21:44:09.469784792Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepRestartBetweenBatchAndReportReusesCompletedBatch","Elapsed":0.03}
+{"Time":"2026-11-17T21:44:09.469790561Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepReportUTF8Limit"}
+{"Time":"2026-11-17T21:44:09.469793515Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepReportUTF8Limit","Output":"=== RUN   TestSweepReportUTF8Limit\n"}
+{"Time":"2026-11-17T21:44:09.487642244Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepReportUTF8Limit","Output":"--- PASS: TestSweepReportUTF8Limit (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.487661533Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepReportUTF8Limit","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.487675665Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepSmallTaskStillUsesBatch"}
+{"Time":"2026-11-17T21:44:09.487678349Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepSmallTaskStillUsesBatch","Output":"=== RUN   TestSweepSmallTaskStillUsesBatch\n"}
+{"Time":"2026-11-17T21:44:09.494643327Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepSmallTaskStillUsesBatch","Output":"--- PASS: TestSweepSmallTaskStillUsesBatch (0.01s)\n"}
+{"Time":"2026-11-17T21:44:09.494659902Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepSmallTaskStillUsesBatch","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:09.49466497Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepNoCodeModeOrNetworkDependency"}
+{"Time":"2026-11-17T21:44:09.49467206Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepNoCodeModeOrNetworkDependency","Output":"=== RUN   TestSweepNoCodeModeOrNetworkDependency\n"}
+{"Time":"2026-11-17T21:44:09.510616907Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepNoCodeModeOrNetworkDependency","Output":"--- PASS: TestSweepNoCodeModeOrNetworkDependency (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.510635054Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepNoCodeModeOrNetworkDependency","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.51063918Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepSymlinkCannotProduceCompleteEvidence"}
+{"Time":"2026-11-17T21:44:09.510641303Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepSymlinkCannotProduceCompleteEvidence","Output":"=== RUN   TestSweepSymlinkCannotProduceCompleteEvidence\n"}
+{"Time":"2026-11-17T21:44:09.526254719Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepSymlinkCannotProduceCompleteEvidence","Output":"--- PASS: TestSweepSymlinkCannotProduceCompleteEvidence (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.526274359Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepSymlinkCannotProduceCompleteEvidence","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.526278275Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepSchemaStaysUnderOriginalDiscoveryBudget"}
+{"Time":"2026-11-17T21:44:09.526280699Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepSchemaStaysUnderOriginalDiscoveryBudget","Output":"=== RUN   TestSweepSchemaStaysUnderOriginalDiscoveryBudget\n"}
+{"Time":"2026-11-17T21:44:09.526892769Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepSchemaStaysUnderOriginalDiscoveryBudget","Output":"--- PASS: TestSweepSchemaStaysUnderOriginalDiscoveryBudget (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.526904126Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepSchemaStaysUnderOriginalDiscoveryBudget","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.526917256Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepMCPWireCarriesEvidenceWithinBudget"}
+{"Time":"2026-11-17T21:44:09.526919699Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepMCPWireCarriesEvidenceWithinBudget","Output":"=== RUN   TestSweepMCPWireCarriesEvidenceWithinBudget\n"}
+{"Time":"2026-11-17T21:44:09.544440262Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepMCPWireCarriesEvidenceWithinBudget","Output":"--- PASS: TestSweepMCPWireCarriesEvidenceWithinBudget (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.54445861Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepMCPWireCarriesEvidenceWithinBudget","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.544462726Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestSweepJournalCannotLaunderCoverage"}
+{"Time":"2026-11-17T21:44:09.544465841Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepJournalCannotLaunderCoverage","Output":"=== RUN   TestSweepJournalCannotLaunderCoverage\n"}
+{"Time":"2026-11-17T21:44:09.563372961Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestSweepJournalCannotLaunderCoverage","Output":"--- PASS: TestSweepJournalCannotLaunderCoverage (0.02s)\n"}
+{"Time":"2026-11-17T21:44:09.563391989Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestSweepJournalCannotLaunderCoverage","Elapsed":0.02}
+{"Time":"2026-11-17T21:44:09.563400923Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchSkillIsActuallyDeliveredAndBounded"}
+{"Time":"2026-11-17T21:44:09.563402666Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchSkillIsActuallyDeliveredAndBounded","Output":"=== RUN   TestResearchSkillIsActuallyDeliveredAndBounded\n"}
+{"Time":"2026-11-17T21:44:09.564128252Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchSkillIsActuallyDeliveredAndBounded","Output":"--- PASS: TestResearchSkillIsActuallyDeliveredAndBounded (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.564136665Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchSkillIsActuallyDeliveredAndBounded","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.564163766Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestCancelledSweepNeverClaimsCompleteSource"}
+{"Time":"2026-11-17T21:44:09.564166079Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCancelledSweepNeverClaimsCompleteSource","Output":"=== RUN   TestCancelledSweepNeverClaimsCompleteSource\n"}
+{"Time":"2026-11-17T21:44:09.579109417Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestCancelledSweepNeverClaimsCompleteSource","Output":"--- PASS: TestCancelledSweepNeverClaimsCompleteSource (0.01s)\n"}
+{"Time":"2026-11-17T21:44:09.579128786Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestCancelledSweepNeverClaimsCompleteSource","Elapsed":0.01}
+{"Time":"2026-11-17T21:44:09.579133143Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestResearchSourceCaptureKeepsUnknownOnMissingRoot"}
+{"Time":"2026-11-17T21:44:09.579140253Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchSourceCaptureKeepsUnknownOnMissingRoot","Output":"=== RUN   TestResearchSourceCaptureKeepsUnknownOnMissingRoot\n"}
+{"Time":"2026-11-17T21:44:09.579924123Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestResearchSourceCaptureKeepsUnknownOnMissingRoot","Output":"--- PASS: TestResearchSourceCaptureKeepsUnknownOnMissingRoot (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.579936873Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestResearchSourceCaptureKeepsUnknownOnMissingRoot","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.579940829Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestOversizedIrreducibleQuestionsDeniedBeforeReading"}
+{"Time":"2026-11-17T21:44:09.579947378Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestOversizedIrreducibleQuestionsDeniedBeforeReading","Output":"=== RUN   TestOversizedIrreducibleQuestionsDeniedBeforeReading\n"}
+{"Time":"2026-11-17T21:44:09.581036505Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestOversizedIrreducibleQuestionsDeniedBeforeReading","Output":"--- PASS: TestOversizedIrreducibleQuestionsDeniedBeforeReading (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.581067722Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestOversizedIrreducibleQuestionsDeniedBeforeReading","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.581137618Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestPrivateStoreRenameRestartsWholeMeasurement"}
+{"Time":"2026-11-17T21:44:09.581139831Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestPrivateStoreRenameRestartsWholeMeasurement","Output":"=== RUN   TestPrivateStoreRenameRestartsWholeMeasurement\n"}
+{"Time":"2026-11-17T21:44:09.581205791Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestPrivateStoreRenameRestartsWholeMeasurement","Output":"--- PASS: TestPrivateStoreRenameRestartsWholeMeasurement (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.581217218Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestPrivateStoreRenameRestartsWholeMeasurement","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.581228625Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestPrivateStoreMissingCommittedFileNeverRetried"}
+{"Time":"2026-11-17T21:44:09.581230338Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestPrivateStoreMissingCommittedFileNeverRetried","Output":"=== RUN   TestPrivateStoreMissingCommittedFileNeverRetried\n"}
+{"Time":"2026-11-17T21:44:09.581266763Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestPrivateStoreMissingCommittedFileNeverRetried","Output":"--- PASS: TestPrivateStoreMissingCommittedFileNeverRetried (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.581268876Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestPrivateStoreMissingCommittedFileNeverRetried","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.58129143Z","Action":"run","Package":"platformstudio.local/economy","Test":"TestPrivateStoreRenameRetryIsBoundedAndDoesNotIgnorePermission"}
+{"Time":"2026-11-17T21:44:09.581293313Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestPrivateStoreRenameRetryIsBoundedAndDoesNotIgnorePermission","Output":"=== RUN   TestPrivateStoreRenameRetryIsBoundedAndDoesNotIgnorePermission\n"}
+{"Time":"2026-11-17T21:44:09.581321606Z","Action":"output","Package":"platformstudio.local/economy","Test":"TestPrivateStoreRenameRetryIsBoundedAndDoesNotIgnorePermission","Output":"--- PASS: TestPrivateStoreRenameRetryIsBoundedAndDoesNotIgnorePermission (0.00s)\n"}
+{"Time":"2026-11-17T21:44:09.581334886Z","Action":"pass","Package":"platformstudio.local/economy","Test":"TestPrivateStoreRenameRetryIsBoundedAndDoesNotIgnorePermission","Elapsed":0}
+{"Time":"2026-11-17T21:44:09.581360064Z","Action":"output","Package":"platformstudio.local/economy","Output":"PASS\n"}
+{"Time":"2026-11-17T21:44:10.584333504Z","Action":"output","Package":"platformstudio.local/economy","Output":"ok  \tplatformstudio.local/economy\t3.984s\n"}
+{"Time":"2026-11-17T21:44:10.584388858Z","Action":"pass","Package":"platformstudio.local/economy","Elapsed":3.984}

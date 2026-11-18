@@ -1,0 +1,37 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Platform Studio",
+  "version": "0.5.0",
+  "identifier": "local.platform.studio",
+  "build": {
+    "frontendDist": "../../../dist"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      {
+        "label": "main",
+        "title": "Слой · Platform Studio",
+        "width": 1440,
+        "height": 960,
+        "minWidth": 860,
+        "minHeight": 600,
+        "backgroundColor": "#111214",
+        "url": "assistant.html"
+      }
+    ],
+    "security": {
+      "csp": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; worker-src blob:; img-src 'self' data: blob:; font-src 'self'; connect-src ipc: http://ipc.localhost; object-src 'none'; base-uri 'none'; frame-src 'none'",
+      "capabilities": [
+        "main"
+      ]
+    }
+  },
+  "bundle": {
+    "active": false,
+    "icon": [
+      "icons/icon.ico",
+      "icons/icon.png"
+    ]
+  }
+}

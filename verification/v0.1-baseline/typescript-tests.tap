@@ -1,0 +1,526 @@
+TAP version 13
+# Subtest: reject path "../x"
+ok 1 - reject path "../x"
+  ---
+  duration_ms: 2.791815
+  type: 'test'
+  ...
+# Subtest: reject path "/etc/passwd"
+ok 2 - reject path "/etc/passwd"
+  ---
+  duration_ms: 0.234994
+  type: 'test'
+  ...
+# Subtest: reject path "C:/x"
+ok 3 - reject path "C:/x"
+  ---
+  duration_ms: 0.27795
+  type: 'test'
+  ...
+# Subtest: reject path "a\\\\b"
+ok 4 - reject path "a\\\\b"
+  ---
+  duration_ms: 0.100147
+  type: 'test'
+  ...
+# Subtest: reject path "a:stream"
+ok 5 - reject path "a:stream"
+  ---
+  duration_ms: 0.078307
+  type: 'test'
+  ...
+# Subtest: reject path "a//b"
+ok 6 - reject path "a//b"
+  ---
+  duration_ms: 0.661913
+  type: 'test'
+  ...
+# Subtest: reject path "a/./b"
+ok 7 - reject path "a/./b"
+  ---
+  duration_ms: 0.232051
+  type: 'test'
+  ...
+# Subtest: reject path "CON.txt"
+ok 8 - reject path "CON.txt"
+  ---
+  duration_ms: 0.080083
+  type: 'test'
+  ...
+# Subtest: reject path "LPT1"
+ok 9 - reject path "LPT1"
+  ---
+  duration_ms: 0.324012
+  type: 'test'
+  ...
+# Subtest: reject path "folder./x"
+ok 10 - reject path "folder./x"
+  ---
+  duration_ms: 0.565119
+  type: 'test'
+  ...
+# Subtest: reject path "file "
+ok 11 - reject path "file "
+  ---
+  duration_ms: 0.137566
+  type: 'test'
+  ...
+# Subtest: reject path "a\\u0000b"
+ok 12 - reject path "a\\u0000b"
+  ---
+  duration_ms: 0.184456
+  type: 'test'
+  ...
+# Subtest: reject path "aux.js"
+ok 13 - reject path "aux.js"
+  ---
+  duration_ms: 0.175951
+  type: 'test'
+  ...
+# Subtest: reject path "a?.js"
+ok 14 - reject path "a?.js"
+  ---
+  duration_ms: 0.091324
+  type: 'test'
+  ...
+# Subtest: unicode relative path allowed
+ok 15 - unicode relative path allowed
+  ---
+  duration_ms: 1.415425
+  type: 'test'
+  ...
+# Subtest: case-insensitive path collision rejected
+ok 16 - case-insensitive path collision rejected
+  ---
+  duration_ms: 0.440257
+  type: 'test'
+  ...
+# Subtest: binary NUL rejected
+ok 17 - binary NUL rejected
+  ---
+  duration_ms: 0.147403
+  type: 'test'
+  ...
+# Subtest: size limit counts UTF-8 bytes
+ok 18 - size limit counts UTF-8 bytes
+  ---
+  duration_ms: 3.310656
+  type: 'test'
+  ...
+# Subtest: normalization is idempotent
+ok 19 - normalization is idempotent
+  ---
+  duration_ms: 0.386393
+  type: 'test'
+  ...
+# Subtest: canonical serialization sorts keys
+ok 20 - canonical serialization sorts keys
+  ---
+  duration_ms: 0.573725
+  type: 'test'
+  ...
+# Subtest: SHA-256 standard vector
+ok 21 - SHA-256 standard vector
+  ---
+  duration_ms: 57.963956
+  type: 'test'
+  ...
+# Subtest: report template compiles
+ok 22 - report template compiles
+  ---
+  duration_ms: 3.749913
+  type: 'test'
+  ...
+# Subtest: normalize template compiles
+ok 23 - normalize template compiles
+  ---
+  duration_ms: 0.359021
+  type: 'test'
+  ...
+# Subtest: missing required input identified
+ok 24 - missing required input identified
+  ---
+  duration_ms: 0.355121
+  type: 'test'
+  ...
+# Subtest: type mismatch identified
+ok 25 - type mismatch identified
+  ---
+  duration_ms: 0.668061
+  type: 'test'
+  ...
+# Subtest: unknown port rejected at import
+ok 26 - unknown port rejected at import
+  ---
+  duration_ms: 0.697535
+  type: 'test'
+  ...
+# Subtest: cycles fail preflight
+ok 27 - cycles fail preflight
+  ---
+  duration_ms: 0.277404
+  type: 'test'
+  ...
+# Subtest: result cannot bypass checker
+ok 28 - result cannot bypass checker
+  ---
+  duration_ms: 0.207247
+  type: 'test'
+  ...
+# Subtest: orphan work is not silently accepted
+ok 29 - orphan work is not silently accepted
+  ---
+  duration_ms: 0.387587
+  type: 'test'
+  ...
+# Subtest: Codex unavailable rather than synthetic success
+ok 30 - Codex unavailable rather than synthetic success
+  ---
+  duration_ms: 1.385814
+  type: 'test'
+  ...
+# Subtest: deleted obligation blocks checker
+ok 31 - deleted obligation blocks checker
+  ---
+  duration_ms: 0.221099
+  type: 'test'
+  ...
+# Subtest: editor CAS rejects stale agent patch
+ok 32 - editor CAS rejects stale agent patch
+  ---
+  duration_ms: 0.993809
+  type: 'test'
+  ...
+# Subtest: undo/redo never rewinds revision identity
+ok 33 - undo/redo never rewinds revision identity
+  ---
+  duration_ms: 0.978686
+  type: 'test'
+  ...
+# Subtest: second view is not a second operation
+ok 34 - second view is not a second operation
+  ---
+  duration_ms: 0.846398
+  type: 'test'
+  ...
+# Subtest: removing a node removes all its views and edges
+ok 35 - removing a node removes all its views and edges
+  ---
+  duration_ms: 0.376766
+  type: 'test'
+  ...
+# Subtest: duplicate semantic IDs rejected
+ok 36 - duplicate semantic IDs rejected
+  ---
+  duration_ms: 0.207457
+  type: 'test'
+  ...
+# Subtest: prototype assignment blocked
+ok 37 - prototype assignment blocked
+  ---
+  duration_ms: 0.146813
+  type: 'test'
+  ...
+# Subtest: bad viewport rejected
+ok 38 - bad viewport rejected
+  ---
+  duration_ms: 0.57923
+  type: 'test'
+  ...
+# Subtest: real report includes actual hashes and paths
+ok 39 - real report includes actual hashes and paths
+  ---
+  duration_ms: 52.493752
+  type: 'test'
+  ...
+# Subtest: normalization changes outputs not source
+ok 40 - normalization changes outputs not source
+  ---
+  duration_ms: 9.027007
+  type: 'test'
+  ...
+# Subtest: artifact tampering invalidates digest
+ok 41 - artifact tampering invalidates digest
+  ---
+  duration_ms: 7.460902
+  type: 'test'
+  ...
+# Subtest: manifest alteration invalidates digest
+ok 42 - manifest alteration invalidates digest
+  ---
+  duration_ms: 11.138767
+  type: 'test'
+  ...
+# Subtest: false success rejected by frozen criterion
+ok 43 - false success rejected by frozen criterion
+  ---
+  duration_ms: 6.419937
+  type: 'test'
+  ...
+# Subtest: empty input does not produce a success report
+ok 44 - empty input does not produce a success report
+  ---
+  duration_ms: 5.089358
+  type: 'test'
+  ...
+# Subtest: frozen run ignores edits after start
+ok 45 - frozen run ignores edits after start
+  ---
+  duration_ms: 9.452124
+  type: 'test'
+  ...
+# Subtest: cancellation stops before a result and is not success
+ok 46 - cancellation stops before a result and is not success
+  ---
+  duration_ms: 2.815547
+  type: 'test'
+  ...
+# Subtest: monotonic event sequence
+ok 47 - monotonic event sequence
+  ---
+  duration_ms: 10.599998
+  type: 'test'
+  ...
+# Subtest: missing target file fails criterion not vacuous success
+ok 48 - missing target file fails criterion not vacuous success
+  ---
+  duration_ms: 0.347209
+  type: 'test'
+  ...
+# Subtest: invalid JSON criterion fails
+ok 49 - invalid JSON criterion fails
+  ---
+  duration_ms: 0.28983
+  type: 'test'
+  ...
+# Subtest: diff includes deleted files and new files
+ok 50 - diff includes deleted files and new files
+  ---
+  duration_ms: 0.529504
+  type: 'test'
+  ...
+# Subtest: external manual edit produces conflict
+ok 51 - external manual edit produces conflict
+  ---
+  duration_ms: 0.226078
+  type: 'test'
+  ...
+# Subtest: matching external edit is not a new conflict
+ok 52 - matching external edit is not a new conflict
+  ---
+  duration_ms: 0.065707
+  type: 'test'
+  ...
+# Subtest: budget reserve then estimate does not free money
+ok 53 - budget reserve then estimate does not free money
+  ---
+  duration_ms: 0.969223
+  type: 'test'
+  ...
+# Subtest: unknown price fails closed
+ok 54 - unknown price fails closed
+  ---
+  duration_ms: 0.08709
+  type: 'test'
+  ...
+# Subtest: budget restart preserves open reserves
+ok 55 - budget restart preserves open reserves
+  ---
+  duration_ms: 0.264492
+  type: 'test'
+  ...
+# Subtest: double settlement cannot refund twice
+ok 56 - double settlement cannot refund twice
+  ---
+  duration_ms: 0.112932
+  type: 'test'
+  ...
+# Subtest: uncertain external effect is not automatically retried
+ok 57 - uncertain external effect is not automatically retried
+  ---
+  duration_ms: 0.311089
+  type: 'test'
+  ...
+# Subtest: a supported receiver key permits logical retry
+ok 58 - a supported receiver key permits logical retry
+  ---
+  duration_ms: 0.103479
+  type: 'test'
+  ...
+# Subtest: old generation loses retry permission
+ok 59 - old generation loses retry permission
+  ---
+  duration_ms: 0.041001
+  type: 'test'
+  ...
+# Subtest: three no-progress cycles block fourth after restore
+ok 60 - three no-progress cycles block fourth after restore
+  ---
+  duration_ms: 0.161516
+  type: 'test'
+  ...
+# Subtest: rewording a claim is not progress
+ok 61 - rewording a claim is not progress
+  ---
+  duration_ms: 0.054387
+  type: 'test'
+  ...
+# Subtest: observed new evidence resets consecutive stall count
+ok 62 - observed new evidence resets consecutive stall count
+  ---
+  duration_ms: 0.04187
+  type: 'test'
+  ...
+# Subtest: cancel ACK does not release a lease
+ok 63 - cancel ACK does not release a lease
+  ---
+  duration_ms: 0.070263
+  type: 'test'
+  ...
+# Subtest: concurrent duplicate commands execute once
+ok 64 - concurrent duplicate commands execute once
+  ---
+  duration_ms: 5.875496
+  type: 'test'
+  ...
+# Subtest: bounded queue rejects instead of silent loss
+ok 65 - bounded queue rejects instead of silent loss
+  ---
+  duration_ms: 0.450857
+  type: 'test'
+  ...
+# Subtest: latest queue records dropped sequence
+ok 66 - latest queue records dropped sequence
+  ---
+  duration_ms: 0.214368
+  type: 'test'
+  ...
+# Subtest: arrival and event-time policies differ on late language
+ok 67 - arrival and event-time policies differ on late language
+  ---
+  duration_ms: 0.776122
+  type: 'test'
+  ...
+# Subtest: event time waits for both watermarks
+ok 68 - event time waits for both watermarks
+  ---
+  duration_ms: 0.156664
+  type: 'test'
+  ...
+# Subtest: protocol builder never enables sandbox bypass
+ok 69 - protocol builder never enables sandbox bypass
+  ---
+  duration_ms: 0.23346
+  type: 'test'
+  ...
+# Subtest: supervisor contract preserves original Russian request
+ok 70 - supervisor contract preserves original Russian request
+  ---
+  duration_ms: 0.181132
+  type: 'test'
+  ...
+# Subtest: real filesystem route reads source, computes report, writes new proposal and reads back
+ok 71 - real filesystem route reads source, computes report, writes new proposal and reads back
+  ---
+  duration_ms: 24.809152
+  type: 'test'
+  ...
+# Subtest: production worker bundle computes actual report in JS VM, no browser
+ok 72 - production worker bundle computes actual report in JS VM, no browser
+  ---
+  duration_ms: 47.198878
+  type: 'test'
+  ...
+# Subtest: production worker rejects Codex rather than generating simulated activity
+ok 73 - production worker rejects Codex rather than generating simulated activity
+  ---
+  duration_ms: 4.509859
+  type: 'test'
+  ...
+# Subtest: input snapshots and goal survive subsequent source and goal changes
+ok 74 - input snapshots and goal survive subsequent source and goal changes
+  ---
+  duration_ms: 16.847327
+  type: 'test'
+  ...
+# Subtest: undo changes goal identity rather than reusing an earlier revision
+ok 75 - undo changes goal identity rather than reusing an earlier revision
+  ---
+  duration_ms: 0.596854
+  type: 'test'
+  ...
+# Subtest: empty contains criterion rejected before work
+ok 76 - empty contains criterion rejected before work
+  ---
+  duration_ms: 0.76361
+  type: 'test'
+  ...
+# Subtest: concurrent cancellation drains all stage work before terminal state
+ok 77 - concurrent cancellation drains all stage work before terminal state
+  ---
+  duration_ms: 28.856807
+  type: 'test'
+  ...
+# Subtest: already removed target is not a conflict for intended deletion
+ok 78 - already removed target is not a conflict for intended deletion
+  ---
+  duration_ms: 0.634298
+  type: 'test'
+  ...
+# Subtest: actual CLI creates new files, does not mutate originals and refuses overwrite
+ok 79 - actual CLI creates new files, does not mutate originals and refuses overwrite
+  ---
+  duration_ms: 31.496186
+  type: 'test'
+  ...
+# Subtest: CLI cannot write a proposal inside the source tree
+ok 80 - CLI cannot write a proposal inside the source tree
+  ---
+  duration_ms: 3.663634
+  type: 'test'
+  ...
+# Subtest: CLI fails on unsupported binary data instead of silent omission
+ok 81 - CLI fails on unsupported binary data instead of silent omission
+  ---
+  duration_ms: 11.441855
+  type: 'test'
+  ...
+# Subtest: offline HTML scripts parse; all code and styles are local
+ok 82 - offline HTML scripts parse; all code and styles are local
+  ---
+  duration_ms: 7.416574
+  type: 'test'
+  ...
+# Subtest: static HTML has unique IDs and primary action bindings exist
+ok 83 - static HTML has unique IDs and primary action bindings exist
+  ---
+  duration_ms: 3.474168
+  type: 'test'
+  ...
+# Subtest: restored budget rejects negative or duplicate reservations
+ok 84 - restored budget rejects negative or duplicate reservations
+  ---
+  duration_ms: 0.318943
+  type: 'test'
+  ...
+# Subtest: drop history stays bounded and missing older detail is counted
+ok 85 - drop history stays bounded and missing older detail is counted
+  ---
+  duration_ms: 2.800674
+  type: 'test'
+  ...
+# Subtest: invalid queue limits are rejected
+ok 86 - invalid queue limits are rejected
+  ---
+  duration_ms: 0.156364
+  type: 'test'
+  ...
+1..86
+# tests 86
+# suites 0
+# pass 86
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 336.630854
