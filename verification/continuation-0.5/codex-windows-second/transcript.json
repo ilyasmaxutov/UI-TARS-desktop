@@ -1,0 +1,312 @@
+[
+  {
+    "direction": "send",
+    "atMs": 1615,
+    "frame": {
+      "id": "probe_1",
+      "method": "initialize",
+      "params": {
+        "clientInfo": {
+          "name": "platform_studio_protocol_probe",
+          "title": "Platform Studio offline protocol probe",
+          "version": "0.5.0"
+        },
+        "capabilities": {
+          "experimentalApi": false
+        }
+      }
+    }
+  },
+  {
+    "direction": "receive",
+    "atMs": 2462,
+    "frame": {
+      "id": "probe_1",
+      "result": {
+        "userAgent": "platform_studio_protocol_probe/0.170.0 (Windows 10.0.26100; x86_64) unknown (platform_studio_protocol_probe; 0.5.0)",
+        "codexHome": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\codex-profile",
+        "platformFamily": "windows",
+        "platformOs": "windows"
+      }
+    }
+  },
+  {
+    "direction": "send",
+    "atMs": 2463,
+    "frame": {
+      "method": "initialized"
+    }
+  },
+  {
+    "direction": "send",
+    "atMs": 2463,
+    "frame": {
+      "id": "probe_2",
+      "method": "thread/start",
+      "params": {
+        "cwd": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project",
+        "sandbox": "read-only",
+        "approvalPolicy": "never",
+        "developerInstructions": "Metadata-only protocol probe. No turn, tool, or inference request will be sent."
+      }
+    }
+  },
+  {
+    "direction": "receive",
+    "atMs": 2463,
+    "frame": {
+      "method": "remoteControl/status/changed",
+      "params": {
+        "status": "disabled",
+        "serverName": "runnervmm7ud1",
+        "installationId": "4a814b8c-dd81-4d45-8ce9-79a6dd2da491",
+        "environmentId": null
+      },
+      "emittedAtMs": 1794996277463
+    }
+  },
+  {
+    "direction": "receive",
+    "atMs": 2493,
+    "frame": {
+      "id": "probe_2",
+      "result": {
+        "thread": {
+          "id": "01a1ee1d-90dd-76a0-af76-28614ad4d3d4",
+          "environments": [
+            {
+              "environmentId": "local",
+              "cwd": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project",
+              "runtimeWorkspaceRoots": [
+                "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project"
+              ]
+            }
+          ],
+          "extra": null,
+          "sessionId": "01a1ee1d-90dd-76a0-af76-28614ad4d3d4",
+          "forkedFromId": null,
+          "attachedToThreadId": null,
+          "parentThreadId": null,
+          "preview": "",
+          "ephemeral": false,
+          "section": null,
+          "sectionEnteredAt": null,
+          "projectId": null,
+          "historyMode": "paginated",
+          "modelProvider": "studio_protocol_probe",
+          "model": "studio-no-inference",
+          "reasoningEffort": null,
+          "createdAt": 1794996277,
+          "updatedAt": 1794996277,
+          "recencyAt": 1794996277,
+          "status": {
+            "type": "idle"
+          },
+          "path": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\codex-profile\\sessions\\2026\\11\\18\\rollout-2026-11-18T10-04-37-01a1ee1d-90dd-76a0-af76-28614ad4d3d4.jsonl",
+          "cwd": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project",
+          "cliVersion": "0.170.0",
+          "originator": "platform_studio_protocol_probe",
+          "source": "vscode",
+          "canAcceptDirectInput": true,
+          "threadSource": null,
+          "agentNickname": null,
+          "agentRole": null,
+          "gitInfo": null,
+          "name": null,
+          "daybreakEnabled": null,
+          "turns": []
+        },
+        "model": "studio-no-inference",
+        "modelProvider": "studio_protocol_probe",
+        "serviceTier": null,
+        "disabledPluginIds": [],
+        "cwd": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project",
+        "runtimeWorkspaceRoots": [
+          "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project"
+        ],
+        "instructionSources": [],
+        "approvalPolicy": "never",
+        "approvalsReviewer": "user",
+        "sandbox": {
+          "type": "readOnly",
+          "networkAccess": false
+        },
+        "activePermissionProfile": null,
+        "reasoningEffort": null,
+        "multiAgentMode": "explicitRequestOnly"
+      }
+    }
+  },
+  {
+    "direction": "send",
+    "atMs": 2494,
+    "frame": {
+      "id": "probe_3",
+      "method": "thread/read",
+      "params": {
+        "threadId": "01a1ee1d-90dd-76a0-af76-28614ad4d3d4"
+      }
+    }
+  },
+  {
+    "direction": "receive",
+    "atMs": 2494,
+    "frame": {
+      "method": "thread/started",
+      "params": {
+        "thread": {
+          "id": "01a1ee1d-90dd-76a0-af76-28614ad4d3d4",
+          "environments": [
+            {
+              "environmentId": "local",
+              "cwd": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project",
+              "runtimeWorkspaceRoots": [
+                "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project"
+              ]
+            }
+          ],
+          "extra": null,
+          "sessionId": "01a1ee1d-90dd-76a0-af76-28614ad4d3d4",
+          "forkedFromId": null,
+          "attachedToThreadId": null,
+          "parentThreadId": null,
+          "preview": "",
+          "ephemeral": false,
+          "section": null,
+          "sectionEnteredAt": null,
+          "projectId": null,
+          "historyMode": "paginated",
+          "modelProvider": "studio_protocol_probe",
+          "model": "studio-no-inference",
+          "reasoningEffort": null,
+          "createdAt": 1794996277,
+          "updatedAt": 1794996277,
+          "recencyAt": 1794996277,
+          "status": {
+            "type": "idle"
+          },
+          "path": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\codex-profile\\sessions\\2026\\11\\18\\rollout-2026-11-18T10-04-37-01a1ee1d-90dd-76a0-af76-28614ad4d3d4.jsonl",
+          "cwd": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project",
+          "cliVersion": "0.170.0",
+          "originator": "platform_studio_protocol_probe",
+          "source": "vscode",
+          "canAcceptDirectInput": true,
+          "threadSource": null,
+          "agentNickname": null,
+          "agentRole": null,
+          "gitInfo": null,
+          "name": null,
+          "daybreakEnabled": null,
+          "turns": []
+        }
+      },
+      "emittedAtMs": 1794996277494
+    }
+  },
+  {
+    "direction": "receive",
+    "atMs": 2495,
+    "frame": {
+      "id": "probe_3",
+      "result": {
+        "thread": {
+          "id": "01a1ee1d-90dd-76a0-af76-28614ad4d3d4",
+          "environments": [
+            {
+              "environmentId": "local",
+              "cwd": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project",
+              "runtimeWorkspaceRoots": [
+                "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project"
+              ]
+            }
+          ],
+          "extra": null,
+          "sessionId": "01a1ee1d-90dd-76a0-af76-28614ad4d3d4",
+          "forkedFromId": null,
+          "attachedToThreadId": null,
+          "parentThreadId": null,
+          "preview": "",
+          "ephemeral": false,
+          "section": null,
+          "sectionEnteredAt": null,
+          "projectId": null,
+          "historyMode": "paginated",
+          "modelProvider": "studio_protocol_probe",
+          "model": "studio-no-inference",
+          "reasoningEffort": null,
+          "createdAt": 1794996277,
+          "updatedAt": 1794996277,
+          "recencyAt": 1794996277,
+          "status": {
+            "type": "idle"
+          },
+          "path": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\codex-profile\\sessions\\2026\\11\\18\\rollout-2026-11-18T10-04-37-01a1ee1d-90dd-76a0-af76-28614ad4d3d4.jsonl",
+          "cwd": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project",
+          "cliVersion": "0.170.0",
+          "originator": "platform_studio_protocol_probe",
+          "source": "vscode",
+          "canAcceptDirectInput": true,
+          "threadSource": null,
+          "agentNickname": null,
+          "agentRole": null,
+          "gitInfo": null,
+          "name": null,
+          "daybreakEnabled": null,
+          "turns": []
+        },
+        "readState": null
+      }
+    }
+  },
+  {
+    "direction": "send",
+    "atMs": 2495,
+    "frame": {
+      "id": "probe_4",
+      "method": "thread/turns/list",
+      "params": {
+        "threadId": "01a1ee1d-90dd-76a0-af76-28614ad4d3d4",
+        "limit": 50,
+        "sortDirection": "desc",
+        "itemsView": "full"
+      }
+    }
+  },
+  {
+    "direction": "receive",
+    "atMs": 2497,
+    "frame": {
+      "error": {
+        "code": -32600,
+        "message": "thread 01a1ee1d-90dd-76a0-af76-28614ad4d3d4 is not materialized yet; thread/turns/list is unavailable before first user message"
+      },
+      "id": "probe_4"
+    }
+  },
+  {
+    "direction": "send",
+    "atMs": 2498,
+    "frame": {
+      "id": "probe_5",
+      "method": "thread/resume",
+      "params": {
+        "threadId": "01a1ee1d-90dd-76a0-af76-28614ad4d3d4",
+        "cwd": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\studio-codex-probe-tXFbhn\\empty-project",
+        "sandbox": "read-only",
+        "approvalPolicy": "never",
+        "excludeTurns": true
+      }
+    }
+  },
+  {
+    "direction": "receive",
+    "atMs": 2498,
+    "frame": {
+      "error": {
+        "code": -32600,
+        "message": "no rollout found for thread id 01a1ee1d-90dd-76a0-af76-28614ad4d3d4"
+      },
+      "id": "probe_5"
+    }
+  }
+]

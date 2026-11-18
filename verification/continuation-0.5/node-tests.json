@@ -2,14 +2,14 @@
   "command": "npm run verify",
   "exitCode": 0,
   "summary": [
-    "✔ one cancellation does not fence another independent run (1.175548ms)",
-    "ℹ tests 375",
+    "✔ one cancellation does not fence another independent run (0.845491ms)",
+    "ℹ tests 380",
     "ℹ suites 0",
-    "ℹ pass 375",
+    "ℹ pass 380",
     "ℹ fail 0",
     "ℹ cancelled 0",
     "ℹ skipped 0",
     "ℹ todo 0",
-    "ℹ duration_ms 1229.650248"
+    "ℹ duration_ms 1607.873928"
   ]
 }

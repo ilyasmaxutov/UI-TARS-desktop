@@ -1,0 +1,25 @@
+{
+  "source": "Actual Windows Codex 0.170.0 metadata-only probe, second run",
+  "threadId": "01a1ee1d-90dd-76a0-af76-28614ad4d3d4",
+  "readThread": {
+    "id": "01a1ee1d-90dd-76a0-af76-28614ad4d3d4",
+    "status": {
+      "type": "idle"
+    },
+    "turns": []
+  },
+  "turnsResponse": {
+    "error": {
+      "code": -32600,
+      "message": "thread 01a1ee1d-90dd-76a0-af76-28614ad4d3d4 is not materialized yet; thread/turns/list is unavailable before first user message"
+    },
+    "id": "probe_4"
+  },
+  "resumeResponse": {
+    "error": {
+      "code": -32600,
+      "message": "no rollout found for thread id 01a1ee1d-90dd-76a0-af76-28614ad4d3d4"
+    },
+    "id": "probe_5"
+  }
+}

@@ -7,6 +7,7 @@ import { mkdir, mkdtemp, rm, stat, writeFile } from 'node:fs/promises';
 import { tmpdir, platform, release } from 'node:os';
 import { resolve, isAbsolute, join, extname } from 'node:path';
 import { performance } from 'node:perf_hooks';
+import { isUnmaterializedPrecondition, isFreshThreadResumePrecondition } from './codex-probe-preconditions.mjs';
 
 class ProbeAssertionError extends Error {}
 function assertProbe(condition, message) {
@@ -153,12 +154,6 @@ function requireResult(response, method) {
   assertProbe(response.result !== null && typeof response.result === 'object' && !Array.isArray(response.result), `${method}: result must be an object`);
   return response.result;
 }
-function isUnmaterializedPrecondition(response, method, threadId, thread) {
-  return response.error?.code === -32600
-    && response.error.message === `thread ${threadId} is not materialized yet; ${method} is unavailable before first user message`
-    && thread?.id === threadId && thread.status?.type === 'idle'
-    && Array.isArray(thread.turns) && thread.turns.length === 0;
-}
 function recordPrecondition(method, response) {
   (report.expectedPreconditions ??= []).push({ method, code: response.error.code, message: response.error.message });
 }
@@ -224,7 +219,7 @@ try {
     report.history = { state: 'empty-page-read', itemsAvailable: true, observedItems: 0 };
   }
   const resumeResponse = await call('thread/resume', { threadId, cwd: workspace, sandbox: 'read-only', approvalPolicy: 'never', excludeTurns: true });
-  if (unmaterialized && isUnmaterializedPrecondition(resumeResponse, 'thread/resume', threadId, read.thread)) {
+  if (isFreshThreadResumePrecondition(resumeResponse, threadId, read.thread, turnsResponse)) {
     recordPrecondition('thread/resume', resumeResponse);
     report.resume = { state: 'unavailable-before-first-user-message', acknowledged: false };
     report.status = 'metadata-preconditions-observed';
