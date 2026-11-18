@@ -1,5 +1,6 @@
 //! Research checkpoints in the existing TaskStore. No new database or model loop.
 //! Only the host's verified local helper path may record sweep observations.
+use crate::sql_integer::{from_sql_u64, required_sql_u64, to_sql_u64};
 use crate::{files, model::*, store::Store, task_store::field};
 use rusqlite::{params, OptionalExtension, Transaction, TransactionBehavior};
 use serde_json::{json, Value};
@@ -24,13 +25,13 @@ fn insert(tx: &Transaction<'_>, checkpoint: &Value) -> Result<()> {
     let count: i64 = tx.query_row("SELECT count(*) FROM task_research_checkpoints WHERE task_id=?1", [task], |r| r.get(0))?;
     ensure(count < 256, "RESEARCH_LIMIT", "Нужен явный архив контрольных точек")?;
     tx.execute("INSERT INTO task_research_checkpoints VALUES(?1,?2,?3,?4,?5,?6,?7,?8)",
-        params![task, field(p,"investigationId")?, checkpoint["sequence"].as_u64(), p["goalRevision"].as_u64(), p["planVersion"].as_u64(), text, files::hash(text.as_bytes()), now()])?;
+        params![task, field(p,"investigationId")?, required_sql_u64(checkpoint,"sequence")?, required_sql_u64(p,"goalRevision")?, required_sql_u64(p,"planVersion")?, text, files::hash(text.as_bytes()), now()])?;
     Ok(())
 }
 impl Store {
     pub fn research_plan_known(&self, plan: &Value) -> Result<bool> {
         let c=self.lock()?;
-        let text:Option<String>=c.query_row("SELECT json_extract(payload_json,'$.plan') FROM task_research_checkpoints WHERE task_id=?1 AND investigation_id=?2 AND goal_revision=?3 AND plan_version=?4 ORDER BY sequence DESC LIMIT 1",params![field(plan,"taskId")?,field(plan,"investigationId")?,plan["goalRevision"].as_u64(),plan["planVersion"].as_u64()],|r|r.get(0)).optional()?;
+        let text:Option<String>=c.query_row("SELECT json_extract(payload_json,'$.plan') FROM task_research_checkpoints WHERE task_id=?1 AND investigation_id=?2 AND goal_revision=?3 AND plan_version=?4 ORDER BY sequence DESC LIMIT 1",params![field(plan,"taskId")?,field(plan,"investigationId")?,required_sql_u64(plan,"goalRevision")?,required_sql_u64(plan,"planVersion")?],|r|r.get(0)).optional()?;
         if let Some(text)=text {let stored:Value=serde_json::from_str(&text)?;ensure(stored==*plan,"RESEARCH_CONFLICT","Содержание прежней версии плана изменено")?;Ok(true)}else{Ok(false)}
     }
     pub fn research_checkpoint(&self, task_id: &str, investigation_id: Option<&str>) -> Result<Value> {
@@ -53,8 +54,8 @@ impl Store {
         let max_idle=plan["budget"]["maxNoProgress"].as_u64().unwrap_or(0);
         ensure((1..=32).contains(&max_sweeps)&&(1..=5).contains(&max_idle),"RESEARCH_LIMIT","Неверные пределы")?;
         let mut c=self.lock()?;let tx=c.transaction_with_behavior(TransactionBehavior::Immediate)?;
-        let(current,progress):(u64,String)=tx.query_row("SELECT goal_revision,progress_json FROM tasks WHERE id=?1",[task],|r|Ok((r.get(0)?,r.get(1)?)))?;
-        let original:String=tx.query_row("SELECT original FROM task_goal_revisions WHERE task_id=?1 AND revision=?2",params![task,revision],|r|r.get(0))?;
+        let(current,progress):(u64,String)=tx.query_row("SELECT goal_revision,progress_json FROM tasks WHERE id=?1",[task],|r|Ok((from_sql_u64(r,0)?,r.get(1)?)))?;
+        let original:String=tx.query_row("SELECT original FROM task_goal_revisions WHERE task_id=?1 AND revision=?2",params![task,to_sql_u64(revision)?],|r|r.get(0))?;
         ensure(plan["originalGoal"].as_str()==Some(original.as_str()),"GOAL_CONFLICT","Исходная редакция цели отличается")?;
         let old=latest(&tx,task,inv)?;
         if let Some(ref old)=old { if old["plan"]==*plan { return Ok(old.clone()); } }
@@ -90,13 +91,13 @@ impl Store {
         ensure(identifier(sweep)&&digest_valid(field(report,"reportSha256")?)&&report["localModelCalls"]==0,"RESEARCH_REPORT","Неверное основание отчёта")?;
         let mut c=self.lock()?;let tx=c.transaction_with_behavior(TransactionBehavior::Immediate)?;
         let mut cp=latest(&tx,task_id,inv)?.ok_or_else(||Error::new("RESEARCH_PLAN","План не сохранён"))?;
-        let known:i64=tx.query_row("SELECT count(*) FROM task_research_checkpoints WHERE task_id=?1 AND investigation_id=?2 AND goal_revision=?3 AND plan_version=?4",params![task_id,inv,report["goalRevision"].as_u64(),report["planVersion"].as_u64()],|r|r.get(0))?;
+        let known:i64=tx.query_row("SELECT count(*) FROM task_research_checkpoints WHERE task_id=?1 AND investigation_id=?2 AND goal_revision=?3 AND plan_version=?4",params![task_id,inv,required_sql_u64(report,"goalRevision")?,required_sql_u64(report,"planVersion")?],|r|r.get(0))?;
         ensure(known>0,"RESEARCH_REPORT","Отчёт неизвестной редакции")?;
         let reports=cp["reports"].as_array().ok_or_else(||Error::new("RESEARCH_REPORT","Нет массива отчётов"))?;
         if let Some(old)=reports.iter().find(|r|r["sweepId"].as_str()==Some(sweep)){
             ensure(old["reportSha256"]==report["reportSha256"],"SWEEP_ID_CONFLICT","Сохранённый отчёт изменился")?;return Ok(cp);
         }
-        let (revision,text):(u64,String)=tx.query_row("SELECT goal_revision,progress_json FROM tasks WHERE id=?1",[task_id],|r|Ok((r.get(0)?,r.get(1)?)))?;
+        let (revision,text):(u64,String)=tx.query_row("SELECT goal_revision,progress_json FROM tasks WHERE id=?1",[task_id],|r|Ok((from_sql_u64(r,0)?,r.get(1)?)))?;
         let mut progress:Value=serde_json::from_str(&text)?;
         let evidence=report["evidenceRefs"].as_array().ok_or_else(||Error::new("RESEARCH_REPORT","Нет свидетельств"))?;
         ensure(evidence.len()<=32,"RESEARCH_REPORT","Слишком много свидетельств")?;

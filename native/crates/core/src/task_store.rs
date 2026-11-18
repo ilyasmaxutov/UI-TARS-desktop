@@ -1,5 +1,6 @@
 //! Durable application tasks and non-idempotent provider commands, independent of graph runs.
 //! Native compilation and Windows acceptance must be recorded separately from SQL fixture tests.
+use crate::sql_integer::{from_sql_u64, to_sql_u64};
 use crate::{files, model::*, store::Store};
 use rusqlite::{params, OptionalExtension, TransactionBehavior};
 use serde_json::{json, Value};
@@ -51,8 +52,8 @@ impl Store {
  pub fn revise_task(&self,id:&str,expected:u64,original:&str)->Result<Value>{
   ensure(!original.trim().is_empty()&&original.len()<=65536,"GOAL","Неверная цель")?;
   let mut c=self.lock()?;let tx=c.transaction_with_behavior(TransactionBehavior::Immediate)?;let next=expected.checked_add(1).ok_or_else(||Error::new("REVISION","Переполнение"))?;
-  ensure(tx.execute("UPDATE tasks SET original=?1,goal_revision=?2,updated_at=?3 WHERE id=?4 AND goal_revision=?5",params![original,next,now(),id,expected])?==1,"GOAL_CONFLICT","Цель уже изменена; черновик сохраните отдельно")?;
-  tx.execute("INSERT INTO task_goal_revisions VALUES(?1,?2,?3,?4)",params![id,next,original,now()])?;tx.commit()?;drop(c);self.task(id)
+  ensure(tx.execute("UPDATE tasks SET original=?1,goal_revision=?2,updated_at=?3 WHERE id=?4 AND goal_revision=?5",params![original,to_sql_u64(next)?,now(),id,to_sql_u64(expected)?])?==1,"GOAL_CONFLICT","Цель уже изменена; черновик сохраните отдельно")?;
+  tx.execute("INSERT INTO task_goal_revisions VALUES(?1,?2,?3,?4)",params![id,to_sql_u64(next)?,original,now()])?;tx.commit()?;drop(c);self.task(id)
  }
  pub fn new_executor_session(&self,task_id:&str,session_id:&str,thread_id:Option<&str>)->Result<Value>{
   ensure(valid_id(session_id),"SESSION","Неверный ID сессии")?;
@@ -99,7 +100,7 @@ impl Store {
   let existing:Option<String>=tx.query_row("SELECT fingerprint FROM external_commands WHERE id=?1",[id],|r|r.get(0)).optional()?;
   if let Some(old)=existing{ensure(old==fingerprint,"ID_CONFLICT","Один ID для разных поручений")?;drop(tx);drop(c);return self.external_command(id);}
   let session=tx.query_row(&format!("{SESSION_SELECT} WHERE id=?1"),[session_id],session_row)?;let task_id=string(&session,"taskId")?;
-  let current:u64=tx.query_row("SELECT goal_revision FROM tasks WHERE id=?1",[task_id],|r|r.get(0))?;
+  let current:u64=tx.query_row("SELECT goal_revision FROM tasks WHERE id=?1",[task_id],|r|from_sql_u64(r,0))?;
   ensure(current==goal_revision||method=="turn/interrupt","STALE_GOAL","Поручение относится к старой редакции цели")?;
   if method=="turn/start"||method=="turn/steer" {
    let unresolved:i64=tx.query_row("SELECT count(*) FROM external_commands WHERE session_id=?1 AND method IN ('thread/start','turn/start','turn/steer') AND state IN ('prepared','in_flight','unverified_outcome','unknown_needs_user_decision')",[session_id],|r|r.get(0))?;
@@ -108,7 +109,7 @@ impl Store {
    if method=="turn/steer"{ensure(expected_turn==session["lastKnownTurnId"].as_str(),"STALE_TURN","Активный ход изменился")?;}
   }
   if expected_thread.is_some(){ensure(expected_thread==session["externalThreadId"].as_str(),"THREAD","Чужой тред")?;}
-  tx.execute("INSERT INTO external_commands(id,session_id,task_id,goal_revision,generation,method,params_json,fingerprint,expected_thread_id,expected_turn_id,marker,exact_input,created_at,updated_at) VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?13)",params![id,session_id,task_id,goal_revision,string(&session,"generation")?,method,encoded,fingerprint,expected_thread,expected_turn,marker,exact_input,now()])?;
+  tx.execute("INSERT INTO external_commands(id,session_id,task_id,goal_revision,generation,method,params_json,fingerprint,expected_thread_id,expected_turn_id,marker,exact_input,created_at,updated_at) VALUES(?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?13)",params![id,session_id,task_id,to_sql_u64(goal_revision)?,string(&session,"generation")?,method,encoded,fingerprint,expected_thread,expected_turn,marker,exact_input,now()])?;
   tx.commit()?;drop(c);self.external_command(id)
  }
  /// The send fence is committed BEFORE bytes can enter a pipe or queue.
@@ -118,7 +119,7 @@ impl Store {
   if row["state"]!="prepared" {return Ok(false);}
   let session=tx.query_row(&format!("{SESSION_SELECT} WHERE id=?1"),[string(&row,"sessionId")?],session_row)?;
   ensure(row["generation"]==session["generation"],"GENERATION","Устаревшее подключение; подготовленная команда не отправлена")?;
-  let task_revision:u64=tx.query_row("SELECT goal_revision FROM tasks WHERE id=?1",[string(&row,"taskId")?],|r|r.get(0))?;
+  let task_revision:u64=tx.query_row("SELECT goal_revision FROM tasks WHERE id=?1",[string(&row,"taskId")?],|r|from_sql_u64(r,0))?;
   ensure(row["method"]=="turn/interrupt"||row["goalRevision"].as_u64()==Some(task_revision),"STALE_GOAL","Цель изменилась перед отправкой")?;
   tx.execute("UPDATE external_commands SET state='in_flight',attempts=1,revision=revision+1,updated_at=?1 WHERE id=?2 AND state='prepared'",params![now(),id])?;tx.commit()?;Ok(true)
  }
@@ -183,9 +184,9 @@ impl Store {
   tx.commit()?;Ok(seq as u64)
  }
  pub fn session_events(&self,session_id:&str,after:u64)->Result<Value>{
-  let c=self.lock()?;let pruned:u64=c.query_row("SELECT pruned_through FROM executor_sessions WHERE id=?1",[session_id],|r|r.get(0))?;
+  let c=self.lock()?;let pruned:u64=c.query_row("SELECT pruned_through FROM executor_sessions WHERE id=?1",[session_id],|r|from_sql_u64(r,0))?;
   let mut q=c.prepare("SELECT sequence,generation,at,origin,frame_json,truncated FROM session_events WHERE session_id=?1 AND sequence>?2 ORDER BY sequence LIMIT 128")?;
-  let rows=q.query_map(params![session_id,after],|r|Ok((r.get::<_,u64>(0)?,r.get::<_,String>(1)?,r.get::<_,String>(2)?,r.get::<_,String>(3)?,r.get::<_,String>(4)?,r.get::<_,bool>(5)?)))?;
+  let rows=q.query_map(params![session_id,to_sql_u64(after)?],|r|Ok((from_sql_u64(r,0)?,r.get::<_,String>(1)?,r.get::<_,String>(2)?,r.get::<_,String>(3)?,r.get::<_,String>(4)?,r.get::<_,bool>(5)?)))?;
   let mut out=vec![];let mut cursor=after.max(pruned);let mut size=0usize;
   for row in rows {let(seq,generation,at,origin,text,truncated)=row?;if !out.is_empty()&&size+text.len()>1024*1024{break;}size+=text.len();out.push(json!({"sequence":seq,"sessionId":session_id,"generation":generation,"at":at,"origin":origin,"frame":serde_json::from_str::<Value>(&text)?,"truncated":truncated}));cursor=seq;}
   Ok(json!({"events":out,"nextSequence":cursor,"gap":after<pruned,"coverage":"bounded local frames; host receipt timestamps"}))
@@ -280,6 +281,18 @@ mod tests {
         assert!(!page.to_string().contains("fixture-secret"));
         let (count, bytes):(i64,i64) = store.lock().unwrap().query_row("SELECT event_count,event_bytes FROM executor_sessions WHERE id='session'", [], |r| Ok((r.get(0)?,r.get(1)?))).unwrap();
         assert_eq!(count, 1); assert!(bytes > 0);
+        cleanup(root, store);
+    }
+
+    #[test]
+    fn oversized_owner_revisions_and_cursors_do_not_wrap_in_sqlite() {
+        let (root, store) = fixture();
+        let before = store.task("task").unwrap();
+        let error = store.revise_task("task", u64::MAX - 1, "Must not be written").unwrap_err();
+        assert_eq!(error.code, "SQL_INTEGER_RANGE");
+        assert_eq!(store.task("task").unwrap(), before);
+        assert_eq!(store.session_events("session", u64::MAX).unwrap_err().code, "SQL_INTEGER_RANGE");
+        assert!(store.session_events("session", 0).unwrap()["events"].as_array().unwrap().is_empty());
         cleanup(root, store);
     }
 }

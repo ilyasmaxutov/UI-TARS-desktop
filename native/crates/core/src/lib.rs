@@ -33,3 +33,5 @@ mod tests {
         let s=store::Store::open(&root).unwrap();let(a,new)=s.reserve_run("cmd",&d,&input).unwrap();assert!(new);let(b,new)=s.reserve_run("cmd",&d,&input).unwrap();assert!(!new);assert_eq!(a.id,b.id);
     }{let s=store::Store::open(&root).unwrap();assert_eq!(s.recover().unwrap(),1);let(r,new)=s.reserve_run("cmd",&d,&input).unwrap();assert!(!new);assert_eq!(r.state,"interrupted");}std::fs::remove_dir_all(root).unwrap();}
 }
+
+mod sql_integer;

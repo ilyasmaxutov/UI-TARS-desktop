@@ -1,3 +1,4 @@
+use crate::sql_integer::{from_sql_u64, to_sql_u64};
 use crate::{engine, files, graph, model::*, review};
 use rusqlite::{params, Connection, OptionalExtension, Transaction, TransactionBehavior};
 use serde_json::{json, Value};
@@ -57,9 +58,9 @@ impl Store {
         ensure(data.len() <= 32*1024*1024, "LIMIT", "Состояние слишком велико")?;
         let mut c = self.lock()?;
         let tx = c.transaction_with_behavior(TransactionBehavior::Immediate)?;
-        let previous: Option<u64> = tx.query_row("SELECT revision FROM ui_state WHERE id=1", [], |r| r.get(0)).optional()?;
+        let previous: Option<u64> = tx.query_row("SELECT revision FROM ui_state WHERE id=1", [], |r| from_sql_u64(r, 0)).optional()?;
         ensure(previous.unwrap_or(0) == expected, "CONFLICT", "Состояние уже изменено в другом окне")?;
-        tx.execute("INSERT INTO ui_state VALUES(1,?1,?2) ON CONFLICT(id) DO UPDATE SET revision=excluded.revision,payload=excluded.payload", params![revision,data])?;
+        tx.execute("INSERT INTO ui_state VALUES(1,?1,?2) ON CONFLICT(id) DO UPDATE SET revision=excluded.revision,payload=excluded.payload", params![to_sql_u64(revision)?,data])?;
         tx.commit()?; Ok(())
     }
     /// Commit command + frozen spec + run + control row before launching work.
@@ -83,7 +84,7 @@ impl Store {
             let payload: String = tx.query_row("SELECT payload FROM runs WHERE id=?1", [run_id], |r| r.get(0))?;
             return Ok((serde_json::from_str(&payload)?, false));
         }
-        let count: u64 = tx.query_row("SELECT COUNT(*) FROM commands", [], |r| r.get(0))?;
+        let count: u64 = tx.query_row("SELECT COUNT(*) FROM commands", [], |r| from_sql_u64(r, 0))?;
         ensure(count < 10000, "STORE_LIMIT", "Нужен архив без потери дедупликации")?;
         let active: u32 = tx.query_row("SELECT COUNT(*) FROM runs WHERE state='running'", [], |r| r.get(0))?;
         ensure(active < 2, "BUSY", "Два рабочих слота заняты")?;
@@ -110,9 +111,9 @@ impl Store {
             ensure(event.run_id == run.id && event.seq > last, "EVENT_SEQUENCE", "Некорректная последовательность")?;
             last = event.seq;
             let text = serde_json::to_string(event)?;
-            let previous: Option<String> = tx.query_row("SELECT payload FROM events WHERE run_id=?1 AND seq=?2", params![run.id,event.seq], |r| r.get(0)).optional()?;
+            let previous: Option<String> = tx.query_row("SELECT payload FROM events WHERE run_id=?1 AND seq=?2", params![run.id,to_sql_u64(event.seq)?], |r| r.get(0)).optional()?;
             if let Some(old) = previous { ensure(old == text, "EVENT_REWRITE", "Событие уже записано с другим содержимым")?; }
-            else { tx.execute("INSERT INTO events VALUES(?1,?2,?3)", params![run.id,event.seq,text])?; }
+            else { tx.execute("INSERT INTO events VALUES(?1,?2,?3)", params![run.id,to_sql_u64(event.seq)?,text])?; }
         }
         Ok(())
     }
