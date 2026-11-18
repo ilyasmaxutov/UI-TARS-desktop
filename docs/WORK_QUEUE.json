@@ -609,43 +609,18 @@
     "branch": "research/diagnostic-sweep",
     "state": "implemented-partially-locally-tested",
     "accepted": false,
-    "ownedPaths": [
-      "native/tools/economy/",
-      "src/assistant/",
-      "native/crates/core/",
-      "native/crates/host/",
-      "native/crates/desktop/",
-      "tests/",
-      "fixtures/research/",
-      "docs/",
-      "verification/research-0.5/"
-    ],
-    "notes": "W1/W2 portable implemented/tested; W3 skill/policy tested; W4 TS/SQL/UI tested, native source-only. W0 blocked, W5 actual model A/B not run. See verification/research-0.5/REPORT.md."
+    "ownedPaths": [],
+    "notes": "W1/W2 portable tested; native sources compiled/tested on Linux and Windows. W4 host continuation now connected. W0 live user/model and W5 paired quality/tokens still open; MCP pre-execution admission and native findings remain gaps."
   },
   {
     "id": "CI-PUBLISH-2026-11-18",
     "title": "Actual publication command, desktop packaging and cold-build regressions",
     "owner": "assistant",
-    "state": "locally-tested-remote-blocked",
+    "state": "completed",
     "accepted": false,
     "branch": "continuation/native-build",
-    "ownedPaths": [
-      "scripts/publish-github.mjs",
-      "scripts/Publish-GitHub.ps1",
-      ".github/workflows/check.yml",
-      "scripts/Build-Windows.ps1",
-      "scripts/Verify-Native.ps1",
-      "tools/build-assistant.mjs",
-      "tests/publication.test.mjs",
-      "tests/desktop-delivery.test.mjs",
-      "native/crates/desktop/tauri.conf.json",
-      "docs/STATUS.md",
-      "CHANGELOG.md",
-      "native/crates/host/src/selftest.rs",
-      "native/crates/host/src/main.rs",
-      "native/crates/host/src/lib.rs"
-    ],
-    "notes": "Node 367/367; Go 107 top-level + 10 subcases, race detector and vet pass. Git publication tested against local bare repositories (7 cases). Actual remote push unavailable: connector read-only, CLI has no DNS/network. Windows build and native smoke unexecuted."
+    "ownedPaths": [],
+    "notes": "Remote publication and four-job Windows/Linux CI completed in run44271721879; original publication blockers were removed on18November. GUI/live model acceptance still open."
   },
   {
     "id": "RUNTIME-ROOT",
@@ -678,5 +653,55 @@
     "title": "Compile existing native code and fix actual compiler/test failures",
     "accepted": false,
     "notes": "Fixed actual SQLite u64 conversion errors. 46 Rust tests passed on Linux and Windows. Cargo.lock identical to successful Windows build."
+  },
+  {
+    "id": "W05-RESUME",
+    "owner": "root",
+    "state": "locally-tested-publishing-windows-ci",
+    "branch": "studio/runtime-local",
+    "ownedPaths": [
+      "native/crates/host/src/research.rs",
+      "native/crates/host/src/lib.rs",
+      "native/crates/desktop/src/main.rs",
+      "src/assistant",
+      "tests",
+      "docs",
+      "CHANGELOG.md",
+      "README.md",
+      ".github/workflows/check.yml",
+      "verification/continuation-0.5",
+      "public/assistant.html"
+    ],
+    "title": "Connect research checkpoint and economical continuation across sessions",
+    "accepted": false
+  },
+  {
+    "id": "W05-AUDIT",
+    "owner": "research_audit",
+    "state": "implemented-locally-tested",
+    "branch": "studio/runtime-local",
+    "ownedPaths": [],
+    "title": "Implement bounded native continuation from TaskStore",
+    "accepted": false,
+    "notes": "W4 continuation plus narrow recovery fixes: preserve unfinished turn uncertainty; prefer current-goal checkpoint. No model loop or new store."
+  },
+  {
+    "id": "W0-PROTOCOL",
+    "owner": "codex_audit",
+    "state": "implemented-locally-tested",
+    "branch": "studio/runtime-local",
+    "ownedPaths": [],
+    "title": "Read-only audit of native Codex protocol and offline Windows end-to-end gaps",
+    "accepted": false,
+    "notes": "Real local schema/initialize checked without a model. Implement targeted transport tests and reproducible metadata-only probe."
+  },
+  {
+    "id": "W05-REVIEW",
+    "owner": "continuation_review",
+    "state": "review-completed-fixes-integrated",
+    "branch": "studio/runtime-local",
+    "ownedPaths": [],
+    "title": "Read-only review of recovery, context preservation and protocol probes",
+    "accepted": false
   }
 ]

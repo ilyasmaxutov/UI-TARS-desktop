@@ -2,15 +2,17 @@
 //! Native source integration; Windows build and real-provider acceptance remain open.
 pub mod protocol;
 pub mod economy;
+mod continuation;
 mod peer;
 use peer::Peer;
 use serde_json::{json,Value};
 use studio_core::{model::*,store::Store,task_store::field};
 use std::{collections::HashMap,path::{Path,PathBuf},sync::{Arc,Mutex,atomic::Ordering}};
 
-pub struct Director { store:Arc<Store>, peers:Mutex<HashMap<String,Arc<Peer>>>, connect:Mutex<()>, executable:Mutex<Option<PathBuf>> }
+pub struct Director { store:Arc<Store>, peers:Mutex<HashMap<String,Arc<Peer>>>, connect:Mutex<()>, intents:Mutex<()>, executable:Mutex<Option<PathBuf>> }
 impl Director {
- pub fn new(store:Arc<Store>)->Self{Self{store,peers:Mutex::new(HashMap::new()),connect:Mutex::new(()),executable:Mutex::new(None)}}
+ pub fn new(store:Arc<Store>)->Self{Self{store,peers:Mutex::new(HashMap::new()),connect:Mutex::new(()),intents:Mutex::new(()),executable:Mutex::new(None)}}
+ pub fn continuation(&self,task_id:&str)->Result<Value>{continuation::build(&self.store.task_continuation_snapshot(task_id)?)}
  pub fn configure(&self,path:&Path,acknowledge:bool)->Result<Value>{
   ensure(acknowledge,"CONSENT","Нужно явно разрешить Direct-профиль; гарантий полной площадки нет")?;
   ensure(path.is_absolute()&&path.is_file(),"CODEX_EXE","Нужен существующий абсолютный путь codex.exe")?;
@@ -38,28 +40,39 @@ impl Director {
   self.store.external_command(id)
  }
  pub fn open(&self,task_id:&str,session_id:&str,command_id:&str,external_thread:Option<&str>)->Result<Value>{
+  // Serialize intent admission through durable prepare, not through provider
+  // ACK waiting. The separate connect lock alone cannot prevent two new threads.
+  let intent=self.intents.lock().map_err(|_|Error::new("LOCK","Постановка команды недоступна"))?;
   if let Some(existing)=self.store.find_external_command(command_id)?{ensure(existing["taskId"]==task_id&&existing["sessionId"]==session_id&&matches!(existing["method"].as_str(),Some("thread/start")|Some("thread/resume")),"ID_CONFLICT","Команда другой сессии или операции")?;return Ok(json!({"session":self.store.executor_session(session_id)?,"command":existing}));}
+  let snapshot=self.store.task_continuation_snapshot(task_id)?;
+  let preview=continuation::build(&snapshot)?;
+  let known_session=self.store.find_executor_session(session_id)?;
+  let starts_new_thread=known_session.as_ref().map(|s|s["externalThreadId"].is_null()).unwrap_or(external_thread.is_none());
+  if starts_new_thread{continuation::guard_other_sessions(&snapshot,session_id)?;}
   let session=self.store.new_executor_session(task_id,session_id,external_thread)?;
   ensure(!matches!(session["status"].as_str(),Some("running")|Some("connecting")),"ACTIVE","Активную сессию нельзя переподключать; используйте сверку или остановку")?;
-  let commands=self.store.external_commands(session_id)?;
-  ensure(!commands.as_array().is_some_and(|cs|cs.iter().any(|c|c["method"]=="thread/start"&&c["state"]!="confirmed"&&c["state"]!="rejected")),"UNKNOWN_THREAD","Создание треда не подтверждено. Новый тред автоматически не создаётся")?;
-  let peer=self.peer(session_id)?;let task=self.store.task(task_id)?;
+  ensure(!snapshot["commands"].as_array().is_some_and(|cs|cs.iter().any(|c|c["sessionId"]==session_id&&c["method"]=="thread/start")),"UNKNOWN_THREAD","Создание треда не подтверждено. Новый тред автоматически не создаётся")?;
+  let task=&snapshot["task"];
   let mut params=json!({"cwd":task["binding"]["rootPath"],"sandbox":"read-only","approvalPolicy":"never"});
   let method=if let Some(thread)=session["externalThreadId"].as_str(){params["threadId"]=json!(thread);params["excludeTurns"]=json!(true);"thread/resume"}else{"thread/start"};
-  params["developerInstructions"]=json!(format!("Report to the owner in Russian. Do not launch GUI applications, browsers, development servers, or Computer Use. Remain in the selected read-only profile. Task ID: {}; goal revision: {}. Preserve the exact original goal supplied by the owner.\n{}",task_id,task["goalRevision"],include_str!("../../../../tools/economy/diagnosis-first.txt")));
+  params["developerInstructions"]=json!(continuation::instructions(&preview)?);
+  let peer=self.peer(session_id)?;
   let command=self.store.prepare_external(command_id,session_id,task["goalRevision"].as_u64().unwrap_or(1),method,&params,None,None)?;
+  drop(intent);
   let command=self.send_once(&peer,command)?;
   Ok(json!({"session":self.store.executor_session(session_id)?,"command":command}))
  }
  pub fn submit(&self,session_id:&str,id:&str,revision:u64,text:&str,expected_turn:Option<&str>)->Result<Value>{
+  let intent=self.intents.lock().map_err(|_|Error::new("LOCK","Постановка команды недоступна"))?;
   let method=if expected_turn.is_some(){"turn/steer"}else{"turn/start"};
   let(marker,exact)=protocol::marked_input(id,text)?;
   if let Some(old)=self.store.find_external_command(id)?{ensure(old["sessionId"]==session_id&&old["exactInput"]==exact&&old["method"]==method&&old["goalRevision"].as_u64()==Some(revision)&&old["expectedTurnId"].as_str()==expected_turn,"ID_CONFLICT","ID повторно использован для другого поручения")?;return Ok(old);}
   let session=self.store.executor_session(session_id)?;
+  continuation::guard_other_sessions(&self.store.task_continuation_snapshot(field(&session,"taskId")?)?,session_id)?;
   let peer={let map=self.peers.lock().map_err(|_|Error::new("LOCK","Сессии недоступны"))?;map.get(session_id).filter(|p|p.alive.load(Ordering::SeqCst)).cloned().ok_or_else(||Error::new("DISCONNECTED","Сначала подключите и сверьте сессию"))?};
   let thread=field(&session,"externalThreadId")?;let mut params=json!({"threadId":thread,"input":[{"type":"text","text":exact}]});
   if let Some(turn)=expected_turn{params["expectedTurnId"]=json!(turn);}
-  let command=self.store.prepare_external(id,session_id,revision,method,&params,Some(&marker),Some(&exact))?;self.send_once(&peer,command)
+  let command=self.store.prepare_external(id,session_id,revision,method,&params,Some(&marker),Some(&exact))?;drop(intent);self.send_once(&peer,command)
  }
  pub fn interrupt(&self,session_id:&str,id:&str,turn_id:&str)->Result<Value>{
   if let Some(old)=self.store.find_external_command(id)?{ensure(old["sessionId"]==session_id&&old["method"]=="turn/interrupt"&&old["expectedTurnId"]==turn_id,"ID_CONFLICT","Чужая команда остановки")?;return Ok(old);}

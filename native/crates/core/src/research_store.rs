@@ -39,7 +39,7 @@ impl Store {
         let text: Option<String> = if let Some(inv) = investigation_id {
             c.query_row("SELECT payload_json FROM task_research_checkpoints WHERE task_id=?1 AND investigation_id=?2 ORDER BY sequence DESC LIMIT 1", params![task_id,inv], |r|r.get(0)).optional()?
         } else {
-            c.query_row("SELECT payload_json FROM task_research_checkpoints WHERE task_id=?1 ORDER BY created_at DESC,sequence DESC LIMIT 1", [task_id], |r|r.get(0)).optional()?
+            c.query_row("SELECT payload_json FROM task_research_checkpoints WHERE task_id=?1 ORDER BY (goal_revision=(SELECT goal_revision FROM tasks WHERE id=?1)) DESC,created_at DESC,rowid DESC LIMIT 1", [task_id], |r|r.get(0)).optional()?
         };
         text.map(|s|serde_json::from_str(&s).map_err(Error::from)).transpose().map(|v|v.unwrap_or(Value::Null))
     }

@@ -13,10 +13,20 @@ impl Peer {
  pub fn spawn(executable:&Path,workspace:&Path,session_id:&str,store:Arc<Store>)->Result<Arc<Self>>{
   ensure(executable.is_absolute()&&executable.is_file(),"CODEX_EXE","Нужен явно выбранный нативный исполнимый файл Codex")?;
   #[cfg(windows)]ensure(executable.extension().and_then(|x|x.to_str()).is_some_and(|x|x.eq_ignore_ascii_case("exe")),"CODEX_EXE","CMD/PowerShell shim не запускается. Выберите codex.exe")?;
-  let generation=new_id("peer");store.set_session_generation(session_id,&generation)?;
   let mut command=Command::new(executable);
   super::economy::configure(&mut command,workspace,&store)?;
-  command.args(["-c","features.computer_use=false","-c","computer_use.default_app_access=\"deny\"","app-server"]).current_dir(workspace).stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::piped());
+  command.args(["-c","features.computer_use=false","-c","computer_use.default_app_access=\"deny\"","app-server"]).current_dir(workspace);
+  Self::spawn_command(command,session_id,store)
+ }
+ // The production profile is assembled above. Keeping process transport separate
+ // lets native CLI tests exercise real pipes and failure timing without a model.
+ #[cfg(test)]
+ pub(super) fn spawn_for_test(command:Command,session_id:&str,store:Arc<Store>)->Result<Arc<Self>>{
+  Self::spawn_command(command,session_id,store)
+ }
+ fn spawn_command(mut command:Command,session_id:&str,store:Arc<Store>)->Result<Arc<Self>>{
+  let generation=new_id("peer");store.set_session_generation(session_id,&generation)?;
+  command.stdin(Stdio::piped()).stdout(Stdio::piped()).stderr(Stdio::piped());
   #[cfg(windows)]{use std::os::windows::process::CommandExt;command.creation_flags(0x08000000);}
   let mut child=command.spawn().map_err(|error|{let _=store.session_disconnect(session_id,&generation);Error::from(error)})?;let stdin=child.stdin.take().ok_or_else(||Error::new("PIPE","Нет stdin"))?;
   let stdout=child.stdout.take().ok_or_else(||Error::new("PIPE","Нет stdout"))?;let stderr=child.stderr.take().ok_or_else(||Error::new("PIPE","Нет stderr"))?;
@@ -52,10 +62,13 @@ impl Peer {
   self.call_frame(json!({"id":new_id("rpc"),"method":command["method"],"params":command["params"]}),Some(command["id"].as_str().ok_or_else(||Error::new("COMMAND","Нет ID"))?.to_owned()))
  }
  fn call_frame(&self,frame:Value,command:Option<String>)->Result<Value>{
+  self.call_frame_timeout(frame,command,Duration::from_secs(8))
+ }
+ fn call_frame_timeout(&self,frame:Value,command:Option<String>,timeout:Duration)->Result<Value>{
   let id=frame["id"].as_str().ok_or_else(||Error::new("RPC","Нет ID"))?.to_owned();let(tx,rx)=mpsc::channel();
   {let mut pending=self.pending.lock().map_err(|_|Error::new("LOCK","RPC недоступен"))?;ensure(pending.len()<128,"RPC_LIMIT","Слишком много ожидающих ответов")?;pending.insert(id.clone(),Pending{command:command.clone(),reply:tx});}
   if let Err(e)=self.send(frame){if let Ok(mut p)=self.pending.lock(){p.remove(&id);}return Err(e);}
-  match rx.recv_timeout(Duration::from_secs(8)){Ok(result)=>result,Err(_)=>{
+  match rx.recv_timeout(timeout){Ok(result)=>result,Err(_)=>{
    // Keep external-command correlation for a late ACK; read requests can be discarded.
    if command.is_none(){if let Ok(mut p)=self.pending.lock(){p.remove(&id);}}
    Err(Error::new("RPC_TIMEOUT","Ответ Codex не получен. Повтор не выполняется"))
@@ -104,3 +117,7 @@ impl Peer {
  pub fn close(&self){self.fail("closed_by_owner");}
 }
 impl Drop for Peer{fn drop(&mut self){if let Ok(child)=self.child.get_mut(){let _=child.kill();let _=child.wait();}}}
+
+#[cfg(test)]
+#[path="../../tests/support/peer_transport.rs"]
+mod tests;

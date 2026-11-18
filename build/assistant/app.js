@@ -2,10 +2,12 @@ import { decodeResearchCheckpoint, renderResearchTrace } from './research-view.j
 import { id } from '../core/model.js';
 import { HostExecutionService } from './service.js';
 import { actionAvailability, mergeEvents, modelClaims } from './view-model.js';
+import { continuationAvailability, renderContinuationPreview } from './continuation-view.js';
 const $ = (s) => document.getElementById(s);
 const esc = (x) => String(x ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const service = window.__TAURI__?.core?.invoke ? new HostExecutionService(window.__TAURI__.core.invoke) : null;
 let tasks = [], task = null, session = null, commands = [], events = [];
+let sessions = [], continuation = null, continuationError = '';
 let cursor = 0, gap = false, busy = false, polling = false, screen = 'work', binding = null, configured = false, notice = '';
 let research = null, researchOrigin = 'host';
 let imported = null;
@@ -39,7 +41,7 @@ function render() {
     }
     const status = session?.status ?? 'не подключено';
     $('app').innerHTML = `<div class="live-shell"><aside class="live-nav"><a class="brand" href="index.html">Слой <small>Platform Studio</small></a><div class="eyebrow">Помощник · Direct</div>
- <button class="button" data-action="new">＋ Новая задача</button><div class="live-projects">${tasks.map(t => `<button class="nav-task ${task?.id === t.id ? 'active' : ''}" data-task="${esc(t.id)}">${esc(t.title)}</button>`).join('') || '<p class="muted">Задачи появятся после подключения к хосту.</p>'}</div>
+ <button class="button" data-action="new" ${busy ? 'disabled' : ''}>＋ Новая задача</button><div class="live-projects">${tasks.map(t => `<button class="nav-task ${task?.id === t.id ? 'active' : ''}" data-task="${esc(t.id)}">${esc(t.title)}</button>`).join('') || '<p class="muted">Задачи появятся после подключения к хосту.</p>'}</div>
  <a href="index.html">Канвас и встроенные операции ↗</a><a href="assistant-scenarios.html">Отдельный сценарный стенд ↗</a><p class="muted">Ни одно состояние здесь не получено из макета.</p></aside>
  <main id="main" class="live-main"><header class="live-top"><div><div class="eyebrow">${esc(task?.title || 'Рабочее пространство')}</div><h1>${screen === 'research' ? 'Ход исследования' : screen === 'observe' ? 'Наблюдение' : screen === 'history' ? 'Доставка и события' : screen === 'connections' ? 'Подключение' : 'Задача и сессия'}</h1></div><div class="badge">${esc(status)}</div></header>
  <nav class="live-tabs" aria-label="Представление работы">${[['work', 'Работа'], ['research', 'Исследование'], ['observe', 'Наблюдение'], ['history', 'История'], ['connections', 'Подключение']].map(([key, label]) => `<button data-screen="${key}" class="${screen === key ? 'active' : ''}">${label}</button>`).join('')}</nav>
@@ -59,8 +61,13 @@ function work(a) {
  ${a.uncertain ? '<div class="notice amber">Предыдущая отправка ещё не разрешена. Новое поручение заблокировано; доступна сверка.</div>' : ''}
  ${local.pending ? '<div class="notice amber">Есть локально сохранённая команда. Новая отправка не выполняется.<button class="button" data-action="recover-local">Прочитать состояние команды</button><button class="button" data-action="abandon-prepared">Снять только неотправленную команду</button></div>' : ''}</article>
  <article class="panel"><h2>Ответы исполнителя</h2><p class="muted">Заявления модели. Приёмка и проверка файлов в этом профиле пока недоступны.</p>${modelClaims(events).map(c => `<div class="live-answer"><small>${esc(c.turnId)}</small><pre>${esc(c.text)}</pre></div>`).join('') || '<p class="muted">Подтверждённых сообщений пока нет.</p>'}</article></section>
- <aside class="stack"><section class="panel"><h2>Сессия</h2><label>Существующий thread ID <small>необязательно</small><input id="thread-id" placeholder="Пусто — создать новый"></label><div class="toolbar">${button('connect', 'Подключить / продолжить', !!service && configured && !local.pending && (!session || ['disconnected', 'state_unknown'].includes(session.status)))}${button('reconcile', 'Сверить', a.reconcile)}${button('disconnect', 'Отключить процесс', !!session)}</div><p class="muted">Закрытие окна не посылает отмену. После смерти хоста сессия сверяется, но ход не отправляется заново.</p></section>
+ <aside class="stack"><section class="panel"><h2>Сессия</h2>${sessions.length > 1 ? `<label>Сессии этой задачи<select id="session-select" ${busy || local.pending ? 'disabled' : ''}>${sessions.map((s, i) => `<option value="${esc(s.id)}" ${s.id === session?.id ? 'selected' : ''}>${i + 1} · ${esc(s.externalThreadId || 'не подключена')} · ${esc(s.status)}</option>`).join('')}</select></label>${button('select-session', 'Открыть выбранную', !local.pending)}` : ''}<label>Существующий thread ID <small>необязательно</small><input id="thread-id" placeholder="Пусто — создать новый" ${session ? 'disabled' : ''}></label><div class="toolbar">${button('connect', 'Подключить / продолжить', !!service && configured && !local.pending && (!session || ['disconnected', 'state_unknown'].includes(session.status)))}${button('reconcile', 'Сверить', a.reconcile)}${button('disconnect', 'Отключить процесс', !!session)}</div><p class="muted">Закрытие окна не посылает отмену. После смерти хоста сессия сверяется, но ход не отправляется заново.</p></section>
+ ${continuationPanel()}
  <section class="panel"><h2>Ограничения</h2><p>Codex Direct · read-only<br>Без автоматического расширения прав<br>Гарантии изолированной площадки: не приняты</p><p class="muted">Путь — рабочий каталог, а не граница безопасности. Пользовательские настройки Codex могут подключать hooks/MCP; их профиль нужно проверить перед работой.</p></section></aside></div>`;
+}
+function continuationPanel() {
+    const next = continuationAvailability(continuation, session, commands, configured, !!local.pending);
+    return `<section class="panel"><h2>Продолжить с результатами</h2>${renderContinuationPreview(continuation, continuationError)}<div class="toolbar">${button('new-session', 'Новая сессия с результатами', !!service && !!session && next.allowed)}${button('continuation-refresh', 'Обновить', !!service && !!task)}</div><p class="muted">${esc(next.reason)} История предыдущих сессий останется в задаче.</p></section>`;
 }
 function metrics() { return imported || window.DeskLiveEvents.analyzeEnvelopes(events, gap); }
 function observe() { const m = metrics(), u = m.totals || {}; return `<section class="panel"><div class="row between"><h2>${imported ? 'Выбранный журнал' : 'Наблюдаемые события сессии'}</h2>${button('import', 'Импорт JSONL', true)}${button('live', 'Вернуться к потоку', !!imported)}</div><div class="live-metrics">${[['input', 'Вход'], ['cached', 'Кеш внутри входа'], ['output', 'Выход'], ['reasoning', 'Reasoning внутри выхода']].map(([key, name]) => `<div><strong>${u[key] === null || u[key] === undefined ? '—' : Number(u[key]).toLocaleString('ru-RU')}</strong><span>${name}</span></div>`).join('')}</div><p>${esc(m.coverage)}</p>${(m.warnings || []).map((x) => `<p class="muted">${esc(x)}</p>`).join('')}<div class="live-table"><table><thead><tr><th>Ход</th><th>Состояние</th><th>Время хода*</th><th>Инструменты*</th><th>Явный TTFT</th></tr></thead><tbody>${(m.sessions || []).flatMap((s) => s.turns).map((t) => `<tr><td>${esc(t.id)}</td><td>${esc(t.status)}</td><td>${esc(t.wallMs ?? '—')}</td><td>${esc(t.toolMs ?? '—')}</td><td>${esc(t.reportedTtftMs ?? '—')}</td></tr>`).join('')}</tbody></table></div><p class="muted">* мс; без собственного времени Codex это интервалы получения хостом. Повторы HTTP и очередь сервера неизвестны без отдельного источника. Токены не переводятся в цену подписки.</p></section>`; }
@@ -70,6 +77,51 @@ function researchPanel() { return `<div class="toolbar">${button('research-refre
 async function loadResearch() { if (!service || !task)
     return; const selected = task.id; const cp = await call('research_checkpoint', { taskId: selected }); if (task?.id !== selected)
     return; research = cp ? decodeResearchCheckpoint(JSON.stringify(cp)) : null; researchOrigin = 'host'; }
+async function loadContinuation() {
+    if (!service || !task)
+        return;
+    const selected = task.id, selection = selectionGeneration;
+    try {
+        const value = await call('codex_continuation', { taskId: selected });
+        if (task?.id !== selected || selection !== selectionGeneration)
+            return;
+        if (value?.schema !== 1 || value.taskId !== selected || typeof value.text !== 'string' || !Number.isSafeInteger(value.utf8Bytes) || value.utf8Bytes > value.maxUtf8Bytes)
+            throw Error('Некорректный пакет продолжения от хоста.');
+        continuation = value;
+        continuationError = '';
+        if (value.goalRevision !== task.goalRevision) {
+            const current = await call('task_read', { taskId: selected });
+            if (task?.id === selected && selection === selectionGeneration) {
+                task = current;
+                tasks = tasks.map(t => t.id === selected ? current : t);
+            }
+        }
+    }
+    catch (e) {
+        if (task?.id === selected && selection === selectionGeneration) {
+            continuation = null;
+            continuationError = String(e);
+        }
+    }
+}
+async function selectSession(selected) {
+    const found = sessions.find(s => s.id === selected && s.taskId === task?.id);
+    if (!found)
+        throw Error('Сессия не относится к выбранной задаче.');
+    if (local.pending)
+        throw Error('Сначала разрешите локально сохранённую команду.');
+    selectionGeneration++;
+    session = found;
+    events = [];
+    commands = [];
+    cursor = 0;
+    gap = false;
+    local.selectedSession = found.id;
+    save();
+    render();
+    await refresh();
+    await loadContinuation();
+}
 async function refresh() {
     if (!service || !session || polling)
         return;
@@ -86,8 +138,10 @@ async function refresh() {
         const freshCommands = await call('codex_commands', { sessionId: selected });
         if (session?.id !== selected)
             return;
+        const stateChanged = session.status !== freshSession.status;
         session = freshSession;
         commands = freshCommands;
+        sessions = sessions.map(s => s.id === selected ? freshSession : s);
         if (local.pending) {
             const cid = local.pending.commandId;
             const known = commands.find(c => c.id === cid);
@@ -99,6 +153,8 @@ async function refresh() {
         // Streaming must not steal focus or destroy an in-progress textarea selection.
         if (screen === 'research' && researchOrigin === 'host')
             await loadResearch();
+        if (stateChanged || page.events.some(e => e.frame.method === 'turn/completed' || e.frame.method === 'studio/researchCheckpoint' || e.frame.method === 'item/completed' && e.frame.params?.item?.tool === 'diagnostic_sweep'))
+            await loadContinuation();
         if (!['TEXTAREA', 'INPUT'].includes(document.activeElement?.tagName || '') && !busy)
             render();
     }
@@ -111,13 +167,19 @@ async function refresh() {
         polling = false;
     }
 }
-async function selectTask(t) { const selected = ++selectionGeneration; research = null; researchOrigin = 'host'; task = t; session = null; events = []; commands = []; cursor = 0; gap = false; local.selectedTask = t.id; save(); const list = await call('task_sessions', { taskId: t.id }); if (selected !== selectionGeneration)
-    return; session = list.find(s => s.id === local.selectedSession) || list.at(-1) || null; screen = 'work'; render(); await refresh(); }
+async function selectTask(t) { const selected = ++selectionGeneration; research = null; researchOrigin = 'host'; continuation = null; continuationError = ''; task = t; session = null; sessions = []; events = []; commands = []; cursor = 0; gap = false; local.selectedTask = t.id; save(); const list = await call('task_sessions', { taskId: t.id }); if (selected !== selectionGeneration)
+    return; sessions = list; session = list.find(s => s.id === local.selectedSession) || list.at(-1) || null; screen = 'work'; render(); await refresh(); await loadContinuation(); if (selected === selectionGeneration)
+    render(); }
 async function perform(action) {
+    if (busy && action !== 'interrupt')
+        return;
     if (action === 'new') {
         selectionGeneration++;
         task = null;
         session = null;
+        sessions = [];
+        continuation = null;
+        continuationError = '';
         research = null;
         researchOrigin = 'host';
         screen = 'work';
@@ -139,12 +201,19 @@ async function perform(action) {
     }
     const consentBefore = document.querySelector('#consent')?.checked === true;
     const threadBefore = document.querySelector('#thread-id')?.value.trim() || null;
+    const sessionBefore = document.querySelector('#session-select')?.value || null;
     operationCount++;
     busy = true;
     render();
     try {
         if (action === 'research-refresh') {
             await loadResearch();
+        }
+        if (action === 'continuation-refresh') {
+            await loadContinuation();
+        }
+        if (action === 'select-session' && sessionBefore) {
+            await selectSession(sessionBefore);
         }
         if (action === 'abandon-prepared' && local.pending) {
             await call('codex_abandon_prepared', { commandId: local.pending.commandId });
@@ -154,12 +223,23 @@ async function perform(action) {
         }
         if (action === 'recover-local' && local.pending) {
             const receipt = await call('codex_command', { commandId: local.pending.commandId });
+            if (receipt.sessionId && receipt.taskId && (session?.id !== receipt.sessionId || task?.id !== receipt.taskId)) {
+                const owner = await call('task_read', { taskId: receipt.taskId });
+                if (!tasks.some(t => t.id === owner.id))
+                    tasks.push(owner);
+                local.selectedSession = receipt.sessionId;
+                save();
+                await selectTask(owner);
+            }
+            if (receipt.sessionId !== session?.id)
+                throw Error('Не удалось открыть сессию сохранённой команды. Отправка не повторялась.');
             commands = [receipt, ...commands.filter(c => c.id !== receipt.id)];
             if (['confirmed', 'rejected'].includes(receipt.state)) {
                 local.pending = null;
                 save();
             }
-            notice = 'Прочитана прежняя команда. Новых запросов к модели нет.';
+            notice = 'Открыта сессия прежней команды. Новых запросов к модели нет.';
+            await loadContinuation();
         }
         if (action === 'folder')
             binding = await service.chooseWorkspace();
@@ -184,24 +264,41 @@ async function perform(action) {
             tasks = [created, ...tasks];
             await selectTask(created);
         }
-        if (action === 'connect' && task) {
-            const external = threadBefore;
-            const sid = session?.id || id('session'), commandId = id('command');
+        if (['connect', 'new-session'].includes(action) && task) {
+            const fresh = action === 'new-session';
+            if (fresh) {
+                await loadContinuation();
+                const next = continuationAvailability(continuation, session, commands, configured, !!local.pending);
+                if (!next.allowed)
+                    throw Error(continuationError || next.reason);
+            }
+            const external = fresh ? null : (session?.externalThreadId || threadBefore);
+            const sid = fresh ? id('session') : (session?.id || id('session')), commandId = id('command');
+            if (fresh && session) {
+                session = await call('codex_disconnect', { sessionId: session.id });
+            }
             local.pending = { operation: 'codex_open', commandId, sessionId: sid, taskId: task.id };
             local.selectedSession = sid;
             save();
             const result = await call('codex_open', { taskId: task.id, sessionId: sid, commandId, externalThreadId: external });
             session = result.session;
+            events = [];
+            cursor = 0;
+            gap = false;
             commands = [result.command];
             notice = 'Локальная команда сохранена. Итог доставки показан в истории.';
+            sessions = await call('task_sessions', { taskId: task.id });
             if (result.command.state === 'confirmed') {
                 local.pending = null;
+                if (fresh && !(local.drafts[draftKey()] || '').trim())
+                    local.drafts[draftKey()] = 'Продолжай с сохранённого состояния: проверь следующий шаг и ограничения задачи.';
                 save();
                 const checked = await call('codex_reconcile', { sessionId: sid });
                 session = checked.session;
                 commands = checked.commands;
-                notice = checked.notice;
+                notice = fresh ? 'Новая сессия подключена с сохранёнными результатами. Проверьте поручение и отправьте ход.' : checked.notice;
             }
+            await loadContinuation();
         }
         if (['send', 'steer'].includes(action) && task && session) {
             const text = local.drafts[draftKey()] ?? task.original;
@@ -232,22 +329,33 @@ async function perform(action) {
             session = r.session;
             commands = r.commands;
             notice = r.notice;
+            await loadContinuation();
         }
         if (action === 'disconnect' && session) {
             session = await call('codex_disconnect', { sessionId: session.id });
             notice = 'Процесс отключён. Неизвестные внешние эффекты сохранены для сверки.';
+            await loadContinuation();
         }
     }
     catch (e) {
         notice = String(e);
     }
     finally {
-        if (task && !session && service) {
+        if (task && service && (!session || local.pending?.operation === 'codex_open' && local.pending.sessionId !== session.id)) {
             const selected = task.id;
             try {
                 const known = await call('task_sessions', { taskId: selected });
-                if (task?.id === selected)
-                    session = known.find(s => s.id === local.selectedSession) || null;
+                if (task?.id === selected) {
+                    sessions = known;
+                    const found = known.find(s => s.id === local.selectedSession);
+                    if (found && found.id !== session?.id) {
+                        session = found;
+                        events = [];
+                        commands = [];
+                        cursor = 0;
+                        gap = false;
+                    }
+                }
             }
             catch { /* The original failure stays visible. */ }
         }

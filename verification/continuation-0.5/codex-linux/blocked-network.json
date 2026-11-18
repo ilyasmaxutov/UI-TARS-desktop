@@ -1,0 +1,10 @@
+[
+  {
+    "kind": "proxy-connect",
+    "target": "github.com:443"
+  },
+  {
+    "kind": "proxy-connect",
+    "target": "chatgpt.com:443"
+  }
+]

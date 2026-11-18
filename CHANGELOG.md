@@ -1,3 +1,13 @@
+## 2026-11-18 — Task continuation and observed protocol behavior
+
+- Connect actual TaskStore continuation to Codex thread/start and thread/resume, with a 12 KiB UTF-8 cap, exact goal/stops, evidence provenance, bounded saved observations, explicit omissions, and no extra model call.
+- Add read-only capsule preview, explicit new-context action, prior-session selection and lost-ACK recovery to Assistant Desk; preserve drafts and task budgets.
+- Check unresolved/active task sessions before new dispatch, including unresolved commands older than the latest 1000 command records. Preserve frozen outbox parameters across checkpoint changes.
+- Add real native-child stdio tests for fragmented UTF-8, late ACK, post-dispatch process death and completion-before-ACK ordering.
+- Use the actual package version in initialize. Add reproducible metadata-only Codex CLI probes and an official pinned Windows Codex CI job; protocol assertions fail rather than masquerading as environment unavailability.
+- Linux Codex 0.167.0-alpha.4 initialized without a model request; thread creation was unavailable because of the environment's bwrap restriction. No sandbox bypass.
+- Keep MCP pre-execution admission, inherited MCP filtering, native semantic Finding persistence and complete Windows/user/GPU acceptance explicitly open. See verification/continuation-0.5/REPORT.md.
+
 ## 2026-11-18 — Existing runtime built on Windows
 
 - Published the existing source to `studio/native-ci` without changing legacy main; exact imported tree matches `c7b6e05`.

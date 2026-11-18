@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-18T09:47:35.287Z",
+  "status": "metadata-unavailable",
+  "platform": "linux",
+  "osRelease": "6.18.57",
+  "executable": "/opt/codex/bin/codex",
+  "credentialsInherited": false,
+  "callerProfileConfigured": false,
+  "disposableProfile": true,
+  "turnStartSent": false,
+  "modelEndpointRequests": 0,
+  "rejectedProxyRequests": 2,
+  "networkContainmentClaimed": false,
+  "localToolsLoaded": false,
+  "windowsAcceptance": false,
+  "fullDirectProfileAcceptance": false,
+  "commands": [
+    "initialize",
+    "initialized",
+    "thread/start"
+  ],
+  "checks": [
+    {
+      "method": "initialize",
+      "outcome": "received",
+      "durationMs": 136
+    },
+    {
+      "method": "thread/start",
+      "outcome": "rpc-error",
+      "durationMs": 49
+    }
+  ],
+  "limits": {
+    "lineBytes": 1048576,
+    "transcriptBytes": 131072,
+    "stderrBytes": 65536,
+    "rpcTimeoutMs": 15000
+  },
+  "version": "codex-cli 0.167.0-alpha.4",
+  "handshake": true,
+  "serverUserAgent": "platform_studio_protocol_probe/0.167.0-alpha.4 (Debian 13.0.0; x86_64) unknown (platform_studio_protocol_probe; 0.5.0)",
+  "reason": "thread/start: error creating thread: failed to load AGENTS.md instructions for environment `local`: fs sandbox helper failed with status exit status: 1: bwrap: loopback: Failed to create NETLINK_ROUTE socket: Operation not permitted",
+  "rpcCode": -32603,
+  "processExit": {
+    "code": 0,
+    "signal": null
+  },
+  "stderrObservedBytes": 517,
+  "stderrSavedBytes": 517,
+  "transcriptSavedBytes": 1481,
+  "transcriptDroppedFrames": 0,
+  "finishedAt": "2026-11-18T09:47:35.509Z",
+  "disposableProfileRemoved": true
+}

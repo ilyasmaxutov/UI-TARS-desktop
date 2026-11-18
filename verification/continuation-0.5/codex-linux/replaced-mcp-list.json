@@ -1,0 +1,40 @@
+[
+  {
+    "name": "inherited_remote_probe",
+    "enabled": true,
+    "disabled_reason": null,
+    "transport": {
+      "type": "streamable_http",
+      "url": "http://127.0.0.1:9/not-invoked",
+      "bearer_token_env_var": null,
+      "http_headers": null,
+      "env_http_headers": null,
+      "http_headers_helper": null
+    },
+    "startup_timeout_sec": null,
+    "tool_timeout_sec": null,
+    "auth_status": "unknown"
+  },
+  {
+    "name": "studio_economy",
+    "enabled": true,
+    "disabled_reason": null,
+    "transport": {
+      "type": "stdio",
+      "command": "/probe/studio-economy",
+      "args": [
+        "mcp",
+        "--project",
+        "/probe/project",
+        "--state",
+        "/probe/state"
+      ],
+      "env": null,
+      "env_vars": [],
+      "cwd": null
+    },
+    "startup_timeout_sec": 15.0,
+    "tool_timeout_sec": 660.0,
+    "auth_status": "unsupported"
+  }
+]

@@ -7,7 +7,7 @@ pub fn read_line_limited(reader:&mut impl BufRead)->Result<Option<Vec<u8>>>{
  let count=chunk.iter().position(|b|*b==b'\n').map(|p|p+1).unwrap_or(chunk.len());
  ensure(out.len()+count<=MAX_LINE,"FRAME_LIMIT","Кадр Codex превышает 4 МиБ")?;let complete=chunk[count-1]==b'\n';out.extend_from_slice(&chunk[..count]);reader.consume(count);if complete{return Ok(Some(out));}}
 }
-pub fn initialize(id:&str)->Value{json!({"id":id,"method":"initialize","params":{"clientInfo":{"name":"platform_studio","title":"Platform Studio","version":"0.3.0"},"capabilities":{"experimentalApi":false}}})}
+pub fn initialize(id:&str)->Value{json!({"id":id,"method":"initialize","params":{"clientInfo":{"name":"platform_studio","title":"Platform Studio","version":env!("CARGO_PKG_VERSION")},"capabilities":{"experimentalApi":false}}})}
 pub fn marked_input(id:&str,text:&str)->Result<(String,String)>{
  ensure(!text.trim().is_empty()&&text.len()<=65536,"INPUT","Неверное поручение")?;
  let marker=format!("[PlatformStudio command {id}]");Ok((marker.clone(),format!("{text}\n\n{marker}")))

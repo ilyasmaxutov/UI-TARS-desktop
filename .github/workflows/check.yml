@@ -10,6 +10,40 @@ concurrency:
   group: studio-check-${{ github.ref }}
   cancel-in-progress: false
 jobs:
+  codex-metadata-windows:
+    runs-on: windows-2025
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+      - name: Fetch pinned official Codex for this disposable CI runner
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $studioProbeArchive = Join-Path $env:RUNNER_TEMP 'studio-codex-probe.zip'
+          $studioProbeDirectory = Join-Path $env:RUNNER_TEMP 'studio-codex-probe'
+          Invoke-WebRequest 'https://github.com/openai/codex/releases/download/rust-v0.170.0/codex-x86_64-pc-windows-msvc.exe.zip' -OutFile $studioProbeArchive
+          $studioExpectedHash = 'b1634415b6ecb87fea80691580dfe49f83fd46f0ad93f128ba029604d7faa158'
+          if ((Get-FileHash $studioProbeArchive -Algorithm SHA256).Hash.ToLowerInvariant() -ne $studioExpectedHash) { throw 'Codex release digest mismatch' }
+          Expand-Archive -LiteralPath $studioProbeArchive -DestinationPath $studioProbeDirectory
+          $studioProbeExecutable = Get-ChildItem $studioProbeDirectory -Recurse -File | Where-Object { $_.Name -eq 'codex.exe' -or $_.Name -eq 'codex-x86_64-pc-windows-msvc.exe' } | Select-Object -First 1
+          if (-not $studioProbeExecutable) { throw 'Native Codex executable missing from pinned distribution' }
+          "STUDIO_PROTOCOL_CODEX=$($studioProbeExecutable.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: Exercise real App Server metadata with no model turn or user profile
+        shell: pwsh
+        run: |
+          & ./scripts/Probe-Codex.ps1 -CodexExe $env:STUDIO_PROTOCOL_CODEX -OutDirectory verification/codex-windows-ci -ExpectedVersion '0.170.0'
+          exit $LASTEXITCODE
+      - name: Preserve exact protocol outcome including unavailable targets
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: codex-windows-protocol-evidence
+          path: verification/codex-windows-ci/
+          if-no-files-found: warn
+          retention-days: 7
   typescript:
     runs-on: ubuntu-24.04
     timeout-minutes: 12

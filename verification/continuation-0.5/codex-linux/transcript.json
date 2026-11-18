@@ -1,0 +1,79 @@
+[
+  {
+    "direction": "send",
+    "atMs": 90,
+    "frame": {
+      "id": "probe_1",
+      "method": "initialize",
+      "params": {
+        "clientInfo": {
+          "name": "platform_studio_protocol_probe",
+          "title": "Platform Studio offline protocol probe",
+          "version": "0.5.0"
+        },
+        "capabilities": {
+          "experimentalApi": false
+        }
+      }
+    }
+  },
+  {
+    "direction": "receive",
+    "atMs": 225,
+    "frame": {
+      "id": "probe_1",
+      "result": {
+        "userAgent": "platform_studio_protocol_probe/0.167.0-alpha.4 (Debian 13.0.0; x86_64) unknown (platform_studio_protocol_probe; 0.5.0)",
+        "codexHome": "/tmp/studio-codex-probe-QQv8pN/codex-profile",
+        "platformFamily": "unix",
+        "platformOs": "linux"
+      }
+    }
+  },
+  {
+    "direction": "receive",
+    "atMs": 225,
+    "frame": {
+      "method": "remoteControl/status/changed",
+      "params": {
+        "status": "disabled",
+        "serverName": "24259c5a8744",
+        "installationId": "54c6d343-3cd2-4a5e-88c3-8707b15ae3b1",
+        "environmentId": null
+      },
+      "emittedAtMs": 1794995255454
+    }
+  },
+  {
+    "direction": "send",
+    "atMs": 226,
+    "frame": {
+      "method": "initialized"
+    }
+  },
+  {
+    "direction": "send",
+    "atMs": 226,
+    "frame": {
+      "id": "probe_2",
+      "method": "thread/start",
+      "params": {
+        "cwd": "/tmp/studio-codex-probe-QQv8pN/empty-project",
+        "sandbox": "read-only",
+        "approvalPolicy": "never",
+        "developerInstructions": "Metadata-only protocol probe. No turn, tool, or inference request will be sent."
+      }
+    }
+  },
+  {
+    "direction": "receive",
+    "atMs": 275,
+    "frame": {
+      "error": {
+        "code": -32603,
+        "message": "error creating thread: failed to load AGENTS.md instructions for environment `local`: fs sandbox helper failed with status exit status: 1: bwrap: loopback: Failed to create NETLINK_ROUTE socket: Operation not permitted"
+      },
+      "id": "probe_2"
+    }
+  }
+]

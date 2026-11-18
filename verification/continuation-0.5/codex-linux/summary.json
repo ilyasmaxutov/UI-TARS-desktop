@@ -1,0 +1,37 @@
+{
+  "codexVersion": "0.167.0-alpha.4",
+  "codexExecutableSha256": "57c94ea520df28beb76955316c5c48f672550fe42c6cff7003badb76e1ee10d8",
+  "schemaValidation": {
+    "result": "8 message parameter shapes validated against locally generated stable schema",
+    "details": "schema-validation.json",
+    "experimentalApi": false
+  },
+  "strictEconomySettings": {
+    "exitCode": 0,
+    "details": "strict-config.json",
+    "covers": "original economy scalar settings and computer-use denial, not loaded MCP/runtime acceptance"
+  },
+  "liveProtocolProbe": {
+    "status": "metadata-unavailable",
+    "handshake": true,
+    "turnStartSent": false,
+    "modelEndpointRequests": 0,
+    "reason": "thread/start: error creating thread: failed to load AGENTS.md instructions for environment `local`: fs sandbox helper failed with status exit status: 1: bwrap: loopback: Failed to create NETLINK_ROUTE socket: Operation not permitted",
+    "details": "reproducible/report.json"
+  },
+  "ambientMcp": {
+    "existingServersRemainEnabled": true,
+    "rootTableOverrideAlsoMerges": true,
+    "details": [
+      "inherited-mcp-list.json",
+      "replaced-mcp-list.json"
+    ],
+    "consequence": "local-only tools is not enforced by adding studio_economy"
+  },
+  "acceptance": {
+    "targetWindows": false,
+    "realModelTurn": false,
+    "fullW0": false,
+    "OSNetworkContainmentProven": false
+  }
+}

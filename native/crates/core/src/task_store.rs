@@ -64,21 +64,46 @@ impl Store {
  pub fn executor_session(&self,id:&str)->Result<Value>{let c=self.lock()?;Ok(c.query_row(&format!("{SESSION_SELECT} WHERE id=?1"),[id],session_row)?)}
  pub fn executor_sessions(&self,task_id:&str)->Result<Value>{let c=self.lock()?;let mut q=c.prepare(&format!("{SESSION_SELECT} WHERE task_id=?1 ORDER BY created_at"))?;let rows=q.query_map([task_id],session_row)?;Ok(json!(rows.collect::<std::result::Result<Vec<_>,_>>()?))}
  pub fn set_session_generation(&self,id:&str,generation:&str)->Result<()> {
-  let c=self.lock()?;ensure(c.execute("UPDATE executor_sessions SET generation=?1,status='connecting',updated_at=?2 WHERE id=?3",params![generation,now(),id])?==1,"SESSION","Нет сессии")?;Ok(())
+  let c=self.lock()?;ensure(c.execute("UPDATE executor_sessions SET generation=?1,status=CASE WHEN status IN ('running','state_unknown') THEN 'state_unknown' ELSE 'connecting' END,updated_at=?2 WHERE id=?3",params![generation,now(),id])?==1,"SESSION","Нет сессии")?;Ok(())
  }
  pub fn session_disconnect(&self,id:&str,generation:&str)->Result<()> {
   let mut c=self.lock()?;let tx=c.transaction_with_behavior(TransactionBehavior::Immediate)?;
-  tx.execute("UPDATE executor_sessions SET status='disconnected',updated_at=?1 WHERE id=?2 AND generation=?3",params![now(),id,generation])?;
+  // Losing the transport is not evidence that an acknowledged turn finished.
+  tx.execute("UPDATE executor_sessions SET status=CASE WHEN status IN ('running','state_unknown') OR (status='connecting' AND last_known_turn_id IS NOT NULL AND external_thread_id IS NOT NULL) THEN 'state_unknown' ELSE 'disconnected' END,updated_at=?1 WHERE id=?2 AND generation=?3",params![now(),id,generation])?;
   tx.execute("UPDATE external_commands SET state='unverified_outcome',revision=revision+1,reason='transport_closed',updated_at=?1 WHERE session_id=?2 AND generation=?3 AND state='in_flight'",params![now(),id,generation])?;tx.commit()?;Ok(())
  }
  pub fn recover_executor_sessions(&self)->Result<()> {
   let mut c=self.lock()?;let tx=c.transaction_with_behavior(TransactionBehavior::Immediate)?;
   tx.execute("UPDATE external_commands SET state='unverified_outcome',revision=revision+1,reason='host_restarted',updated_at=?1 WHERE state='in_flight'",[now()])?;
-  tx.execute("UPDATE executor_sessions SET status='disconnected',updated_at=?1",[now()])?;tx.commit()?;Ok(())
+  tx.execute("UPDATE executor_sessions SET status=CASE WHEN status IN ('running','state_unknown') OR (status='connecting' AND last_known_turn_id IS NOT NULL AND external_thread_id IS NOT NULL) THEN 'state_unknown' ELSE 'disconnected' END,updated_at=?1",[now()])?;tx.commit()?;Ok(())
  }
  pub fn find_external_command(&self,id:&str)->Result<Option<Value>>{let c=self.lock()?;Ok(c.query_row(&format!("{COMMAND_SELECT} WHERE id=?1"),[id],command_row).optional()?)}
  pub fn external_command(&self,id:&str)->Result<Value>{let c=self.lock()?;Ok(c.query_row(&format!("{COMMAND_SELECT} WHERE id=?1"),[id],command_row)?)}
  pub fn external_commands(&self,session_id:&str)->Result<Value>{let c=self.lock()?;let mut q=c.prepare(&format!("{COMMAND_SELECT} WHERE session_id=?1 ORDER BY created_at DESC LIMIT 1000"))?;let rows=q.query_map([session_id],command_row)?;Ok(json!(rows.collect::<std::result::Result<Vec<_>,_>>()?))}
+ /// One consistent, read-only projection for continuation and cross-session
+ /// admission. Never load prompt/params blobs or hide an old unresolved command
+ /// behind the UI's 1000-command history page. Counts remain exact at the bound.
+ pub fn task_continuation_snapshot(&self,task_id:&str)->Result<Value>{
+  let mut c=self.lock()?;let tx=c.transaction()?;
+  let(project,title,revision,original,binding,progress):(String,String,u64,String,String,String)=tx.query_row(
+   "SELECT project_id,title,goal_revision,original,binding_json,progress_json FROM tasks WHERE id=?1",[task_id],
+   |r|Ok((r.get(0)?,r.get(1)?,from_sql_u64(r,2)?,r.get(3)?,r.get(4)?,r.get(5)?)))?;
+  let task=json!({"id":task_id,"projectId":project,"title":title,"goalRevision":revision,"original":original,"binding":serde_json::from_str::<Value>(&binding)?,"progress":serde_json::from_str::<Value>(&progress)?});
+  // rowid breaks millisecond timestamp ties across independent investigations.
+  let checkpoint:Option<String>=tx.query_row("SELECT payload_json FROM task_research_checkpoints WHERE task_id=?1 ORDER BY (goal_revision=(SELECT goal_revision FROM tasks WHERE id=?1)) DESC,created_at DESC,rowid DESC LIMIT 1",[task_id],|r|r.get(0)).optional()?;
+  let unresolved_count:u64=tx.query_row("SELECT count(*) FROM external_commands WHERE task_id=?1 AND state IN ('prepared','in_flight','unverified_outcome','unknown_needs_user_decision')",[task_id],|r|from_sql_u64(r,0))?;
+  let commands={let mut q=tx.prepare("SELECT id,session_id,goal_revision,method,state,expected_thread_id,expected_turn_id FROM external_commands WHERE task_id=?1 AND state IN ('prepared','in_flight','unverified_outcome','unknown_needs_user_decision') ORDER BY created_at,id LIMIT 128")?;
+   let rows=q.query_map([task_id],|r|Ok(json!({"commandId":r.get::<_,String>(0)?,"sessionId":r.get::<_,String>(1)?,"goalRevision":from_sql_u64(r,2)?,"method":r.get::<_,String>(3)?,"state":r.get::<_,String>(4)?,"threadId":r.get::<_,Option<String>>(5)?,"turnId":r.get::<_,Option<String>>(6)?})))?;
+   rows.collect::<std::result::Result<Vec<_>,_>>()?};
+  let active_count:u64=tx.query_row("SELECT count(*) FROM executor_sessions WHERE task_id=?1 AND status IN ('running','connecting')",[task_id],|r|from_sql_u64(r,0))?;
+  let uncertain_count:u64=tx.query_row("SELECT count(*) FROM executor_sessions WHERE task_id=?1 AND status='state_unknown'",[task_id],|r|from_sql_u64(r,0))?;
+  let sessions={let mut q=tx.prepare("SELECT id,status,external_thread_id,last_known_turn_id FROM executor_sessions WHERE task_id=?1 AND status IN ('running','connecting','state_unknown') ORDER BY created_at,id LIMIT 128")?;
+   let rows=q.query_map([task_id],|r|Ok(json!({"sessionId":r.get::<_,String>(0)?,"status":r.get::<_,String>(1)?,"threadId":r.get::<_,Option<String>>(2)?,"turnId":r.get::<_,Option<String>>(3)?})))?;
+   rows.collect::<std::result::Result<Vec<_>,_>>()?};
+  let checkpoint=checkpoint.map(|s|serde_json::from_str::<Value>(&s)).transpose()?.unwrap_or(Value::Null);
+  tx.commit()?;
+  Ok(json!({"task":task,"checkpoint":checkpoint,"unresolvedCommands":unresolved_count,"commands":commands,"activeSessions":active_count,"uncertainSessions":uncertain_count,"sessions":sessions,"complete":unresolved_count<=128&&active_count+uncertain_count<=128}))
+ }
  /// Atomically retire a never-dispatched command, including an IPC request not yet inserted.
  /// A tombstone prevents its delayed arrival from triggering the external operation.
  pub fn abandon_prepared_external(&self,id:&str)->Result<Value>{
@@ -133,7 +158,9 @@ impl Store {
    let method=string(&row,"method")?;
    if method=="thread/start"||method=="thread/resume" {
     let remote=remote_id.ok_or_else(||Error::new("RECEIPT","Нет ID треда"))?;
-    let status=match result.and_then(|v|v["thread"]["status"]["type"].as_str()){Some("idle")=>"idle",Some("active")=>"state_unknown",Some("notLoaded")=>"disconnected",_=>if method=="thread/start"{"idle"}else{"state_unknown"}};
+    let previous=tx.query_row(&format!("{SESSION_SELECT} WHERE id=?1"),[string(&row,"sessionId")?],session_row)?;
+    let pending_turn=matches!(previous["status"].as_str(),Some("running")|Some("state_unknown"))||(previous["status"]=="connecting"&&!previous["lastKnownTurnId"].is_null());
+    let status=match result.and_then(|v|v["thread"]["status"]["type"].as_str()){Some("idle")=>"idle",Some("active")=>"state_unknown",Some("notLoaded")=>if pending_turn{"state_unknown"}else{"disconnected"},_=>if method=="thread/start"{"idle"}else{"state_unknown"}};
     tx.execute("UPDATE executor_sessions SET external_thread_id=?1,status=?2,updated_at=?3 WHERE id=?4 AND generation=?5",params![remote,status,now(),string(&row,"sessionId")?,string(&row,"generation")?])?;
    }
    if method=="turn/start" {
@@ -195,7 +222,9 @@ impl Store {
   let s=self.executor_session(session_id)?;ensure(s["externalThreadId"]==thread["id"],"THREAD","Сверка другого треда")?;
   let active=thread["turns"].as_array().and_then(|ts|ts.iter().rev().find(|t|t["status"]=="inProgress")).and_then(|t|t["id"].as_str());
   let idle=thread["status"]["type"]=="idle";
-  let state=if thread["status"]["type"]=="notLoaded"{"disconnected"}else if active.is_some(){"running"}else if idle{"idle"}else{"state_unknown"};
+  let pending_turn=matches!(s["status"].as_str(),Some("running")|Some("state_unknown"))||(s["status"]=="connecting"&&!s["lastKnownTurnId"].is_null());
+  let finished=s["lastKnownTurnId"].as_str().is_some_and(|id|thread["turns"].as_array().into_iter().flatten().any(|t|t["id"]==id&&matches!(t["status"].as_str(),Some("completed")|Some("failed")|Some("interrupted"))));
+  let state=if active.is_some(){"running"}else if idle{"idle"}else if thread["status"]["type"]=="notLoaded"&&(!pending_turn||finished){"disconnected"}else{"state_unknown"};
   let c=self.lock()?;c.execute("UPDATE executor_sessions SET status=?1,last_known_turn_id=COALESCE(?2,last_known_turn_id),updated_at=?3 WHERE id=?4 AND generation=?5",params![state,active,now(),session_id,generation])?;Ok(())
  }
 }

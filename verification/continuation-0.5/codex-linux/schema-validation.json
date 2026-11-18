@@ -1,0 +1,94 @@
+{
+  "codexVersion": "0.167.0-alpha.4",
+  "experimentalSchema": false,
+  "validated": [
+    {
+      "schema": "v1/InitializeParams.json",
+      "fixture": {
+        "clientInfo": {
+          "name": "platform_studio",
+          "title": "Platform Studio",
+          "version": "0.3.0"
+        },
+        "capabilities": {
+          "experimentalApi": false
+        }
+      },
+      "valid": true
+    },
+    {
+      "schema": "v2/ThreadStartParams.json",
+      "fixture": {
+        "cwd": "C:/Work/P",
+        "sandbox": "read-only",
+        "approvalPolicy": "never",
+        "developerInstructions": "Instructions"
+      },
+      "valid": true
+    },
+    {
+      "schema": "v2/ThreadResumeParams.json",
+      "fixture": {
+        "cwd": "C:/Work/P",
+        "sandbox": "read-only",
+        "approvalPolicy": "never",
+        "developerInstructions": "Instructions",
+        "threadId": "t",
+        "excludeTurns": true
+      },
+      "valid": true
+    },
+    {
+      "schema": "v2/TurnStartParams.json",
+      "fixture": {
+        "threadId": "t",
+        "input": [
+          {
+            "type": "text",
+            "text": "Original [marker]"
+          }
+        ]
+      },
+      "valid": true
+    },
+    {
+      "schema": "v2/TurnSteerParams.json",
+      "fixture": {
+        "threadId": "t",
+        "expectedTurnId": "r",
+        "input": [
+          {
+            "type": "text",
+            "text": "Original [marker]"
+          }
+        ]
+      },
+      "valid": true
+    },
+    {
+      "schema": "v2/TurnInterruptParams.json",
+      "fixture": {
+        "threadId": "t",
+        "turnId": "r"
+      },
+      "valid": true
+    },
+    {
+      "schema": "v2/ThreadReadParams.json",
+      "fixture": {
+        "threadId": "t"
+      },
+      "valid": true
+    },
+    {
+      "schema": "v2/ThreadTurnsListParams.json",
+      "fixture": {
+        "threadId": "t",
+        "limit": 50,
+        "sortDirection": "desc",
+        "itemsView": "full"
+      },
+      "valid": true
+    }
+  ]
+}

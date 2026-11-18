@@ -45,6 +45,7 @@ async fn rpc(method:&'static str,params:Value)->Result<Value,String>{tauri::asyn
  "codex_configure"=>"codex_configure","codex_open"=>"codex_open","codex_submit"=>"codex_submit","codex_steer"=>"codex_steer",
  "codex_interrupt"=>"codex_interrupt","codex_reconcile"=>"codex_reconcile","codex_disconnect"=>"codex_disconnect","codex_session"=>"codex_session",
  "codex_abandon_prepared"=>"codex_abandon_prepared",
+ "codex_continuation"=>"codex_continuation",
  "research_checkpoint"=>"research_checkpoint","research_sweep"=>"research_sweep","research_reconcile"=>"research_reconcile",
  "codex_commands"=>"codex_commands","codex_command"=>"codex_command","codex_events"=>"codex_events",
  _=>return Err("Операция помощника не разрешена".into())}; rpc(method,params).await

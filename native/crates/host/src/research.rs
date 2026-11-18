@@ -2,7 +2,7 @@
 //! This is not a second agent or a polling model. An MCP event only points to a
 //! sealed local report; arbitrary provider text cannot author evidence directly.
 use std::{fs, io::{Read, Write}, path::{Path, PathBuf}, process::{Command, Stdio}, sync::{Arc, Mutex}, time::{Duration, Instant}};
-use serde_json::{json, Value};
+use serde_json::Value;
 use studio_core::{files, model::*, store::Store, task_store::field};
 
 fn project_state(store: &Store, task: &Value) -> Result<PathBuf> {

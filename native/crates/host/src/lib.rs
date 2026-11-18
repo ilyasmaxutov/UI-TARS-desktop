@@ -31,6 +31,7 @@ impl Service {
         "task_read"=>self.store.task(Self::arg(p,"taskId")?),
         "task_revise"=>self.store.revise_task(Self::arg(p,"taskId")?,p["expectedRevision"].as_u64().ok_or_else(||Error::new("PARAM","Нет редакции"))?,Self::arg(p,"original")?),
         "task_sessions"=>self.store.executor_sessions(Self::arg(p,"taskId")?),
+        "codex_continuation"=>self.codex.continuation(Self::arg(p,"taskId")?),
         "codex_configure"=>self.codex.configure(Path::new(Self::arg(p,"executable")?),p["acknowledgeDirectProfile"].as_bool()==Some(true)),
         "codex_open"=>self.codex.open(Self::arg(p,"taskId")?,Self::arg(p,"sessionId")?,Self::arg(p,"commandId")?,p["externalThreadId"].as_str()),
         "codex_submit"=>self.codex.submit(Self::arg(p,"sessionId")?,Self::arg(p,"commandId")?,p["goalRevision"].as_u64().ok_or_else(||Error::new("PARAM","Нет редакции"))?,Self::arg(p,"text")?,None),

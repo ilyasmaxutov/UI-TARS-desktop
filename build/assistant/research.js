@@ -155,7 +155,7 @@ export function researchFreshness(c, t) {
     return c.plan.taskId === t.id && c.plan.goalRevision === t.goalRevision && c.plan.originalGoal === t.original ? 'current' : 'stale-goal';
 }
 export function continuationCard(c, maxBytes = 12000) {
-    const body = JSON.stringify({ taskId: c.plan.taskId, goalRevision: c.plan.goalRevision, originalGoal: c.plan.originalGoal, planVersion: c.plan.planVersion, question: c.plan.question, hypotheses: c.plan.hypotheses, stopRules: c.plan.stopRules, reports: c.reports.map(r => ({ sweepId: r.sweepId, artifact: r.reportArtifact, sha256: r.reportSha256, gaps: r.gaps, unknownEffects: r.unknownEffects })), findings: c.findings, nextAction: c.nextAction });
+    const body = JSON.stringify({ taskId: c.plan.taskId, goalRevision: c.plan.goalRevision, originalGoal: c.plan.originalGoal, investigationId: c.plan.investigationId, sequence: c.sequence, status: c.status, planVersion: c.plan.planVersion, question: c.plan.question, hypotheses: c.plan.hypotheses, stopRules: c.plan.stopRules, budget: c.plan.budget, reports: c.reports.map(r => ({ sweepId: r.sweepId, goalRevision: r.goalRevision, planVersion: r.planVersion, artifact: r.reportArtifact, sha256: r.reportSha256, sourceHash: r.sourceHash, sourceCoverage: r.sourceCoverage, probes: r.probes, evidenceRefs: r.evidenceRefs, gaps: r.gaps, unknownEffects: r.unknownEffects, untestedHypotheses: r.untestedHypotheses })), findings: c.findings, nextAction: c.nextAction });
     assert(utf8(body) <= maxBytes, 'CONTEXT_LIMIT', 'Обязательный пакет продолжения не помещается; цель не обрезана');
     return body;
 }

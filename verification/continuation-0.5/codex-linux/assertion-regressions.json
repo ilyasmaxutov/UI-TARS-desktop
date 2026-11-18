@@ -1,0 +1,23 @@
+[
+  {
+    "case": "missing-result",
+    "exitCode": 1,
+    "status": "assertion-failed",
+    "reason": "initialize: missing result",
+    "modelEndpointRequests": 0
+  },
+  {
+    "case": "wrong-thread",
+    "exitCode": 1,
+    "status": "assertion-failed",
+    "reason": "thread/read returned a different thread",
+    "modelEndpointRequests": 0
+  },
+  {
+    "case": "nonempty-turns",
+    "exitCode": 1,
+    "status": "assertion-failed",
+    "reason": "Fresh metadata-only thread unexpectedly contains turns",
+    "modelEndpointRequests": 0
+  }
+]
