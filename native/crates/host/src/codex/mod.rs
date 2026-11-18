@@ -86,19 +86,24 @@ impl Director {
   let peer=self.peer(session_id)?;
   let snapshot=peer.call("thread/read",json!({"threadId":thread_id}))?;
   ensure(snapshot["thread"]["id"].as_str()==Some(thread_id),"THREAD","Получен другой тред")?;
-  let page=peer.call("thread/turns/list",json!({"threadId":thread_id,"limit":50,"sortDirection":"desc","itemsView":"full"}))?;
+  let(page,unmaterialized)=match peer.call("thread/turns/list",json!({"threadId":thread_id,"limit":50,"sortDirection":"desc","itemsView":"full"})){
+   Ok(page)=>(page,false),
+   Err(error) if session["lastKnownTurnId"].is_null()&&protocol::unmaterialized_history(thread_id,&snapshot["thread"],&error)=>(json!({"data":snapshot["thread"]["turns"],"historyAvailable":false,"materialized":false,"coverage":"unmaterialized-before-first-user-message","source":"thread/read and exact thread/turns/list precondition","absenceOfUncertainCommandProven":false}),true),
+   Err(error)=>return Err(error)
+  };
   let turns=page["data"].as_array().ok_or_else(||Error::new("READBACK","Нет списка ходов"))?;
   let commands=self.store.external_commands(session_id)?;
   for command in commands.as_array().into_iter().flatten(){
    if matches!(command["state"].as_str(),Some("in_flight")|Some("unverified_outcome")|Some("unknown_needs_user_decision")){
     let loaded=matches!(snapshot["thread"]["status"]["type"].as_str(),Some("idle")|Some("active"));
-    let remote=if command["method"]=="thread/resume"&&loaded&&command["expectedThreadId"].as_str()==Some(thread_id){Some(thread_id.to_owned())}else{protocol::reconcile_match(command,thread_id,turns)};
+    let remote=if unmaterialized{None}else if command["method"]=="thread/resume"&&loaded&&command["expectedThreadId"].as_str()==Some(thread_id){Some(thread_id.to_owned())}else{protocol::reconcile_match(command,thread_id,turns)};
     if command["state"]=="in_flight"{self.store.finish_external(field(command,"id")?,"unverified_outcome",None,None,"explicit_reconciliation")?;}
     self.store.finish_external(field(command,"id")?,if remote.is_some(){"confirmed"}else{"unknown_needs_user_decision"},remote.as_deref(),None,if remote.is_some(){"exact_user_item_readback"}else{"not_proven; no automatic replay"})?;
    }
   }
   let mut thread=snapshot["thread"].clone();thread["turns"]=json!(turns);self.store.observe_thread_snapshot(session_id,&peer.generation,&thread)?;
-  Ok(json!({"session":self.store.executor_session(session_id)?,"commands":self.store.external_commands(session_id)?,"history":page,"notice":"Прочитана ограниченная страница. Исторические streaming-дельты и скрытые фазы не восстановлены."}))
+  let notice=if unmaterialized{"Тред подключён; до первого сообщения Codex ещё не создал сохраняемую историю. Неподтверждённые команды не разрешены и не повторены."}else{"Прочитана ограниченная страница. Исторические streaming-дельты и скрытые фазы не восстановлены."};
+  Ok(json!({"session":self.store.executor_session(session_id)?,"commands":self.store.external_commands(session_id)?,"history":page,"notice":notice}))
  }
  pub fn close(&self,session_id:&str)->Result<Value>{if let Some(peer)=self.peers.lock().map_err(|_|Error::new("LOCK","Сессии недоступны"))?.remove(session_id){peer.close();}Ok(self.store.executor_session(session_id)?)}
 }

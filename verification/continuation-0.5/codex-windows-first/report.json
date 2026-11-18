@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-11-18T09:55:25.005Z",
+  "status": "assertion-failed",
+  "platform": "win32",
+  "osRelease": "10.0.26100",
+  "executable": "D:\\a\\_temp\\studio-codex-probe\\codex-x86_64-pc-windows-msvc.exe",
+  "credentialsInherited": false,
+  "callerProfileConfigured": false,
+  "disposableProfile": true,
+  "turnStartSent": false,
+  "modelEndpointRequests": 0,
+  "rejectedProxyRequests": 1,
+  "networkContainmentClaimed": false,
+  "localToolsLoaded": false,
+  "windowsAcceptance": false,
+  "fullDirectProfileAcceptance": false,
+  "commands": [
+    "initialize",
+    "initialized",
+    "thread/start",
+    "thread/read",
+    "thread/turns/list"
+  ],
+  "checks": [
+    {
+      "method": "initialize",
+      "outcome": "received",
+      "durationMs": 722
+    },
+    {
+      "method": "thread/start",
+      "outcome": "received",
+      "durationMs": 74
+    },
+    {
+      "method": "thread/read",
+      "outcome": "received",
+      "durationMs": 2
+    },
+    {
+      "method": "thread/turns/list",
+      "outcome": "rpc-error",
+      "durationMs": 3
+    }
+  ],
+  "limits": {
+    "lineBytes": 1048576,
+    "transcriptBytes": 131072,
+    "stderrBytes": 65536,
+    "rpcTimeoutMs": 15000
+  },
+  "version": "codex-cli 0.170.0",
+  "handshake": true,
+  "serverUserAgent": "platform_studio_protocol_probe/0.170.0 (Windows 10.0.26100; x86_64) unknown (platform_studio_protocol_probe; 0.5.0)",
+  "threadCreated": true,
+  "reason": "thread/turns/list: thread 01a1ee15-285f-7be0-b031-c556947fbf22 is not materialized yet; thread/turns/list is unavailable before first user message",
+  "rpcCode": -32600,
+  "processExit": {
+    "code": 0,
+    "signal": null
+  },
+  "stderrObservedBytes": 0,
+  "stderrSavedBytes": 0,
+  "transcriptSavedBytes": 6383,
+  "transcriptDroppedFrames": 0,
+  "finishedAt": "2026-11-18T09:55:26.552Z",
+  "disposableProfileRemoved": true
+}

@@ -8,6 +8,15 @@ pub fn read_line_limited(reader:&mut impl BufRead)->Result<Option<Vec<u8>>>{
  ensure(out.len()+count<=MAX_LINE,"FRAME_LIMIT","Кадр Codex превышает 4 МиБ")?;let complete=chunk[count-1]==b'\n';out.extend_from_slice(&chunk[..count]);reader.consume(count);if complete{return Ok(Some(out));}}
 }
 pub fn initialize(id:&str)->Value{json!({"id":id,"method":"initialize","params":{"clientInfo":{"name":"platform_studio","title":"Platform Studio","version":env!("CARGO_PKG_VERSION")},"capabilities":{"experimentalApi":false}}})}
+/// Codex 0.170.0 on Windows reports this exact precondition before the first
+/// user message creates persisted history. This is unavailable history, never
+/// evidence that an uncertain command was not delivered.
+pub fn unmaterialized_history(thread_id:&str,thread:&Value,error:&Error)->bool{
+ error.code=="CODEX_RPC_INVALID_REQUEST"
+  &&error.message==format!("thread {thread_id} is not materialized yet; thread/turns/list is unavailable before first user message")
+  &&thread["id"].as_str()==Some(thread_id)&&thread["status"]["type"]=="idle"
+  &&thread["turns"].as_array().is_some_and(Vec::is_empty)
+}
 pub fn marked_input(id:&str,text:&str)->Result<(String,String)>{
  ensure(!text.trim().is_empty()&&text.len()<=65536,"INPUT","Неверное поручение")?;
  let marker=format!("[PlatformStudio command {id}]");Ok((marker.clone(),format!("{text}\n\n{marker}")))
@@ -40,4 +49,14 @@ pub fn reconcile_match(command:&Value,thread_id:&str,turns:&[Value])->Option<Str
  #[test]fn incomplete_frame(){assert!(read_line_limited(&mut std::io::Cursor::new(b"{\"id\":1}")).is_err());}
  #[test]fn oversized_frame(){assert!(read_line_limited(&mut std::io::Cursor::new(vec![b'x';MAX_LINE+1])).is_err());}
  #[test]fn protocol_no_bypass(){let init=initialize("r");assert_eq!(init["params"]["capabilities"]["experimentalApi"],false);}
+ #[test]fn unmaterialized_history_requires_exact_error_and_matching_idle_empty_snapshot(){
+  let thread=json!({"id":"thread","status":{"type":"idle"},"turns":[]});
+  let message="thread thread is not materialized yet; thread/turns/list is unavailable before first user message";
+  let error=Error::new("CODEX_RPC_INVALID_REQUEST",message);
+  assert!(unmaterialized_history("thread",&thread,&error));
+  assert!(!unmaterialized_history("other",&thread,&error));
+  assert!(!unmaterialized_history("thread",&thread,&Error::new("CODEX_RPC",message)));
+  assert!(!unmaterialized_history("thread",&thread,&Error::new("CODEX_RPC_INVALID_REQUEST",format!("{message}; backend failed"))));
+  for incompatible in [json!({"id":"thread","status":{"type":"active"},"turns":[]}),json!({"id":"thread","status":{"type":"idle"}}),json!({"id":"thread","status":{"type":"idle"},"turns":[{"id":"turn"}]}),json!({"id":"foreign","status":{"type":"idle"},"turns":[]})]{assert!(!unmaterialized_history("thread",&incompatible,&error));}
+ }
 }

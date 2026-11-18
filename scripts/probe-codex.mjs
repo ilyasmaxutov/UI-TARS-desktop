@@ -21,7 +21,7 @@ for (let i = 2; i < process.argv.length; i++) {
   options.set(key, process.argv[++i]);
 }
 if (options.has('--help')) {
-  console.log('Usage: node scripts/probe-codex.mjs --codex ABSOLUTE_NATIVE_EXE --out EVIDENCE_DIRECTORY [--expect-version EXACT_VERSION]\nRuns initialize and thread metadata only in a disposable profile. No model turn, credentials, tools, downloads, or sandbox bypass. Exit 0: metadata passed; 2: target unavailable; 1: failed assertion.');
+  console.log('Usage: node scripts/probe-codex.mjs --codex ABSOLUTE_NATIVE_EXE --out EVIDENCE_DIRECTORY [--expect-version EXACT_VERSION]\nRuns initialize and thread metadata only in a disposable profile. No model turn, credentials, tools, downloads, or sandbox bypass. Exit 0: metadata checks passed, including explicitly recorded empty-thread preconditions; 2: target unavailable; 1: failed assertion.');
   process.exit(0);
 }
 const executable = options.get('--codex');
@@ -153,6 +153,15 @@ function requireResult(response, method) {
   assertProbe(response.result !== null && typeof response.result === 'object' && !Array.isArray(response.result), `${method}: result must be an object`);
   return response.result;
 }
+function isUnmaterializedPrecondition(response, method, threadId, thread) {
+  return response.error?.code === -32600
+    && response.error.message === `thread ${threadId} is not materialized yet; ${method} is unavailable before first user message`
+    && thread?.id === threadId && thread.status?.type === 'idle'
+    && Array.isArray(thread.turns) && thread.turns.length === 0;
+}
+function recordPrecondition(method, response) {
+  (report.expectedPreconditions ??= []).push({ method, code: response.error.code, message: response.error.message });
+}
 
 try {
   const version = await capture(['--version']);
@@ -201,12 +210,31 @@ try {
   report.threadCreated = true;
   const read = requireResult(await call('thread/read', { threadId }), 'thread/read');
   assertProbe(read.thread?.id === threadId, 'thread/read returned a different thread');
-  const turns = requireResult(await call('thread/turns/list', { threadId, limit: 50, sortDirection: 'desc', itemsView: 'full' }), 'thread/turns/list');
-  assertProbe(Array.isArray(turns.data), 'thread/turns/list did not return a data array');
-  assertProbe(turns.data.length === 0, 'Fresh metadata-only thread unexpectedly contains turns');
-  const resumed = requireResult(await call('thread/resume', { threadId, cwd: workspace, sandbox: 'read-only', approvalPolicy: 'never', excludeTurns: true }), 'thread/resume');
-  assertProbe(resumed.thread?.id === threadId, 'thread/resume returned a different thread');
-  report.status = 'metadata-passed';
+  const turnsResponse = await call('thread/turns/list', { threadId, limit: 50, sortDirection: 'desc', itemsView: 'full' });
+  const unmaterialized = isUnmaterializedPrecondition(turnsResponse, 'thread/turns/list', threadId, read.thread);
+  if (unmaterialized) {
+    // Actual Codex 0.170.0 Windows behavior before the first user message. The
+    // unavailable API is recorded explicitly; no successful page is fabricated.
+    recordPrecondition('thread/turns/list', turnsResponse);
+    report.history = { state: 'unmaterialized-before-first-user-message', itemsAvailable: false, emptyThreadSnapshotObserved: true, absenceOfUncertainCommandProven: false };
+  } else {
+    const turns = requireResult(turnsResponse, 'thread/turns/list');
+    assertProbe(Array.isArray(turns.data), 'thread/turns/list did not return a data array');
+    assertProbe(turns.data.length === 0, 'Fresh metadata-only thread unexpectedly contains turns');
+    report.history = { state: 'empty-page-read', itemsAvailable: true, observedItems: 0 };
+  }
+  const resumeResponse = await call('thread/resume', { threadId, cwd: workspace, sandbox: 'read-only', approvalPolicy: 'never', excludeTurns: true });
+  if (unmaterialized && isUnmaterializedPrecondition(resumeResponse, 'thread/resume', threadId, read.thread)) {
+    recordPrecondition('thread/resume', resumeResponse);
+    report.resume = { state: 'unavailable-before-first-user-message', acknowledged: false };
+    report.status = 'metadata-preconditions-observed';
+  } else {
+    const resumed = requireResult(resumeResponse, 'thread/resume');
+    assertProbe(resumed.thread?.id === threadId, 'thread/resume returned a different thread');
+    report.resume = { state: 'acknowledged', acknowledged: true };
+    report.status = 'metadata-passed';
+  }
+  report.coverage = unmaterialized ? 'thread-metadata-with-unmaterialized-history' : 'empty-thread-metadata';
 } catch (error) {
   report.status = error instanceof ProbeAssertionError ? 'assertion-failed' : report.handshake ? 'metadata-unavailable' : 'handshake-unavailable';
   report.reason = String(error.message).slice(0, 2000);
@@ -234,5 +262,5 @@ try {
   await writeFile(join(output, 'blocked-network.json'), `${JSON.stringify(blocked, null, 2)}\n`);
   await writeFile(join(output, 'stderr.log'), stderr);
 }
-console.log(JSON.stringify({ status: report.status, version: report.version, handshake: report.handshake ?? false, turnStartSent: report.turnStartSent, modelEndpointRequests: report.modelEndpointRequests, rejectedProxyRequests: report.rejectedProxyRequests, reason: report.reason, evidence: output }, null, 2));
-process.exitCode = report.status === 'metadata-passed' ? 0 : report.status === 'assertion-failed' ? 1 : 2;
+console.log(JSON.stringify({ status: report.status, version: report.version, handshake: report.handshake ?? false, history: report.history?.state, resume: report.resume?.state, turnStartSent: report.turnStartSent, modelEndpointRequests: report.modelEndpointRequests, rejectedProxyRequests: report.rejectedProxyRequests, reason: report.reason, evidence: output }, null, 2));
+process.exitCode = ['metadata-passed', 'metadata-preconditions-observed'].includes(report.status) ? 0 : report.status === 'assertion-failed' ? 1 : 2;

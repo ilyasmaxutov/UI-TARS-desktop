@@ -135,3 +135,75 @@ fn completion_before_ack_stays_idle_over_real_transport() {
     drop(director);
     finish(fixture);
 }
+
+#[test]
+fn reconcile_new_unmaterialized_thread_keeps_the_connected_empty_view() {
+    let fixture = Fixture::new("unmaterialized");
+    let director = Director::new(fixture.store.clone());
+    director.peers.lock().unwrap().insert("session".into(), fixture.peer.clone());
+    let readback = director.reconcile("session").unwrap();
+    assert_eq!(readback["session"]["status"], "idle");
+    assert_eq!(readback["history"]["data"], json!([]));
+    assert_eq!(readback["history"]["historyAvailable"], false);
+    assert_eq!(readback["history"]["coverage"], "unmaterialized-before-first-user-message");
+    assert_eq!(readback["history"]["absenceOfUncertainCommandProven"], false);
+    assert_eq!(fixture.sent_turns(), 0);
+    drop(director);
+    finish(fixture);
+}
+
+#[test]
+fn unmaterialized_readback_neither_resolves_nor_replays_uncertain_commands() {
+    let fixture = Fixture::new("unmaterialized");
+    let director = Director::new(fixture.store.clone());
+    director.peers.lock().unwrap().insert("session".into(), fixture.peer.clone());
+    fixture.prepare();
+    assert!(fixture.store.begin_external_dispatch("command").unwrap());
+    fixture.store.finish_external("command", "unverified_outcome", None, None, "lost_turn_ack").unwrap();
+    fixture.store.prepare_external("resume", "session", 1, "thread/resume",
+        &json!({"threadId":"thread","excludeTurns":true}), None, None).unwrap();
+    assert!(fixture.store.begin_external_dispatch("resume").unwrap());
+    fixture.store.finish_external("resume", "unverified_outcome", None, None, "lost_resume_ack").unwrap();
+    let readback = director.reconcile("session").unwrap();
+    for command in readback["commands"].as_array().unwrap() {
+        assert_eq!(command["state"], "unknown_needs_user_decision");
+        assert_eq!(command["attempts"], 1);
+        assert!(command["remoteId"].is_null());
+        assert!(!fixture.store.begin_external_dispatch(command["id"].as_str().unwrap()).unwrap());
+    }
+    let wire = std::fs::read_to_string(fixture.root.join("wire.jsonl")).unwrap();
+    assert!(!wire.contains("turn/start"));
+    assert!(!wire.contains("thread/resume"));
+    drop(director);
+    finish(fixture);
+}
+
+#[test]
+fn unrelated_history_rpc_error_is_not_an_empty_thread() {
+    let fixture = Fixture::new("history_error");
+    let director = Director::new(fixture.store.clone());
+    director.peers.lock().unwrap().insert("session".into(), fixture.peer.clone());
+    let error = director.reconcile("session").unwrap_err();
+    assert_eq!(error.code, "CODEX_RPC_INVALID_REQUEST");
+    assert_eq!(error.message, "History backend is unavailable");
+    assert_eq!(fixture.sent_turns(), 0);
+    drop(director);
+    finish(fixture);
+}
+
+#[test]
+fn unmaterialized_error_cannot_erase_a_previously_acknowledged_turn() {
+    let fixture = Fixture::new("unmaterialized");
+    let director = Director::new(fixture.store.clone());
+    director.peers.lock().unwrap().insert("session".into(), fixture.peer.clone());
+    fixture.prepare();
+    assert!(fixture.store.begin_external_dispatch("command").unwrap());
+    fixture.store.finish_external("command", "confirmed", Some("known_turn"),
+        Some(&json!({"turn":{"id":"known_turn","status":"inProgress"}})), "observed_ack").unwrap();
+    assert!(director.reconcile("session").is_err());
+    assert_eq!(fixture.store.executor_session("session").unwrap()["status"], "running");
+    assert_eq!(fixture.store.executor_session("session").unwrap()["lastKnownTurnId"], "known_turn");
+    assert_eq!(fixture.sent_turns(), 0);
+    drop(director);
+    finish(fixture);
+}

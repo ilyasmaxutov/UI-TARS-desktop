@@ -99,7 +99,7 @@ impl Peer {
   if let Some(pending)=pending {
    let result:Result<Value>=if let Some(error)=frame.get("error"){
     if let Some(cid)=pending.command.as_deref(){let rejected=matches!(error["code"].as_i64(),Some(-32601)|Some(-32602));self.store.finish_external(cid,if rejected{"rejected"}else{"unverified_outcome"},None,None,&format!("rpc_error: {}",error["code"]))?;}
-    Err(Error::new("CODEX_RPC",error["message"].as_str().unwrap_or("Ошибка Codex")))
+    Err(Error::new(if error["code"].as_i64()==Some(-32600){"CODEX_RPC_INVALID_REQUEST"}else{"CODEX_RPC"},error["message"].as_str().unwrap_or("Ошибка Codex")))
    }else if let Some(value)=frame.get("result"){
     if let Some(cid)=pending.command.as_deref(){let command=self.store.external_command(cid)?;let remote=protocol::receipt_id(&command,value)?;self.store.finish_external(cid,"confirmed",remote.as_deref(),Some(value),"rpc_response")?;}
     Ok(value.clone())

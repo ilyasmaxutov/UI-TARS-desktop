@@ -693,7 +693,7 @@
     "ownedPaths": [],
     "title": "Read-only audit of native Codex protocol and offline Windows end-to-end gaps",
     "accepted": false,
-    "notes": "Real local schema/initialize checked without a model. Implement targeted transport tests and reproducible metadata-only probe."
+    "notes": "Real Windows0.170 initialized/start/read; exposed unmaterialized history precondition. Production narrow handler plus8 real-stdio tests, second Windows check pending."
   },
   {
     "id": "W05-REVIEW",

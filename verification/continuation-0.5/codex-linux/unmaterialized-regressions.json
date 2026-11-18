@@ -1,0 +1,36 @@
+[
+  {
+    "case": "unmaterialized-only",
+    "exitCode": 0,
+    "status": "metadata-passed",
+    "history": {
+      "state": "unmaterialized-before-first-user-message",
+      "itemsAvailable": false,
+      "emptyThreadSnapshotObserved": true,
+      "absenceOfUncertainCommandProven": false
+    },
+    "resume": {
+      "state": "acknowledged",
+      "acknowledged": true
+    },
+    "turnStartSent": false,
+    "modelEndpointRequests": 0
+  },
+  {
+    "case": "unmaterialized-resume",
+    "exitCode": 0,
+    "status": "metadata-preconditions-observed",
+    "history": {
+      "state": "unmaterialized-before-first-user-message",
+      "itemsAvailable": false,
+      "emptyThreadSnapshotObserved": true,
+      "absenceOfUncertainCommandProven": false
+    },
+    "resume": {
+      "state": "unavailable-before-first-user-message",
+      "acknowledged": false
+    },
+    "turnStartSent": false,
+    "modelEndpointRequests": 0
+  }
+]

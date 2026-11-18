@@ -1,0 +1,10 @@
+{
+  "repository": "ilyasmaxutov/UI-TARS-desktop",
+  "branch": "studio/native-ci",
+  "localCommit": "803981d49c3dfea28d1a8ae4d5b7d7fefe8ca3f3",
+  "remoteCommit": "a52aeed1c443fa0e01af87c522d6e73ae963c581",
+  "sameTree": "d58c9bd3e8a52ad0c7a2d9d0e3a09658ee425c23",
+  "firstRun": 44280377330,
+  "firstRunProtocol": "failed_on_real_unmaterialized_thread_precondition",
+  "mainModified": false
+}

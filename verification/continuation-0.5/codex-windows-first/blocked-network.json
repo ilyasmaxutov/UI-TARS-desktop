@@ -1,0 +1,6 @@
+[
+  {
+    "kind": "proxy-connect",
+    "target": "github.com:443"
+  }
+]

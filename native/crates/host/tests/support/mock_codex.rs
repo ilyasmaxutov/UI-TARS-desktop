@@ -42,6 +42,9 @@ fn main() {
             }
             Some("thread/read") => emit(&format!(r#"{{"id":"{id}","result":{{"thread":{{"id":"thread","preview":"ответ по частям","status":{{"type":"idle"}},"turns":[]}}}}}}"#), mode == "split"),
             Some("thread/start") | Some("thread/resume") => emit(&format!(r#"{{"id":"{id}","result":{{"thread":{{"id":"thread","status":{{"type":"idle"}},"turns":[]}}}}}}"#), false),
+            Some("thread/turns/list") if mode == "unmaterialized" => emit(&format!(r#"{{"id":"{id}","error":{{"code":-32600,"message":"thread thread is not materialized yet; thread/turns/list is unavailable before first user message"}}}}"#), false),
+            Some("thread/turns/list") if mode == "history_error" => emit(&format!(r#"{{"id":"{id}","error":{{"code":-32600,"message":"History backend is unavailable"}}}}"#), false),
+            Some("thread/turns/list") => emit(&format!(r#"{{"id":"{id}","result":{{"data":[]}}}}"#), false),
             _ => emit(&format!(r#"{{"id":"{id}","error":{{"code":-32601,"message":"fixture method unavailable"}}}}"#), false),
         }
     }
