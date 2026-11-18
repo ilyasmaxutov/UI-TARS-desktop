@@ -1,3 +1,13 @@
+## 2026-11-18 — Existing runtime built on Windows
+
+- Published the existing source to `studio/native-ci` without changing legacy main; exact imported tree matches `c7b6e05`.
+- Fixed 17 native Rust/SQLite u64 conversion compile errors with checked signed SQL boundaries; overflow cannot mutate the database.
+- Fixed Windows checkout line endings for hash-pinned fixtures using `.gitattributes`.
+- Actual GitHub run `44271721879`: all four jobs passed; compiled desktop/host/economy x64 executables, host and economy offline self-tests passed.
+- 367 Node tests and 46 Rust tests passed on Windows; Go tests passed on Linux and Windows. Native Linux Rust tests/self-test also passed.
+- Added the exact Windows Cargo.lock (SHA256 `682d81ce9c3f7d10e458c57b241cf39007c15f7b3f4923f8b8ea2b3b6f0d955c`), npm lock, delivery evidence and current usage links.
+- No new inference backend is included. GUI, live Codex session, user GPU performance and containment acceptance remain open.
+
 ## 0.5 maintenance · native delivery and safe publication
 
 - Continue `8df259d`, preserving the real 0.4 baseline and every existing test file.

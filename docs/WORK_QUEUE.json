@@ -646,5 +646,37 @@
       "native/crates/host/src/lib.rs"
     ],
     "notes": "Node 367/367; Go 107 top-level + 10 subcases, race detector and vet pass. Git publication tested against local bare repositories (7 cases). Actual remote push unavailable: connector read-only, CLI has no DNS/network. Windows build and native smoke unexecuted."
+  },
+  {
+    "id": "RUNTIME-ROOT",
+    "owner": "root",
+    "state": "completed",
+    "branch": "studio/runtime-local",
+    "ownedPaths": [
+      "docs",
+      "README.md",
+      "CHANGELOG.md",
+      ".gitattributes",
+      "package-lock.json"
+    ],
+    "title": "Publish existing Studio and obtain real Windows build",
+    "accepted": false,
+    "notes": "Published existing source and native fixes; four Windows/Linux CI jobs pass. GUI and live Codex acceptance remain open. No new inference backend."
+  },
+  {
+    "id": "RUNTIME-NATIVE",
+    "owner": "native_build",
+    "state": "completed",
+    "branch": "studio/runtime-local",
+    "ownedPaths": [
+      "native/crates/core",
+      "native/crates/host/src/windows.rs",
+      "native/crates/host/src/codex",
+      "native/crates/host/src/selftest.rs",
+      "native/Cargo.lock"
+    ],
+    "title": "Compile existing native code and fix actual compiler/test failures",
+    "accepted": false,
+    "notes": "Fixed actual SQLite u64 conversion errors. 46 Rust tests passed on Linux and Windows. Cargo.lock identical to successful Windows build."
   }
 ]

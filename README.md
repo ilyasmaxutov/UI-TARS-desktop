@@ -1,3 +1,19 @@
+# Слой · Platform Studio 0.5 — сборка Windows
+
+Продолжение существующего проекта от `3967b46`, восстановленного из `c7b6e05`.
+
+**18 ноября 2026 года приложение, Rust-хост и Go-инструменты собраны на Windows.** Все четыре задания [GitHub Actions](https://github.com/ilyasmaxutov/UI-TARS-desktop/actions/runs/44271721879) прошли. Вкладка Artifacts содержит `studio-windows-x64-unsigned` — комплект из трёх EXE. [Скачать комплект](https://github.com/ilyasmaxutov/UI-TARS-desktop/actions/runs/44271721879/artifacts/14413531161) (требуется вход в GitHub; срок хранения этого артефакта — до 25 ноября).
+
+Распакуйте комплект целиком в одну папку и откройте `studio-desktop.exe`. Для проверки без интерфейса: `studio-host.exe --selftest` и `studio-economy.exe selftest`. Codex подключается явно на экране «Подключение»; сборка не скачивает модели и не использует квоту автоматически.
+
+Основа сохранена: **Assistant Desk → Rust-хост → Codex App Server**, прежние TaskStore, `local_batch`, `context_pack` и `diagnostic_sweep`. Новый движок инференса в этот инкремент не включён.
+
+Проверено: 367 тестов Node, 46 тестов Rust на Windows, тесты Go на Linux и Windows, запуск двух служебных EXE в режиме самопроверки, целостность трёх файлов комплекта. Живой сеанс Codex и GUI на пользовательском ПК ещё не проверялись. [Подробный отчёт](verification/runtime-native/REPORT.md) · [Текущий статус](docs/STATUS.md).
+
+Ниже — описание сохранённых инкрементов. Их исторические отчёты фиксируют ограничения на момент соответствующей разработки.
+
+---
+
 ## Инкремент 0.5 — уже написанный код
 
 Read-only `diagnostic_sweep` поверх прежнего local_batch, 10 диагностических контрактов, source/evidence refs, TaskStore checkpoints и trace в Desk. [Что реализовано](docs/INCREMENT_0_5.md) · [Запуск и ограничения](docs/RESEARCH_RUNBOOK.md) · [Измерения](verification/research-0.5/REPORT.md).
@@ -10,7 +26,7 @@ Read-only `diagnostic_sweep` поверх прежнего local_batch, 10 ди�
 
 **Готовый Windows EXE локальных инструментов есть: `release/economy/studio-economy.exe`. [Запуск и границы](docs/economy/START_HERE.md).** Он работает отдельно от Rust-каркаса и может подключить локальные пакеты к уже установленному Codex.
 
-**Нативный клиент Studio↔Codex написан, но Rust/Tauri не собраны и живое соединение не испытано. EXE/MSI самой студии нет.** Выполнены TypeScript/SQL/CLI-пробы и тесты обработчиков интерфейса. Это не готовый установленный агент.
+**Rust/Tauri и EXE собраны в Windows CI 18 ноября.** Живое соединение с Codex и установленное приложение на пользовательском ПК требуют отдельной сквозной проверки.
 
 ## Добавлено в 0.4
 
@@ -57,14 +73,14 @@ Node нужен для разработки/CLI-проверок, не как о
 
 ## Нативная проверка на Windows
 
-Требуются отдельно подготовленные закреплённый Rust, MSVC build tools и WebView2. В архиве нет Cargo.lock: разрешение и проверка зависимостей ещё не выполнены.
+Для сборки исходников нужны закреплённый Rust, MSVC build tools, Node и Go. Для запуска готового EXE эти компиляторы не нужны; интерфейс Tauri использует WebView2. `native/Cargo.lock` совпадает с файлом успешно выполненной Windows-сборки.
 
 ```powershell
 .\scripts\Build-Windows.ps1 -ResolveDependencies
 .\scripts\Verify-Native.ps1 -Offline
 ```
 
-Первый вызов явно разрешает зависимостям определиться, выполняет CLI-тесты и сборку. Он не запускает GUI/браузер/dev-server. Второй только проверяет подготовленную ветку и пишет блокер при отсутствии toolchain/lockfile. Скрипты здесь не выполнялись. Рабочую базу следует резервировать перед испытанием миграции v4. Возврат к старому host с новой базой блокируется версией схемы.
+Первый вызов выполняет CLI-тесты и сборку по существующему lockfile. Флаг разрешения зависимостей нужен только при отсутствии lockfile. Он не запускает GUI/браузер/dev-server. Эта сборка реально выполнена в Windows CI. Второй скрипт проверяет подготовленную локальную среду. Рабочую базу следует резервировать перед испытанием миграции v4. Возврат к старому host с новой базой блокируется версией схемы.
 
 ## Пути реализации
 
@@ -75,7 +91,7 @@ Node нужен для разработки/CLI-проверок, не как о
 | `assistant/src/telemetry.js` | Сохранённый исходный анализатор Desk |
 | `assistant/src/live-events.js` | Преобразование наблюдаемых App Server событий |
 | `native/crates/core/src/task_store.rs` и `schema/v3.sql` | Задачи, сессии, intent/ACK/unknown, события и миграция |
-| `native/crates/host/src/codex/` | Производственный Rust-транспорт: исходники, ещё не собраны |
+| `native/crates/host/src/codex/` | Rust-транспорт: компилируется в Windows; живой сеанс ещё не испытан |
 | `tools/integration-lab/` | Только тестовый получатель/Node facade; не второй production runtime |
 | `verification/integration-0.3/` | Воспроизводимые результаты и границы доказательства |
 

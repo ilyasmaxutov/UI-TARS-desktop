@@ -4,20 +4,22 @@
 
 | Компонент | Фактически сделано | Открыто |
 |---|---|---|
-| Diagnostic Sweep | Go/Linux реальное I/O, existing local_batch, ограничение ответа и provenance | Windows/реальный агент |
+| Diagnostic Sweep | Linux и Windows тесты, реальное I/O, existing local_batch, ограничение ответа и provenance | Реальный агент |
 | ResearchPlan/policy | 10 контрактов, goal binding, зависимости, альтернативы, стоп-правила; TS/Go tested | Смысловое качество гипотез |
 | Diagnosis-first | Embedded в MCP initialize и source Codex instructions | Соблюдение всем внутренним Codex, model A/B |
-| TaskStore | Schema v4 actual SQL tested; Rust методы source | Rust/Windows/end-to-end |
+| TaskStore | Rust/SQLite v4, 37 core/recovery тестов на Linux и Windows; checked INTEGER boundary | Сквозная пользовательская сессия |
 | Desk trace | Сборка, pure view/DOM-stub, безопасный локальный импорт | Браузер/UX/Windows и реальные события |
 | Capture/packets | Старые и новые Go/race тесты сохранены | Полный context ceiling Codex |
-| Native transport | Прежняя стыковка и research event path source | Windows Rust/Tauri/App Server |
+| Native transport | Windows Rust/Tauri собраны; 9 host-тестов, самопроверка бинарника | Живой App Server и GUI |
 
 W0, W5, W6, W7 остаются открыты. Частичные W1–W4 не означают прохождение G1/G2/G3 или принятие всей PF. Сеть/модели не вызывались. Старые отчёты 0.3/0.4 сохранены.
 
-## Native delivery maintenance
+## Windows-сборка выполнена
 
-Desktop entrypoint and release packaging are corrected. The Windows workflow now invokes `scripts/Build-Windows.ps1 -ResolveDependencies`, including the helper, desktop, host, offline self-tests and byte-integrity validation. These target steps are source-only until Actions actually executes them.
+18 ноября все четыре задания [GitHub Actions](https://github.com/ilyasmaxutov/UI-TARS-desktop/actions/runs/44271721879) прошли. Собраны desktop, host и economy helper; два служебных EXE реально запущены в режиме самопроверки. 367 Node-тестов, 46 Rust-тестов на Windows, Go-тесты на Linux/Windows. Исправлены 17 SQL conversion errors и CRLF-преобразование байтов хешированных образцов.
 
-`node scripts/publish-github.mjs` performs local preflight only; adding `--publish` performs one authorized Git push to the fixed `studio/native-ci` branch. It uses existing Git authentication and never asks for tokens, launches a browser, or force-pushes. Unknown or unrelated remote work blocks publication. Local bare-repository tests are not a GitHub run.
+[Комплект Windows x64](https://github.com/ilyasmaxutov/UI-TARS-desktop/actions/runs/44271721879/artifacts/14413531161) · [Проверки и манифест](../verification/runtime-native/REPORT.md).
 
-Current continuation has 367 passing Node tests and 107 passing top-level Go tests (plus 10 nested cases). No previous test was altered. Actual GitHub write, Windows native build, GUI and live Codex remain open.
+`native/Cargo.lock` совпадает с lockfile успешной целевой сборки. Основа остаётся Codex App Server, TaskStore, Assistant Desk и прежние локальные инструменты. Новый backend инференса не добавлен. Измерений «300%» и запуска на пользовательском GPU нет.
+
+GUI и живой Codex не запускались. Полная пользовательская и изоляционная приёмка остаются открытыми; наличие компилируемого клиента не закрывает эти требования.

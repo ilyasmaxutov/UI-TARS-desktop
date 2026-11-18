@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "platform": "x86_64-unknown-linux-gnu",
+  "toolchain": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+  "command": "cargo test --manifest-path native/Cargo.toml --locked -p studio-core -p studio-host",
+  "testsPassed": 46,
+  "testGroupsPassed": [
+    25,
+    12,
+    9,
+    0,
+    0,
+    0
+  ],
+  "modelCalls": 0,
+  "sourceChange": "Checked u64/i64 conversion at SQLite boundary; reject overflow and negative stored unsigned values",
+  "sourceHashes": {
+    "native/crates/core/src/lib.rs": "fb7e4d87584f6686b9469bcc64d49de178721a5ff6629387e65548cbfb449ed1",
+    "native/crates/core/src/sql_integer.rs": "7b028cae56bbd2b25bccb02ad8e923b8d1209b816afa5797e40aeca149de8854",
+    "native/crates/core/src/store.rs": "34ef943f72b2e64f4501404d39653a6c1705f794be4d4f0dc9968299f2994162",
+    "native/crates/core/src/task_store.rs": "4dac680b66cf1eee420297fbe5bfd0d607906799b1d78e6e6c583b60b63eed49",
+    "native/crates/core/src/research_store.rs": "0ab8810e7443ae1bf827da4e1076e12299753d6e72da10914d7d8c178340dab0",
+    "native/Cargo.lock": "682d81ce9c3f7d10e458c57b241cf39007c15f7b3f4923f8b8ea2b3b6f0d955c"
+  },
+  "testLogSha256": "3e3128f27e66b6e426f3ee44500fd8aa4d193a96ed8672e4068146df6adcfe34",
+  "hostSelftest": {
+    "containmentAccepted": false,
+    "guiExecuted": false,
+    "ipcTested": false,
+    "platform": "linux",
+    "providerRequests": 0,
+    "repeatDispatchPermitted": false,
+    "schema": 1,
+    "sourceUnchanged": true,
+    "status": "passed",
+    "storeReopened": true,
+    "unknownPreserved": true
+  },
+  "windowsRuntimeTested": false,
+  "inferenceBackendAdded": false
+}

@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "version": "0.5.0",
+  "sourceRevision": "21bc5afa697cb8d17b5f4aa47be465cd4213e69b",
+  "target": "windows-x64",
+  "os": "Microsoft Windows NT 10.0.26100.0",
+  "frontend": "assistant.html",
+  "files": [
+    {
+      "name": "studio-desktop.exe",
+      "bytes": 9052160,
+      "sha256": "06aac13a21cf0f3ac672631e6be7173b5ec5e5db5dff2ab07dd698a1f3aef7f7"
+    },
+    {
+      "name": "studio-host.exe",
+      "bytes": 3627520,
+      "sha256": "fec00b17b32db12050681105eeaf682e4141a058152286ad73daf78bfdba824a"
+    },
+    {
+      "name": "studio-economy.exe",
+      "bytes": 6808064,
+      "sha256": "d7c597389c4a0ad259b2329d649e034f763430d51dde0dcfb6837634fd86fd8a"
+    }
+  ],
+  "cargoLockSha256": "682d81ce9c3f7d10e458c57b241cf39007c15f7b3f4923f8b8ea2b3b6f0d955c",
+  "claims": {
+    "compiled": true,
+    "offlineSelfTestsPassed": true,
+    "guiExecuted": false,
+    "liveCodexTested": false,
+    "containmentAccepted": false,
+    "signed": false
+  },
+  "githubRun": "https://github.com/ilyasmaxutov/UI-TARS-desktop/actions/runs/44271721879",
+  "githubArtifact": "https://github.com/ilyasmaxutov/UI-TARS-desktop/actions/runs/44271721879/artifacts/14413531161"
+}
