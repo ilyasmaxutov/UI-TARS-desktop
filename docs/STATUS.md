@@ -10,7 +10,7 @@
 | TaskStore | Rust/SQLite v4, 37 core/recovery тестов на Linux и Windows; checked INTEGER boundary | Сквозная пользовательская сессия |
 | Desk trace | Сборка, pure view/DOM-stub, безопасный локальный импорт | Браузер/UX/Windows и реальные события |
 | Capture/packets | Старые и новые Go/race тесты сохранены | Полный context ceiling Codex |
-| Native transport | Windows Rust/Tauri собраны; 9 host-тестов, самопроверка бинарника | Живой App Server и GUI |
+| Native transport | Windows Rust/Tauri собраны; 34 host-теста, самопроверка бинарника | Реальный модельный ход, GUI и полная W0 |
 
 W0, W5, W6, W7 остаются открыты. Частичные W1–W4 не означают прохождение G1/G2/G3 или принятие всей PF. Запросы к моделям не выполнялись. Старые отчёты 0.3/0.4 сохранены.
 
@@ -24,9 +24,9 @@ Linux Codex 0.167.0-alpha.4 прошёл initialize; восемь форм за�
 
 ## Windows-сборка выполнена
 
-18 ноября все четыре задания [GitHub Actions](https://github.com/ilyasmaxutov/UI-TARS-desktop/actions/runs/44271721879) прошли. Собраны desktop, host и economy helper; два служебных EXE реально запущены в режиме самопроверки. 367 Node-тестов, 46 Rust-тестов на Windows, Go-тесты на Linux/Windows. Исправлены 17 SQL conversion errors и CRLF-преобразование байтов хешированных образцов.
+18 ноября все пять заданий [GitHub Actions](https://github.com/ilyasmaxutov/UI-TARS-desktop/actions/runs/44283060107) прошли. Собраны desktop, host и economy helper; два служебных EXE реально запущены в режиме самопроверки. 380 Node-тестов, 71 Rust-тест на Windows, Go-тесты на Linux/Windows. Исправлены 17 SQL conversion errors и CRLF-преобразование байтов хешированных образцов.
 
-[Комплект Windows x64](https://github.com/ilyasmaxutov/UI-TARS-desktop/actions/runs/44271721879/artifacts/14413531161) · [Проверки и манифест](../verification/runtime-native/REPORT.md).
+[Комплект Windows x64](https://github.com/ilyasmaxutov/UI-TARS-desktop/actions/runs/44283060107/artifacts/14419010034) · [Проверки и манифест](../verification/continuation-0.5/REPORT.md).
 
 `native/Cargo.lock` совпадает с lockfile успешной целевой сборки. Основа остаётся Codex App Server, TaskStore, Assistant Desk и прежние локальные инструменты. Новый backend инференса не добавлен. Измерений «300%» и запуска на пользовательском GPU нет.
 

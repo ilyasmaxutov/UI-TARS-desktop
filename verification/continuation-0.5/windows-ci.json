@@ -1,0 +1,138 @@
+{
+  "schema": 1,
+  "repository": "ilyasmaxutov/UI-TARS-desktop",
+  "branch": "studio/native-ci",
+  "sourceCommit": "f85672a2518e891d448fafd87ec946e9edc6969b",
+  "runId": 44283060107,
+  "url": "https://github.com/ilyasmaxutov/UI-TARS-desktop/actions/runs/44283060107",
+  "jobs": [
+    {
+      "id": 134728550108,
+      "name": "codex-metadata-windows",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 134728550158,
+      "name": "go-linux",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 134728550175,
+      "name": "typescript",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 134728550249,
+      "name": "go-windows",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 134728550263,
+      "name": "rust-windows",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "nodeTests": 380,
+  "rustTests": 71,
+  "artifacts": [
+    {
+      "id": 14419010034,
+      "name": "studio-windows-x64-unsigned",
+      "size_in_bytes": 7589865,
+      "url": "https://api.github.com/repos/ilyasmaxutov/UI-TARS-desktop/actions/artifacts/14419010034",
+      "archive_download_url": "https://api.github.com/repos/ilyasmaxutov/UI-TARS-desktop/actions/artifacts/14419010034/zip",
+      "expired": false,
+      "created_at": "2026-11-18T10:19:01Z",
+      "expires_at": "2026-11-25T10:18:59Z",
+      "updated_at": "2026-11-18T10:19:01Z",
+      "digest": "sha256:137111044dc4503ab66b3f4ed6d4913040b2740685f1d2f457cc5dda9dfa7483",
+      "workflow_run": {
+        "id": 44283060107,
+        "repository_id": 920763551,
+        "head_repository_id": 920763551,
+        "head_branch": "studio/native-ci",
+        "head_sha": "f85672a2518e891d448fafd87ec946e9edc6969b"
+      }
+    },
+    {
+      "id": 14418535763,
+      "name": "economy-windows-unsigned",
+      "size_in_bytes": 5548693,
+      "url": "https://api.github.com/repos/ilyasmaxutov/UI-TARS-desktop/actions/artifacts/14418535763",
+      "archive_download_url": "https://api.github.com/repos/ilyasmaxutov/UI-TARS-desktop/actions/artifacts/14418535763/zip",
+      "expired": false,
+      "created_at": "2026-11-18T10:12:58Z",
+      "expires_at": "2026-11-25T10:12:57Z",
+      "updated_at": "2026-11-18T10:12:58Z",
+      "digest": "sha256:648f9c6e9e45aa151a5320063ab263a8374ec7d2027c09b750a61f1df16324a5",
+      "workflow_run": {
+        "id": 44283060107,
+        "repository_id": 920763551,
+        "head_repository_id": 920763551,
+        "head_branch": "studio/native-ci",
+        "head_sha": "f85672a2518e891d448fafd87ec946e9edc6969b"
+      }
+    },
+    {
+      "id": 14417698462,
+      "name": "native-build-evidence",
+      "size_in_bytes": 50358,
+      "url": "https://api.github.com/repos/ilyasmaxutov/UI-TARS-desktop/actions/artifacts/14417698462",
+      "archive_download_url": "https://api.github.com/repos/ilyasmaxutov/UI-TARS-desktop/actions/artifacts/14417698462/zip",
+      "expired": false,
+      "created_at": "2026-11-18T10:19:02Z",
+      "expires_at": "2026-11-25T10:19:01Z",
+      "updated_at": "2026-11-18T10:19:02Z",
+      "digest": "sha256:5ba0b3fe3ae0e7efbf8aec7e8212ffeb98c556d3b43418f7b7d229374b42d550",
+      "workflow_run": {
+        "id": 44283060107,
+        "repository_id": 920763551,
+        "head_repository_id": 920763551,
+        "head_branch": "studio/native-ci",
+        "head_sha": "f85672a2518e891d448fafd87ec946e9edc6969b"
+      }
+    },
+    {
+      "id": 14417158273,
+      "name": "codex-windows-protocol-evidence",
+      "size_in_bytes": 3078,
+      "url": "https://api.github.com/repos/ilyasmaxutov/UI-TARS-desktop/actions/artifacts/14417158273",
+      "archive_download_url": "https://api.github.com/repos/ilyasmaxutov/UI-TARS-desktop/actions/artifacts/14417158273/zip",
+      "expired": false,
+      "created_at": "2026-11-18T10:12:12Z",
+      "expires_at": "2026-11-25T10:12:11Z",
+      "updated_at": "2026-11-18T10:12:12Z",
+      "digest": "sha256:fcc51fc6a8f2a1f1889e04133a2af4cc22753d4c097c20fc0122cc69c665415d",
+      "workflow_run": {
+        "id": 44283060107,
+        "repository_id": 920763551,
+        "head_repository_id": 920763551,
+        "head_branch": "studio/native-ci",
+        "head_sha": "f85672a2518e891d448fafd87ec946e9edc6969b"
+      }
+    }
+  ],
+  "nativeEvidence": [
+    "2026-11-18T10:12:54.6384864Z # tests 380\r",
+    "2026-11-18T10:13:28.5347648Z test result: ok. 25 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.36s\r",
+    "2026-11-18T10:13:29.8913203Z test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.34s\r",
+    "2026-11-18T10:14:13.7772377Z test result: ok. 34 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 43.87s\r",
+    "2026-11-18T10:14:13.7910215Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\r",
+    "2026-11-18T10:14:13.9397281Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\r",
+    "2026-11-18T10:14:14.0410782Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s\r",
+    "2026-11-18T10:18:57.8643483Z {\"containmentAccepted\":false,\"guiExecuted\":false,\"ipcTested\":false,\"platform\":\"windows\",\"providerRequests\":0,\"repeatDispatchPermitted\":false,\"schema\":1,\"sourceUnchanged\":true,\"status\":\"passed\",\"storeReopened\":true,\"unknownPreserved\":true}\r",
+    "2026-11-18T10:18:58.7832623Z {\"report\":\"C:\\\\Users\\\\RUNNER~1\\\\AppData\\\\Local\\\\Temp\\\\studio-economy-selftest-2442521413\\\\report.json\",\"results\":{\"captureArtifact\":\"a_11c489b3f2dff2c264459d43\",\"captureComplete\":true,\"captureExitCode\":0,\"capturedStdoutBytes\":1048612,\"localModelCalls\":0,\"middleFound\":true,\"operations\":20,\"oversizedRequestBlocked\":true,\"packetLimitUtf8Bytes\":24576,\"packetUtf8Bytes\":11943,\"platform\":\"windows/amd64\",\"replay\":true,\"source\":\"local generated fixtures; not real Codex/quota measurement\",\"version\":\"0.5.0\"}}\r",
+    "2026-11-18T10:18:58.9519485Z {\"schema\":1,\"verifiedFiles\":3,\"byteIntegrity\":true,\"executed\":false,\"claims\":{\"compiled\":true,\"offlineSelfTestsPassed\":true,\"guiExecuted\":false,\"liveCodexTested\":false,\"containmentAccepted\":false,\"signed\":false}}\r"
+  ],
+  "limits": {
+    "guiExecuted": false,
+    "realModelTurn": false,
+    "fullW0Accepted": false,
+    "isolatedPlatformAccepted": false
+  }
+}

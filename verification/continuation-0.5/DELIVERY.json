@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "version": "0.5.0",
+  "sourceRevision": "f85672a2518e891d448fafd87ec946e9edc6969b",
+  "target": "windows-x64",
+  "os": "Microsoft Windows NT 10.0.26100.0",
+  "frontend": "assistant.html",
+  "files": [
+    {
+      "name": "studio-desktop.exe",
+      "bytes": 9054208,
+      "sha256": "f688055d1ab70ded79e1527daa4cf4fb15918c44765eeec5d92741895c874320"
+    },
+    {
+      "name": "studio-host.exe",
+      "bytes": 3827200,
+      "sha256": "7a8d84925ae9c6fe85637eccda9b5f900039b03eacc3267018ee7224a8c25b1a"
+    },
+    {
+      "name": "studio-economy.exe",
+      "bytes": 6808064,
+      "sha256": "d7c597389c4a0ad259b2329d649e034f763430d51dde0dcfb6837634fd86fd8a"
+    }
+  ],
+  "cargoLockSha256": "682d81ce9c3f7d10e458c57b241cf39007c15f7b3f4923f8b8ea2b3b6f0d955c",
+  "claims": {
+    "compiled": true,
+    "offlineSelfTestsPassed": true,
+    "guiExecuted": false,
+    "liveCodexTested": false,
+    "containmentAccepted": false,
+    "signed": false
+  }
+}

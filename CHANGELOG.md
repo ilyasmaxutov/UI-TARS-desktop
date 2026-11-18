@@ -1,5 +1,7 @@
 ## 2026-11-18 — Task continuation and observed protocol behavior
 
+- Final CI run 44283060107 passed all five jobs: 380 Node tests, 71 Rust tests on Windows, Go tests on both OSes, complete three-EXE package and verified download integrity. Real Codex metadata preconditions were observed with zero model requests; successful resume/GUI/full W0 are not claimed.
+
 - Connect actual TaskStore continuation to Codex thread/start and thread/resume, with a 12 KiB UTF-8 cap, exact goal/stops, evidence provenance, bounded saved observations, explicit omissions, and no extra model call.
 - Add read-only capsule preview, explicit new-context action, prior-session selection and lost-ACK recovery to Assistant Desk; preserve drafts and task budgets.
 - Check unresolved/active task sessions before new dispatch, including unresolved commands older than the latest 1000 command records. Preserve frozen outbox parameters across checkpoint changes.

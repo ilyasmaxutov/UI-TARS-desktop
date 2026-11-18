@@ -657,23 +657,12 @@
   {
     "id": "W05-RESUME",
     "owner": "root",
-    "state": "locally-tested-publishing-windows-ci",
+    "state": "implemented-windows-tested",
     "branch": "studio/runtime-local",
-    "ownedPaths": [
-      "native/crates/host/src/research.rs",
-      "native/crates/host/src/lib.rs",
-      "native/crates/desktop/src/main.rs",
-      "src/assistant",
-      "tests",
-      "docs",
-      "CHANGELOG.md",
-      "README.md",
-      ".github/workflows/check.yml",
-      "verification/continuation-0.5",
-      "public/assistant.html"
-    ],
+    "ownedPaths": [],
     "title": "Connect research checkpoint and economical continuation across sessions",
-    "accepted": false
+    "accepted": false,
+    "notes": "Run44283060107:380 Node,71 Rust Windows, Go both OSes; complete package. W4 capsule/UI integrated, original broad task remains partial; full W0 and hard MCP admission not accepted."
   },
   {
     "id": "W05-AUDIT",
@@ -688,12 +677,12 @@
   {
     "id": "W0-PROTOCOL",
     "owner": "codex_audit",
-    "state": "implemented-locally-tested",
+    "state": "metadata-preconditions-tested-windows",
     "branch": "studio/runtime-local",
     "ownedPaths": [],
     "title": "Read-only audit of native Codex protocol and offline Windows end-to-end gaps",
     "accepted": false,
-    "notes": "Both actual Windows preconditions captured. Production empty-list handling fixed; exact fresh no-rollout case is probe-only and does not claim resumed history. Third Windows check pending."
+    "notes": "Actual Codex0.170 on Windows: start/read confirmed; empty-history and no-rollout resume preconditions observed, resume ACK false, zero model requests. Narrow production empty-history handling covered by native tests. Full W0 remains open."
   },
   {
     "id": "W05-REVIEW",
